@@ -1,0 +1,18 @@
+{
+  "name": "chatogg-server",
+  "version": "1.0.0",
+  "description": "ChatOGG SMS relay backend — receives Twilio webhooks and streams replies via SSE",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
