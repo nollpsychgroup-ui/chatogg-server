@@ -1222,11 +1222,38 @@ app.get('/', (req, res) => {
   res.send(CHATOGG_HTML);
 });
 
+// ── Mobile Remote Desktop Assist ──
+// GET /rdp-assist.js  → injectable panel script
+// GET /rdp-assist     → setup / instructions page
+const fs   = require('fs');
+const path = require('path');
+
+app.get('/rdp-assist.js', (req, res) => {
+  res.set({ 'Content-Type': 'application/javascript', 'Cache-Control': 'no-store' });
+  res.sendFile(path.join(__dirname, 'rdp-assist.js'));
+});
+
+app.get('/rdp-assist', (req, res) => {
+  const origin    = req.protocol + '://' + req.get('host');
+  const serverBmk = "javascript:(function(){var s=document.createElement('script');"
+    + "s.src='" + origin + "/rdp-assist.js?v='+Date.now();"
+    + "document.head.appendChild(s);})();";
+  const jsContent = fs.readFileSync(path.join(__dirname, 'rdp-assist.js'), 'utf8');
+  const selfBmk   = 'javascript:' + encodeURIComponent('(' + jsContent + ')();')
+                      .replace(/'/g, '%27');
+  const html = fs.readFileSync(path.join(__dirname, 'rdp-assist.html'), 'utf8')
+    .replace('__SELF_BMK__',   selfBmk)
+    .replace('__SERVER_BMK__', serverBmk);
+  res.set('Content-Type', 'text/html');
+  res.send(html);
+});
+
 // ── Health check ──
 app.get('/health', (req, res) => res.json({ status: 'ok', sessions: replySessions.size }));
 
 app.listen(PORT, () => {
   console.log(`\n🧓 ChatOGG server running on port ${PORT}`);
   console.log(`   Webhook URL (set in Twilio): https://YOUR_DOMAIN/chatogg/reply`);
-  console.log(`   Health check: http://localhost:${PORT}/health\n`);
+  console.log(`   Health check: http://localhost:${PORT}/health`);
+  console.log(`   RDP Assist:   http://localhost:${PORT}/rdp-assist\n`);
 });

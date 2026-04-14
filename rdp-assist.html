@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Mobile RDP Assist</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:     #0f172a;
+  --card:   #1e293b;
+  --border: #334155;
+  --text:   #e2e8f0;
+  --muted:  #94a3b8;
+  --blue:   #3b82f6;
+  --green:  #22c55e;
+  --red:    #ef4444;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  padding: 24px 16px calc(env(safe-area-inset-bottom) + 24px);
+  min-height: 100dvh;
+}
+h1 { font-size: 24px; font-weight: 800; letter-spacing: -.03em; margin-bottom: 4px; }
+.sub { color: var(--muted); font-size: 15px; margin-bottom: 28px; line-height: 1.4; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.card h2 {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--muted); margin-bottom: 14px;
+}
+
+/* Tab bar */
+.tab-bar { display: flex; gap: 6px; margin-bottom: 14px; }
+.tab {
+  flex: 1; padding: 9px 4px;
+  font-size: 12px; font-weight: 700; text-align: center;
+  border-radius: 10px; border: 1px solid var(--border);
+  background: var(--bg); color: var(--muted);
+  cursor: pointer; font-family: inherit;
+}
+.tab.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+/* Recommended badge */
+.badge {
+  display: inline-block; font-size: 9px; font-weight: 700;
+  padding: 2px 6px; border-radius: 20px;
+  background: #1e3a5f; color: #93c5fd;
+  margin-left: 5px; vertical-align: middle;
+  letter-spacing: .03em;
+}
+
+/* Code box */
+.code-box {
+  background: #020617; border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px; margin-bottom: 10px;
+  overflow-x: auto;
+}
+.code-box code {
+  font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
+  font-size: 11px; color: #7dd3fc;
+  word-break: break-all; white-space: pre-wrap;
+}
+
+/* Copy button */
+.copy-btn {
+  width: 100%; padding: 14px;
+  font-size: 15px; font-weight: 700; font-family: inherit;
+  background: var(--blue); border: none; color: #fff;
+  border-radius: 12px; cursor: pointer;
+  margin-bottom: 10px; transition: background .15s;
+}
+.copy-btn:active { opacity: .85; }
+.copy-btn.ok     { background: var(--green); }
+
+/* Note text */
+.note {
+  font-size: 12px; color: var(--muted);
+  line-height: 1.55; margin-bottom: 10px;
+}
+
+/* Numbered steps */
+.steps ol { padding-left: 20px; }
+.steps li {
+  font-size: 14px; color: var(--text);
+  line-height: 1.65; margin-bottom: 7px;
+}
+.steps li strong { color: #f1f5f9; }
+
+/* Feature grid */
+.features { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.feat {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 12px; padding: 12px;
+}
+.feat .icon { font-size: 20px; margin-bottom: 5px; }
+.feat .name { font-size: 13px; font-weight: 700; color: #f1f5f9; margin-bottom: 3px; }
+.feat .desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+.footer-note {
+  text-align: center; font-size: 12px; color: var(--muted);
+  padding: 4px 0 8px;
+}
+</style>
+</head>
+<body>
+
+<h1>&#128241; Mobile RDP Assist</h1>
+<p class="sub">A floating control panel that makes Chrome Remote Desktop usable on iPhone</p>
+
+<!-- ──────────────────────────────────────────
+     Card 1 · Get the Bookmarklet
+────────────────────────────────────────── -->
+<div class="card">
+  <h2>Step 1 &mdash; Get the Bookmarklet</h2>
+
+  <div class="tab-bar">
+    <button class="tab active" id="tab-self" onclick="showTab('self')">
+      Self-Contained <span class="badge">Recommended</span>
+    </button>
+    <button class="tab" id="tab-srv" onclick="showTab('srv')">
+      Server-Hosted
+    </button>
+  </div>
+
+  <!-- Self-contained pane -->
+  <div id="pane-self">
+    <p class="note">
+      The entire panel script is baked into the bookmark URL &mdash; works on any
+      network and even if this server is offline when you use it.
+    </p>
+    <div class="code-box"><code id="code-self">Loading&hellip;</code></div>
+    <button class="copy-btn" id="copy-self" onclick="copyCode('self')">Copy Bookmarklet Code</button>
+  </div>
+
+  <!-- Server-hosted pane -->
+  <div id="pane-srv" style="display:none">
+    <p class="note">
+      Tiny bookmark that loads the latest script from this server on every use.
+      Easy to update, but <strong>requires this server to be on HTTPS</strong>
+      when opening remotedesktop.google.com (mixed-content rules).
+    </p>
+    <div class="code-box"><code id="code-srv">Loading&hellip;</code></div>
+    <button class="copy-btn" id="copy-srv" onclick="copyCode('srv')">Copy Bookmarklet Code</button>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────
+     Card 2 · Add to iPhone Safari
+────────────────────────────────────────── -->
+<div class="card steps">
+  <h2>Step 2 &mdash; Add to iPhone Safari</h2>
+  <ol>
+    <li>Tap <strong>Copy Bookmarklet Code</strong> above.</li>
+    <li>In Safari, go to any page (e.g. <em>apple.com</em>).</li>
+    <li>Tap the <strong>Share</strong> button &#40;&#x25A1;&#8593;&#41; &rarr; <strong>Add Bookmark</strong> &rarr; <strong>Save</strong>.</li>
+    <li>Open <strong>Bookmarks</strong> (open-book icon in toolbar) &rarr; <strong>Edit</strong>.</li>
+    <li>Tap the bookmark you just saved.</li>
+    <li><strong>Select all</strong> text in the URL field and <strong>paste</strong> the code you copied.</li>
+    <li>Tap <strong>Done</strong>. You&#39;re ready!</li>
+  </ol>
+</div>
+
+<!-- ──────────────────────────────────────────
+     Card 3 · How to Use
+────────────────────────────────────────── -->
+<div class="card steps">
+  <h2>Step 3 &mdash; Use It</h2>
+  <ol>
+    <li>Open <strong>remotedesktop.google.com</strong> in Safari and connect to your computer.</li>
+    <li>Tap the <strong>address bar</strong>, type the first few letters of your bookmark name, then tap it &mdash; or open Bookmarks and tap it directly.</li>
+    <li>The <strong>RDP Assist panel</strong> floats over the remote desktop screen.</li>
+    <li>Drag the panel by its title bar to reposition it anywhere.</li>
+    <li>Tap <strong>&mdash;</strong> to minimise it to a thin strip when you need more screen space.</li>
+    <li>Tap the bookmark again to <strong>dismiss</strong> the panel.</li>
+  </ol>
+</div>
+
+<!-- ──────────────────────────────────────────
+     Card 4 · Features
+────────────────────────────────────────── -->
+<div class="card">
+  <h2>What&#39;s in the Panel</h2>
+  <div class="features">
+    <div class="feat">
+      <div class="icon">&#9000;</div>
+      <div class="name">Modifier Keys</div>
+      <div class="desc">Sticky Ctrl / Alt / Shift / Win &mdash; tap to lock on, fires with the next key press</div>
+    </div>
+    <div class="feat">
+      <div class="icon">&#128433;&#65039;</div>
+      <div class="name">Right-Click</div>
+      <div class="desc">Arm right-click mode then tap anywhere on the desktop to send a right-click</div>
+    </div>
+    <div class="feat">
+      <div class="icon">&#9889;</div>
+      <div class="name">Shortcuts</div>
+      <div class="desc">Copy, Paste, Undo, Redo, Save, Find, New Tab &amp; more in one tap</div>
+    </div>
+    <div class="feat">
+      <div class="icon">&#128290;</div>
+      <div class="name">Special Keys</div>
+      <div class="desc">Esc, Tab, Enter, Delete, Home, End, PgUp / PgDn, arrow keys</div>
+    </div>
+    <div class="feat">
+      <div class="icon">&#128172;</div>
+      <div class="name">Type Text</div>
+      <div class="desc">Use your phone keyboard to compose text, then send it to the remote desktop</div>
+    </div>
+    <div class="feat">
+      <div class="icon">&#8597;&#65039;</div>
+      <div class="name">Scroll Controls</div>
+      <div class="desc">Up, Down, Left, Right scroll buttons with large, finger-friendly targets</div>
+    </div>
+  </div>
+</div>
+
+<p class="footer-note">Tapping the bookmark a second time removes the panel.</p>
+
+<script>
+  /* Placeholders are replaced server-side before this page is sent */
+  var SELF_BMK   = '__SELF_BMK__';
+  var SERVER_BMK = '__SERVER_BMK__';
+
+  document.getElementById('code-self').textContent = SELF_BMK;
+  document.getElementById('code-srv').textContent  = SERVER_BMK;
+
+  function showTab(name) {
+    ['self', 'srv'].forEach(function (t) {
+      document.getElementById('tab-'  + t).classList.toggle('active', t === name);
+      document.getElementById('pane-' + t).style.display = (t === name) ? '' : 'none';
+    });
+  }
+
+  function copyCode(tab) {
+    var code = document.getElementById('code-' + tab).textContent;
+    var btn  = document.getElementById('copy-' + tab);
+    function flash() {
+      btn.textContent = '\u2713 Copied!';
+      btn.classList.add('ok');
+      setTimeout(function () {
+        btn.textContent = 'Copy Bookmarklet Code';
+        btn.classList.remove('ok');
+      }, 2200);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(flash).catch(fallback);
+    } else {
+      fallback();
+    }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = code;
+      ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0;';
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      document.execCommand('copy');
+      ta.remove();
+      flash();
+    }
+  }
+</script>
+</body>
+</html>
