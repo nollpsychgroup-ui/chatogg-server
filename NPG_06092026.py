@@ -1119,11 +1119,11 @@ def generate_heretic_segmented(
       Output target  ≈  4 096 tokens  → ~14 336 chars  (per phase)
       Data budget    ≈ 34 000 chars   (remainder after output reservation)
     """
-    MAX_CONTEXT_TOKENS  = 16_384
+    MAX_CONTEXT_TOKENS  = 32_768
     CHARS_PER_TOK       = 3.5
     # Per-phase output allowance (tokens).  Keeping this modest per phase;
     # report length comes from stitching all three phases together.
-    OUTPUT_TOKENS_PER_PHASE = 1_200   # ~4 200 chars per call — fast on Qwen AWQ; continuation builds full length
+    OUTPUT_TOKENS_PER_PHASE = 3_500   # ~12 250 chars — allows most phases to complete in one pass
     MIN_PHASE_CHARS = 2_000           # minimum acceptable section length before continuing
 
 
