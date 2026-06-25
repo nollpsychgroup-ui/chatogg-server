@@ -7667,7 +7667,7 @@ class NPGSuite(tk.Tk):
         # Pre-fill reply with a simple salutation
         self.t9_reply.delete("1.0", "end")
         first = em["sender"].split("<")[0].strip().split()[0] if em["sender"] else "there"
-        smtp_name = self.smtp_conf.get("from_name", "Nicholas C. Noll, Ph.D.")
+        smtp_name = self.smtp_conf.get("clinician_name") or "Nicholas C. Noll, Ph.D."
         self.t9_reply.insert("1.0",
             f"Dear {first},\n\n\n\nSincerely,\n{smtp_name}\nClinical Psychologist\n"
             f"Noll Psych Group\n(816) 835-9882")
