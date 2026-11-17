@@ -143,6 +143,52 @@ EVENTS = [
     ("rails_stop", 568.0, "rails stop over black"),
 ]
 
+# ---- dialogue windows (in, out, who, line) ------------------------------------------
+# PROVISIONAL: seeded from the Composer's music/temp/dialogue-windows.json estimates.
+# Replace with the Screenwriter's scratch-voice timings when they exist (see previs-review.md).
+DIALOGUE = [
+    (66.0, 72.0, 'NOOR', "Hi. Hi, yeah. I'm on the train."),
+    (72.0, 77.0, 'MARK', '(murmur)'),
+    (79.0, 81.5, 'NOOR', 'Just leaving the office now.'),
+    (91.5, 95.0, 'NOOR', 'Long day. The Henley account. Again.'),
+    (103.0, 105.0, 'KAI', 'Was that the brakes?'),
+    (108.5, 111.0, 'NOOR', "No, don't wait up. Love you."),
+    (122.0, 124.0, 'NOOR', '(mouths) Sorry.'),
+    (135.0, 136.5, 'KAI', 'Yeah?'),
+    (143.0, 145.3, 'KAI', "I'm at the library, Mum."),
+    (148.5, 155.0, 'KAI', "No, that's — it's the library. They're doing work on the —"),
+    (159.5, 164.0, 'MUM', 'Kai? ... Kai?'),
+    (170.5, 172.5, 'NOOR', 'What — where did he —'),
+    (175.0, 177.5, 'NOOR', 'Hey. Hey!'),
+    (206.5, 208.5, 'NOOR', "That's insane."),
+    (216.0, 218.0, 'NOOR', 'My name is Noor.'),
+    (222.5, 225.2, 'NOOR', 'My name is S—'),
+    (253.0, 255.0, 'MUM', 'Kai?'),
+    (283.5, 285.5, 'BEA', 'You okay?'),
+    (293.5, 295.2, 'NOOR', "I'm f—"),
+    (297.0, 299.0, 'NOOR', "I'm not fine."),
+    (301.0, 306.5, 'BEA', "Me neither. I haven't slept in two days."),
+    (309.5, 311.5, 'NOOR', "You've seen this before."),
+    (314.0, 316.0, 'WALTER', 'I ride it every night.'),
+    (317.0, 318.0, 'NOOR', 'Why?'),
+    (322.0, 342.0, 'WALTER', 'My wife was ill a long time. ... This is the only place nobody can say that to me.'),
+    (363.0, 365.5, 'NOOR', 'Nobody said anything.'),
+    (380.5, 384.0, 'BEA', "It isn't only what you say."),
+    (416.0, 419.0, 'BEA', 'Whatever it is, say it.'),
+    (421.0, 422.8, 'NOOR', "I can't —"),
+    (433.0, 434.5, 'BEA', 'Say it.'),
+    (452.0, 454.5, 'WALTER', "He's asking."),
+    (457.0, 458.5, 'NOOR', 'Mark.'),
+    (459.0, 461.5, 'MARK', '(murmur)'),
+    (461.8, 465.0, 'NOOR', "No. Listen. I'm not leaving the office."),
+    (465.5, 469.8, 'NOOR', "I haven't been to the office since September. They let me go. The whole floor."),
+    (474.5, 482.5, 'NOOR', 'I get dressed and I get on the train and I go to the library — ... — and I sit there. All day. And then I come home.'),
+    (486.0, 492.8, 'NOOR', "I didn't tell you because you'd have been kind about it, and I couldn't —"),
+    (502.0, 504.0, 'NOOR', "I'm sorry."),
+    (527.0, 533.0, 'MARK', '(murmur restarts)'),
+    (538.0, 540.5, 'PA', 'Thank you for riding quietly.'),
+]
+
 # ---- virtual cameras -------------------------------------------------------------
 HEAD = {"NOOR": (0.0, 12.75, 1.22), "NOOR_STAND": (-0.35, 10.0, 1.62), "WALTER": (-1.0, py(3), 1.22),
         "BEA": (1.0, py(3), 1.22), "KAI": (1.05, py(8), 1.22), "KAI_PHONE": (1.05, py(8), 0.48),
@@ -331,6 +377,12 @@ def build():
     gaps = [round(b - a, 3) for a, b in zip(outs, outs[1:])]
     if min(gaps) < 8.0 or len(set(gaps)) != 1:
         problems.append("Advance ticks must be steady and >= 8 s apart: %s" % gaps)
+    # Advance ticks and relights never land inside a line (they follow lines; Director)
+    for c in C:
+        if c["type"] in ("panel_out", "relight"):
+            for a_, b_, who, line in DIALOGUE:
+                if a_ - 0.2 < c["t"] < b_ + 0.2:
+                    problems.append("cue %s at %.1f lands on a line (%s: %s)" % (c["id"], c["t"], who, line[:30]))
     # the 75 mm only in the confession, camera moves only while awake
     for s in S:
         if s[4] == 75 and s[7] != 7:
@@ -381,6 +433,8 @@ def build():
         "lights_on_ones": True,
         "cues": [{k: v for k, v in c.items()} for c in C],
         "events": [{"id": e[0], "t": e[1], "what": e[2]} for e in EVENTS],
+        "dialogue_note": "PROVISIONAL windows (Composer's estimates) until the scratch voice record; build_cues.py checks that no Advance tick or relight lands on a line",
+        "dialogue": [{"in": a_, "out": b_, "who": w_, "line": l_} for a_, b_, w_, l_ in DIALOGUE],
         "camera": {"sensor": SENSOR, "positions": POS},
         "shots": shots,
     }
@@ -396,7 +450,7 @@ def build():
          "Checks passed on build: the cut is continuous; every cue sits at least 0.5 s inside a held shot "
          "(cut on behaviour, never on cues); no cut inside the blackout; the Advance ticks are steady at "
          "%.1f s (rule: 8 s or more, never accelerating); the 75 mm is used only in the confession; and the "
-         "camera moves only while the car is awake; and in the key shots every panel, face and prop that must read is inside the frame (projected through the lens)." % gaps[0], "",
+         "camera moves only while the car is awake; no Advance tick or relight lands on a line of dialogue; and in the key shots every panel, face and prop that must read is inside the frame (projected through the lens)." % gaps[0], "",
          ]
     SCENES = {1: "Boarding (11:00)", 2: "The call: Noor's lies (11:00 → ~10:00)", 3: "Kai (~10:00 → ~9:00)",
               4: "The note and the test (~9:00 → 8:00)", 5: "The truth exchange (8:00 → 5:00)",

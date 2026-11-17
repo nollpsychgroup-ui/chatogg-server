@@ -1070,6 +1070,249 @@
    "what": "rails stop over black"
   }
  ],
+ "dialogue_note": "PROVISIONAL windows (Composer's estimates) until the scratch voice record; build_cues.py checks that no Advance tick or relight lands on a line",
+ "dialogue": [
+  {
+   "in": 66.0,
+   "out": 72.0,
+   "who": "NOOR",
+   "line": "Hi. Hi, yeah. I'm on the train."
+  },
+  {
+   "in": 72.0,
+   "out": 77.0,
+   "who": "MARK",
+   "line": "(murmur)"
+  },
+  {
+   "in": 79.0,
+   "out": 81.5,
+   "who": "NOOR",
+   "line": "Just leaving the office now."
+  },
+  {
+   "in": 91.5,
+   "out": 95.0,
+   "who": "NOOR",
+   "line": "Long day. The Henley account. Again."
+  },
+  {
+   "in": 103.0,
+   "out": 105.0,
+   "who": "KAI",
+   "line": "Was that the brakes?"
+  },
+  {
+   "in": 108.5,
+   "out": 111.0,
+   "who": "NOOR",
+   "line": "No, don't wait up. Love you."
+  },
+  {
+   "in": 122.0,
+   "out": 124.0,
+   "who": "NOOR",
+   "line": "(mouths) Sorry."
+  },
+  {
+   "in": 135.0,
+   "out": 136.5,
+   "who": "KAI",
+   "line": "Yeah?"
+  },
+  {
+   "in": 143.0,
+   "out": 145.3,
+   "who": "KAI",
+   "line": "I'm at the library, Mum."
+  },
+  {
+   "in": 148.5,
+   "out": 155.0,
+   "who": "KAI",
+   "line": "No, that's — it's the library. They're doing work on the —"
+  },
+  {
+   "in": 159.5,
+   "out": 164.0,
+   "who": "MUM",
+   "line": "Kai? ... Kai?"
+  },
+  {
+   "in": 170.5,
+   "out": 172.5,
+   "who": "NOOR",
+   "line": "What — where did he —"
+  },
+  {
+   "in": 175.0,
+   "out": 177.5,
+   "who": "NOOR",
+   "line": "Hey. Hey!"
+  },
+  {
+   "in": 206.5,
+   "out": 208.5,
+   "who": "NOOR",
+   "line": "That's insane."
+  },
+  {
+   "in": 216.0,
+   "out": 218.0,
+   "who": "NOOR",
+   "line": "My name is Noor."
+  },
+  {
+   "in": 222.5,
+   "out": 225.2,
+   "who": "NOOR",
+   "line": "My name is S—"
+  },
+  {
+   "in": 253.0,
+   "out": 255.0,
+   "who": "MUM",
+   "line": "Kai?"
+  },
+  {
+   "in": 283.5,
+   "out": 285.5,
+   "who": "BEA",
+   "line": "You okay?"
+  },
+  {
+   "in": 293.5,
+   "out": 295.2,
+   "who": "NOOR",
+   "line": "I'm f—"
+  },
+  {
+   "in": 297.0,
+   "out": 299.0,
+   "who": "NOOR",
+   "line": "I'm not fine."
+  },
+  {
+   "in": 301.0,
+   "out": 306.5,
+   "who": "BEA",
+   "line": "Me neither. I haven't slept in two days."
+  },
+  {
+   "in": 309.5,
+   "out": 311.5,
+   "who": "NOOR",
+   "line": "You've seen this before."
+  },
+  {
+   "in": 314.0,
+   "out": 316.0,
+   "who": "WALTER",
+   "line": "I ride it every night."
+  },
+  {
+   "in": 317.0,
+   "out": 318.0,
+   "who": "NOOR",
+   "line": "Why?"
+  },
+  {
+   "in": 322.0,
+   "out": 342.0,
+   "who": "WALTER",
+   "line": "My wife was ill a long time. ... This is the only place nobody can say that to me."
+  },
+  {
+   "in": 363.0,
+   "out": 365.5,
+   "who": "NOOR",
+   "line": "Nobody said anything."
+  },
+  {
+   "in": 380.5,
+   "out": 384.0,
+   "who": "BEA",
+   "line": "It isn't only what you say."
+  },
+  {
+   "in": 416.0,
+   "out": 419.0,
+   "who": "BEA",
+   "line": "Whatever it is, say it."
+  },
+  {
+   "in": 421.0,
+   "out": 422.8,
+   "who": "NOOR",
+   "line": "I can't —"
+  },
+  {
+   "in": 433.0,
+   "out": 434.5,
+   "who": "BEA",
+   "line": "Say it."
+  },
+  {
+   "in": 452.0,
+   "out": 454.5,
+   "who": "WALTER",
+   "line": "He's asking."
+  },
+  {
+   "in": 457.0,
+   "out": 458.5,
+   "who": "NOOR",
+   "line": "Mark."
+  },
+  {
+   "in": 459.0,
+   "out": 461.5,
+   "who": "MARK",
+   "line": "(murmur)"
+  },
+  {
+   "in": 461.8,
+   "out": 465.0,
+   "who": "NOOR",
+   "line": "No. Listen. I'm not leaving the office."
+  },
+  {
+   "in": 465.5,
+   "out": 469.8,
+   "who": "NOOR",
+   "line": "I haven't been to the office since September. They let me go. The whole floor."
+  },
+  {
+   "in": 474.5,
+   "out": 482.5,
+   "who": "NOOR",
+   "line": "I get dressed and I get on the train and I go to the library — ... — and I sit there. All day. And then I come home."
+  },
+  {
+   "in": 486.0,
+   "out": 492.8,
+   "who": "NOOR",
+   "line": "I didn't tell you because you'd have been kind about it, and I couldn't —"
+  },
+  {
+   "in": 502.0,
+   "out": 504.0,
+   "who": "NOOR",
+   "line": "I'm sorry."
+  },
+  {
+   "in": 527.0,
+   "out": 533.0,
+   "who": "MARK",
+   "line": "(murmur restarts)"
+  },
+  {
+   "in": 538.0,
+   "out": 540.5,
+   "who": "PA",
+   "line": "Thank you for riding quietly."
+  }
+ ],
  "camera": {
   "sensor": {
    "width_mm": 24.89,
