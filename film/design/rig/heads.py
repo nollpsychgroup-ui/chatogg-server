@@ -22,8 +22,8 @@ import json
 import math
 import os
 
+import bpy  # noqa: F401  (must come before bmesh in the standalone bpy module)
 import bmesh
-import bpy
 from mathutils import Matrix, Vector
 
 HERE = os.path.dirname(os.path.abspath(__file__))
