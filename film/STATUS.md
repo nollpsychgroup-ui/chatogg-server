@@ -84,3 +84,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [designer] Skin warmth loss diagnosed with TA (look, not albedo: cool BASE + AgX highlight desat). Director: keep BASE WB, fix in view transform; TA 3-up test (shots 38, C75, Meter, BROWN) after pass 3; acceptance per style guide §6.4
 - [designer] Global look approved (Director: WB 4000, PBR Neutral −0.55 EV); Walter skin albedo lowered to #CEAB92 for the ≤235 top-lit skin guard (palette.json, style guide §6.4, sheets/PNGs)
 - [designer] Walter skin second uniform step to #C3A189 so the pitched forehead (shot 38, 310 s) stays under the 235 guard; TA's crown falloff removed (no regional patches) (palette.json, style guide §6.4)
+- [designer] Walter skin CLOSED (Director): #C3A189 stays, pitched forehead 241 accepted (not clipped, hue held), no further skin steps; head pitch stays 12 deg
