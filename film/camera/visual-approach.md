@@ -48,7 +48,7 @@ A small set of matched primes: **25, 32, 40, 50 and 75 mm** (Super 35 equivalent
 ## Camera movement
 
 - **Default: locked off** on sticks or a static dolly. The train moves and the camera doesn't. **The camera moves only while the car is awake.** Every move listed below happens between the first groan and the last relight, and while the car is asleep the frame never moves.
-- **Slow dolly pushes**, motivated only by the car advancing: one creep toward Noor during the sequential panel-outs, matching the dark's pace, and one push toward her through the confession on the 75. They should be slow enough that the audience feels them before they see them.
+- **Slow dolly pushes**, motivated only by the car advancing: one creep toward Noor during the sequential panel-outs, matching the dark's pace, and one push toward her through the confession on the 75, which **lands and stops by the final relight (cue 8, last panel)**, so the frame is already still when the car goes back to sleep. They should be slow enough that the audience feels them before they see them.
 - **One handheld passage:** Noor at the doors yanking the emergency handle after Kai vanishes. It's the only time the frame loses control, because it's the only time Noor does. As soon as Walter holds up the newspaper, we go back to sticks.
 - **No camera shake for the groan.** The set itself vibrates (see *Selling the carriage*), and the camera sits on that floor, so any tremor in the frame is physical, not added in post.
 
