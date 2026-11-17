@@ -90,8 +90,9 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
     tilt = Matrix.Rotation(math.radians(-6), 3, lat)
     # head: the Character Designer's rig (design/rig/heads.py) with the TA's painted materials
     neck_top = head_c - Vector((0, 0, 0.065)) - f * 0.01
-    obs.append(_tag(limb(f"{name}_NECK", sh + Vector((0, 0, 0.05)), neck_top, 0.038, skin if name != "NOOR" else noor.skin_mat(),
-                         C, segs=12, smooth=True), 1))
+    if name != "WALTER":   # Walter: the Designer's older neck + scarf (heads.build_neck), added after the head is placed
+        obs.append(_tag(limb(f"{name}_NECK", sh + Vector((0, 0, 0.05)), neck_top, 0.038, skin if name != "NOOR" else noor.skin_mat(),
+                             C, segs=12, smooth=True), 1))
     key = name.lower()
     face_skin = noor.skin_mat() if name == "NOOR" else ld.paint(f"c_{key}_skin_face", f"{key}/skin", tier="face",
                                                                shadow=f"{key}/skin_shadow", axis="x", stretch=3.0,
@@ -101,6 +102,9 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
             "lips": ld.paint(f"c_{key}_lips", f"{key}/lips", tier="face", variation=0.04)}
     root = _heads.build_head(name, collection=C, mats=mats)
     _heads.place(root, head_c, f)
+    if name == "WALTER":
+        _heads.build_neck(root, name, collection=C, mats={"skin": face_skin,
+                          "scarf": ld.paint("c_walter_scarf", "walter/scarf", tier="costume", axis="z", stretch=3.0)})
     expr = dict(face or {})
     if eyes_closed:
         expr.update({"lid_up": 0.0, "tension": 0.35})
