@@ -50,6 +50,9 @@ N = int(SR * DUR)
 t = np.arange(N) / SR
 rng = np.random.default_rng(7)
 
+# breathing pulse, locked to the DP's panels; final values set after the test day
+# (Director: may drop to +/-2% or slow down if it reads consciously when projected)
+BREATH_DEPTH, BREATH_PERIOD = 0.03, 5.0
 BLACK_IN, BLACK_OUT = 35.0, 40.0
 CUT = 94.0
 far_first = [17] + list(range(12, 3, -1))     # sequential out (cue 7)
@@ -107,7 +110,7 @@ def amp(idx, p):
     return pts
 
 
-breathe = 1 + 0.03 * np.sin(2 * np.pi * t / 5.0) * gate((15.0, LAST_RELIGHT + .5))
+breathe = 1 + BREATH_DEPTH * np.sin(2 * np.pi * t / BREATH_PERIOD) * gate((15.0, LAST_RELIGHT + .5))
 hum = np.zeros(N)
 for idx, p in enumerate(PANELS):
     f = F0 * p * 2 ** (env(detune(p)) / 1200) + 0.15 * np.sin(2 * np.pi * (.07 + .013 * idx) * t)

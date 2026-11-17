@@ -113,7 +113,8 @@ All of these need a lighting cue and a sound change on the **same frame**. The c
 | — page turn | no light change | release triad, nearly subliminal, gone before the phone dims |
 
 - **Master clock:** agreed. On set, the console/QLab fires each light cue and its sound partner by timecode.
-- **Breathing:** agreed. From the first groan to the last relight, the hum swells ±3% at one cycle every 5 s, locked to the panels. Then dead stable.
+- **Breathing:** agreed. From the first groan to the last relight, the hum swells ±3% at one cycle every 5 s, locked to the panels. Then dead stable. **Depth and rate are variables** (`BREATH_DEPTH`, `BREATH_PERIOD` in the sketch, and in the final hum build), because the Director may drop it to ±2% or slow it after the test day.
+- **Seat transducers:** they carry the Undertone alongside the groan (DP), live only while the car is awake and at digital zero in the blackout. They run at full level on rehearsals and non-dialogue takes and lower on dialogue takes, pending production sound's sign-off on bleed. The Undertone stem is laid clean in post either way.
 - **Panel map (agreed with the DP):** P1 (above Noor) = partial 2, P2 = 3, … P11 = 12, **P12 (far end) = partial 17 (A♭)**. Cue 7 runs P12 → P3 and leaves P1–P2 lit. Cue 8: P1 steadies brighter, then P3 → P12.
 - **Relight order:** outward from Noor (Director's ruling).
 - **Still to confirm with the DP:** exact panel count (assumed 12). The partial assignment depends on it.
