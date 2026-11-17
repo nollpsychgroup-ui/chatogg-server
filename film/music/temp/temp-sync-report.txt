@@ -18,8 +18,8 @@ LIGHT CUES (DP 0-8)
   6:42.50    7.6  panel_out  P7         after the lanyard hits the floor ("It isn't enough.")
   6:51.00    7.7  panel_out  P6         (silence; Bea leans in)
   6:59.50    7.8  panel_out  P5         after BEA: "Whatever it is, say it."
-  7:08.00    7.9  panel_out  P4         after NOOR: "I can't —"
-  7:16.50   7.10  panel_out  P3         after BEA: "Say it." (two panels left; Walter and Bea go into the edge)
+  7:08.00    7.9  panel_out  P4         after the overlap: NOOR "I can't —" / BEA "Say it." (the car's answer)
+  7:16.50   7.10  panel_out  P3         (silence: rails and the rising groan only, no score event; held on Bea as her light dies to the edge; two panels left)
   7:42.00    8.0  steady     P1         No. Listen. I'm not leaving the office.
   7:50.00    8.1  relight    P3         ...They let me go. The whole floor.
   8:03.00    8.2  relight    P4         ...And then I come home.
@@ -88,6 +88,6 @@ Line-over-bed margin (after ducking, murmurs excluded: they sit at the edge by d
     MUM-02c    4:13.00  line  -47.9  bed  -55.9  duck  6.9 dB  PHONE_TINY
 
 Dialogue windows: 58 from previs/voice/scratch-voice-lines.json (Undertone/cellos -4 dB, rails -3 dB inside, plus per-line duck to keep 8 dB clear)
-  Advance/relight ticks landing inside a line: 8.3, 8.4, 8.5
+  Advance/relight ticks landing inside a line: none (OK)
 
 Advance tick spacing: min 8.5 s, max 8.5 s (OK)
