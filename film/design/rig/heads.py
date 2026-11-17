@@ -577,10 +577,18 @@ def _hair(name, s, skull, M, root, collection, ph):
     elif name == "WALTER":
         # thinning white hair, combed back: a fuller band round the sides and back, and a thin top
         # (lighter, scalp showing through) from a receding hairline. Not bald.
-        side = hairline(1.5, -0.40, -0.50)
-        top_lim = hairline(0.34, 0.34, 0.42)
-        shell(lambda c: min(side(c), -top_lim(c), (abs(math.atan2(c.x, c.y)) / math.pi - 0.30) * 1.5),
-              lambda c: 1.065 + 0.03 * max(0.0, -c.y), "HAIR_SIDES", band=0.07)
+        # a soft band wrapping continuously round the back, sitting a little behind and above the ears
+        # (ears in front), with an irregular painted edge broken into strands at the temples: hair, not hardware
+        side = hairline(1.5, 0.12, -0.50)
+        top_lim = hairline(0.46, 0.46, 0.50)
+
+        def rough(c):
+            a = math.atan2(c.x, c.y)
+            front = 1.0 + 1.2 * max(0.0, 1 - abs(abs(a) / math.pi - 0.40) / 0.12)   # broken strands at the temples
+            return front * (0.05 * math.sin(11 * a + 3 * c.z) + 0.035 * math.sin(29 * c.z - 4 * a))
+
+        shell(lambda c: min(side(c) + rough(c), -top_lim(c) + rough(c), (abs(math.atan2(c.x, c.y)) / math.pi - 0.40) * 1.6 + rough(c)),
+              lambda c: 1.045 + 0.025 * max(0.0, -c.y), "HAIR_SIDES", band=0.06)
         Mt = dict(M)
         Mt["hair"] = M.get("hair_thin", M["hair"])
         shell_top = hairline(0.74, 0.46, 0.20)
