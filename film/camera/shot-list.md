@@ -36,7 +36,8 @@ The locations are in `cues.json` → `camera.positions`, in set coordinates (lig
 | **A, the Meter** | (0, −3.5, 1.65): unlit vestibule, standing eye height, level | 32 | the full row P12 → P1, Kai and the doors in the near right foreground, Walter (left) and Bea (right) in the mid-ground, Noor at the far end under the sign and display |
 | **A2** | (0, −1.0, 1.65): where the creep push lands | 32 | the same axis, 2.5 m in; P11 and P12 above frame (they're dark by then) |
 | **B, Noor's end** | (0.55, 12.85, 1.0): side B corner beside Noor, low, looking down the car | 32 | the dark coming toward camera; Kai's seat and phone deep in frame |
-| **C, Walter's side** | (−0.95, 9.6, 1.15) | 40/50/75 | Noor singles (aim NOOR) or Bea across the aisle (aim BEA) |
+| **C, Walter's side** | (−0.95, 9.6, 1.15) | 40/50 | Noor singles (aim NOOR) or Bea across the aisle (aim BEA) |
+| **C75** | (−0.4, 9.4, 1.2): in the aisle near Noor's line of sight | 75 | the confession close-ups only, so the panel row reads in her corneas |
 | **D, Bea's side** | (0.95, 9.6, 1.15) | 40/50 | Noor singles from the other side, or Walter across the aisle |
 | **E** | (−1.0, 12.6, 1.15): side A corner by end wall A | 32/40 | Walter/Bea two-shots, deep staging down the car |
 | **F, Kai's bay** | (−0.95, 4.875, 1.15) | 40/50 | Kai; the thumb over the red button |
@@ -60,8 +61,8 @@ The locations are in `cues.json` → `camera.positions`, in set coordinates (lig
 | **44** | B · 32 · the dark toward us | The panels and their reflections in the black windows go out together; Kai's seat goes dark (7.5) and his phone glows on. *Board 11* |
 | **49** | C · 50 · Bea, "Say it." | Hold on Bea through 7.10: her light dies to an edge |
 | **50** | A2 · 32 · two left | Ten dark, two lit; Noor in the last pool; the display reads 2 MIN. *Board 12* |
-| **53** | D · 50 · "He's asking." | Walter half-lit at the edge of the dark. *Board 13* |
-| **54, 56, 58** | C · 75 · the confession | The first long lens of the film. Each relight down the car adds a step of front light to her face, so **the truth lights her face.** The push has landed by 58, and 8.10 plays on a still frame. *Board 14* |
+| **53** | D · 50 · "He's asking." | Walter half-lit at the edge of the dark (**Director: keep him there**). **His lit-side eye must carry a readable catchlight (P2 or Noor's phone), and the lid line must hold.** The shadow side can sit at −3 stops. *Board 13* |
+| **54, 56, 58** | **C75** · 75 · the confession | The first long lens of the film, from **C75 (−0.4, 9.4, 1.2)**, near her line of sight down the car; her eyeline passes just camera-right of the lens. Each relight adds a step of front light to her face, so **the truth lights her face**, and **adds its catchlight to the reflected panel row in her corneas.** At 8.10 (shot 58), **P12's catchlight must visibly reappear in her eyes**, completing the row: the meter is in her eyes (dp-notes-02; style guide §2.3 check (c)). The push has landed by 58, so 8.10 plays on a still frame. *Board 14* |
 | **57** | A · 32 · the run | The relights run toward camera. Kai's empty seat (near right) relights at 8.6 with the phone still glowing. P10–P12 come after. *Board 15* |
 | **62** | G · 32 · the platform | We stay inside. Cold-white lamp. The doors close; the PA plays; she slides away in the glass. *Board 16* |
 | **63** | A · 32 · the innocent car | The opening frame again: the whole row lit, Noor's seat empty under the sign, Kai's seat empty in the foreground. Walter turns the page; Kai's phone dims; no light change; cut to black. *Board 17* |

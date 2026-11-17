@@ -1078,6 +1078,15 @@
     "lens": 50,
     "note": "side A beside Walter: Noor singles (aim NOOR) or Bea across the aisle (aim BEA)"
    },
+   "C75": {
+    "loc": [
+     -0.4,
+     9.4,
+     1.2
+    ],
+    "lens": 75,
+    "note": "the confession: near Noor's line of sight down the car, so the panel row reflects in her corneas and reads at 75 mm (dp-notes-02). Her eyeline passes just camera-right of the lens, down the car"
+   },
    "D": {
     "loc": [
      0.95,
@@ -2485,7 +2494,7 @@
    ],
    "aim_subject": "WALTER",
    "cues": [],
-   "beat": "Walter, half-lit at the edge of the dark: 'He's asking.'"
+   "beat": "Walter, half-lit at the edge of the dark: 'He's asking.' His lit-side eye carries a readable catchlight (P2 or Noor's phone) and the lid line holds"
   },
   {
    "shot": 54,
@@ -2496,13 +2505,13 @@
     11256
    ],
    "scene": 7,
-   "pos": "C",
+   "pos": "C75",
    "lens_mm": 75,
    "move": "push",
    "camera_loc": [
-    -0.95,
-    9.6,
-    1.15
+    -0.4,
+    9.4,
+    1.2
    ],
    "aim": [
     0.0,
@@ -2552,13 +2561,13 @@
     11664
    ],
    "scene": 7,
-   "pos": "C",
+   "pos": "C75",
    "lens_mm": 75,
    "move": "push",
    "camera_loc": [
-    -0.95,
-    9.6,
-    1.15
+    -0.4,
+    9.4,
+    1.2
    ],
    "aim": [
     0.0,
@@ -2614,13 +2623,13 @@
     12288
    ],
    "scene": 7,
-   "pos": "C",
+   "pos": "C75",
    "lens_mm": 75,
    "move": "still (the push has landed)",
    "camera_loc": [
-    -0.95,
-    9.6,
-    1.15
+    -0.4,
+    9.4,
+    1.2
    ],
    "aim": [
     0.0,
@@ -2631,7 +2640,7 @@
    "cues": [
     "8.10"
    ],
-   "beat": "'I'm sorry.' Silence on the line. The far panel comes on. The car is asleep"
+   "beat": "'I'm sorry.' Silence on the line. The far panel comes on: P12's catchlight reappears in her eyes on the 8.10 frame, completing the reflected row. The car is asleep"
   },
   {
    "shot": 59,
