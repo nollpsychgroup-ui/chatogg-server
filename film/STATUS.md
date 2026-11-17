@@ -4,3 +4,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 
 - [producer] Production office set up. Milestone 1 (Pitches) started.
 - [screenwriter] Three pitches written: Return Window, The Quiet Car, Low Tide (pitches/PITCHES.md)
+- [screenwriter] Pitches revised per Director's notes (pitches/PITCHES.md)
