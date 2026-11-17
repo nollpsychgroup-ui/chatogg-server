@@ -2,7 +2,7 @@
 
 **Character Designer** · Milestone 3 · v1 (draft for Director approval; build notes to be agreed with the 3D/TA)
 Companion to `../FORMAT.md`, `../camera/visual-approach.md`, `../notes/directors-treatment.md`.
-Sheets: `sheets/`, expressions: `expressions/`, props: `props/`. Open `index.html` to see everything on one page.
+Sheets: `sheets/` (incl. `seated.svg`), PNG previews in `png/`, expressions: `expressions/`, props: `props/`. Open `index.html` to see everything on one page.
 
 ---
 
@@ -28,12 +28,12 @@ Three levels of simplification, by how close the camera gets and how much acting
 
 Proportions are **stylized-naturalistic**: about 6½ heads tall, heads slightly large and eyes slightly large for readability in a wide 2.39 frame, no cartoon squash. These are adults in a straight drama. Nothing is cute.
 
-Each character has one **shape idea** that holds in silhouette (see `sheets/lineup.svg`):
+Each character has one **shape idea** that holds in silhouette, standing (`sheets/lineup.svg`) and, more importantly, **seated, as the down-the-carriage master sees them** (`sheets/seated.svg`). The Director's brief for the seated reads: Noor presenting and upright, Walter folded and still, Bea upright with her eyes shut, Kai slouched and loose.
 
 - **Noor: the upright rectangle.** Squared blazer shoulders, vertical spine, everything aligned and pressed. She is holding a shape. Her arc is the rectangle softening: by the platform her shoulders have dropped and the blazer hangs open.
 - **Kai: the slouched triangle.** Wide base (knees apart, sneakers), narrow top (hood, head down to the phone). All diagonals and ease.
 - **Bea: the rounded bell.** Low centre of gravity, cardigan rounding the shoulders, both hands folded on the bag. Grounded, unmovable, safe.
-- **Walter: the tall, leaning wedge.** Long coat, narrow at the shoulders, wider at the hem, a slight forward stoop. Big hands (the clamp has to be believable).
+- **Walter: the tall, leaning wedge, folded.** Standing: long coat, narrow at the shoulders, wider at the hem, a slight forward stoop. Seated: folded forward over the paper, coat over the knees, utterly still. Big hands (the clamp has to be believable).
 
 ---
 
@@ -76,7 +76,9 @@ A tear is a thin wet line that catches the panel above. It's built from the corn
 
 ## 3. Brushwork
 
-- **Strokes are locked to the surface** (object or UV space). They **never boil, crawl or re-randomise from frame to frame.** A shimmering brush texture would read as a light event and break DP rule 1. The painted look must be dead still when the car is asleep.
+- **Strokes are locked to the surface** (object or UV space). **While the car is asleep they never boil, crawl or re-randomise from frame to frame.** A shimmering brush texture would read as a light event and break DP rule 1.
+- **Awake-only boil is a test, not a default** (Director's treatment, art direction 4): look-dev may try a very faint boil that exists *only* while the car is awake, locked to the ±3% breathing. If it reads as the room breathing, it's in; if it reads as a style effect, it's out. It must be exactly zero while the car sleeps.
+- **Timing:** people may be animated on twos for the painterly feel; **lights, the breathing and the camera stay on ones.** The car is smoother and more real than the people in it.
 - **Stroke direction follows form**: across the cheek plane, down the length of a sleeve, along the moquette weave on the seats, lengthwise down the walls.
 - **Stroke scale by tier** (section 1). Faces are the finest. That keeps the eye on the acting.
 - **Where light meets shadow, the strokes show.** The terminator (the line where a form turns from light to shadow) breaks up into brush shapes a few strokes wide. This is the main "painterly" signature, and it's lighting-driven: when the panel above Noor dips, her terminator moves and the strokes go with it. Everything stays physically lit.

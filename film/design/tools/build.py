@@ -193,3 +193,5 @@ if __name__ == "__main__":
     lineup()
     import props
     props.build(out)
+    import seated
+    seated.build(out, header)

@@ -4,7 +4,7 @@ const fs = require('fs'), path = require('path');
 const D = path.resolve(__dirname, '..');
 const files = ['sheets/lineup', 'sheets/noor', 'sheets/kai', 'sheets/bea', 'sheets/walter',
   'expressions/noor-expressions', 'expressions/walter-expressions', 'expressions/bea-expressions',
-  'expressions/kai-expressions', 'props/props'];
+  'expressions/kai-expressions', 'props/props', 'sheets/seated'];
 (async () => {
   const b = await chromium.launch(); const p = await b.newPage();
   fs.mkdirSync(path.join(D, 'png'), { recursive: true });
