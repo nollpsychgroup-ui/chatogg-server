@@ -74,6 +74,7 @@ A small set of matched primes: **25, 32, 40, 50 and 75 mm** (Super 35 equivalent
 ### The rig
 
 - **About 12 overhead panels** (to match the set's length), each an **individually addressable, tunable-white (ideally RGBW) LED unit** behind the set's own diffusers, on its own DMX channel and running at high PWM frequency.
+- **Panel numbering (agreed with the Composer):** 12 panels, provisional until the set is measured. **P1 is the panel above Noor, and P12 is the far end.** The dark creeps from P12 toward Noor (cue 7) and stops with only P1–P2 lit. The confession relights run back the other way, nearest the dark edge first (P3 → P12), so **the far end relights last**. Each panel is one DMX channel and one partial in the Composer's hum, with stems mapping 1:1.
 - **A lighting console with cue stacks** (or QLab driving DMX), **linked by timecode to sound playback**, so each light cue fires together with its groan on set. The actors react to something real, and the editor gets cues that were already in sync on the day.
 - **Separate channels** for: the destination display, the door-chime light, the window passing-light rig, and the platform sodium lamp.
 - **No film lights inside the car.** Everything we see is lit by the ceiling panels, the phones and the windows. Any extra fill is bounced from just outside frame and **ganged to the same DMX cue as the panel it supports**, so it dims and dies with that panel. If a cue kills the room, there's nothing left lighting the actors.
@@ -100,7 +101,7 @@ Lights alone could read as faulty wiring. What sells the car as *alive* is what 
 
 - **It breathes.** From the first groan until Noor's confession, every lit panel carries a very slow swell of **±3% at about one cycle every 5 seconds**, in time with a low breath in the sound bed. **At the test it's checked on the monitor and projected large; if anyone can see it, drop to ±2% or slow it down.** It must be felt, not seen. It's below conscious notice, but the audience will feel the room breathing. When the last panel relights after the confession, **the breathing stops**: the light goes back to dead stable, and the car is asleep again. **There is no parting cue.** After the last relight the car stays dead stable to the end; the only movement left in the frame is Walter turning the page and Kai's phone screen dimming. The car looks completely innocent.
 - **It shuts out the world.** While it's awake there are no tunnel lights in the windows. The car is sealed in its own attention.
-- **It moves.** Each groan is played through bass transducers bolted under the seats and floor, so the set physically hums. Coffee rings in a cup, the newspaper trembles, and the actors feel it in their seats. The camera picks up a faint real tremor.
+- **It moves.** Each groan, and the Composer's Undertone stem, is played through bass transducers bolted under the seats and floor, so the set physically hums. Coffee rings in a cup, the newspaper trembles, and the actors feel it in their seats. The camera picks up a faint real tremor.
 
 That's the "waking" arc: **dead stable → breathing → acting → advancing → retreating → dead stable.** The audience should be able to feel where the car is on that line from the light alone, with the sound off.
 
