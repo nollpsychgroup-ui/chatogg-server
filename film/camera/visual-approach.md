@@ -2,6 +2,8 @@
 
 **DP prep document** · Based on `script/draft-02.md` (Director-approved, awaiting the human gate) · **Approved by the Director** (see `notes/dp-notes-01.md`); their decisions are folded in.
 
+> **Format change (`FORMAT.md`): the film is now painterly CG animation.** The ideas, rules, palette, lensing and cue vocabulary here all still stand: the cameras and lights simply become virtual. The live-action machinery in this document (DMX panels, the board operator, transducers, IR safety light, the platform wagon, the test day) is superseded by `lighting-plan.md` §2, §6 and §7 and by `camera/cues.json`. Where they differ, those files win.
+
 ---
 
 ## The idea in one line

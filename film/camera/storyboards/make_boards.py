@@ -238,13 +238,13 @@ def boards():
     p.append('<text x="%.0f" y="%.0f" font-size="12" fill="#ff8a6a" text-anchor="middle" font-family="Helvetica">DOORS → platform</text>' % (X((dz0 + dz1) / 2), sy + 2 * HALF * sc + 24))
     def dot(z, x, label, c):
         yy = sy + (HALF - x) * sc
-        p.append('<circle cx="%.0f" cy="%.0f" r="9" fill="%s"/><text x="%.0f" y="%.0f" font-size="12" fill="#111" text-anchor="middle" font-family="Helvetica" font-weight="bold">%s</text>' % (X(z), yy, c, X(z), yy - 13, label))
+        p.append('<circle cx="%.0f" cy="%.0f" r="9" fill="%s"/><text x="%.0f" y="%.0f" font-size="12" fill="#111" text-anchor="middle" font-family="Helvetica" font-weight="bold">%s</text>' % (X(z), yy, c, X(z) - (22 if label == "WALTER" else 0), yy - 13, label))
     dot(12.6, 0, "NOOR", "#c8102e"); dot(pz(3), 0.9, "WALTER", hexc(WALT_C)); dot(pz(3), -1.0, "BEA", hexc(BEA_C)); dot(pz(8), -1.05, "KAI", hexc(KAI_C))
     def cam(z, x, label, ang, dx=6, dy=24):
         yy = sy + (HALF - x) * sc
         p.append('<polygon points="%.0f,%.0f %.0f,%.0f %.0f,%.0f" fill="#4fc3f7" transform="rotate(%d %.0f %.0f)"/>' % (X(z), yy, X(z) + 18, yy - 9, X(z) + 18, yy + 9, ang, X(z), yy))
         p.append('<text x="%.0f" y="%.0f" font-size="13" fill="#4fc3f7" font-family="Helvetica" font-weight="bold">%s</text>' % (X(z) + dx, yy + dy, label))
-    cam(-3.5, 0, "A", 0); cam(LEN - 0.15, -0.75, "B", 180); cam(pz(3) + 0.6, 1.2, "C", 180, 4, 26); cam(pz(3) - 0.55, -1.2, "D", 180, 4, 30)
+    cam(-3.5, 0, "A", 0); cam(LEN - 0.15, -0.75, "B", 180); cam(9.6, 1.2, "C", 180, 4, 26); cam(9.6, -1.2, "D", 180, 4, 30)
     cam(LEN - 0.3, 1.2, "E", 180, -4, 26); cam(pz(8), 1.25, "F", 270); cam((dz0 + dz1) / 2, 1.25, "G", 270)
     p.append('<text x="%.0f" y="%d" font-size="13" fill="#ccc" font-family="Helvetica">END WALL A: QUIET CAR sign + display</text>' % (X(LEN), sy - 14))
     p.append('<text x="%.0f" y="%d" font-size="13" fill="#ccc" font-family="Helvetica">END WALL B / gangway</text>' % (X(0) - 10, sy - 14))
@@ -252,7 +252,7 @@ def boards():
     write(0, "set-plan", "\n".join(p), "00 · Set plan · panels P1–P12 · camera positions A–G (see lighting-plan.md §1)")
 
     write(1, "opening-meter", scene(A, ALL, figures=CAST),
-          "01 · Shot 1 · Pos A, the Meter · 32 mm · asleep: all 12 panels lit · count them")
+          "01 · Shot 1 · Pos A, the Meter · 32 mm, vestibule, 1.65 m · asleep: all 12 panels lit · count them")
 
     # 02 lanyard tick: MCU, ceiling out
     b = bg(COOL, 0.85) + person(CX, H + 60, 1.25, NOOR_SUIT, 0.95, red=True)
@@ -264,14 +264,14 @@ def boards():
     b = bg(COOL, 0.6) + ceiling_strip([(CX - 260, 200, 0.12), (CX + 40, 170, 0.12)], h=90)
     b += '<text x="%d" y="122" font-family="Helvetica" font-size="13" fill="#444">P2</text><text x="%d" y="122" font-family="Helvetica" font-size="13" fill="#444">P1</text>' % (CX - 270, CX + 30)
     b += person(CX + 40, H + 40, 1.05, NOOR_SUIT, 0.55, red=True)
-    write(3, "lie-two", b, "03 · Shot 8 · Pos C · 40 mm low · \"The Henley account. Again.\" · cue 2: TWO panels in frame, both dipped")
+    write(3, "lie-two", b, "03 · Shot 9 · Pos C · 40 mm low · \"The Henley account. Again.\" · cue 2: TWO panels in frame, both dipped")
 
     write(4, "brownout", scene(A, {i: 0.32 for i in ALL}, light=SODIUM, figures=CAST),
           "04 · Shot 16 · Pos A · 32 mm · \"I'm at the library, Mum.\" · cue 3: every panel sags warm and HOLDS")
     write(5, "blackout", '<rect width="%d" height="%d" fill="#000"/>' % (W, H),
-          "05 · Shot 16 · Pos A · cue 4.1: true black, shot ≥5 s · digital zero on the soundtrack · Kai leaves on the IR marks")
+          "05 · Shot 18 · Pos A · cue 4: true black, every pixel 0 · digital zero on the soundtrack · held ~3 s")
     write(6, "lights-up-empty-seat", scene(A, ALL, figures=[NOOR, WALT, BEA], phone_glow=(1.05, pz(8), 0.9)),
-          "06 · Shot 16 (same take) · Pos A · cue 4.2: snap up · Kai's seat empty, his phone glowing · no cut since 01")
+          "06 · Shot 18 (no cut through the black) · Pos A · cue 4.up: snap up · Kai's seat empty, his phone glowing")
 
     # 07 newspaper
     b = bg((220, 220, 210), 0.5)
@@ -282,16 +282,16 @@ def boards():
     b += '<text x="470" y="195" font-family="Comic Sans MS,Marker Felt,cursive" font-size="34" fill="#15151a" transform="rotate(-3 480 200)">IN HERE.</text>'
     b += '<text x="462" y="262" font-family="Georgia,serif" font-style="italic" font-size="24" fill="#1d2a4a" transform="rotate(-3 480 200)">IT\'S AWAKE NOW.</text>'
     b += '<text x="462" y="296" font-family="Georgia,serif" font-style="italic" font-size="24" fill="#1d2a4a" transform="rotate(-3 480 200)">YOU WOKE IT.</text>'
-    write(7, "newspaper", b, "07 · Shot 22 · insert · 50 mm · two hands: Walter's block capitals, Bea's tidy nurse's script")
+    write(7, "newspaper", b, "07 · Shot 23 · insert · 50 mm · two hands: Walter's block capitals, Bea's tidy nurse's script")
 
     # 08 hard dip: Noor standing under P4, Walter seated, P3 P4 P5 in frame
     b = bg(COOL, 0.42) + ceiling_strip([(CX - 330, 150, 0.4), (CX, 170, 0.05), (CX + 330, 150, 0.4)], h=80)
-    for xx, lab in ((CX - 340, "P5"), (CX - 10, "P4"), (CX + 320, "P3")):
+    for xx, lab in ((CX - 340, "P4"), (CX - 10, "P3"), (CX + 320, "P2")):
         b += '<text x="%d" y="110" font-family="Helvetica" font-size="13" fill="#555">%s</text>' % (xx, lab)
     b += person(CX - 60, H + 30, 0.95, NOOR_SUIT, 0.3, red=True)
     b += person(CX + 250, H + 90, 0.8, WALT_C, 0.35)
     b += '<path d="M%d %d Q%d %d %d %d" stroke="%s" stroke-width="22" fill="none" stroke-linecap="round"/>' % (CX + 170, H - 70, CX + 90, H - 120, CX + 20, H - 140, tint(WALT_C, COOL, 0.35))
-    write(8, "hard-dip", b, "08 · Shot 26 · Pos E · 40 mm · \"My name is S—\" · Walter clamps her wrist · cue 5: P4 near black, P3 and P5 dip")
+    write(8, "hard-dip", b, "08 · Shot 26 · Pos E · 40 mm · \"My name is S—\" · Walter clamps her wrist · cue 5: P3 near black, P2 and P4 dip")
 
     # 09 thumb over the red button
     b = bg(COOL, 0.35)
@@ -302,16 +302,16 @@ def boards():
     b += '<circle cx="480" cy="290" r="38" fill="#e0242f"/><rect x="458" y="284" width="44" height="12" rx="6" fill="#fff"/>'
     b += '<path d="M640 400 Q600 300 520 268 Q492 258 488 280 Q500 320 560 400 Z" fill="%s"/>' % tint(SKIN, COOL, 0.6)
     b += '<rect width="%d" height="%d" fill="url(#phoneface)"/>' % (W, H)
-    write(9, "end-call", b, "09 · Shot 34 · Pos F · 40 mm · her thumb over the red end-call button · she can't do it · the red must read")
+    write(9, "end-call", b, "09 · Shot 32 · Pos F · 40 mm · her thumb over the red end-call button · she can't do it · the red must read")
 
     # 10 creep: after 7.7, mid-push
-    write(10, "creep-dolly", scene(Cam(0.0, 1.65, -1.0), lit(1, 2, 3, 4, 5), figures=CAST, phone_glow=(1.05, pz(8), 1.0)),
-          "10 · Shot 44 · Pos A dolly push · 32 mm · after cue 7.7: P6–P12 dark, five left · the camera rides in behind the dark edge")
+    write(10, "creep-dolly", scene(Cam(0.0, 1.65, -1.0), lit(*range(1, 10)), figures=CAST),
+          "10 · Shot 42 · Pos A → A2 push · 32 mm · after cue 7.3: P10–P12 dark · the camera rides in behind the dark edge")
     # 11 reverse from Noor's end, mid-sequence (after 7.5)
     write(11, "dark-toward-camera", scene(B, lit(1, 2, 3, 4, 5, 6, 7), figures=[WALT, BEA, KAI], phone_glow=(1.05, pz(8), 1.0)),
-          "11 · Shot 45 · Pos B · 32 mm low · after cue 7.5: the dark comes toward camera · Kai's phone glows in it")
-    write(12, "two-left", scene(A, lit(1, 2), figures=CAST[:3], phone_glow=(1.05, pz(8), 1.0), display="NEXT STOP: HOLLOWAY — 2 MIN"),
-          "12 · Shot 53 · Pos A · 32 mm · after cue 7.10: TWO panels left · Noor in the last pool · display: 2 MIN")
+          "11 · Shot 44 · Pos B · 32 mm low · after cue 7.5: the dark comes toward camera · Kai's phone glows in it")
+    write(12, "two-left", scene(Cam(0.0, 1.65, -1.0), lit(1, 2), figures=CAST[:3], phone_glow=(1.05, pz(8), 1.0), display="NEXT STOP: HOLLOWAY — 2 MIN"),
+          "12 · Shot 50 · Pos A2 · 32 mm · after cue 7.10: TWO panels left · Noor in the last pool · display: 2 MIN")
 
     # 13 Walter half lit
     b = '<rect width="%d" height="%d" fill="#000"/>' % (W, H)
@@ -320,7 +320,7 @@ def boards():
         CX, H - 230, CX - 230, H + 20, CX - 215, H - 110, CX - 90, H - 140, CX + 90, H - 140, CX + 215, H - 110, CX + 230, H + 20)
     b += '<g clip-path="url(#w)"><rect width="%d" height="%d" fill="%s"/><rect width="%d" height="%d" fill="url(#edge)"/></g>' % (W, H, tint(SKIN, COOL, 0.07), W, H)
     b += '<text x="20" y="30" font-family="Helvetica" font-size="14" fill="#777">P2 spill from frame right (Noor\'s side) · the shadow line on his cheek · −3 stops must hold</text>'
-    write(13, "walter-edge", b, "13 · Shot 57 · Pos D · 50 mm MCU · \"He's asking.\" · Walter half-lit at the edge of the dark")
+    write(13, "walter-edge", b, "13 · Shot 53 · Pos D · 50 mm MCU · \"He's asking.\" · Walter half-lit at the edge of the dark")
 
     # 14 confession CU
     b = bg(COOL, 0.16)
@@ -329,10 +329,10 @@ def boards():
     b += '<rect x="%d" y="0" width="%d" height="%d" fill="url(#topdown)" opacity="0.35"/>' % (CX - 140, 280, H)
     b += '<rect x="%d" y="150" width="70" height="150" rx="12" fill="#0b0c0e"/>' % (CX + 120)
     b += '<text x="20" y="30" font-family="Helvetica" font-size="14" fill="#bbb">75 mm, the only time · each relight down the car adds front light to her face · the push lands before 8.10</text>'
-    write(14, "confession-75", b, "14 · Shots 58 / 63 · Pos C · 75 mm CU, slow push · \"I'm not leaving the office.\" · cues 8.0–8.10")
+    write(14, "confession-75", b, "14 · Shots 54 / 56 / 58 · Pos C · 75 mm CU, slow push · \"I'm not leaving the office.\" · cues 8.0–8.10")
 
-    write(15, "relight", scene(B, lit(1, 2, 3, 4, 5, 6, 7, 8, 9), figures=[WALT, BEA], phone_glow=(1.05, pz(8), 0.7)),
-          "15 · Shot 60 · Pos B · 32 mm · cue 8.8: relights running away from us · Kai's empty seat back in the light · P10–P12 still to come")
+    write(15, "relight", scene(A, {**lit(*range(2, 11)), 1: 1.1}, figures=[NOOR, WALT, BEA], phone_glow=(1.05, pz(8), 0.7)),
+          "15 · Shot 57 · Pos A · 32 mm · cue 8.8: relights running toward us · Kai's empty seat back in the light · P11, P12 still dark")
 
     # 16 doors / platform, from G
     b = bg(COOL, 0.95, top=(200, 204, 196))
@@ -344,10 +344,10 @@ def boards():
     b += person(480, 360, 0.62, NOOR_SUIT, 0.85, light=PLATFORM)
     b += '<rect x="500" y="170" width="18" height="34" rx="4" fill="#0b0c0e"/>'
     b += '<rect x="250" y="40" width="40" height="360" fill="#8d908b"/><rect x="670" y="40" width="40" height="360" fill="#8d908b"/>'
-    write(16, "platform", b, "16 · Shot 67 · Pos G · 32 mm, locked · doors open · cold-white platform lamp · we stay inside · she slides away in the glass")
+    write(16, "platform", b, "16 · Shot 62 · Pos G · 32 mm, locked · doors open · cold-white platform lamp · we stay inside · she slides away in the glass")
 
     write(17, "innocent-car", scene(A, ALL, figures=[WALT, BEA], phone_glow=(1.05, pz(8), 0.25), display="NOW ARRIVING: HOLLOWAY"),
-          "17 · Shot 68 · Pos A · 32 mm · the opening frame again · Walter turns the page · Kai's phone dims · no light change · the car looks innocent")
+          "17 · Shot 63 · Pos A · 32 mm · the opening frame again · Walter turns the page · Kai's phone dims · no light change · the car looks innocent")
 
 if __name__ == "__main__":
     boards()

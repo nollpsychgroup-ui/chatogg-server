@@ -1,0 +1,2763 @@
+{
+ "_note": "Shared sync file for THE QUIET CAR previs. Written by camera/build_cues.py (DP); do not edit by hand. Times are seconds from the first frame; re-time in build_cues.py when the voice record exists.",
+ "fps": 24,
+ "duration_s": 570.0,
+ "set": {
+  "units": "m",
+  "axes": "Blender: Z up; Y down the car from end wall B (0) to end wall A (13, Noor); side A = -X, side B = +X",
+  "length": 13.0,
+  "half_width": 1.4,
+  "ceiling": 2.3,
+  "vestibule_y": [
+   -4.0,
+   0.0
+  ],
+  "doors": {
+   "side": "B",
+   "y": [
+    5.408,
+    7.592
+   ]
+  },
+  "seats": {
+   "NOOR": "transverse seat against end wall A, under P1, facing down the car",
+   "WALTER": "side A bench under P3",
+   "BEA": "side B bench under P3",
+   "KAI": "side B bench under P8, by the doors"
+  },
+  "marks": {
+   "NOOR": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "NOOR_STAND": [
+    -0.35,
+    10.0,
+    1.62
+   ],
+   "WALTER": [
+    -1.0,
+    10.292,
+    1.22
+   ],
+   "BEA": [
+    1.0,
+    10.292,
+    1.22
+   ],
+   "KAI": [
+    1.05,
+    4.875,
+    1.22
+   ],
+   "KAI_PHONE": [
+    1.05,
+    4.875,
+    0.48
+   ],
+   "DOORS": [
+    1.4,
+    6.5,
+    1.2
+   ],
+   "DISPLAY": [
+    0.0,
+    13.0,
+    1.82
+   ]
+  }
+ },
+ "panels": [
+  {
+   "id": "P1",
+   "y": 12.458,
+   "size_m": [
+    0.64,
+    0.6
+   ],
+   "partial": 2,
+   "dmx_legacy": [
+    1,
+    4
+   ]
+  },
+  {
+   "id": "P2",
+   "y": 11.375,
+   "size_m": [
+    0.64,
+    0.6
+   ],
+   "partial": 3,
+   "dmx_legacy": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "P3",
+   "y": 10.292,
+   "size_m": [
+    0.64,
+    0.6
+   ],
+   "partial": 4,
+   "dmx_legacy": [
+    9,
+    12
+   ]
+  },
+  {
+   "id": "P4",
+   "y": 9.208,
+   "size_m": [
+    0.64,
+    0.6
+   ],
+   "partial": 5,
+   "dmx_legacy": [
+    13,
+    16
+   ]
+  },
+  {
+   "id": "P5",
+   "y": 8.125,
+   "size_m": [
+    0.64,
+    0.6
+   ],
+   "partial": 6,
+   "dmx_legacy": [
+    17,
+    20
+   ]
+  },
+  {
+   "id": "P6",
+   "y": 7.042,
+   "size_m": [
+    0.64,
+    0.6
+   ],
+   "partial": 7,
+   "dmx_legacy": [
+    21,
+    24
+   ]
+  },
+  {
+   "id": "P7",
+   "y": 5.958,
+   "size_m": [
+    0.64,
+    0.6
+   ],
+   "partial": 8,
+   "dmx_legacy": [
+    25,
+    28
+   ]
+  },
+  {
+   "id": "P8",
+   "y": 4.875,
+   "size_m": [
+    0.64,
+    0.6
+   ],
+   "partial": 9,
+   "dmx_legacy": [
+    29,
+    32
+   ]
+  },
+  {
+   "id": "P9",
+   "y": 3.792,
+   "size_m": [
+    0.64,
+    0.6
+   ],
+   "partial": 10,
+   "dmx_legacy": [
+    33,
+    36
+   ]
+  },
+  {
+   "id": "P10",
+   "y": 2.708,
+   "size_m": [
+    0.64,
+    0.6
+   ],
+   "partial": 11,
+   "dmx_legacy": [
+    37,
+    40
+   ]
+  },
+  {
+   "id": "P11",
+   "y": 1.625,
+   "size_m": [
+    0.64,
+    0.6
+   ],
+   "partial": 12,
+   "dmx_legacy": [
+    41,
+    44
+   ]
+  },
+  {
+   "id": "P12",
+   "y": 0.542,
+   "size_m": [
+    0.64,
+    0.6
+   ],
+   "partial": 17,
+   "dmx_legacy": [
+    45,
+    48
+   ]
+  }
+ ],
+ "looks": {
+  "BASE": {
+   "level": 1.0,
+   "kelvin": 4300,
+   "green": 0.25,
+   "note": "asleep: never altered by anything except a cue"
+  },
+  "BROWN": {
+   "level": 0.18,
+   "kelvin": 2200,
+   "green": 0.0,
+   "note": "about -2.5 stops; level and colour temperature move together like a failing tungsten load"
+  },
+  "DIP": {
+   "level": 0.05,
+   "kelvin": 3200,
+   "green": 0.0,
+   "note": "cue 5 only: near-black with a hint of warmth"
+  },
+  "OVER": {
+   "level": 1.1,
+   "kelvin": 4300,
+   "green": 0.25,
+   "note": "cue 8 relight overshoot, settling to BASE in 12 frames"
+  },
+  "OFF": {
+   "level": 0.0
+  }
+ },
+ "breath": {
+  "depth": 0.03,
+  "period_s": 5.0,
+  "phase": "all panels in phase",
+  "on_cue": "1",
+  "off_cue": "8.10",
+  "note": "a sine on each lit panel's level, layered on top of its keyframes. Depth and period are variables shared with the Composer's hum build, and may drop to 0.02 or slow down after the look-dev visibility check"
+ },
+ "lights_on_ones": true,
+ "cues": [
+  {
+   "id": "0",
+   "t": 40.0,
+   "type": "tick",
+   "panels": [
+    "P1"
+   ],
+   "line": "(Noor straightens her lanyard, the badge settling face-out)",
+   "shape": [
+    [
+     0,
+     0.85
+    ],
+    [
+     2,
+     1.0
+    ]
+   ],
+   "note": "subliminal; only Walter reacts"
+  },
+  {
+   "id": "1",
+   "t": 80.0,
+   "type": "flicker",
+   "panels": [
+    "P1"
+   ],
+   "line": "Just leaving the office now.",
+   "shape": [
+    [
+     0,
+     1.0
+    ],
+    [
+     0,
+     0.3
+    ],
+    [
+     3,
+     0.85
+    ],
+    [
+     5,
+     0.4
+    ],
+    [
+     8,
+     1.0
+    ]
+   ],
+   "breath": "on",
+   "windows": "off",
+   "note": "first groan; from here the windows stay black until 8.10"
+  },
+  {
+   "id": "2",
+   "t": 95.0,
+   "type": "flicker",
+   "panels": [
+    "P1",
+    "P2"
+   ],
+   "line": "Long day. The Henley account. Again.",
+   "shape": [
+    [
+     0,
+     0.1
+    ],
+    [
+     4,
+     0.6
+    ],
+    [
+     8,
+     0.1
+    ],
+    [
+     16,
+     0.1
+    ],
+    [
+     22,
+     1.0
+    ]
+   ],
+   "lag_frames": {
+    "P2": 2
+   }
+  },
+  {
+   "id": "3",
+   "t": 145.0,
+   "type": "brownout",
+   "panels": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7",
+    "P8",
+    "P9",
+    "P10",
+    "P11",
+    "P12"
+   ],
+   "line": "I'm at the library, Mum.",
+   "shape": [
+    [
+     0,
+     1.0
+    ],
+    [
+     8,
+     "BROWN"
+    ]
+   ],
+   "ease": "sag over 8 frames, level and colour together",
+   "hold": true
+  },
+  {
+   "id": "4",
+   "t": 155.0,
+   "type": "blackout",
+   "panels": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7",
+    "P8",
+    "P9",
+    "P10",
+    "P11",
+    "P12"
+   ],
+   "line": "No, that's — it's the library. They're doing work on the —",
+   "shape": [
+    [
+     0,
+     0.0
+    ]
+   ],
+   "world_off": [
+    "DISPLAY",
+    "WINDOWS",
+    "DOOR",
+    "PHONES_EXCEPT_NONE"
+   ],
+   "note": "TRUE BLACK: world, emitters, display all 0; nothing in the render, comp or grade lifts it. Kai is removed in the dark (no animation)"
+  },
+  {
+   "id": "4.up",
+   "t": 158.0,
+   "type": "lights_up",
+   "panels": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7",
+    "P8",
+    "P9",
+    "P10",
+    "P11",
+    "P12"
+   ],
+   "line": "(LIGHTS UP)",
+   "shape": [
+    [
+     0,
+     1.0
+    ]
+   ],
+   "note": "snap to BASE; display back; breathing resumes in phase; windows stay black"
+  },
+  {
+   "id": "5",
+   "t": 225.0,
+   "type": "hard_dip",
+   "panels": [
+    "P3",
+    "P2",
+    "P4"
+   ],
+   "line": "My name is S—",
+   "shape": [
+    [
+     0,
+     1.0
+    ],
+    [
+     2,
+     "DIP"
+    ]
+   ],
+   "main": "P3",
+   "sympathy": {
+    "P2": 0.4,
+    "P4": 0.4
+   },
+   "recover": {
+    "t": 229.0,
+    "frames": 72,
+    "ease": "slow ease-in back to BASE"
+   },
+   "note": "Noor is standing in the aisle beside Walter, under P3; 'the panel above her' is P3"
+  },
+  {
+   "id": "6",
+   "t": 295.0,
+   "type": "stutter",
+   "panels": [
+    "P1"
+   ],
+   "line": "I'm f—",
+   "shape": [
+    [
+     0,
+     0.5
+    ],
+    [
+     2,
+     1.0
+    ],
+    [
+     4,
+     0.45
+    ],
+    [
+     8,
+     1.0
+    ]
+   ]
+  },
+  {
+   "id": "7.1",
+   "t": 360.0,
+   "type": "panel_out",
+   "panels": [
+    "P12"
+   ],
+   "line": "(display 5 MIN; no word spoken)",
+   "shape": [
+    [
+     0,
+     0.0
+    ]
+   ],
+   "note": "snap off, relay tick on the same frame, no flicker"
+  },
+  {
+   "id": "7.2",
+   "t": 368.5,
+   "type": "panel_out",
+   "panels": [
+    "P11"
+   ],
+   "line": "after NOOR: \"Nobody said anything.\"",
+   "shape": [
+    [
+     0,
+     0.0
+    ]
+   ],
+   "note": "snap off, relay tick on the same frame, no flicker"
+  },
+  {
+   "id": "7.3",
+   "t": 377.0,
+   "type": "panel_out",
+   "panels": [
+    "P10"
+   ],
+   "line": "after Walter's eyes reach her lanyard",
+   "shape": [
+    [
+     0,
+     0.0
+    ]
+   ],
+   "note": "snap off, relay tick on the same frame, no flicker"
+  },
+  {
+   "id": "7.4",
+   "t": 385.5,
+   "type": "panel_out",
+   "panels": [
+    "P9"
+   ],
+   "line": "after BEA: \"It isn't only what you say.\"",
+   "shape": [
+    [
+     0,
+     0.0
+    ]
+   ],
+   "note": "snap off, relay tick on the same frame, no flicker"
+  },
+  {
+   "id": "7.5",
+   "t": 394.0,
+   "type": "panel_out",
+   "panels": [
+    "P8"
+   ],
+   "line": "after Noor looks down at herself (Kai's seat goes dark; his phone glows on)",
+   "shape": [
+    [
+     0,
+     0.0
+    ]
+   ],
+   "note": "snap off, relay tick on the same frame, no flicker"
+  },
+  {
+   "id": "7.6",
+   "t": 402.5,
+   "type": "panel_out",
+   "panels": [
+    "P7"
+   ],
+   "line": "after the lanyard hits the floor (\"It isn't enough.\")",
+   "shape": [
+    [
+     0,
+     0.0
+    ]
+   ],
+   "note": "snap off, relay tick on the same frame, no flicker"
+  },
+  {
+   "id": "7.7",
+   "t": 411.0,
+   "type": "panel_out",
+   "panels": [
+    "P6"
+   ],
+   "line": "(silence; Bea leans in)",
+   "shape": [
+    [
+     0,
+     0.0
+    ]
+   ],
+   "note": "snap off, relay tick on the same frame, no flicker"
+  },
+  {
+   "id": "7.8",
+   "t": 419.5,
+   "type": "panel_out",
+   "panels": [
+    "P5"
+   ],
+   "line": "after BEA: \"Whatever it is, say it.\"",
+   "shape": [
+    [
+     0,
+     0.0
+    ]
+   ],
+   "note": "snap off, relay tick on the same frame, no flicker"
+  },
+  {
+   "id": "7.9",
+   "t": 428.0,
+   "type": "panel_out",
+   "panels": [
+    "P4"
+   ],
+   "line": "after NOOR: \"I can't —\"",
+   "shape": [
+    [
+     0,
+     0.0
+    ]
+   ],
+   "note": "snap off, relay tick on the same frame, no flicker"
+  },
+  {
+   "id": "7.10",
+   "t": 436.5,
+   "type": "panel_out",
+   "panels": [
+    "P3"
+   ],
+   "line": "after BEA: \"Say it.\" (two panels left; Walter and Bea go into the edge)",
+   "shape": [
+    [
+     0,
+     0.0
+    ]
+   ],
+   "note": "snap off, relay tick on the same frame, no flicker"
+  },
+  {
+   "id": "8.0",
+   "t": 462.0,
+   "type": "steady",
+   "panels": [
+    "P1"
+   ],
+   "line": "No. Listen. I'm not leaving the office.",
+   "shape": [
+    [
+     0,
+     1.1
+    ]
+   ],
+   "hold": true,
+   "note": "P1 steadies and burns brighter: held at 110% (its breathing stops) until 8.10"
+  },
+  {
+   "id": "8.1",
+   "t": 470.0,
+   "type": "relight",
+   "panels": [
+    "P3"
+   ],
+   "line": "...They let me go. The whole floor.",
+   "shape": [
+    [
+     0,
+     1.1
+    ],
+    [
+     12,
+     1.0
+    ]
+   ]
+  },
+  {
+   "id": "8.2",
+   "t": 483.0,
+   "type": "relight",
+   "panels": [
+    "P4"
+   ],
+   "line": "...And then I come home.",
+   "shape": [
+    [
+     0,
+     1.1
+    ],
+    [
+     12,
+     1.0
+    ]
+   ]
+  },
+  {
+   "id": "8.3",
+   "t": 493.0,
+   "type": "relight",
+   "panels": [
+    "P5"
+   ],
+   "line": "I didn't tell you because —",
+   "shape": [
+    [
+     0,
+     1.1
+    ],
+    [
+     12,
+     1.0
+    ]
+   ]
+  },
+  {
+   "id": "8.4",
+   "t": 494.1,
+   "type": "relight",
+   "panels": [
+    "P6"
+   ],
+   "line": "— you'd have been kind about it —",
+   "shape": [
+    [
+     0,
+     1.1
+    ],
+    [
+     12,
+     1.0
+    ]
+   ]
+  },
+  {
+   "id": "8.5",
+   "t": 495.2,
+   "type": "relight",
+   "panels": [
+    "P7"
+   ],
+   "line": "— and I couldn't — (run)",
+   "shape": [
+    [
+     0,
+     1.1
+    ],
+    [
+     12,
+     1.0
+    ]
+   ]
+  },
+  {
+   "id": "8.6",
+   "t": 496.3,
+   "type": "relight",
+   "panels": [
+    "P8"
+   ],
+   "line": "(run; Kai's empty seat relights, phone still glowing)",
+   "shape": [
+    [
+     0,
+     1.1
+    ],
+    [
+     12,
+     1.0
+    ]
+   ]
+  },
+  {
+   "id": "8.7",
+   "t": 497.4,
+   "type": "relight",
+   "panels": [
+    "P9"
+   ],
+   "line": "(run)",
+   "shape": [
+    [
+     0,
+     1.1
+    ],
+    [
+     12,
+     1.0
+    ]
+   ]
+  },
+  {
+   "id": "8.8",
+   "t": 498.5,
+   "type": "relight",
+   "panels": [
+    "P10"
+   ],
+   "line": "(run)",
+   "shape": [
+    [
+     0,
+     1.1
+    ],
+    [
+     12,
+     1.0
+    ]
+   ]
+  },
+  {
+   "id": "8.9",
+   "t": 499.6,
+   "type": "relight",
+   "panels": [
+    "P11"
+   ],
+   "line": "(run)",
+   "shape": [
+    [
+     0,
+     1.1
+    ],
+    [
+     12,
+     1.0
+    ]
+   ]
+  },
+  {
+   "id": "8.10",
+   "t": 508.0,
+   "type": "relight",
+   "panels": [
+    "P12"
+   ],
+   "line": "(Silence on the line.)",
+   "shape": [
+    [
+     0,
+     1.1
+    ],
+    [
+     12,
+     1.0
+    ]
+   ],
+   "also": {
+    "P1": "settle 1.10 -> 1.0 on the same frame"
+   },
+   "breath": "off",
+   "note": "the far panel comes on last; every panel exactly BASE; the car is asleep"
+  }
+ ],
+ "events": [
+  {
+   "id": "board_chime",
+   "t": 25.0,
+   "what": "door chime; Noor boards"
+  },
+  {
+   "id": "D0",
+   "t": 0.0,
+   "what": "DISPLAY: NEXT STOP: HOLLOWAY"
+  },
+  {
+   "id": "lanyard",
+   "t": 40.0,
+   "what": "Noor straightens the lanyard (cue 0)"
+  },
+  {
+   "id": "doors_close",
+   "t": 48.0,
+   "what": "doors close; WINDOWS chase on (glass only, while asleep)"
+  },
+  {
+   "id": "D1",
+   "t": 50.0,
+   "what": "DISPLAY: NEXT STOP: HOLLOWAY — 11 MIN"
+  },
+  {
+   "id": "mark_call_1",
+   "t": 65.0,
+   "what": "PHONE (Noor): MARK"
+  },
+  {
+   "id": "lie_1",
+   "t": 80.0,
+   "what": "cue 1"
+  },
+  {
+   "id": "lie_2",
+   "t": 95.0,
+   "what": "cue 2"
+  },
+  {
+   "id": "love_you",
+   "t": 110.0,
+   "what": "'Love you' (true: nothing happens)"
+  },
+  {
+   "id": "mum_call",
+   "t": 133.0,
+   "what": "PHONE (Kai): MUM"
+  },
+  {
+   "id": "kai_lie",
+   "t": 145.0,
+   "what": "cue 3"
+  },
+  {
+   "id": "D2",
+   "t": 236.0,
+   "what": "DISPLAY: 8 MIN"
+  },
+  {
+   "id": "thumb_over_end_call",
+   "t": 264.0,
+   "what": "PHONE (Kai): end-call red button on screen"
+  },
+  {
+   "id": "D3",
+   "t": 357.0,
+   "what": "DISPLAY: 5 MIN"
+  },
+  {
+   "id": "D4",
+   "t": 438.0,
+   "what": "DISPLAY: 2 MIN"
+  },
+  {
+   "id": "marks_call",
+   "t": 440.0,
+   "what": "PHONE (Noor): MARK; her screen becomes a key light"
+  },
+  {
+   "id": "he_is_asking",
+   "t": 452.0,
+   "what": "WALTER: 'He's asking.'"
+  },
+  {
+   "id": "silence_on_line",
+   "t": 505.0,
+   "what": "silence on the line"
+  },
+  {
+   "id": "train_slows",
+   "t": 512.0,
+   "what": "DISPLAY: NOW ARRIVING: HOLLOWAY"
+  },
+  {
+   "id": "arrival_chime",
+   "t": 520.0,
+   "what": "door chime"
+  },
+  {
+   "id": "doors_open",
+   "t": 521.0,
+   "what": "doors open; PLATFORM lamp on (cold white ~5000 K, slight green)"
+  },
+  {
+   "id": "doors_close_final",
+   "t": 535.0,
+   "what": "doors close"
+  },
+  {
+   "id": "pa_line",
+   "t": 538.0,
+   "what": "PA: 'Thank you for riding quietly.' (no light cue)"
+  },
+  {
+   "id": "pull_away",
+   "t": 540.0,
+   "what": "platform + lamp slide away in the door glass; WINDOWS stay black"
+  },
+  {
+   "id": "page_turn",
+   "t": 552.0,
+   "what": "Walter turns the page (no light change)"
+  },
+  {
+   "id": "phone_dims",
+   "t": 561.0,
+   "what": "Kai's phone screen fades to black over 2 s"
+  },
+  {
+   "id": "cut",
+   "t": 565.0,
+   "what": "CUT TO BLACK"
+  },
+  {
+   "id": "rails_stop",
+   "t": 568.0,
+   "what": "rails stop over black"
+  }
+ ],
+ "camera": {
+  "sensor": {
+   "width_mm": 24.89,
+   "height_mm": 10.41,
+   "format": "Super 35 cropped to 2.39:1"
+  },
+  "positions": {
+   "A": {
+    "loc": [
+     0.0,
+     -3.5,
+     1.65
+    ],
+    "aim": [
+     0.0,
+     13.0,
+     1.65
+    ],
+    "lens": 32,
+    "note": "the Meter: in the unlit vestibule, standing eye height, level. Holds all 12 panels, Noor, the sign and the display"
+   },
+   "A2": {
+    "loc": [
+     0.0,
+     -1.0,
+     1.65
+    ],
+    "aim": [
+     0.0,
+     13.0,
+     1.65
+    ],
+    "lens": 32,
+    "note": "where the creep push lands (2.5 m in from A)"
+   },
+   "B": {
+    "loc": [
+     0.55,
+     12.85,
+     1.0
+    ],
+    "aim": [
+     0.3,
+     0.0,
+     1.0
+    ],
+    "lens": 32,
+    "note": "Noor's end, side B corner, low, looking down the car"
+   },
+   "C": {
+    "loc": [
+     -0.95,
+     9.6,
+     1.15
+    ],
+    "lens": 50,
+    "note": "side A beside Walter: Noor singles (aim NOOR) or Bea across the aisle (aim BEA)"
+   },
+   "D": {
+    "loc": [
+     0.95,
+     9.6,
+     1.15
+    ],
+    "lens": 50,
+    "note": "side B beside Bea: Noor singles or Walter across the aisle"
+   },
+   "E": {
+    "loc": [
+     -1.0,
+     12.6,
+     1.15
+    ],
+    "aim": [
+     0.0,
+     10.292,
+     1.2
+    ],
+    "lens": 40,
+    "note": "side A corner at end A: Walter/Bea two-shots, deep staging"
+   },
+   "F": {
+    "loc": [
+     -0.95,
+     4.875,
+     1.15
+    ],
+    "lens": 40,
+    "note": "across the aisle from Kai"
+   },
+   "G": {
+    "loc": [
+     -0.9,
+     6.5,
+     1.3
+    ],
+    "aim": [
+     1.4,
+     6.5,
+     1.2
+    ],
+    "lens": 32,
+    "note": "facing the doors"
+   },
+   "I": {
+    "note": "inserts: placement per shot"
+   }
+  }
+ },
+ "shots": [
+  {
+   "shot": 1,
+   "in": 0.0,
+   "out": 36.0,
+   "frames": [
+    0,
+    864
+   ],
+   "scene": 1,
+   "pos": "A",
+   "lens_mm": 32,
+   "move": "locked",
+   "camera_loc": [
+    0.0,
+    -3.5,
+    1.65
+   ],
+   "aim": [
+    0.0,
+    13.0,
+    1.65
+   ],
+   "aim_subject": null,
+   "cues": [],
+   "beat": "Carriage idling; Noor boards and walks the length of the car; sits under P1 facing us"
+  },
+  {
+   "shot": 2,
+   "in": 36.0,
+   "out": 44.0,
+   "frames": [
+    864,
+    1056
+   ],
+   "scene": 1,
+   "pos": "C",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [
+    "0"
+   ],
+   "beat": "Noor straightens her lanyard (ceiling out of frame: asleep)"
+  },
+  {
+   "shot": 3,
+   "in": 44.0,
+   "out": 47.5,
+   "frames": [
+    1056,
+    1140
+   ],
+   "scene": 1,
+   "pos": "D",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    -1.0,
+    10.292,
+    1.22
+   ],
+   "aim_subject": "WALTER",
+   "cues": [],
+   "beat": "Walter's eyes to the badge and back to his paper"
+  },
+  {
+   "shot": 4,
+   "in": 47.5,
+   "out": 60.0,
+   "frames": [
+    1140,
+    1440
+   ],
+   "scene": 1,
+   "pos": "A",
+   "lens_mm": 32,
+   "move": "locked",
+   "camera_loc": [
+    0.0,
+    -3.5,
+    1.65
+   ],
+   "aim": [
+    0.0,
+    13.0,
+    1.65
+   ],
+   "aim_subject": null,
+   "cues": [],
+   "beat": "Doors close, train pulls away; 11 MIN"
+  },
+  {
+   "shot": 5,
+   "in": 60.0,
+   "out": 63.0,
+   "frames": [
+    1440,
+    1512
+   ],
+   "scene": 1,
+   "pos": "I",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": null,
+   "aim": [
+    0.0,
+    13.0,
+    1.82
+   ],
+   "aim_subject": "DISPLAY",
+   "cues": [],
+   "beat": "Display: 11 MIN"
+  },
+  {
+   "shot": 6,
+   "in": 63.0,
+   "out": 78.0,
+   "frames": [
+    1512,
+    1872
+   ],
+   "scene": 2,
+   "pos": "D",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [],
+   "beat": "Phone buzzes, MARK; she glances up at the sign and answers low"
+  },
+  {
+   "shot": 7,
+   "in": 78.0,
+   "out": 86.0,
+   "frames": [
+    1872,
+    2064
+   ],
+   "scene": 2,
+   "pos": "C",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [
+    "1"
+   ],
+   "beat": "'Just leaving the office now.' The ceiling enters: P1 in the top of frame"
+  },
+  {
+   "shot": 8,
+   "in": 86.0,
+   "out": 91.0,
+   "frames": [
+    2064,
+    2184
+   ],
+   "scene": 2,
+   "pos": "E",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    -1.0,
+    12.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    10.292,
+    1.2
+   ],
+   "aim_subject": null,
+   "cues": [],
+   "beat": "Walter's eyes lift; Bea's eyes open"
+  },
+  {
+   "shot": 9,
+   "in": 91.0,
+   "out": 101.0,
+   "frames": [
+    2184,
+    2424
+   ],
+   "scene": 2,
+   "pos": "C",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [
+    "2"
+   ],
+   "beat": "'The Henley account. Again.' P1 and P2 both in frame"
+  },
+  {
+   "shot": 10,
+   "in": 101.0,
+   "out": 108.0,
+   "frames": [
+    2424,
+    2592
+   ],
+   "scene": 2,
+   "pos": "A",
+   "lens_mm": 32,
+   "move": "locked",
+   "camera_loc": [
+    0.0,
+    -3.5,
+    1.65
+   ],
+   "aim": [
+    0.0,
+    13.0,
+    1.65
+   ],
+   "aim_subject": null,
+   "cues": [],
+   "beat": "The whole car reacts: paper lowers, Bea sits up, Kai: 'Was that the brakes?'"
+  },
+  {
+   "shot": 11,
+   "in": 108.0,
+   "out": 116.0,
+   "frames": [
+    2592,
+    2784
+   ],
+   "scene": 2,
+   "pos": "C",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [],
+   "beat": "'No, don't wait up. Love you.' Hangs up, sags, looks up"
+  },
+  {
+   "shot": 12,
+   "in": 116.0,
+   "out": 120.0,
+   "frames": [
+    2784,
+    2880
+   ],
+   "scene": 2,
+   "pos": "B",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    0.55,
+    12.85,
+    1.0
+   ],
+   "aim": [
+    1.0,
+    10.292,
+    1.22
+   ],
+   "aim_subject": "BEA",
+   "cues": [],
+   "beat": "Walter and Bea staring at her"
+  },
+  {
+   "shot": 13,
+   "in": 120.0,
+   "out": 130.0,
+   "frames": [
+    2880,
+    3120
+   ],
+   "scene": 2,
+   "pos": "D",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [],
+   "beat": "Mouths 'Sorry', points over her shoulder at the sign"
+  },
+  {
+   "shot": 14,
+   "in": 130.0,
+   "out": 138.0,
+   "frames": [
+    3120,
+    3312
+   ],
+   "scene": 3,
+   "pos": "F",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    4.875,
+    1.15
+   ],
+   "aim": [
+    1.05,
+    4.875,
+    1.22
+   ],
+   "aim_subject": "KAI",
+   "cues": [],
+   "beat": "Kai's phone: MUM. 'Yeah?'"
+  },
+  {
+   "shot": 15,
+   "in": 138.0,
+   "out": 143.0,
+   "frames": [
+    3312,
+    3432
+   ],
+   "scene": 3,
+   "pos": "E",
+   "lens_mm": 32,
+   "move": "locked",
+   "camera_loc": [
+    -1.0,
+    12.6,
+    1.15
+   ],
+   "aim": [
+    1.05,
+    4.875,
+    1.22
+   ],
+   "aim_subject": "KAI",
+   "cues": [],
+   "beat": "Bea's hand shoots out, too far away"
+  },
+  {
+   "shot": 16,
+   "in": 143.0,
+   "out": 147.0,
+   "frames": [
+    3432,
+    3528
+   ],
+   "scene": 3,
+   "pos": "A",
+   "lens_mm": 32,
+   "move": "locked",
+   "camera_loc": [
+    0.0,
+    -3.5,
+    1.65
+   ],
+   "aim": [
+    0.0,
+    13.0,
+    1.65
+   ],
+   "aim_subject": null,
+   "cues": [
+    "3"
+   ],
+   "beat": "'I'm at the library, Mum.' Brownout"
+  },
+  {
+   "shot": 17,
+   "in": 147.0,
+   "out": 153.5,
+   "frames": [
+    3528,
+    3684
+   ],
+   "scene": 3,
+   "pos": "F",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    4.875,
+    1.15
+   ],
+   "aim": [
+    1.05,
+    4.875,
+    1.22
+   ],
+   "aim_subject": "KAI",
+   "cues": [],
+   "beat": "Kai in the brownout: looks up, nervous laugh"
+  },
+  {
+   "shot": 18,
+   "in": 153.5,
+   "out": 166.0,
+   "frames": [
+    3684,
+    3984
+   ],
+   "scene": 3,
+   "pos": "A",
+   "lens_mm": 32,
+   "move": "locked",
+   "camera_loc": [
+    0.0,
+    -3.5,
+    1.65
+   ],
+   "aim": [
+    0.0,
+    13.0,
+    1.65
+   ],
+   "aim_subject": null,
+   "cues": [
+    "4",
+    "4.up"
+   ],
+   "beat": "'They're doing work on the —' BLACKOUT. Inhale. Lights up: the seat is empty. 'Kai? ... Kai?'"
+  },
+  {
+   "shot": 19,
+   "in": 166.0,
+   "out": 170.0,
+   "frames": [
+    3984,
+    4080
+   ],
+   "scene": 3,
+   "pos": "I",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": null,
+   "aim": [
+    1.05,
+    4.875,
+    0.48
+   ],
+   "aim_subject": "KAI_PHONE",
+   "cues": [],
+   "beat": "Kai's phone face-up, call connected"
+  },
+  {
+   "shot": 20,
+   "in": 170.0,
+   "out": 180.0,
+   "frames": [
+    4080,
+    4320
+   ],
+   "scene": 4,
+   "pos": "G",
+   "lens_mm": 32,
+   "move": "handheld",
+   "camera_loc": [
+    -0.9,
+    6.5,
+    1.3
+   ],
+   "aim": [
+    1.4,
+    6.5,
+    1.2
+   ],
+   "aim_subject": "DOORS",
+   "cues": [],
+   "beat": "Noor at the doors, the emergency handle. 'Hey. Hey!' (recorded operator motion)"
+  },
+  {
+   "shot": 21,
+   "in": 180.0,
+   "out": 186.0,
+   "frames": [
+    4320,
+    4464
+   ],
+   "scene": 4,
+   "pos": "D",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    -1.0,
+    10.292,
+    1.22
+   ],
+   "aim_subject": "WALTER",
+   "cues": [],
+   "beat": "Walter writes in the margin and holds it up"
+  },
+  {
+   "shot": 22,
+   "in": 186.0,
+   "out": 190.0,
+   "frames": [
+    4464,
+    4560
+   ],
+   "scene": 4,
+   "pos": "I",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": null,
+   "aim": null,
+   "aim_subject": null,
+   "cues": [],
+   "beat": "DON'T LIE IN HERE."
+  },
+  {
+   "shot": 23,
+   "in": 190.0,
+   "out": 200.0,
+   "frames": [
+    4560,
+    4800
+   ],
+   "scene": 4,
+   "pos": "I",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": null,
+   "aim": null,
+   "aim_subject": null,
+   "cues": [],
+   "beat": "Bea writes underneath: IT'S AWAKE NOW. YOU WOKE IT."
+  },
+  {
+   "shot": 24,
+   "in": 200.0,
+   "out": 210.0,
+   "frames": [
+    4800,
+    5040
+   ],
+   "scene": 4,
+   "pos": "C",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    -0.35,
+    10.0,
+    1.62
+   ],
+   "aim_subject": "NOOR_STAND",
+   "cues": [],
+   "beat": "Noor reads it twice; eyes to Kai's seat. 'That's insane.'"
+  },
+  {
+   "shot": 25,
+   "in": 210.0,
+   "out": 213.0,
+   "frames": [
+    5040,
+    5112
+   ],
+   "scene": 4,
+   "pos": "B",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    0.55,
+    12.85,
+    1.0
+   ],
+   "aim": [
+    1.05,
+    4.875,
+    0.48
+   ],
+   "aim_subject": "KAI_PHONE",
+   "cues": [],
+   "beat": "Kai's empty seat, the phone"
+  },
+  {
+   "shot": 26,
+   "in": 213.0,
+   "out": 234.0,
+   "frames": [
+    5112,
+    5616
+   ],
+   "scene": 4,
+   "pos": "E",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    -1.0,
+    12.6,
+    1.15
+   ],
+   "aim": [
+    -0.35,
+    10.0,
+    1.62
+   ],
+   "aim_subject": "NOOR_STAND",
+   "cues": [
+    "5"
+   ],
+   "beat": "Standing beside Walter under P3. 'My name is Noor.' Nothing. 'My name is S—' The wrist clamp. P3 near black, P2/P4 dip. Nobody breathes. Recovery"
+  },
+  {
+   "shot": 27,
+   "in": 234.0,
+   "out": 236.0,
+   "frames": [
+    5616,
+    5664
+   ],
+   "scene": 4,
+   "pos": "D",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    -0.35,
+    10.0,
+    1.62
+   ],
+   "aim_subject": "NOOR_STAND",
+   "cues": [],
+   "beat": "He releases her. She's shaking"
+  },
+  {
+   "shot": 28,
+   "in": 236.0,
+   "out": 239.0,
+   "frames": [
+    5664,
+    5736
+   ],
+   "scene": 4,
+   "pos": "I",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": null,
+   "aim": [
+    0.0,
+    13.0,
+    1.82
+   ],
+   "aim_subject": "DISPLAY",
+   "cues": [],
+   "beat": "Display: 8 MIN"
+  },
+  {
+   "shot": 29,
+   "in": 239.0,
+   "out": 252.0,
+   "frames": [
+    5736,
+    6048
+   ],
+   "scene": 5,
+   "pos": "A",
+   "lens_mm": 32,
+   "move": "locked",
+   "camera_loc": [
+    0.0,
+    -3.5,
+    1.65
+   ],
+   "aim": [
+    0.0,
+    13.0,
+    1.65
+   ],
+   "aim_subject": null,
+   "cues": [],
+   "beat": "She sits back down slowly (the walk to P1). Long beat of rails"
+  },
+  {
+   "shot": 30,
+   "in": 252.0,
+   "out": 256.0,
+   "frames": [
+    6048,
+    6144
+   ],
+   "scene": 5,
+   "pos": "I",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": null,
+   "aim": [
+    1.05,
+    4.875,
+    0.48
+   ],
+   "aim_subject": "KAI_PHONE",
+   "cues": [],
+   "beat": "Kai's phone, still lit: 'Kai?'"
+  },
+  {
+   "shot": 31,
+   "in": 256.0,
+   "out": 262.0,
+   "frames": [
+    6144,
+    6288
+   ],
+   "scene": 5,
+   "pos": "B",
+   "lens_mm": 32,
+   "move": "locked",
+   "camera_loc": [
+    0.55,
+    12.85,
+    1.0
+   ],
+   "aim": [
+    1.05,
+    4.875,
+    0.48
+   ],
+   "aim_subject": "KAI_PHONE",
+   "cues": [],
+   "beat": "She walks down the car to Kai's seat"
+  },
+  {
+   "shot": 32,
+   "in": 262.0,
+   "out": 272.0,
+   "frames": [
+    6288,
+    6528
+   ],
+   "scene": 5,
+   "pos": "F",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    4.875,
+    1.15
+   ],
+   "aim": [
+    1.05,
+    4.875,
+    0.48
+   ],
+   "aim_subject": "KAI_PHONE",
+   "cues": [],
+   "beat": "Her thumb over the red end-call button. She can't"
+  },
+  {
+   "shot": 33,
+   "in": 272.0,
+   "out": 282.0,
+   "frames": [
+    6528,
+    6768
+   ],
+   "scene": 5,
+   "pos": "E",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    -1.0,
+    12.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    10.292,
+    1.2
+   ],
+   "aim_subject": null,
+   "cues": [],
+   "beat": "She goes back to her seat; Bea watches the whole time"
+  },
+  {
+   "shot": 34,
+   "in": 282.0,
+   "out": 290.0,
+   "frames": [
+    6768,
+    6960
+   ],
+   "scene": 5,
+   "pos": "C",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    1.0,
+    10.292,
+    1.22
+   ],
+   "aim_subject": "BEA",
+   "cues": [],
+   "beat": "Bea: 'You okay?'"
+  },
+  {
+   "shot": 35,
+   "in": 290.0,
+   "out": 300.0,
+   "frames": [
+    6960,
+    7200
+   ],
+   "scene": 5,
+   "pos": "D",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [
+    "6"
+   ],
+   "beat": "'I'm f—' (stutter) ... 'I'm not fine.'"
+  },
+  {
+   "shot": 36,
+   "in": 300.0,
+   "out": 309.0,
+   "frames": [
+    7200,
+    7416
+   ],
+   "scene": 5,
+   "pos": "C",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    1.0,
+    10.292,
+    1.22
+   ],
+   "aim_subject": "BEA",
+   "cues": [],
+   "beat": "'Me neither. I haven't slept in two days.' Nothing happens"
+  },
+  {
+   "shot": 37,
+   "in": 309.0,
+   "out": 313.0,
+   "frames": [
+    7416,
+    7512
+   ],
+   "scene": 5,
+   "pos": "D",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [],
+   "beat": "'You've seen this before.'"
+  },
+  {
+   "shot": 38,
+   "in": 313.0,
+   "out": 344.0,
+   "frames": [
+    7512,
+    8256
+   ],
+   "scene": 5,
+   "pos": "D",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    -1.0,
+    10.292,
+    1.22
+   ],
+   "aim_subject": "WALTER",
+   "cues": [],
+   "beat": "Walter: 'I ride it every night.' ... the wife speech, one unbroken shot"
+  },
+  {
+   "shot": 39,
+   "in": 344.0,
+   "out": 349.0,
+   "frames": [
+    8256,
+    8376
+   ],
+   "scene": 5,
+   "pos": "E",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    -1.0,
+    12.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    10.292,
+    1.2
+   ],
+   "aim_subject": null,
+   "cues": [],
+   "beat": "Bea looks at him with real tenderness"
+  },
+  {
+   "shot": 40,
+   "in": 349.0,
+   "out": 355.0,
+   "frames": [
+    8376,
+    8520
+   ],
+   "scene": 5,
+   "pos": "C",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [],
+   "beat": "Noor turns the badge over in her fingers"
+  },
+  {
+   "shot": 41,
+   "in": 355.0,
+   "out": 358.5,
+   "frames": [
+    8520,
+    8604
+   ],
+   "scene": 6,
+   "pos": "I",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": null,
+   "aim": [
+    0.0,
+    13.0,
+    1.82
+   ],
+   "aim_subject": "DISPLAY",
+   "cues": [],
+   "beat": "Display: 5 MIN"
+  },
+  {
+   "shot": 42,
+   "in": 358.5,
+   "out": 380.0,
+   "frames": [
+    8604,
+    9120
+   ],
+   "scene": 6,
+   "pos": "A",
+   "lens_mm": 32,
+   "move": "push A->A2",
+   "camera_loc": [
+    0.0,
+    -3.5,
+    1.65
+   ],
+   "aim": [
+    0.0,
+    13.0,
+    1.65
+   ],
+   "aim_subject": null,
+   "cues": [
+    "7.1",
+    "7.2",
+    "7.3"
+   ],
+   "beat": "Tick: the far panel out. Bea stiffens. 'Nobody said anything.' Walter's eyes to the lanyard. The camera rides in behind the dark edge"
+  },
+  {
+   "shot": 43,
+   "in": 380.0,
+   "out": 384.5,
+   "frames": [
+    9120,
+    9228
+   ],
+   "scene": 6,
+   "pos": "C",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    1.0,
+    10.292,
+    1.22
+   ],
+   "aim_subject": "BEA",
+   "cues": [],
+   "beat": "Bea: 'It isn't only what you say.'"
+  },
+  {
+   "shot": 44,
+   "in": 384.5,
+   "out": 398.0,
+   "frames": [
+    9228,
+    9552
+   ],
+   "scene": 6,
+   "pos": "B",
+   "lens_mm": 32,
+   "move": "locked",
+   "camera_loc": [
+    0.55,
+    12.85,
+    1.0
+   ],
+   "aim": [
+    0.3,
+    0.0,
+    1.0
+   ],
+   "aim_subject": null,
+   "cues": [
+    "7.4",
+    "7.5"
+   ],
+   "beat": "The dark comes toward camera; Kai's seat goes dark, his phone glows on in it"
+  },
+  {
+   "shot": 45,
+   "in": 398.0,
+   "out": 405.5,
+   "frames": [
+    9552,
+    9732
+   ],
+   "scene": 6,
+   "pos": "C",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [
+    "7.6"
+   ],
+   "beat": "She looks down at herself; yanks the lanyard over her head and throws it (each tick takes a step of front light off her face)"
+  },
+  {
+   "shot": 46,
+   "in": 405.5,
+   "out": 408.5,
+   "frames": [
+    9732,
+    9804
+   ],
+   "scene": 6,
+   "pos": "I",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": null,
+   "aim": null,
+   "aim_subject": null,
+   "cues": [],
+   "beat": "The lanyard on the floor: red on grey"
+  },
+  {
+   "shot": 47,
+   "in": 408.5,
+   "out": 416.0,
+   "frames": [
+    9804,
+    9984
+   ],
+   "scene": 6,
+   "pos": "C",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [
+    "7.7"
+   ],
+   "beat": "It isn't enough"
+  },
+  {
+   "shot": 48,
+   "in": 416.0,
+   "out": 432.0,
+   "frames": [
+    9984,
+    10368
+   ],
+   "scene": 6,
+   "pos": "D",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [
+    "7.8",
+    "7.9"
+   ],
+   "beat": "Bea (off): 'Whatever it is, say it.' Noor: 'I can't —'"
+  },
+  {
+   "shot": 49,
+   "in": 432.0,
+   "out": 440.0,
+   "frames": [
+    10368,
+    10560
+   ],
+   "scene": 6,
+   "pos": "C",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    1.0,
+    10.292,
+    1.22
+   ],
+   "aim_subject": "BEA",
+   "cues": [
+    "7.10"
+   ],
+   "beat": "'Say it.' On the last tick Bea's light dies to an edge"
+  },
+  {
+   "shot": 50,
+   "in": 440.0,
+   "out": 445.0,
+   "frames": [
+    10560,
+    10680
+   ],
+   "scene": 6,
+   "pos": "A2",
+   "lens_mm": 32,
+   "move": "locked",
+   "camera_loc": [
+    0.0,
+    -1.0,
+    1.65
+   ],
+   "aim": [
+    0.0,
+    13.0,
+    1.65
+   ],
+   "aim_subject": null,
+   "cues": [],
+   "beat": "Two panels left; Noor in the last pool; display 2 MIN; her phone buzzes"
+  },
+  {
+   "shot": 51,
+   "in": 445.0,
+   "out": 448.0,
+   "frames": [
+    10680,
+    10752
+   ],
+   "scene": 6,
+   "pos": "I",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": null,
+   "aim": null,
+   "aim_subject": null,
+   "cues": [],
+   "beat": "MARK, in her lap"
+  },
+  {
+   "shot": 52,
+   "in": 448.0,
+   "out": 451.0,
+   "frames": [
+    10752,
+    10824
+   ],
+   "scene": 6,
+   "pos": "C",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [],
+   "beat": "She looks across at Kai's phone glowing in the dark"
+  },
+  {
+   "shot": 53,
+   "in": 451.0,
+   "out": 455.5,
+   "frames": [
+    10824,
+    10932
+   ],
+   "scene": 6,
+   "pos": "D",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    -1.0,
+    10.292,
+    1.22
+   ],
+   "aim_subject": "WALTER",
+   "cues": [],
+   "beat": "Walter, half-lit at the edge of the dark: 'He's asking.'"
+  },
+  {
+   "shot": 54,
+   "in": 455.5,
+   "out": 469.0,
+   "frames": [
+    10932,
+    11256
+   ],
+   "scene": 7,
+   "pos": "C",
+   "lens_mm": 75,
+   "move": "push",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [
+    "8.0"
+   ],
+   "beat": "She answers. 'Mark.' ... 'I'm not leaving the office.' (P1 burns brighter)"
+  },
+  {
+   "shot": 55,
+   "in": 469.0,
+   "out": 474.0,
+   "frames": [
+    11256,
+    11376
+   ],
+   "scene": 7,
+   "pos": "E",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    -1.0,
+    12.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    10.292,
+    1.2
+   ],
+   "aim_subject": null,
+   "cues": [
+    "8.1"
+   ],
+   "beat": "Walter and Bea come back into the light"
+  },
+  {
+   "shot": 56,
+   "in": 474.0,
+   "out": 486.0,
+   "frames": [
+    11376,
+    11664
+   ],
+   "scene": 7,
+   "pos": "C",
+   "lens_mm": 75,
+   "move": "push",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [
+    "8.2"
+   ],
+   "beat": "'I go to the library —' the half-beat, her eyes to Kai's phone — '— and I come home.'"
+  },
+  {
+   "shot": 57,
+   "in": 486.0,
+   "out": 501.0,
+   "frames": [
+    11664,
+    12024
+   ],
+   "scene": 7,
+   "pos": "A",
+   "lens_mm": 32,
+   "move": "locked",
+   "camera_loc": [
+    0.0,
+    -3.5,
+    1.65
+   ],
+   "aim": [
+    0.0,
+    13.0,
+    1.65
+   ],
+   "aim_subject": null,
+   "cues": [
+    "8.3",
+    "8.4",
+    "8.5",
+    "8.6",
+    "8.7",
+    "8.8",
+    "8.9"
+   ],
+   "beat": "'I didn't tell you because —' the relights run toward us; Kai's empty seat relights"
+  },
+  {
+   "shot": 58,
+   "in": 501.0,
+   "out": 512.0,
+   "frames": [
+    12024,
+    12288
+   ],
+   "scene": 7,
+   "pos": "C",
+   "lens_mm": 75,
+   "move": "still (the push has landed)",
+   "camera_loc": [
+    -0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [
+    "8.10"
+   ],
+   "beat": "'I'm sorry.' Silence on the line. The far panel comes on. The car is asleep"
+  },
+  {
+   "shot": 59,
+   "in": 512.0,
+   "out": 515.0,
+   "frames": [
+    12288,
+    12360
+   ],
+   "scene": 8,
+   "pos": "I",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": null,
+   "aim": [
+    0.0,
+    13.0,
+    1.82
+   ],
+   "aim_subject": "DISPLAY",
+   "cues": [],
+   "beat": "Display: NOW ARRIVING: HOLLOWAY"
+  },
+  {
+   "shot": 60,
+   "in": 515.0,
+   "out": 519.0,
+   "frames": [
+    12360,
+    12456
+   ],
+   "scene": 8,
+   "pos": "D",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    0.95,
+    9.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    12.75,
+    1.22
+   ],
+   "aim_subject": "NOOR",
+   "cues": [],
+   "beat": "The train slows; she stands and looks back at them"
+  },
+  {
+   "shot": 61,
+   "in": 519.0,
+   "out": 523.0,
+   "frames": [
+    12456,
+    12552
+   ],
+   "scene": 8,
+   "pos": "E",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    -1.0,
+    12.6,
+    1.15
+   ],
+   "aim": [
+    0.0,
+    10.292,
+    1.2
+   ],
+   "aim_subject": null,
+   "cues": [],
+   "beat": "Walter's smallest nod; Bea has closed her eyes"
+  },
+  {
+   "shot": 62,
+   "in": 523.0,
+   "out": 550.0,
+   "frames": [
+    12552,
+    13200
+   ],
+   "scene": 8,
+   "pos": "G",
+   "lens_mm": 32,
+   "move": "locked",
+   "camera_loc": [
+    -0.9,
+    6.5,
+    1.3
+   ],
+   "aim": [
+    1.4,
+    6.5,
+    1.2
+   ],
+   "aim_subject": "DOORS",
+   "cues": [],
+   "beat": "Out under the cold-white lamp, phone to her ear. Doors close. PA. She slides away in the glass"
+  },
+  {
+   "shot": 63,
+   "in": 550.0,
+   "out": 565.0,
+   "frames": [
+    13200,
+    13560
+   ],
+   "scene": 8,
+   "pos": "A",
+   "lens_mm": 32,
+   "move": "locked",
+   "camera_loc": [
+    0.0,
+    -3.5,
+    1.65
+   ],
+   "aim": [
+    0.0,
+    13.0,
+    1.65
+   ],
+   "aim_subject": null,
+   "cues": [],
+   "beat": "The opening frame again: Walter turns the page; Kai's phone dims. CUT TO BLACK"
+  }
+ ]
+}

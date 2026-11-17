@@ -38,17 +38,17 @@
 <rect x="340" y="208" width="109" height="10" fill="#ff5a36"/>
 <text x="395" y="234" font-size="12" fill="#ff8a6a" text-anchor="middle" font-family="Helvetica">DOORS → platform</text>
 <circle cx="90" cy="140" r="9" fill="#c8102e"/><text x="90" y="127" font-size="12" fill="#111" text-anchor="middle" font-family="Helvetica" font-weight="bold">NOOR</text>
-<circle cx="205" cy="95" r="9" fill="#967650"/><text x="205" y="82" font-size="12" fill="#111" text-anchor="middle" font-family="Helvetica" font-weight="bold">WALTER</text>
+<circle cx="205" cy="95" r="9" fill="#967650"/><text x="183" y="82" font-size="12" fill="#111" text-anchor="middle" font-family="Helvetica" font-weight="bold">WALTER</text>
 <circle cx="205" cy="190" r="9" fill="#28345c"/><text x="205" y="177" font-size="12" fill="#111" text-anchor="middle" font-family="Helvetica" font-weight="bold">BEA</text>
 <circle cx="476" cy="192" r="9" fill="#76767a"/><text x="476" y="180" font-size="12" fill="#111" text-anchor="middle" font-family="Helvetica" font-weight="bold">KAI</text>
 <polygon points="895,140 913,131 913,149" fill="#4fc3f7" transform="rotate(0 895 140)"/>
 <text x="901" y="164" font-size="13" fill="#4fc3f7" font-family="Helvetica" font-weight="bold">A</text>
 <polygon points="78,178 96,168 96,186" fill="#4fc3f7" transform="rotate(180 78 178)"/>
 <text x="84" y="202" font-size="13" fill="#4fc3f7" font-family="Helvetica" font-weight="bold">B</text>
-<polygon points="175,80 193,71 193,89" fill="#4fc3f7" transform="rotate(180 175 80)"/>
-<text x="179" y="106" font-size="13" fill="#4fc3f7" font-family="Helvetica" font-weight="bold">C</text>
-<polygon points="233,200 251,191 251,209" fill="#4fc3f7" transform="rotate(180 233 200)"/>
-<text x="237" y="230" font-size="13" fill="#4fc3f7" font-family="Helvetica" font-weight="bold">D</text>
+<polygon points="240,80 258,71 258,89" fill="#4fc3f7" transform="rotate(180 240 80)"/>
+<text x="244" y="106" font-size="13" fill="#4fc3f7" font-family="Helvetica" font-weight="bold">C</text>
+<polygon points="240,200 258,191 258,209" fill="#4fc3f7" transform="rotate(180 240 200)"/>
+<text x="244" y="230" font-size="13" fill="#4fc3f7" font-family="Helvetica" font-weight="bold">D</text>
 <polygon points="85,80 103,71 103,89" fill="#4fc3f7" transform="rotate(180 85 80)"/>
 <text x="81" y="106" font-size="13" fill="#4fc3f7" font-family="Helvetica" font-weight="bold">E</text>
 <polygon points="476,78 494,68 494,86" fill="#4fc3f7" transform="rotate(270 476 78)"/>

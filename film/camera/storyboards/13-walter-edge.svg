@@ -7,5 +7,5 @@
 </defs>
 <g><rect width="956" height="400" fill="#000"/><defs><linearGradient id="edge" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0.85"/><stop offset="0.42" stop-color="#fff" stop-opacity="0.35"/><stop offset="0.5" stop-color="#fff" stop-opacity="0"/></linearGradient><clipPath id="w"><ellipse cx="478" cy="170" rx="95" ry="122"/><path d="M248 420 Q263 290 388 260 L568 260 Q693 290 708 420 Z"/></clipPath></defs><g clip-path="url(#w)"><rect width="956" height="400" fill="#0b0907"/><rect width="956" height="400" fill="url(#edge)"/></g><text x="20" y="30" font-family="Helvetica" font-size="14" fill="#777">P2 spill from frame right (Noor's side) · the shadow line on his cheek · −3 stops must hold</text></g>
 <rect y="400" width="956" height="44" fill="#111"/>
-<text x="12" y="428" font-family="Helvetica,Arial" font-size="15" fill="#ddd">13 · Shot 57 · Pos D · 50 mm MCU · "He's asking." · Walter half-lit at the edge of the dark</text>
+<text x="12" y="428" font-family="Helvetica,Arial" font-size="15" fill="#ddd">13 · Shot 53 · Pos D · 50 mm MCU · "He's asking." · Walter half-lit at the edge of the dark</text>
 </svg>
