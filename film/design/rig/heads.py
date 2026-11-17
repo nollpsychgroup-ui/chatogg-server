@@ -35,7 +35,7 @@ SPEC = {
     "KAI":    dict(key="kai",    r=(0.077, 0.095, 0.115), jaw=0.82, chin_fwd=0.006, eye_r=0.0135, brow_th=0.0048, mouth_w=0.025, lip_th=0.9),
     "BEA":    dict(key="bea",    r=(0.079, 0.093, 0.112), jaw=0.80, chin_fwd=0.004, eye_r=0.0135, brow_th=0.0042, mouth_w=0.026, lip_th=1.15,
                   sclera="#F3F0E8", lid_ink="#0E0907", lid_albedo="#7C5642", ink_band=0.42),
-    "WALTER": dict(key="walter", r=(0.071, 0.095, 0.120), jaw=0.72, chin_fwd=0.007, eye_r=0.0130, brow_th=0.0085, mouth_w=0.024, lip_th=0.75,
+    "WALTER": dict(key="walter", r=(0.076, 0.095, 0.114), jaw=0.74, chin_fwd=0.007, eye_r=0.0142, dome=1.15, brow_th=0.0085, mouth_w=0.024, lip_th=0.75,
                   lid_ink="#3A2C25", lid_albedo="#C9A68D", ink_band=0.30, brow_lift=0.0028),  # heavy lids, bushy brows (shot 38)
 }
 
@@ -47,7 +47,7 @@ CONTROLS = {  # name: (default, min, max)  -- see face-rig.md
 }
 NEUTRAL = {
     "NOOR": dict(lid_up=0.82, naso=0.2), "KAI": dict(lid_up=0.7, naso=0.1),
-    "BEA": dict(lid_up=0.7, naso=0.35, lid_low=0.1), "WALTER": dict(lid_up=0.62, naso=0.6),
+    "BEA": dict(lid_up=0.7, naso=0.35, lid_low=0.1), "WALTER": dict(lid_up=0.66, naso=0.6, lid_low=0.15),
 }
 EYE_X, EYE_Z = 0.032, 0.012  # eye centres: +-x, z above head centre
 BROW_Z = 0.034
@@ -180,8 +180,8 @@ CHARACTER_ANATOMY = {
     "KAI":    [(0.045, -0.045, 0.016, 0.0020), (0.000, -0.098, 0.012, -0.0015)],   # young: full cheeks, softer chin
     "BEA":    [(0.045, -0.040, 0.018, 0.0035), (0.032, -0.012, 0.008, 0.0022)],    # full cheeks; tired under-eyes
     "WALTER": [(0.030, 0.030, 0.016, 0.0010), (0.032, 0.008, 0.010, 0.0018),  # brow, but keep sockets shallow (top light)
-               (0.046, -0.040, 0.014, -0.0040),     # heavier brow; hollow cheeks
-               (0.050, -0.088, 0.012, 0.0030), (0.032, -0.012, 0.008, 0.0018),      # jowls; under-eye bags
+               (0.046, -0.040, 0.016, -0.0012),     # cheeks: age in lines, not holes
+               (0.050, -0.088, 0.014, 0.0014), (0.032, -0.012, 0.008, 0.0014),      # soft jowls; under-eye bags
                (0.000, 0.070, 0.030, 0.0015),                                       # high forehead
                (0.031, -0.036, 0.010, 0.0016)]                                      # cheek fold above the nasolabial
               + [(0.017 + 0.0035 * i, -0.030 - 0.0085 * i, 0.0035, -0.0016) for i in range(5)]   # nasolabial crease
@@ -196,6 +196,7 @@ class Skull:
         self.rx, self.ry, self.rz = s["r"]
         self.jaw = s["jaw"]
         self.chin_fwd = s["chin_fwd"]
+        self.dome = s.get("dome", 0.75)
         self.fields = []
         for (x, z, sig, push) in ANATOMY + CHARACTER_ANATOMY.get(name, []):
             for sx in ((1, -1) if x else (1,)):
@@ -212,7 +213,7 @@ class Skull:
     def _base(self, v):
         # superellipsoid: squarer than an egg (boxier cranium, flatter face plane, firmer jaw)
         zz = v.z
-        pw = 2.0 + 0.75 * max(0.0, min(1.0, (zz + 0.2) / 0.6)) + 0.3 * max(0.0, min(1.0, (-zz - 0.3) / 0.4))
+        pw = 2.0 + self.dome * max(0.0, min(1.0, (zz + 0.2) / 0.6)) + 0.3 * max(0.0, min(1.0, (-zz - 0.3) / 0.4))
         sc = (abs(v.x) ** pw + abs(v.y) ** pw + abs(v.z) ** pw) ** (-1.0 / pw)
         v = v * sc
         zn = v.z
@@ -354,7 +355,7 @@ def build_head(name, collection=None, mats=None, pass_face=1, pass_hair=2):
         for v in bm.verts:
             v.co = Vector((v.co.x * 0.007, v.co.y * 0.014, v.co.z * (0.028 if name != "WALTER" else 0.036)))
         e = _mesh_obj(f"{name}_HD_EAR_{'R' if sx > 0 else 'L'}", bm, [M["skin"]], collection, root, pass_index=pass_face)
-        e.location = (sx * skull.rx * 0.95, -0.008, -0.006)
+        e.location = (sx * skull.rx * (1.04 if name == "WALTER" else 0.95), -0.008, -0.006)
 
     # eyes
     for side, sx in (("L", -1), ("R", 1)):
@@ -576,9 +577,10 @@ def _hair(name, s, skull, M, root, collection, ph):
     elif name == "WALTER":
         # thinning white hair, combed back: a fuller band round the sides and back, and a thin top
         # (lighter, scalp showing through) from a receding hairline. Not bald.
-        side = hairline(1.5, -0.32, -0.45)
-        top_lim = hairline(0.22, 0.22, 0.30)
-        shell(lambda c: min(side(c), -top_lim(c), (abs(math.atan2(c.x, c.y)) / math.pi - 0.37) * 1.5), lambda c: 1.022, "HAIR_SIDES", band=0.09, base=0.99)
+        side = hairline(1.5, -0.40, -0.50)
+        top_lim = hairline(0.34, 0.34, 0.42)
+        shell(lambda c: min(side(c), -top_lim(c), (abs(math.atan2(c.x, c.y)) / math.pi - 0.30) * 1.5),
+              lambda c: 1.065 + 0.03 * max(0.0, -c.y), "HAIR_SIDES", band=0.07)
         Mt = dict(M)
         Mt["hair"] = M.get("hair_thin", M["hair"])
         shell_top = hairline(0.74, 0.46, 0.20)
@@ -622,14 +624,42 @@ def build_neck(root, name, collection=None, mats=None, scarf=None):
     neck = _mesh_obj(f"{name}_HD_NECK", bm, [M["skin"]], collection, root, pass_index=1)
     obs = [neck]
     if scarf if scarf is not None else name == "WALTER":
-        bm = bmesh.new()
-        bmesh.ops.create_cone(bm, cap_ends=False, segments=32, radius1=rx * 1.75, radius2=rx * 1.3, depth=0.07)
-        for v in bm.verts:
-            v.co.y *= ry / rx
         sc_mat = M.get("scarf") or _mat("hd_walter_scarf", tuple(_palette()["walter/scarf"]["linear"]))
-        sc = _mesh_obj(f"{name}_HD_SCARF", bm, [sc_mat], collection, root, pass_index=2)
-        sc.location = (0, -0.016, -0.128)
-        obs.append(sc)
+        parts = []
+        # wrap: a soft torus round the neck base, then a knot at the front and two ends hanging down
+        bm = bmesh.new()
+        R, rr, seg, ring_n = rx * 1.18, 0.015, 36, 12
+        grid = []
+        for i in range(seg):
+            a = 2 * math.pi * i / seg
+            row = []
+            for j in range(ring_n):
+                b = 2 * math.pi * j / ring_n
+                rad = R + rr * math.cos(b) * (1.0 + 0.25 * math.sin(3 * a))   # lumpy wool
+                row.append(bm.verts.new((math.cos(a) * rad, math.sin(a) * rad * ry / rx, rr * math.sin(b) * 1.15)))
+            grid.append(row)
+        for i in range(seg):
+            for j in range(ring_n):
+                bm.faces.new((grid[i][j], grid[(i + 1) % seg][j], grid[(i + 1) % seg][(j + 1) % ring_n], grid[i][(j + 1) % ring_n]))
+        w = _mesh_obj(f"{name}_HD_SCARF", bm, [sc_mat], collection, root, pass_index=2)
+        w.location = (0, -0.014, -0.118)
+        parts.append(w)
+        bm = _sphere(1.0, 16, 12)
+        for v in bm.verts:
+            v.co = Vector((v.co.x * 0.020, v.co.y * 0.012, v.co.z * 0.017))
+        k = _mesh_obj(f"{name}_HD_SCARF_KNOT", bm, [sc_mat], collection, root, pass_index=2)
+        k.location = (0.008, ry * 1.18 + 0.006, -0.135)
+        parts.append(k)
+        for i, (dx, rot) in enumerate(((-0.006, 0.12), (0.020, -0.18))):
+            bm = bmesh.new()
+            bmesh.ops.create_cube(bm, size=1.0)
+            bmesh.ops.scale(bm, vec=Vector((0.040, 0.012, 0.15)), verts=bm.verts)
+            bmesh.ops.bevel(bm, geom=list(bm.edges), offset=0.004, segments=2, affect="EDGES")
+            e = _mesh_obj(f"{name}_HD_SCARF_END{i}", bm, [sc_mat], collection, root, pass_index=2)
+            e.location = (dx, ry * 1.18 + 0.010, -0.215)
+            e.rotation_euler = (0.12, rot, rot * 0.5)
+            parts.append(e)
+        obs += parts
     return obs
 
 

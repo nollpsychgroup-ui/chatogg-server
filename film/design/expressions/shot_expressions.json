@@ -249,17 +249,18 @@
    "naso": 0.6
   },
   "walter/speech": {
-   "lid_up": 0.4,
+   "lid_up": 0.45,
+   "lid_low": 0.15,
    "brow_in": 0.28,
-   "smile": 0.02,
+   "smile": 0.04,
    "chin": 0.15,
    "jaw": 0.06,
    "naso": 0.6,
    "gaze_y": 0.7
   },
   "walter/speech_end": {
-   "lid_up": 0.62,
-   "lid_low": 0.25,
+   "lid_up": 0.66,
+   "lid_low": 0.32,
    "brow_in": 0.15,
    "smile": 0.18,
    "naso": 0.7,

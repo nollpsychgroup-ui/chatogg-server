@@ -167,7 +167,14 @@ def walter_s38():
         L = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "expressions", "shot_expressions.json")))["library"]
         set_expression(r, L[ex], from_neutral=True)
         panels(sc, power=25.0, lit=(True,), y0=-0.25)
-        camera(sc, (0, 0, -0.03), dist=1.05, lens=50, height=0.0)
+        # the white newspaper on his lap: real panel light bounces up off it (paper albedo + GI, no fill)
+        bpy.ops.mesh.primitive_plane_add(size=1, location=(0, -0.30, -0.42))
+        paper = bpy.context.active_object
+        paper.scale = (0.55, 0.36, 1)
+        paper.rotation_euler = (math.radians(-35), 0, 0)
+        from heads import _mat, _lin
+        paper.data.materials.append(_mat("newsprint", _lin("#D9D3C3")))
+        camera(sc, (0, 0, -0.06), dist=1.15, lens=50, height=0.0)
         render(sc, os.path.join(OUT, f"walter_s38_{tag}.png"), 960, 402)
 
 
