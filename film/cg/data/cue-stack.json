@@ -1,0 +1,1141 @@
+{
+ "_doc": [
+  "THE QUIET CAR: lighting cue stack 0-8 (sub-cues 7.x / 8.x), shared sync data for camera (DP), music (Composer) and CG (TA).",
+  "Cue numbers match camera/visual-approach.md and music/cue-sheet.md 1:1. Timecodes are ESTIMATES from the cue sheet (~9:05 cut) until the edit/temp-voice record fixes them.",
+  "tc = seconds from first frame at which the cue fires (the trigger word). keys = [t_offset_s, level, interp] where level 1.0 = baseline panel output, interp is 'const' (snap), 'linear' or 'smooth'.",
+  "Optional per-target 'kelvin' sets colour temperature (with 'kelvin_fade_s'); 'breath' 0/1 turns that panel's breathing on/off. Scene state: 'awake' toggles breathing car-wide.",
+  "Targets: P1..P12 (ceiling panels), ALL (all panels), DISPLAY, WINDOWS (passing tunnel lights, glass only), PLATFORM, PHONE_NOOR, PHONE_KAI, DOOR_LIGHT.",
+  "Edit values here, never in the Blender scripts: film/cg/lib/cue_driver.py keyframes everything from this file."
+ ],
+ "fps": 24,
+ "duration_s": 545.0,
+ "baseline": {
+  "kelvin": 4300,
+  "green_tint": 0.06,
+  "level": 1.0
+ },
+ "sodium": {
+  "kelvin": 2200,
+  "green_tint": 0.0
+ },
+ "platform": {
+  "kelvin": 6500,
+  "_note": "cold-white mercury/LED lamp; orange is reserved for the car being awake"
+ },
+ "breathing": {
+  "depth": 0.03,
+  "period_s": 5.0,
+  "_note": "provisional; Director may set 0.02 or slower. Shared tempo with the hum (1M0)."
+ },
+ "initial": {
+  "ALL": {
+   "level": 1.0,
+   "breath": 1
+  },
+  "DISPLAY": {
+   "level": 1.0
+  },
+  "WINDOWS": {
+   "level": 0.0
+  },
+  "PLATFORM": {
+   "level": 1.0
+  },
+  "PHONE_NOOR": {
+   "level": 0.0
+  },
+  "PHONE_KAI": {
+   "level": 1.0
+  },
+  "DOOR_LIGHT": {
+   "level": 0.0
+  },
+  "awake": 0
+ },
+ "cues": [
+  {
+   "id": "0",
+   "tc": 40.0,
+   "label": "The tick",
+   "line": "(Noor straightens her lanyard)",
+   "music": "1M0 tick (P1 partial, 2 frames)",
+   "kind": "lie",
+   "events": [
+    {
+     "target": "P1",
+     "keys": [
+      [
+       0.0,
+       0.85,
+       "const"
+      ],
+      [
+       0.0834,
+       1.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "PLAT_OUT",
+   "tc": 50.0,
+   "label": "Doors close, pull away",
+   "line": "(The doors close. The train pulls away.)",
+   "music": "1M0",
+   "kind": "practical",
+   "events": [
+    {
+     "target": "PLATFORM",
+     "keys": [
+      [
+       0.0,
+       1.0,
+       "linear"
+      ],
+      [
+       6.0,
+       0.0,
+       "linear"
+      ]
+     ]
+    },
+    {
+     "target": "WINDOWS",
+     "keys": [
+      [
+       4.0,
+       0.0,
+       "linear"
+      ],
+      [
+       8.0,
+       1.0,
+       "linear"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1",
+   "tc": 80.0,
+   "label": "Flicker, one panel",
+   "line": "Just leaving the office now.",
+   "music": "1M1",
+   "kind": "lie",
+   "awake": 1,
+   "events": [
+    {
+     "target": "WINDOWS",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "const"
+      ]
+     ]
+    },
+    {
+     "target": "P1",
+     "keys": [
+      [
+       0.0,
+       0.35,
+       "const"
+      ],
+      [
+       0.08,
+       0.9,
+       "const"
+      ],
+      [
+       0.17,
+       0.3,
+       "const"
+      ],
+      [
+       0.25,
+       0.75,
+       "const"
+      ],
+      [
+       0.38,
+       0.4,
+       "const"
+      ],
+      [
+       0.5,
+       1.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "2",
+   "tc": 95.0,
+   "label": "Flicker, two panels",
+   "line": "Long day. The Henley account. Again.",
+   "music": "1M2",
+   "kind": "lie",
+   "events": [
+    {
+     "target": "P1",
+     "keys": [
+      [
+       0.0,
+       0.2,
+       "const"
+      ],
+      [
+       0.1,
+       0.7,
+       "const"
+      ],
+      [
+       0.2,
+       0.1,
+       "const"
+      ],
+      [
+       0.9,
+       0.1,
+       "const"
+      ],
+      [
+       1.0,
+       0.6,
+       "const"
+      ],
+      [
+       1.1,
+       0.15,
+       "const"
+      ],
+      [
+       1.3,
+       1.0,
+       "const"
+      ]
+     ]
+    },
+    {
+     "target": "P2",
+     "keys": [
+      [
+       0.04,
+       0.25,
+       "const"
+      ],
+      [
+       0.14,
+       0.65,
+       "const"
+      ],
+      [
+       0.24,
+       0.1,
+       "const"
+      ],
+      [
+       0.95,
+       0.1,
+       "const"
+      ],
+      [
+       1.05,
+       0.5,
+       "const"
+      ],
+      [
+       1.15,
+       0.2,
+       "const"
+      ],
+      [
+       1.35,
+       1.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "3",
+   "tc": 145.0,
+   "label": "Brownout",
+   "line": "I'm at the library, Mum.",
+   "music": "1M3",
+   "kind": "lie",
+   "events": [
+    {
+     "target": "ALL",
+     "keys": [
+      [
+       0.0,
+       1.0,
+       "smooth"
+      ],
+      [
+       0.7,
+       0.18,
+       "smooth"
+      ]
+     ],
+     "kelvin": 2200,
+     "kelvin_fade_s": 0.7
+    },
+    {
+     "target": "DISPLAY",
+     "keys": [
+      [
+       0.0,
+       1.0,
+       "smooth"
+      ],
+      [
+       0.7,
+       0.45,
+       "smooth"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "4",
+   "tc": 155.0,
+   "label": "Blackout",
+   "line": "No, that's - it's the library. They're doing work on the -",
+   "music": "1M3 hard out; digital zero",
+   "kind": "lie",
+   "_note": "Snap to true black on the frame: panels, windows, display, phones. ~3 s on screen (5 s+ available for the edit). Kai is removed during the black.",
+   "events": [
+    {
+     "target": "ALL",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "const"
+      ]
+     ]
+    },
+    {
+     "target": "DISPLAY",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "const"
+      ]
+     ]
+    },
+    {
+     "target": "PHONE_KAI",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "const"
+      ]
+     ]
+    },
+    {
+     "target": "WINDOWS",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "4.UP",
+   "tc": 158.0,
+   "label": "Lights up (indifferent)",
+   "line": "(LIGHTS UP. Kai's seat is empty.)",
+   "music": "1M0 returns in tune",
+   "kind": "return",
+   "events": [
+    {
+     "target": "ALL",
+     "keys": [
+      [
+       0.0,
+       1.0,
+       "const"
+      ]
+     ],
+     "kelvin": 4300,
+     "kelvin_fade_s": 0.0
+    },
+    {
+     "target": "DISPLAY",
+     "keys": [
+      [
+       0.0,
+       1.0,
+       "const"
+      ]
+     ]
+    },
+    {
+     "target": "PHONE_KAI",
+     "keys": [
+      [
+       0.0,
+       1.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "5",
+   "tc": 225.0,
+   "label": "Hard dip",
+   "line": "My name is S-",
+   "music": "1M4",
+   "kind": "lie",
+   "events": [
+    {
+     "target": "P1",
+     "keys": [
+      [
+       0.0,
+       0.05,
+       "const"
+      ],
+      [
+       1.5,
+       0.05,
+       "smooth"
+      ],
+      [
+       7.5,
+       1.0,
+       "smooth"
+      ]
+     ]
+    },
+    {
+     "target": "P2",
+     "keys": [
+      [
+       0.04,
+       0.5,
+       "const"
+      ],
+      [
+       1.5,
+       0.5,
+       "smooth"
+      ],
+      [
+       6.5,
+       1.0,
+       "smooth"
+      ]
+     ]
+    },
+    {
+     "target": "P3",
+     "keys": [
+      [
+       0.08,
+       0.6,
+       "const"
+      ],
+      [
+       1.5,
+       0.6,
+       "smooth"
+      ],
+      [
+       6.0,
+       1.0,
+       "smooth"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "6",
+   "tc": 295.0,
+   "label": "Stutter",
+   "line": "I'm f-",
+   "music": "1M5",
+   "kind": "lie",
+   "events": [
+    {
+     "target": "P1",
+     "keys": [
+      [
+       0.0,
+       0.55,
+       "const"
+      ],
+      [
+       0.08,
+       1.0,
+       "const"
+      ],
+      [
+       0.25,
+       0.6,
+       "const"
+      ],
+      [
+       0.33,
+       1.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "7.1",
+   "tc": 360.0,
+   "label": "Sequential out P12",
+   "line": "(display 5 MIN; first far-end tick)",
+   "music": "1M6 in; P12 (Ab) stem out",
+   "kind": "advance",
+   "events": [
+    {
+     "target": "P12",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "7.2",
+   "tc": 369.0,
+   "label": "Sequential out P11",
+   "line": "",
+   "music": "1M6",
+   "kind": "advance",
+   "events": [
+    {
+     "target": "P11",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "7.3",
+   "tc": 378.0,
+   "label": "Sequential out P10",
+   "line": "It isn't only what you say.",
+   "music": "1M6",
+   "kind": "advance",
+   "events": [
+    {
+     "target": "P10",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "7.4",
+   "tc": 387.0,
+   "label": "Sequential out P9",
+   "line": "",
+   "music": "1M6",
+   "kind": "advance",
+   "events": [
+    {
+     "target": "P9",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "7.5",
+   "tc": 395.0,
+   "label": "Sequential out P8",
+   "line": "(Noor throws the lanyard down)",
+   "music": "1M6",
+   "kind": "advance",
+   "events": [
+    {
+     "target": "P8",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "7.6",
+   "tc": 403.0,
+   "label": "Sequential out P7",
+   "line": "Whatever it is, say it.",
+   "music": "1M6",
+   "kind": "advance",
+   "events": [
+    {
+     "target": "P7",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "7.7",
+   "tc": 410.0,
+   "label": "Sequential out P6",
+   "line": "",
+   "music": "1M6",
+   "kind": "advance",
+   "events": [
+    {
+     "target": "P6",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "7.8",
+   "tc": 417.0,
+   "label": "Sequential out P5",
+   "line": "Say it.",
+   "music": "1M6",
+   "kind": "advance",
+   "events": [
+    {
+     "target": "P5",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "7.9",
+   "tc": 424.0,
+   "label": "Sequential out P4",
+   "line": "",
+   "music": "1M6",
+   "kind": "advance",
+   "events": [
+    {
+     "target": "P4",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "7.10",
+   "tc": 431.0,
+   "label": "Sequential out P3 (two panels left)",
+   "line": "(MARK calls)",
+   "music": "1M6 peak",
+   "kind": "advance",
+   "events": [
+    {
+     "target": "P3",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "const"
+      ]
+     ]
+    },
+    {
+     "target": "PHONE_NOOR",
+     "keys": [
+      [
+       1.0,
+       0.0,
+       "const"
+      ],
+      [
+       1.2,
+       1.0,
+       "linear"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "8.0",
+   "tc": 438.0,
+   "label": "P1 steadies, burns brighter",
+   "line": "I'm not leaving the office.",
+   "music": "1M0 P1 steadies +1 dB",
+   "kind": "truth",
+   "events": [
+    {
+     "target": "P1",
+     "breath": 0,
+     "keys": [
+      [
+       0.0,
+       1.0,
+       "smooth"
+      ],
+      [
+       1.2,
+       1.15,
+       "smooth"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "8.1",
+   "tc": 442.0,
+   "label": "Relight P3",
+   "line": "...They let me go. The whole floor.",
+   "music": "1M7 in (vc G)",
+   "kind": "truth",
+   "events": [
+    {
+     "target": "P3",
+     "keys": [
+      [
+       0.0,
+       1.1,
+       "const"
+      ],
+      [
+       0.45,
+       1.0,
+       "smooth"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "8.2",
+   "tc": 450.0,
+   "label": "Relight P4",
+   "line": "...And then I come home.",
+   "music": "1M7 (third withheld)",
+   "kind": "truth",
+   "events": [
+    {
+     "target": "P4",
+     "keys": [
+      [
+       0.0,
+       1.1,
+       "const"
+      ],
+      [
+       0.45,
+       1.0,
+       "smooth"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "8.3",
+   "tc": 456.0,
+   "label": "Relight P5",
+   "line": "I didn't tell you...",
+   "music": "1M7 (vc D)",
+   "kind": "truth",
+   "events": [
+    {
+     "target": "P5",
+     "keys": [
+      [
+       0.0,
+       1.1,
+       "const"
+      ],
+      [
+       0.45,
+       1.0,
+       "smooth"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "8.4",
+   "tc": 459.0,
+   "label": "Relight P6",
+   "line": "(click, click run)",
+   "music": "1M7 (vc F)",
+   "kind": "truth",
+   "events": [
+    {
+     "target": "P6",
+     "keys": [
+      [
+       0.0,
+       1.1,
+       "const"
+      ],
+      [
+       0.45,
+       1.0,
+       "smooth"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "8.5",
+   "tc": 462.0,
+   "label": "Relight P7",
+   "line": "(run)",
+   "music": "1M7",
+   "kind": "truth",
+   "events": [
+    {
+     "target": "P7",
+     "keys": [
+      [
+       0.0,
+       1.1,
+       "const"
+      ],
+      [
+       0.45,
+       1.0,
+       "smooth"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "8.6",
+   "tc": 465.0,
+   "label": "Relight P8",
+   "line": "(run)",
+   "music": "1M7 (vc A)",
+   "kind": "truth",
+   "events": [
+    {
+     "target": "P8",
+     "keys": [
+      [
+       0.0,
+       1.1,
+       "const"
+      ],
+      [
+       0.45,
+       1.0,
+       "smooth"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "8.7",
+   "tc": 468.0,
+   "label": "Relight P9",
+   "line": "(run)",
+   "music": "1M7",
+   "kind": "truth",
+   "events": [
+    {
+     "target": "P9",
+     "keys": [
+      [
+       0.0,
+       1.1,
+       "const"
+      ],
+      [
+       0.45,
+       1.0,
+       "smooth"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "8.8",
+   "tc": 471.0,
+   "label": "Relight P10",
+   "line": "(run)",
+   "music": "1M7",
+   "kind": "truth",
+   "events": [
+    {
+     "target": "P10",
+     "keys": [
+      [
+       0.0,
+       1.1,
+       "const"
+      ],
+      [
+       0.45,
+       1.0,
+       "smooth"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "8.9",
+   "tc": 474.0,
+   "label": "Relight P11",
+   "line": "I'm sorry.",
+   "music": "1M7 vibrato freezes",
+   "kind": "truth",
+   "events": [
+    {
+     "target": "P11",
+     "keys": [
+      [
+       0.0,
+       1.1,
+       "const"
+      ],
+      [
+       0.45,
+       1.0,
+       "smooth"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "8.10",
+   "tc": 488.0,
+   "label": "Relight P12 - asleep again",
+   "line": "(silence on the line)",
+   "music": "1M0 Ab returns; breathing stops",
+   "kind": "truth",
+   "awake": 0,
+   "_note": "Room returns exactly to the opening state. No parting cue after this.",
+   "events": [
+    {
+     "target": "P12",
+     "keys": [
+      [
+       0.0,
+       1.1,
+       "const"
+      ],
+      [
+       0.45,
+       1.0,
+       "smooth"
+      ]
+     ]
+    },
+    {
+     "target": "P1",
+     "keys": [
+      [
+       0.0,
+       1.15,
+       "smooth"
+      ],
+      [
+       1.5,
+       1.0,
+       "smooth"
+      ]
+     ]
+    },
+    {
+     "target": "WINDOWS",
+     "keys": [
+      [
+       3.0,
+       0.0,
+       "linear"
+      ],
+      [
+       6.0,
+       1.0,
+       "linear"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "PLAT_IN",
+   "tc": 500.0,
+   "label": "Arrival, Holloway platform",
+   "line": "(door chime)",
+   "music": "chime A, D (SD)",
+   "kind": "practical",
+   "events": [
+    {
+     "target": "PLATFORM",
+     "keys": [
+      [
+       0.0,
+       0.0,
+       "linear"
+      ],
+      [
+       5.0,
+       1.0,
+       "linear"
+      ]
+     ]
+    },
+    {
+     "target": "DOOR_LIGHT",
+     "keys": [
+      [
+       5.0,
+       1.0,
+       "const"
+      ],
+      [
+       20.0,
+       0.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "PLAT_OUT2",
+   "tc": 522.0,
+   "label": "Doors close, pull away",
+   "line": "Thank you for riding quietly.",
+   "music": "1M0 only",
+   "kind": "practical",
+   "events": [
+    {
+     "target": "PLATFORM",
+     "keys": [
+      [
+       0.0,
+       1.0,
+       "linear"
+      ],
+      [
+       7.0,
+       0.0,
+       "linear"
+      ]
+     ]
+    },
+    {
+     "target": "WINDOWS",
+     "keys": [
+      [
+       6.0,
+       0.0,
+       "linear"
+      ],
+      [
+       10.0,
+       1.0,
+       "linear"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "PHONE_DIM",
+   "tc": 538.0,
+   "label": "Kai's phone screen dims",
+   "line": "(after the page turn)",
+   "music": "1M8 gone ~1 s before",
+   "kind": "practical",
+   "events": [
+    {
+     "target": "PHONE_KAI",
+     "keys": [
+      [
+       0.0,
+       1.0,
+       "linear"
+      ],
+      [
+       1.5,
+       0.25,
+       "linear"
+      ],
+      [
+       4.0,
+       0.0,
+       "const"
+      ]
+     ]
+    }
+   ]
+  }
+ ]
+}

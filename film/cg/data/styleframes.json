@@ -1,0 +1,86 @@
+{
+ "_doc": "Style frame definitions for render_styleframes.py: which cue/offset (s), camera, poses and set-ups. Lighting comes from cue-stack.json.",
+ "frames": {
+  "sf01_first_flicker": {
+   "caption": "Cue 1, 'Just leaving the office now.' P1 mid-flicker, over Walter's shoulder on the 32 mm.",
+   "cue": "1",
+   "offset": 0.17,
+   "camera": "CAM_WALTER_32",
+   "poses": {
+    "NOOR": "phone_ear"
+   },
+   "setup": []
+  },
+  "sf02a_brownout": {
+   "caption": "Cue 3, 'I'm at the library, Mum.' Every panel sags to sodium and holds. Master 32 mm.",
+   "cue": "3",
+   "offset": 3.0,
+   "camera": "CAM_MASTER_32",
+   "poses": {
+    "NOOR": "lap"
+   },
+   "setup": []
+  },
+  "sf02b_blackout": {
+   "caption": "Cue 4, blackout. True black: panels, windows, display and phones all at zero.",
+   "cue": "4",
+   "offset": 1.0,
+   "camera": "CAM_MASTER_32",
+   "poses": {
+    "NOOR": "lap"
+   },
+   "setup": []
+  },
+  "sf02c_lights_up": {
+   "caption": "Cue 4 lights up, same locked wide. Kai's seat is empty and the car is indifferent.",
+   "cue": "4.UP",
+   "offset": 1.0,
+   "camera": "CAM_MASTER_32",
+   "poses": {
+    "NOOR": "lap"
+   },
+   "setup": [
+    "kai_gone"
+   ]
+  },
+  "sf03_creeping_dark": {
+   "caption": "Cue 7.7, the creeping dark: P6-P12 out, a hard edge walking up the aisle toward camera.",
+   "cue": "7.7",
+   "offset": 1.0,
+   "camera": "CAM_MASTER_32",
+   "poses": {
+    "NOOR": "lap"
+   },
+   "setup": [
+    "kai_gone",
+    "lanyard_thrown"
+   ]
+  },
+  "sf04a_final_relight": {
+   "caption": "Cue 8.10, the last panel (P12) snaps on at its 110% overshoot. The room is whole again.",
+   "cue": "8.10",
+   "offset": 0.0,
+   "camera": "CAM_MASTER_32",
+   "poses": {
+    "NOOR": "phone_ear"
+   },
+   "setup": [
+    "kai_gone",
+    "lanyard_thrown"
+   ]
+  },
+  "sf04b_confession_75": {
+   "caption": "Cue 8.3, the confession on the 75 mm: P1 steady and bright, relights spreading out from her.",
+   "cue": "8.3",
+   "offset": 1.0,
+   "camera": "CAM_NOOR_75",
+   "poses": {
+    "NOOR": "phone_ear"
+   },
+   "setup": [
+    "kai_gone",
+    "lanyard_thrown"
+   ]
+  }
+ }
+}

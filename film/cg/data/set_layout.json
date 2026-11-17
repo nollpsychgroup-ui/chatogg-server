@@ -1,0 +1,241 @@
+{
+  "_doc": "Carriage set layout, metres. +X runs from Noor's end (x=0) to the far end wall (x=length) with the QUIET CAR sign and LED display. +Y is the right-hand side looking down +X. Z up, floor at 0. Owned by TA; camera marks are provisional until camera/shot-list.md lands (DP).",
+  "car": {
+    "length": 20.0,
+    "width": 2.8,
+    "height": 2.3,
+    "window_sill": 0.95,
+    "window_head": 1.85,
+    "window_bays": [
+      [
+        0.4,
+        3.6
+      ],
+      [
+        5.6,
+        8.8
+      ],
+      [
+        9.2,
+        13.4
+      ],
+      [
+        15.6,
+        19.6
+      ]
+    ],
+    "doors": [
+      {
+        "name": "DOOR_A",
+        "x": 4.6,
+        "width": 1.3
+      },
+      {
+        "name": "DOOR_B",
+        "x": 14.6,
+        "width": 1.3
+      }
+    ],
+    "platform_side": -1
+  },
+  "panels": {
+    "count": 12,
+    "first_x": 2.6,
+    "pitch": 1.45,
+    "size": [
+      1.2,
+      0.32
+    ],
+    "z": 2.235,
+    "_note": "P1 is above Noor; P12 is the far end. One panel = one light = one partial of the hum (music/cue-sheet.md)."
+  },
+  "seats": {
+    "_note": "Transverse 2+2 bays. Each entry: x of the seat cushion centre, facing +1 (toward far end) or -1 (toward Noor's end).",
+    "pitch": 0.9,
+    "pair_width": 0.95,
+    "aisle": 0.8,
+    "rows": [
+      {
+        "x": 0.8,
+        "facing": 1
+      },
+      {
+        "x": 1.7,
+        "facing": -1
+      },
+      {
+        "x": 2.6,
+        "facing": 1
+      },
+      {
+        "x": 3.5,
+        "facing": -1
+      },
+      {
+        "x": 6.1,
+        "facing": 1
+      },
+      {
+        "x": 7.0,
+        "facing": -1
+      },
+      {
+        "x": 8.0,
+        "facing": 1
+      },
+      {
+        "x": 8.9,
+        "facing": -1
+      },
+      {
+        "x": 10.0,
+        "facing": 1
+      },
+      {
+        "x": 10.9,
+        "facing": -1
+      },
+      {
+        "x": 12.0,
+        "facing": 1
+      },
+      {
+        "x": 12.9,
+        "facing": -1
+      },
+      {
+        "x": 16.1,
+        "facing": -1
+      },
+      {
+        "x": 17.0,
+        "facing": 1
+      },
+      {
+        "x": 18.0,
+        "facing": -1
+      },
+      {
+        "x": 18.9,
+        "facing": 1
+      }
+    ]
+  },
+  "characters": {
+    "NOOR": {
+      "x": 2.6,
+      "side": -1,
+      "seat": "aisle",
+      "facing": 1,
+      "costume": "charcoal suit, red lanyard strap, white badge, laptop bag"
+    },
+    "WALTER": {
+      "x": 8.9,
+      "side": 1,
+      "seat": "aisle",
+      "facing": -1,
+      "costume": "camel overcoat, folded newspaper"
+    },
+    "BEA": {
+      "x": 8.9,
+      "side": -1,
+      "seat": "aisle",
+      "facing": -1,
+      "costume": "navy scrubs, cardigan, bag on lap"
+    },
+    "KAI": {
+      "x": 16.1,
+      "side": 1,
+      "seat": "aisle",
+      "facing": -1,
+      "costume": "grey hoodie, earbuds, phone"
+    }
+  },
+  "cameras": {
+    "_note": "Provisional virtual cameras. Super 35 gate 24.89 mm, 2.39:1. Heights just below seated eye-line, tilted slightly up so the ceiling stays in frame.",
+    "CAM_MASTER_32": {
+      "lens": 32,
+      "loc": [
+        0.4,
+        0.05,
+        1.16
+      ],
+      "look_at": [
+        20.0,
+        -1.3,
+        2.05
+      ],
+      "use": "the meter: from Noor's end down the car, Noor in the right foreground (escalations, creeping dark, relight)"
+    },
+    "CAM_WALTER_32": {
+      "lens": 32,
+      "loc": [
+        10.45,
+        0.42,
+        1.27
+      ],
+      "look_at": [
+        2.55,
+        -0.7,
+        1.62
+      ],
+      "use": "over Walter's shoulder on Noor (the call, lies 1-2): we watch her the way Walter does"
+    },
+    "CAM_REVERSE_25": {
+      "lens": 25,
+      "loc": [
+        19.6,
+        0.0,
+        1.15
+      ],
+      "look_at": [
+        0.0,
+        0.0,
+        1.25
+      ],
+      "use": "far end back toward Noor"
+    },
+    "CAM_NOOR_50": {
+      "lens": 50,
+      "loc": [
+        4.75,
+        0.2,
+        1.12
+      ],
+      "look_at": [
+        2.5,
+        -0.66,
+        1.25
+      ],
+      "use": "truth exchange / creeping dark singles"
+    },
+    "CAM_NOOR_75": {
+      "lens": 75,
+      "loc": [
+        5.4,
+        0.1,
+        1.14
+      ],
+      "look_at": [
+        2.5,
+        -0.66,
+        1.27
+      ],
+      "use": "confession push (only use of the 75)"
+    },
+    "CAM_INSERT_40": {
+      "lens": 40,
+      "loc": [
+        15.4,
+        0.55,
+        1.05
+      ],
+      "look_at": [
+        16.1,
+        0.9,
+        0.5
+      ],
+      "use": "Kai's phone / Noor's thumb over the red button"
+    }
+  }
+}

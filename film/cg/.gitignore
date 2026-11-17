@@ -1,0 +1,5 @@
+.cache/
+*.blend
+*.blend1
+__pycache__/
+stills/*_raw.png
