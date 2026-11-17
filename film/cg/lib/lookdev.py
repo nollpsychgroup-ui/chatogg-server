@@ -245,8 +245,10 @@ def setup_render(scene, res=(1280, 536), samples=64):
     scene.render.image_settings.color_mode = "RGB"
     scene.render.image_settings.color_depth = "8"
     scene.view_settings.view_transform = "AgX"
-    scene.view_settings.look = "None"
-    scene.view_settings.exposure = -0.3
+    # AgX Punchy: keeps skin and costume albedos closer to design/palette.json (base AgX desaturated
+    # and lifted lit skin to pale peach -- Designer colour-fidelity note); black stays 0
+    scene.view_settings.look = "AgX - Punchy"
+    scene.view_settings.exposure = -0.1
     w = bpy.data.worlds.new("NightVoid")   # world black (0): no ambient, no HDRI, no fill
     w.use_nodes = True
     w.node_tree.nodes["Background"].inputs["Color"].default_value = (0, 0, 0, 1)

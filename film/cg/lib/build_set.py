@@ -96,9 +96,9 @@ def build(D=None, B=None):
         parts[-1].visible_shadow = False
         sec.assign(rig, [])
         for p in parts:
-            sec.assign(p, ["P6", "P7"])
+            sec.assign(p, [sec.which(p.matrix_world.translation.y if p.parent is None else p.parent.location.y)])
     box("DOOR_HEADER", (HW - 0.03, dmid, door_h + 0.03), (0.08, dw + 0.12, 0.06), m_trim_p)
-    sec.assign(bpy.data.objects["DOOR_HEADER"], ["P6", "P7"])
+    sec.assign(bpy.data.objects["DOOR_HEADER"], [sec.which(dmid)])
     for s in (-1, 1):
         for y in (dy0 - 0.04, dy1 + 0.04):
             ob = box(f"DOOR_POLE_{y:.1f}_{s}", (HW - 0.12, y, H / 2), (0.035, 0.035, H), m_trim)
@@ -137,14 +137,14 @@ def build(D=None, B=None):
 
     # end wall A: QUIET CAR sign + destination display (cold white-green LED, never amber)
     for ob in (plane("WALL_A", (0, L, H / 2), (W, H), m_wall_a, normal="-Y"),):
-        sec.assign(ob, ["P1", "P2"])
+        sec.assign(ob, ["P1"])   # one section only: objects in two sections would receive spill twice
     m_vinyl = ld.paint("sign_vinyl", "set/sign_vinyl", tier="costume", variation=0.06)
     m_type = ld.paint("sign_text", "set/sign_text", tier="costume", variation=0.0)
     sv = box("SIGN_QUIET_CAR", (0, L - 0.01, 2.10), (1.0, 0.01, 0.2), m_vinyl)
     st = text("SIGN_TEXT", "QUIET CAR", (0, L - 0.022, 2.10), 0.15, m_type)
     bz = box("DISPLAY_BEZEL", (0, L - 0.027, 1.84), (1.25, 0.05, 0.17), ld.gloss("bezel", (0.004, 0.004, 0.004), roughness=0.3))
     for ob in (sv, st, bz):
-        sec.assign(ob, ["P1", "P2"])
+        sec.assign(ob, ["P1"])
     _display(D, L)
 
     # end wall B with the open gangway, and the unlit vestibule (real geometry for Pos A)

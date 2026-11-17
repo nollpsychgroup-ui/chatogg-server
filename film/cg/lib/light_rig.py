@@ -51,6 +51,68 @@ def drive_level(idb, path, ctrl, base, index=-1):
     return fc
 
 
+def _section_index(D, y):
+    from .common import section_bounds
+    b = section_bounds(D)
+    ids = [p["id"] for p in D["panels"]]
+    for i, pid in enumerate(ids):
+        lo, hi = b[pid]
+        if lo - 1e-6 <= y <= hi + 1e-6:
+            return i
+    return 0 if y > D["set"]["length"] / 2 else len(ids) - 1
+
+
+def _link_baffled(D, R, scene, sections):
+    """Virtual baffles, applied the same way to set and characters (Designer colour-fidelity note):
+    every surface receives its own panel and its two neighbours, nothing further (louvred fittings
+    cut the shallow rays). For the set, neighbour light arrives through SPILL lights gated by the
+    receiving section's own panel level, so a dark section stays hard-edged dark (DP L5) while lit
+    areas get the same light a character standing there gets."""
+    ids = [p["id"] for p in D["panels"]]
+    n = len(ids)
+    bpy.context.view_layer.update()   # world matrices of parented rig parts
+    # characters (and loose props) by where they are
+    groups = []
+    for c in bpy.data.collections:
+        if c.name.startswith("CHAR_"):
+            ys = [o.matrix_world.translation.y for o in c.all_objects if o.type == "MESH"]
+            if ys:
+                groups.append((c, _section_index(D, sum(ys) / len(ys))))
+    props = [(o, _section_index(D, o.matrix_world.translation.y)) for o in coll("PROPS_LOOSE").all_objects]
+    for i, pid in enumerate(ids):
+        ob = bpy.data.objects[pid]
+        rc = bpy.data.collections.new(f"LLR_{pid}")
+        rc.children.link(sections[pid])
+        for c, si in groups:
+            if abs(si - i) <= 1:
+                rc.children.link(c)
+        for o, si in props:
+            if abs(si - i) <= 1:
+                rc.objects.link(o)
+        ob.light_linking.receiver_collection = rc
+        for j in (i - 1, i + 1):
+            if not 0 <= j < n:
+                continue
+            nb = bpy.data.objects[ids[j]]
+            ld_ = ob.data.copy()
+            ld_.name = f"{pid}_SPILL_{ids[j]}"
+            for fc in list(ld_.animation_data.drivers) if ld_.animation_data else []:
+                ld_.driver_remove(fc.data_path, fc.array_index)
+            so = bpy.data.objects.new(f"{pid}_SPILL_{ids[j]}", ld_)
+            so.location = ob.location
+            link(so, "LIGHT_RIG")
+            fc = ld_.driver_add("energy")
+            _breath(fc, scene, ob, R["watts"])
+            _var(fc.driver, "lj", "OBJECT", nb, '["level"]')
+            fc.driver.expression = f"{R['watts']}*lvl*(1+dp*aw*br*sin(frame*6.283185/pf))*min(1,lj*4)"
+            for c in range(3):
+                f2 = ld_.driver_add("color", c)
+                f2.driver.type = "SCRIPTED"
+                _var(f2.driver, "c", "OBJECT", ob, f'["rgb"][{c}]')
+                f2.driver.expression = "c"
+            so.light_linking.receiver_collection = sections[ids[j]]
+
+
 def look_rgb(look, B):
     return kelvin_rgb(look.get("kelvin", 4300), look.get("green", 0.0), B["white_balance_k"])
 
@@ -99,13 +161,9 @@ def build(D=None, B=None, sections=None):
                 fc.driver.type = "SCRIPTED"
                 _var(fc.driver, "c", "OBJECT", ob, f'["rgb"][{c}]')
                 fc.driver.expression = "c"
-        # light linking: own section + every character and loose prop
-        if sections is not None:
-            rc = sections[name]
-            for child in (char_coll, props_coll):
-                if child.name not in rc.children:
-                    rc.children.link(child)
-            ob.light_linking.receiver_collection = rc
+
+    if sections is not None:
+        _link_baffled(D, R, scene, sections)
 
     ctrls = {}
     for ch in PRACTICALS:

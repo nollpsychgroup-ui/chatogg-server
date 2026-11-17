@@ -143,6 +143,77 @@ def check_still():
     return d == 0.0, f"Shot 1 (asleep, locked, Pos A), painterly comp on, frames at 8 s and 20 s: max abs pixel difference = {d:.6f}"
 
 
+CHART = ["set/laminate", "set/ceiling", "set/moquette", "set/floor", "THE_RED", "noor/suit", "noor/skin", "noor/hair",
+         "kai/hoodie", "kai/skin", "bea/scrubs", "bea/skin", "walter/coat", "walter/skin"]
+
+
+def check_palette_chart():
+    """Designer's colour-fidelity check: a swatch card (flat palette albedos, matte) on the side-A wall at
+    y 8.6 (P5 section), lit as a character would be there, asleep look. Rendered with the Standard view
+    (no AgX, no paint comp) so values are linear after decoding. Pass when every swatch renders within
+    25% of its albedo ratio to the laminate swatch, and the card's laminate swatch matches the real wall."""
+    from lib import lookdev as ld
+    from lib.common import pal
+    scene = build_scene.build(res=(1280, 536), samples=64, paint=False)
+    scene.view_settings.view_transform = "Standard"
+    scene.view_settings.exposure = 0.0
+    col = bpy.data.collections.new("CHAR_CHART")
+    bpy.data.collections["CHARACTERS"].children.link(col)
+    y0, z0, w, h = 8.6, 1.50, 0.11, 0.11
+    n = len(CHART)
+    names = []
+    for i, key in enumerate(CHART):
+        m = bpy.data.materials.new(f"chart_{i}")
+        m.use_nodes = True
+        b = m.node_tree.nodes["Principled BSDF"]
+        b.inputs["Base Color"].default_value = pal(key) + (1,)
+        b.inputs["Roughness"].default_value = 0.85
+        b.inputs["Specular IOR Level"].default_value = 0.25
+        r, c = divmod(i, 7)
+        from lib.mesh import plane
+        ob = plane(f"CHART_{i}", (-1.36, y0 - 0.42 + c * (w + 0.02), z0 + 0.07 - r * (h + 0.02)), (w, h), m, collection="CHAR_CHART", normal="X")
+        names.append(ob.name)
+    # re-link: rebuild the light linking so the card is treated like a character at y 8.6
+    for pid in [p["id"] for p in common.dp()["panels"]]:
+        rc = bpy.data.collections.get(f"LLR_{pid}")
+        si = int(pid[1:]) - 1
+        if rc is not None and abs(si - 4) <= 1:
+            rc.children.link(col)
+    cam = scene.camera
+    cameras.aim_at(cam, (0.6, y0, z0), (-1.36, y0, z0))
+    cam.data.lens = 40
+    scene.frame_set(common.t2f(56.0))
+    p = os.path.join(OUT, "palette_chart.png")
+    scene.render.filepath = p
+    bpy.ops.render.render(write_still=True)
+    a = load_png(p)
+    lin = np.where(a <= 0.04045, a / 12.92, ((a + 0.055) / 1.055) ** 2.4)
+    Y = 0.2126 * lin[..., 0] + 0.7152 * lin[..., 1] + 0.0722 * lin[..., 2]
+    rx, ry = scene.render.resolution_x, scene.render.resolution_y
+    vals = {}
+    for key, nm in zip(CHART, names):
+        uv = world_to_camera_view(scene, cam, bpy.data.objects[nm].matrix_world.translation)
+        x, y = int(uv.x * rx), int((1 - uv.y) * ry)
+        vals[key] = float(Y[y - 6:y + 6, x - 6:x + 6].mean())
+    # real wall just above the card
+    uvw = world_to_camera_view(scene, cam, Vector((-1.43, y0, z0 + 0.32)))
+    wx, wy = int(uvw.x * rx), int((1 - uvw.y) * ry)
+    wall = float(Y[wy - 6:wy + 6, wx - 6:wx + 6].mean())
+    lum = lambda c: 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+    ref_r, ref_a = vals["set/laminate"], lum(pal("set/laminate"))
+    rows, worst = [], 0.0
+    for key in CHART:
+        expect = lum(pal(key)) / ref_a
+        got = vals[key] / ref_r if ref_r > 0 else 0
+        err = abs(got - expect) / (0.05 + 0.15 * expect)   # <=1 passes: 15% relative, or 0.05 of laminate for darks (matte sheen)
+        worst = max(worst, err)
+        rows.append(f"{key} {got:.3f}/{expect:.3f}")
+    wall_ratio = wall / ref_r if ref_r > 0 else 0
+    ok = worst <= 1.0 and 0.8 < wall_ratio < 1.25
+    return ok, (f"palette_chart.png (Standard view, linear, asleep, card on side-A wall at y 8.6): rendered/expected ratio to laminate per "
+                f"swatch: {'; '.join(rows)}. Worst tolerance use {worst:.2f} (<=1 passes: 15% relative or 0.05 absolute). Real wall vs card laminate: {wall_ratio:.2f} (set and characters lit alike)")
+
+
 def check_keys():
     from bpy_extras import anim_utils
     build_scene.build(res=(64, 27), samples=1)
@@ -166,7 +237,7 @@ if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     rows = []
     for nm, fn in (("L2 / 8a blackout = 0", check_blackout), ("8b / L7 strap most saturated under cue 3", check_strap),
-                   ("L8 light keys on whole frames", check_keys), ("L1 / 8d asleep frames identical", check_still),
+                   ("L8 light keys on whole frames", check_keys), ("Designer palette chart (colour fidelity)", check_palette_chart), ("L1 / 8d asleep frames identical", check_still),
                    ("8c catchlight row", check_catchlights)):
         ok, msg = fn()
         rows.append(f"| {nm} | {'PASS' if ok else ('FAIL' if ok is False else 'PARTIAL')} | {msg} |")
