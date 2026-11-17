@@ -113,8 +113,9 @@ for id, t, p, line in REL:
 EVENTS = [
     ("board_chime", 25.0, "door chime; Noor boards"),
     ("D0", 0.0, "DISPLAY: NEXT STOP: HOLLOWAY"),
+    ("doors_open_board", 0.0, "doors open at the starting platform; PLATFORM lamp on (cold white) while the train idles"),
     ("lanyard", 40.0, "Noor straightens the lanyard (cue 0)"),
-    ("doors_close", 48.0, "doors close; WINDOWS chase on (glass only, while asleep)"),
+    ("doors_close", 48.0, "doors close; the starting platform and its lamp slide away (48-58); WINDOWS chase on (glass only, while asleep)"),
     ("D1", 50.0, "DISPLAY: NEXT STOP: HOLLOWAY — 11 MIN"),
     ("mark_call_1", 65.0, "PHONE (Noor): MARK"),
     ("lie_1", 80.0, "cue 1"),
@@ -129,12 +130,13 @@ EVENTS = [
     ("marks_call", 440.0, "PHONE (Noor): MARK; her screen becomes a key light"),
     ("he_is_asking", 452.0, "WALTER: 'He's asking.'"),
     ("silence_on_line", 505.0, "silence on the line"),
-    ("train_slows", 512.0, "DISPLAY: NOW ARRIVING: HOLLOWAY"),
+    ("train_slows", 512.0, "DISPLAY: NOW ARRIVING: HOLLOWAY; the Holloway platform slides in, seen only in the door glass (512-520)"),
     ("arrival_chime", 520.0, "door chime"),
     ("doors_open", 521.0, "doors open; PLATFORM lamp on (cold white ~5000 K, slight green)"),
     ("doors_close_final", 535.0, "doors close"),
     ("pa_line", 538.0, "PA: 'Thank you for riding quietly.' (no light cue)"),
     ("pull_away", 540.0, "platform + lamp slide away in the door glass; WINDOWS stay black"),
+    ("pull_away_end", 548.0, "platform gone; PLATFORM 0; the frame is dead still from here"),
     ("page_turn", 552.0, "Walter turns the page (no light change)"),
     ("phone_dims", 561.0, "Kai's phone screen fades to black over 2 s"),
     ("cut", 565.0, "CUT TO BLACK"),
@@ -144,16 +146,22 @@ EVENTS = [
 # ---- virtual cameras -------------------------------------------------------------
 HEAD = {"NOOR": (0.0, 12.75, 1.22), "NOOR_STAND": (-0.35, 10.0, 1.62), "WALTER": (-1.0, py(3), 1.22),
         "BEA": (1.0, py(3), 1.22), "KAI": (1.05, py(8), 1.22), "KAI_PHONE": (1.05, py(8), 0.48),
-        "DOORS": (1.4, 6.5, 1.2), "DISPLAY": (0.0, 13.0, 1.82)}
+        "DOORS": (1.4, 6.5, 1.2), "DISPLAY": (0.0, 13.0, 1.82),
+        "NOOR_EYES": (0.0, 12.75, 1.24), "NOOR_CHIN": (0.0, 12.75, 1.10), "NOOR_CROWN": (0.0, 12.75, 1.36),
+        "SIGN": (0.0, 13.0, 2.07), "WRIST": (-0.6, 10.1, 1.0)}
 POS = {
-    "A":  {"loc": (0.0, -3.5, 1.65), "aim": (0.0, 13.0, 1.65), "lens": 32,
+    "A":  {"loc": (0.0, -3.8, 1.65), "aim": (0.0, 13.0, 1.65), "lens": 32,
            "note": "the Meter: in the unlit vestibule, standing eye height, level. Holds all 12 panels, Noor, the sign and the display"},
     "A2": {"loc": (0.0, -1.0, 1.65), "aim": (0.0, 13.0, 1.65), "lens": 32,
            "note": "where the creep push lands (2.5 m in from A)"},
     "B":  {"loc": (0.55, 12.85, 1.0), "aim": (0.3, 0.0, 1.0), "lens": 32,
            "note": "Noor's end, side B corner, low, looking down the car"},
     "C":  {"loc": (-0.95, 9.6, 1.15), "lens": 50, "note": "side A beside Walter: Noor singles (aim NOOR) or Bea across the aisle (aim BEA)"},
-    "C75": {"loc": (-0.4, 9.4, 1.2), "lens": 75,
+    "W":  {"loc": (0.0, 6.0, 1.0), "aim": (0.0, 12.6, 1.8), "lens": 32,
+           "note": "the call (scene 2): low in the aisle by the doors, Noor framed between Walter (left) and Bea (right) with P1 and P2 above her. We watch her the way Walter does"},
+    "T":  {"loc": (0.5, 5.0, 1.0), "aim": (-0.4, 11.0, 1.9), "lens": 32,
+           "note": "the test (scene 4): from beside Kai's empty seat, looking back up the car at Noor standing by Walter, with P2, P3 and P4 in frame"},
+    "C75": {"loc": (-0.25, 10.4, 1.2), "aim": (0.0, 12.75, 1.24), "lens": 75,
             "note": "the confession: near Noor's line of sight down the car, so the panel row reflects in her corneas and reads at 75 mm (dp-notes-02). Her eyeline passes just camera-right of the lens, down the car"},
     "D":  {"loc": (0.95, 9.6, 1.15), "lens": 50, "note": "side B beside Bea: Noor singles or Walter across the aisle"},
     "E":  {"loc": (-1.0, 12.6, 1.15), "aim": (0.0, py(3), 1.2), "lens": 40, "note": "side A corner at end A: Walter/Bea two-shots, deep staging"},
@@ -161,6 +169,13 @@ POS = {
     "G":  {"loc": (-0.9, 6.5, 1.3), "aim": HEAD["DOORS"], "lens": 32, "note": "facing the doors"},
     "I":  {"note": "inserts: placement per shot"},
 }
+# Camera paths for the moving shots: (loc at shot in, loc at shot out). Constant speed, keyed on ones.
+PATHS = {
+    42: ((0.0, -3.8, 1.65), (0.0, -1.0, 1.65)),     # the creep push: A -> A2, landing as 7.3 plays
+    54: ((-0.25, 9.6, 1.2), (-0.25, 10.0, 1.2)),    # the confession push, part 1
+    56: ((-0.25, 10.0, 1.2), (-0.25, 10.4, 1.2)),   # part 2: lands on C75 (the CU), and shot 58 holds it
+}
+
 SENSOR = {"width_mm": 24.89, "height_mm": 10.41, "format": "Super 35 cropped to 2.39:1"}
 
 # ---- the cut ---------------------------------------------------------------------
@@ -172,13 +187,13 @@ S = [
  (4, 47.5, 60.0, "A", 32, None, "locked", 1, "Doors close, train pulls away; 11 MIN", []),
  (5, 60.0, 63.0, "I", 50, "DISPLAY", "locked", 1, "Display: 11 MIN", []),
  (6, 63.0, 78.0, "D", 40, "NOOR", "locked", 2, "Phone buzzes, MARK; she glances up at the sign and answers low", []),
- (7, 78.0, 86.0, "C", 40, "NOOR", "locked", 2, "'Just leaving the office now.' The ceiling enters: P1 in the top of frame", ["1"]),
+ (7, 78.0, 86.0, "W", 32, None, "locked", 2, "'Just leaving the office now.' The ceiling enters: P1 in the top of frame", ["1"]),
  (8, 86.0, 91.0, "E", 40, None, "locked", 2, "Walter's eyes lift; Bea's eyes open", []),
- (9, 91.0, 101.0, "C", 40, "NOOR", "locked", 2, "'The Henley account. Again.' P1 and P2 both in frame", ["2"]),
+ (9, 91.0, 101.0, "W", 32, None, "locked", 2, "'The Henley account. Again.' P1 and P2 both in frame, Walter and Bea watching her", ["2"]),
  (10, 101.0, 108.0, "A", 32, None, "locked", 2, "The whole car reacts: paper lowers, Bea sits up, Kai: 'Was that the brakes?'", []),
- (11, 108.0, 116.0, "C", 40, "NOOR", "locked", 2, "'No, don't wait up. Love you.' Hangs up, sags, looks up", []),
+ (11, 108.0, 116.0, "W", 32, None, "locked", 2, "'No, don't wait up. Love you.' Hangs up, sags, looks up", []),
  (12, 116.0, 120.0, "B", 40, "BEA", "locked", 2, "Walter and Bea staring at her", []),
- (13, 120.0, 130.0, "D", 40, "NOOR", "locked", 2, "Mouths 'Sorry', points over her shoulder at the sign", []),
+ (13, 120.0, 130.0, "W", 32, None, "locked", 2, "Mouths 'Sorry', points over her shoulder at the sign", []),
  (14, 130.0, 138.0, "F", 40, "KAI", "locked", 3, "Kai's phone: MUM. 'Yeah?'", []),
  (15, 138.0, 143.0, "E", 32, "KAI", "locked", 3, "Bea's hand shoots out, too far away", []),
  (16, 143.0, 147.0, "A", 32, None, "locked", 3, "'I'm at the library, Mum.' Brownout", ["3"]),
@@ -191,7 +206,7 @@ S = [
  (23, 190.0, 200.0, "I", 50, None, "locked", 4, "Bea writes underneath: IT'S AWAKE NOW. YOU WOKE IT.", []),
  (24, 200.0, 210.0, "C", 50, "NOOR_STAND", "locked", 4, "Noor reads it twice; eyes to Kai's seat. 'That's insane.'", []),
  (25, 210.0, 213.0, "B", 50, "KAI_PHONE", "locked", 4, "Kai's empty seat, the phone", []),
- (26, 213.0, 234.0, "E", 40, "NOOR_STAND", "locked", 4, "Standing beside Walter under P3. 'My name is Noor.' Nothing. 'My name is S—' The wrist clamp. P3 near black, P2/P4 dip. Nobody breathes. Recovery", ["5"]),
+ (26, 213.0, 234.0, "T", 32, None, "locked", 4, "Standing beside Walter under P3. 'My name is Noor.' Nothing. 'My name is S—' The wrist clamp. P3 near black, P2/P4 dip. Nobody breathes. Recovery", ["5"]),
  (27, 234.0, 236.0, "D", 50, "NOOR_STAND", "locked", 4, "He releases her. She's shaking", []),
  (28, 236.0, 239.0, "I", 50, "DISPLAY", "locked", 4, "Display: 8 MIN", []),
  (29, 239.0, 252.0, "A", 32, None, "locked", 5, "She sits back down slowly (the walk to P1). Long beat of rails", []),
@@ -219,17 +234,45 @@ S = [
  (51, 445.0, 448.0, "I", 50, None, "locked", 6, "MARK, in her lap", []),
  (52, 448.0, 451.0, "C", 50, "NOOR", "locked", 6, "She looks across at Kai's phone glowing in the dark", []),
  (53, 451.0, 455.5, "D", 50, "WALTER", "locked", 6, "Walter, half-lit at the edge of the dark: 'He's asking.' His lit-side eye carries a readable catchlight (P2 or Noor's phone) and the lid line holds", []),
- (54, 455.5, 469.0, "C75", 75, "NOOR", "push", 7, "She answers. 'Mark.' ... 'I'm not leaving the office.' (P1 burns brighter)", ["8.0"]),
+ (54, 455.5, 469.0, "C75", 75, None, "push", 7, "She answers. 'Mark.' ... 'I'm not leaving the office.' (P1 burns brighter)", ["8.0"]),
  (55, 469.0, 474.0, "E", 40, None, "locked", 7, "Walter and Bea come back into the light", ["8.1"]),
- (56, 474.0, 486.0, "C75", 75, "NOOR", "push", 7, "'I go to the library —' the half-beat, her eyes to Kai's phone — '— and I come home.'", ["8.2"]),
+ (56, 474.0, 486.0, "C75", 75, None, "push", 7, "'I go to the library —' the half-beat, her eyes to Kai's phone — '— and I come home.'", ["8.2"]),
  (57, 486.0, 501.0, "A", 32, None, "locked", 7, "'I didn't tell you because —' the relights run toward us; Kai's empty seat relights", ["8.3", "8.4", "8.5", "8.6", "8.7", "8.8", "8.9"]),
- (58, 501.0, 512.0, "C75", 75, "NOOR", "still (the push has landed)", 7, "'I'm sorry.' Silence on the line. The far panel comes on: P12's catchlight reappears in her eyes on the 8.10 frame, completing the reflected row. The car is asleep", ["8.10"]),
+ (58, 501.0, 512.0, "C75", 75, None, "still (the push has landed)", 7, "'I'm sorry.' Silence on the line. The far panel comes on: P12's catchlight reappears in her eyes on the 8.10 frame, completing the reflected row. The car is asleep", ["8.10"]),
  (59, 512.0, 515.0, "I", 50, "DISPLAY", "locked", 8, "Display: NOW ARRIVING: HOLLOWAY", []),
  (60, 515.0, 519.0, "D", 40, "NOOR", "locked", 8, "The train slows; she stands and looks back at them", []),
  (61, 519.0, 523.0, "E", 40, None, "locked", 8, "Walter's smallest nod; Bea has closed her eyes", []),
  (62, 523.0, 550.0, "G", 32, "DOORS", "locked", 8, "Out under the cold-white lamp, phone to her ear. Doors close. PA. She slides away in the glass", []),
  (63, 550.0, 565.0, "A", 32, None, "locked", 8, "The opening frame again: Walter turns the page; Kai's phone dims. CUT TO BLACK", []),
 ]
+
+# Points that must be inside the frame (checked by projection through each shot's lens).
+def _P(i):
+    return (0.0, py(i), 2.29)
+MUST = {
+    1: ["P%d" % i for i in range(1, 13)] + ["NOOR", "SIGN", "DISPLAY"],
+    7: ["P1", "NOOR", "NOOR_CHIN"], 9: ["P1", "P2", "NOOR", "NOOR_CHIN", "WALTER", "BEA"],
+    11: ["P1", "NOOR"], 13: ["SIGN", "NOOR"],
+    16: ["P%d" % i for i in range(1, 13)] + ["KAI"], 18: ["P%d" % i for i in range(1, 13)] + ["KAI", "KAI_PHONE"],
+    26: ["P2", "P3", "P4", "NOOR_STAND", "WRIST", "WALTER"],
+    50: ["P1", "P2", "NOOR", "DISPLAY"],
+    54: ["NOOR_CHIN", "NOOR_CROWN"], 58: ["NOOR_CHIN", "NOOR_CROWN"],
+    57: ["P%d" % i for i in range(1, 13)] + ["KAI_PHONE"],
+    63: ["P%d" % i for i in range(1, 13)] + ["SIGN", "DISPLAY", "WALTER", "KAI_PHONE"],
+}
+
+def frame_xy(cam, aim, f, p):
+    def sub(a, b): return [a[i] - b[i] for i in range(3)]
+    def dot(a, b): return sum(a[i] * b[i] for i in range(3))
+    def cross(a, b): return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]
+    def norm(a):
+        n = dot(a, a) ** 0.5
+        return [v / n for v in a]
+    fw = norm(sub(aim, cam)); r = norm(cross(fw, [0, 0, 1])); u = cross(r, fw)
+    d = sub(p, cam); z = dot(d, fw)
+    if z <= 0:
+        return None
+    return (f * dot(d, r) / z / (SENSOR["width_mm"] / 2), f * dot(d, u) / z / (SENSOR["height_mm"] / 2))
 
 def build():
     times = {c["id"]: c["t"] for c in C}
@@ -271,6 +314,17 @@ def build():
             problems.append("75 mm outside the confession (shot %d)" % s[0])
         if s[6] not in ("locked", "still (the push has landed)") and not (awake[0] <= s[1] and s[2] <= awake[1]):
             problems.append("camera moves while the car is asleep (shot %d)" % s[0])
+    for s_ in S:
+        n, pos, lens, aim = s_[0], s_[3], s_[4], s_[5]
+        cam = POS.get(pos, {})
+        if n not in MUST or "loc" not in cam:
+            continue
+        aim_pt = HEAD[aim] if aim else cam["aim"]
+        for lab in MUST[n]:
+            pt = _P(int(lab[1:])) if lab[0] == "P" and lab[1:].isdigit() else HEAD[lab]
+            q = frame_xy(cam["loc"], aim_pt, lens, pt)
+            if not q or abs(q[0]) > 0.95 or abs(q[1]) > 0.95:
+                problems.append("shot %d: %s falls outside the frame (%s)" % (n, lab, q and "%.2f, %.2f" % q))
     if problems:
         raise SystemExit("CHECKS FAILED:\n  " + "\n  ".join(problems))
 
@@ -278,7 +332,9 @@ def build():
     for n, a, b, pos, lens, aim, move, scene, beat, cues_in in S:
         cam = dict(POS.get(pos, {}))
         aim_pt = HEAD[aim] if aim else cam.get("aim")
+        path = PATHS.get(n)
         shots.append({"shot": n, "in": a, "out": b, "frames": [round(a * FPS), round(b * FPS)],
+                      "path": {"from": path[0], "to": path[1]} if path else None,
                       "scene": scene, "pos": pos, "lens_mm": lens, "move": move,
                       "camera_loc": cam.get("loc"), "aim": aim_pt, "aim_subject": aim,
                       "cues": cues_in, "beat": beat})
@@ -303,7 +359,6 @@ def build():
     }
     with open(os.path.join(HERE, "cues.json"), "w") as fh:
         json.dump(doc, fh, indent=1, ensure_ascii=False)
-    export_cg(shots)
 
     def tc(x):
         return "%d:%04.1f" % (int(x // 60), x % 60)
@@ -314,7 +369,7 @@ def build():
          "Checks passed on build: the cut is continuous; every cue sits at least 0.5 s inside a held shot "
          "(cut on behaviour, never on cues); no cut inside the blackout; the Advance ticks are steady at "
          "%.1f s (rule: 8 s or more, never accelerating); the 75 mm is used only in the confession; and the "
-         "camera moves only while the car is awake." % gaps[0], "",
+         "camera moves only while the car is awake; and in the key shots every panel, face and prop that must read is inside the frame (projected through the lens)." % gaps[0], "",
          ]
     SCENES = {1: "Boarding (11:00)", 2: "The call: Noor's lies (11:00 → ~10:00)", 3: "Kai (~10:00 → ~9:00)",
               4: "The note and the test (~9:00 → 8:00)", 5: "The truth exchange (8:00 → 5:00)",

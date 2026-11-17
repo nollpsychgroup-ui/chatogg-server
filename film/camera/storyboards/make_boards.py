@@ -43,15 +43,32 @@ SKIN, NOOR_SUIT, BEA_C, WALT_C, KAI_C = (190, 150, 125), (58, 60, 66), (40, 52, 
 
 # ---- camera ----------------------------------------------------------------------
 class Cam:
-    def __init__(self, x, y, z, f=1229.0, look=+1):
-        self.x, self.y, self.z, self.f, self.look = x, y, z, f, look
+    """Board coords: x lateral (side A negative), y height, z along the car (= set y).
+    With aim=(x, y, z) the camera looks at that point (the same projection build_cues.py checks)."""
+    def __init__(self, x, y, z, f=1229.0, look=+1, aim=None):
+        self.x, self.y, self.z, self.f, self.look, self.aim = x, y, z, f, look, aim
+        if aim:
+            fw = [aim[0] - x, aim[1] - y, aim[2] - z]
+            n = sum(v * v for v in fw) ** 0.5; fw = [v / n for v in fw]
+            up = [0.0, 1.0, 0.0]
+            r = [fw[1] * up[2] - fw[2] * up[1], fw[2] * up[0] - fw[0] * up[2], fw[0] * up[1] - fw[1] * up[0]]
+            n = sum(v * v for v in r) ** 0.5; r = [v / n for v in r]
+            u = [r[1] * fw[2] - r[2] * fw[1], r[2] * fw[0] - r[0] * fw[2], r[0] * fw[1] - r[1] * fw[0]]
+            self.fw, self.r, self.u = fw, [-v for v in r], u
     def p(self, X, Y, Z):
+        if self.aim:
+            d = [X - self.x, Y - self.y, Z - self.z]
+            zc = max(sum(a * b for a, b in zip(d, self.fw)), 0.05)
+            return (CX + self.f * sum(a * b for a, b in zip(d, self.r)) / zc,
+                    CY - self.f * sum(a * b for a, b in zip(d, self.u)) / zc)
         d = (Z - self.z) * self.look
         if d < 0.05:
             d = 0.05
         sx = (X - self.x) * self.look
         return (CX + self.f * sx / d, CY - self.f * (Y - self.y) / d)
     def depth(self, Z):
+        if self.aim:
+            return (Z - self.z) * self.fw[2]
         return (Z - self.z) * self.look
 
 def poly(pts, fill, extra=""):
@@ -65,6 +82,10 @@ def scene(cam, levels, light=COOL, figures=(), phone_glow=None, display="NEXT ST
     order = sorted(range(1, N + 1), key=lambda i: -cam.depth(pz(i)))
     for i in order:
         z0, z1 = pz(i) - SPACING / 2, pz(i) + SPACING / 2
+        if cam.look == +1:
+            z0 = max(z0, cam.z + 0.3)
+            if z1 <= z0:
+                continue
         L = levels.get(i, 0)
         # spill: a dark section gets a trace from lit neighbours (−4 stops), so the edge reads hard
         spill = max(levels.get(i - 1, 0), levels.get(i + 1, 0)) * 0.06 if L == 0 else 0
@@ -98,6 +119,8 @@ def scene(cam, levels, light=COOL, figures=(), phone_glow=None, display="NEXT ST
                         'stroke="#2a2b2c" stroke-width="0.6"'))
     # doors: side B between P6 and P7
     dz0, dz1 = pz(7) - 0.55, pz(6) + 0.55
+    if cam.look == +1:
+        dz0 = max(dz0, cam.z + 0.3)
     dl = max(levels.get(6, 0), levels.get(7, 0))
     out.append(poly([cam.p(HALF - 0.001, 0, dz0), cam.p(HALF - 0.001, 2.05, dz0),
                      cam.p(HALF - 0.001, 2.05, dz1), cam.p(HALF - 0.001, 0, dz1)], tint((150, 152, 150), light, dl),
@@ -127,7 +150,7 @@ def scene(cam, levels, light=COOL, figures=(), phone_glow=None, display="NEXT ST
         gx0, gy0 = cam.p(-0.45, 1.95, ez); gx1, gy1 = cam.p(0.45, 0, ez)
         out.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" fill="#050505"/>' % (gx0, gy0, gx1 - gx0, gy1 - gy0))
     # figures, far to near
-    for f in sorted(figures, key=lambda f: -cam.depth(f[2])):
+    for f in sorted([f for f in figures if cam.depth(f[2]) > 0.4], key=lambda f: -cam.depth(f[2])):
         out.append(figure(cam, f, levels, light))
     if phone_glow is not None:
         gx, gz, gl = phone_glow
@@ -179,12 +202,13 @@ def write(num, slug, body, caption):
         fh.write(svg)
 
 # ---- cameras ---------------------------------------------------------------------
-A = Cam(0.0, 1.65, -3.5)                       # the Meter: vestibule, standing height, 32 mm
+A = Cam(0.0, 1.65, -3.8)                       # the Meter: vestibule, standing height, 32 mm
 A_IN = Cam(0.0, 1.65, 1.0)                     # the Meter after the creep push
 B = Cam(0.55, 1.0, LEN - 0.15, look=-1)       # Noor's end, side B corner, low, looking down the car
 
 ALL = {i: 1.0 for i in range(1, N + 1)}
 NOOR = ("NOOR", 0.0, 12.75, True)
+NOOR_ST = ("NOOR", -0.35, 10.0, False)
 WALT = ("WALTER", -1.0, pz(3), True)
 BEA = ("BEA", 1.0, pz(3), True)
 KAI = ("KAI", 1.05, pz(8), True)
@@ -260,12 +284,11 @@ def boards():
     b += '<text x="20" y="34" font-family="Helvetica" font-size="15" fill="#333">cue 0: the badge laminate and her hair blink for 2 frames, nothing else</text>'
     write(2, "lanyard-tick", b, "02 · Shot 2 · Pos C · 50 mm MCU · ceiling OUT (asleep) · cue 0, the subliminal tick")
 
-    # 03 lie 2: low 40 with P1 and P2 in frame, both dipped
-    b = bg(COOL, 0.6) + ceiling_strip([(CX - 260, 200, 0.12), (CX + 40, 170, 0.12)], h=90)
-    b += '<text x="%d" y="122" font-family="Helvetica" font-size="13" fill="#444">P2</text><text x="%d" y="122" font-family="Helvetica" font-size="13" fill="#444">P1</text>' % (CX - 270, CX + 30)
-    b += person(CX + 40, H + 40, 1.05, NOOR_SUIT, 0.55, red=True)
-    write(3, "lie-two", b, "03 · Shot 9 · Pos C · 40 mm low · \"The Henley account. Again.\" · cue 2: TWO panels in frame, both dipped")
-
+    # 03 lie 2 from W (set (0, 6.0, 1.0) aiming at (0, 12.6, 1.8))
+    W_ = Cam(0.0, 1.0, 6.0, aim=(0.0, 1.8, 12.6))
+    lv = dict(ALL); lv[1] = 0.3; lv[2] = 0.3
+    write(3, "lie-two", scene(W_, lv, figures=[NOOR, WALT, BEA]),
+          "03 · Shot 9 · Pos W · 32 mm low · \"The Henley account. Again.\" · cue 2: P1 and P2 dipped, countable · Walter and Bea flank her")
     write(4, "brownout", scene(A, {i: 0.32 for i in ALL}, light=SODIUM, figures=CAST),
           "04 · Shot 16 · Pos A · 32 mm · \"I'm at the library, Mum.\" · cue 3: every panel sags warm and HOLDS")
     write(5, "blackout", '<rect width="%d" height="%d" fill="#000"/>' % (W, H),
@@ -284,15 +307,11 @@ def boards():
     b += '<text x="462" y="296" font-family="Georgia,serif" font-style="italic" font-size="24" fill="#1d2a4a" transform="rotate(-3 480 200)">YOU WOKE IT.</text>'
     write(7, "newspaper", b, "07 · Shot 23 · insert · 50 mm · two hands: Walter's block capitals, Bea's tidy nurse's script")
 
-    # 08 hard dip: Noor standing under P4, Walter seated, P3 P4 P5 in frame
-    b = bg(COOL, 0.42) + ceiling_strip([(CX - 330, 150, 0.4), (CX, 170, 0.05), (CX + 330, 150, 0.4)], h=80)
-    for xx, lab in ((CX - 340, "P4"), (CX - 10, "P3"), (CX + 320, "P2")):
-        b += '<text x="%d" y="110" font-family="Helvetica" font-size="13" fill="#555">%s</text>' % (xx, lab)
-    b += person(CX - 60, H + 30, 0.95, NOOR_SUIT, 0.3, red=True)
-    b += person(CX + 250, H + 90, 0.8, WALT_C, 0.35)
-    b += '<path d="M%d %d Q%d %d %d %d" stroke="%s" stroke-width="22" fill="none" stroke-linecap="round"/>' % (CX + 170, H - 70, CX + 90, H - 120, CX + 20, H - 140, tint(WALT_C, COOL, 0.35))
-    write(8, "hard-dip", b, "08 · Shot 26 · Pos E · 40 mm · \"My name is S—\" · Walter clamps her wrist · cue 5: P3 near black, P2 and P4 dip")
-
+    # 08 hard dip from T (set (0.5, 5.0, 1.0) aiming at (-0.4, 11.0, 1.9))
+    T_ = Cam(0.5, 1.0, 5.0, aim=(-0.4, 1.9, 11.0))
+    lv = dict(ALL); lv[3] = 0.05; lv[2] = 0.4; lv[4] = 0.4
+    write(8, "hard-dip", scene(T_, lv, figures=[NOOR_ST, WALT, BEA]),
+          "08 · Shot 26 · Pos T · 32 mm, from Kai's empty seat · \"My name is S—\" · Walter clamps her wrist · cue 5: P3 near black, P2 and P4 dip")
     # 09 thumb over the red button
     b = bg(COOL, 0.35)
     b += '<rect x="330" y="70" width="300" height="300" rx="34" fill="#0b0c0e"/>'
@@ -305,10 +324,10 @@ def boards():
     write(9, "end-call", b, "09 · Shot 32 · Pos F · 40 mm · her thumb over the red end-call button · she can't do it · the red must read")
 
     # 10 creep: after 7.7, mid-push
-    write(10, "creep-dolly", scene(Cam(0.0, 1.65, -1.0), lit(*range(1, 10)), figures=CAST),
-          "10 · Shot 42 · Pos A → A2 push · 32 mm · after cue 7.3: P10–P12 dark · the camera rides in behind the dark edge")
+    write(10, "creep-dolly", scene(Cam(0.0, 1.65, -2.6), lit(*range(1, 10)), figures=[NOOR, WALT, BEA], phone_glow=(1.05, pz(8), 0.9)),
+          "10 · Shot 42 · mid-push, A → A2 · 32 mm · after cue 7.3: P10–P12 dark overhead · the camera rides in behind the dark edge")
     # 11 reverse from Noor's end, mid-sequence (after 7.5)
-    write(11, "dark-toward-camera", scene(B, lit(1, 2, 3, 4, 5, 6, 7), figures=[WALT, BEA, KAI], phone_glow=(1.05, pz(8), 1.0)),
+    write(11, "dark-toward-camera", scene(B, lit(1, 2, 3, 4, 5, 6, 7), figures=[WALT, BEA], phone_glow=(1.05, pz(8), 1.0)),
           "11 · Shot 44 · Pos B · 32 mm low · after cue 7.5: the dark comes toward camera · Kai's phone glows in it")
     write(12, "two-left", scene(Cam(0.0, 1.65, -1.0), lit(1, 2), figures=CAST[:3], phone_glow=(1.05, pz(8), 1.0), display="NEXT STOP: HOLLOWAY — 2 MIN"),
           "12 · Shot 50 · Pos A2 · 32 mm · after cue 7.10: TWO panels left · Noor in the last pool · display: 2 MIN")

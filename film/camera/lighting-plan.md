@@ -4,7 +4,7 @@
 
 **The machine-readable version of this plan is `camera/cues.json`**, written by `camera/build_cues.py`. The TA's Blender scripts keyframe the lights and cameras from it, and the Composer's `render_temp_score.py` reads it for sync. If this document and `cues.json` ever disagree, **`cues.json` wins**, and I fix the document.
 
-For the TA, the same run also writes **`camera/cue-stack.cg.json`**: the same cues in the schema of `film/cg/lib/cue_driver.py`, with the same axes as `cues.json` (the TA adopted them). It's been tested: `cg/build_scene.py` builds with it and keys cue 5, 8.0, 8.10 and the practicals as this plan specifies.
+The TA's Blender build (`film/cg/`) reads `cues.json` directly, in these axes.
 
 ---
 
@@ -31,7 +31,7 @@ All camera positions, panels and character marks refer to this plan (boards: `st
 - **Walter** sits on the side A bench under P3, with **Bea** facing him across the aisle on side B, also under P3.
 - **Doors:** sliding doors on side B, centred between P6 and P7. **Kai** sits on the side B bench under P8, by the doors. His phone stays on that seat for the rest of the film.
 - **Seating:** commuter-style longitudinal benches along both walls (teal moquette), so the aisle and the panel row run clear for the whole length.
-- **End vestibule (build it as real geometry):** an unlit 4 m section beyond end wall B's gangway (y −4 to 0), with no ceiling panel. **Pos A, the Meter, sits in it**, 3.5 m back from the last seat bay, at standing eye height (1.65 m), on a 32 mm. I checked the geometry: this is the only position that holds all 12 panels plus Noor under the sign in a 2.39 frame. Its walls frame the shot honestly, so we don't need to hide or cheat any geometry.
+- **End vestibule (build it as real geometry):** an unlit 4 m section beyond end wall B's gangway (y −4 to 0), with no ceiling panel. **Pos A, the Meter, sits in it**, 3.8 m back from the last seat bay, at standing eye height (1.65 m), on a 32 mm. I checked the geometry: this is the only position that holds all 12 panels plus Noor under the sign in a 2.39 frame. Its walls frame the shot honestly, so we don't need to hide or cheat any geometry.
 - **Display:** white (or pale green) dot-matrix, **not amber.** Orange belongs only to the car waking.
 - **Noor's blocking decides which panel is "above her":** she's in her seat under P1 for cues 0, 1, 2 and 6 and all of cues 7 and 8. After Kai vanishes she runs to the doors, then drifts back up the aisle and **stands beside Walter under P3, holding the grab rail, for the test (cue 5)**, close enough for him to catch her wrist. Then she "sits back down slowly," which is the walk back to P1.
 
@@ -97,8 +97,8 @@ Times are from `cues.json` (estimates for a ~9:25 cut, to be re-timed to the voi
 
 | Cue | t (s) | On | What happens | Sound partner |
 |---|---|---|---|---|
-| — | 0 | top | BASE. Display: NEXT STOP: HOLLOWAY. Windows off (idling at the platform) | idle rumble; the hum is room tone |
-| — | 48 | doors close | WINDOWS on (glass only). Display: 11 MIN at 50 s | rails start |
+| — | 0 | top | BASE. Display: NEXT STOP: HOLLOWAY. Doors open onto the starting platform: PLATFORM lamp on (cold white). Windows off | idle rumble; the hum is room tone |
+| — | 48 | doors close | The starting platform and its lamp slide away (48–58 s). WINDOWS on (glass only). Display: 11 MIN at 50 s | rails start |
 | **0** | 40 | Noor straightens her lanyard | **P1 to 0.85 for 2 frames, then back to 1.0** | partial 2 wobbles; near-inaudible relay click |
 
 ### First lies (the car wakes)
@@ -167,11 +167,11 @@ At 438 s the display reads 2 MIN. At 440 s Noor's phone rings (MARK), and from h
 
 | t | What happens |
 |---|---|
-| 512 | Display: NOW ARRIVING: HOLLOWAY |
+| 512 | Display: NOW ARRIVING: HOLLOWAY. The Holloway platform slides in, seen only in the door glass (512–520) |
 | 520–521 | Door chime; doors open; DOOR indicator on; **PLATFORM on** (cold white) |
 | — | **No car cue.** The car stays at BASE: no parting cue |
 | 535–538 | Doors close; PA: "Thank you for riding quietly." |
-| 540–548 | The platform and its lamp slide away, seen only in the door glass. **WINDOWS stay off**, so the final frames hold no light movement |
+| 540–548 | The platform and its lamp slide away, seen only in the door glass. **WINDOWS stay off**, so from 548 s the frame holds no light movement |
 | 552 | Walter turns the page: **no light change** |
 | 561 | Kai's phone fades to black over 2 s |
 | 565 | Cut to black. Rails stop at 568 |
