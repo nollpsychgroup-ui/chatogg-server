@@ -97,9 +97,6 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
     face_skin = noor.skin_mat() if name == "NOOR" else ld.paint(f"c_{key}_skin_face", f"{key}/skin", tier="face",
                                                                shadow=f"{key}/skin_shadow", axis="x", stretch=3.0,
                                                                variation=0.025, shadow_mix=0.08, tilt=0.07)
-    if name == "WALTER" and not face_skin.get("top_falloff"):   # top-lit crown/forehead under ~235 (Director)
-        ld.top_falloff(face_skin, -0.01, 0.09, 0.42)
-        face_skin["top_falloff"] = True
     mats = {"skin": face_skin,
             "hair": ld.paint(f"c_{key}_hair_rig", f"{key}/hair", tier="costume", stroke_scale=90.0, stretch=6.0, axis="z", variation=0.12 if name == "NOOR" else 0.35),
             "lips": ld.paint(f"c_{key}_lips", f"{key}/lips", tier="face", variation=0.04)}
