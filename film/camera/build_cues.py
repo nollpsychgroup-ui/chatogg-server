@@ -206,28 +206,34 @@ HEAD = {"NOOR": (0.0, 12.75, 1.22), "NOOR_STAND": (-0.35, 10.0, 1.62), "WALTER":
         "DOORS": (1.4, 6.5, 1.2), "DISPLAY": (0.0, 13.0, 1.82),
         "NOOR_EYES": (0.0, 12.75, 1.24), "NOOR_CHIN": (0.0, 12.75, 1.10), "NOOR_CROWN": (0.0, 12.75, 1.36),
         "SIGN": (0.0, 13.0, 2.07), "WRIST": (-0.6, 10.1, 1.0),
-        "NEWSPAPER": (-0.85, 10.0, 1.30),        # held up by Walter toward Noor at the doors (shots 22-23)
+        "NEWSPAPER": (-0.78, 10.1, 1.32),        # held up by Walter toward Noor, who stands beside him (TA blocking 188-239 s) (shots 22-23)
         "LANYARD_FLOOR": (0.2, 12.1, 0.02),      # where it lands at 7.6 (it stays there to the end)
         "NOOR_PHONE_LAP": (0.0, 12.45, 0.62),
         "AIM_15": (0.8, 7.5, 1.1),
-        "AIM_42": (0.0, 13.0, 2.0)}       # the creep push: ~1 deg up from level       # shot 15: Bea's reach in the foreground, Kai deep    # MARK, in her lap (shot 51)
+        "AIM_42": (0.0, 13.0, 2.0),
+        "NOOR_UP": (0.0, 12.6, 1.6),             # standing up at her seat (arrival)
+        "NOOR_AT_DOORS": (0.9, 6.5, 1.6),        # at the doors: the handle (shot 20), reading the paper (24)
+        "NOOR_AT_KAI": (0.55, 4.875, 0.95),      # leaning in over Kai's seat, thumb over the call (32)
+        "AIM_32": (0.7, 4.875, 0.85),            # between the screen and her face
+        "AIM_33": (0.8, 9.0, 1.4),               # her walk back up the car, Bea watching
+        "AIM_DOWN_CAR": (0.3, 0.0, 1.0)}         # looking down the car from Noor's end       # the creep push: ~1 deg up from level       # shot 15: Bea's reach in the foreground, Kai deep    # MARK, in her lap (shot 51)
 
 # Insert cameras: shot -> (loc, aim mark). All 50 mm.
 INSERTS = {
     5:  ((0.0, 10.0, 1.50), "DISPLAY"),          # the display over Noor's head; the top of her head may sit in the bottom of frame
     19: ((0.55, 4.6, 1.25), "KAI_PHONE"),        # high, looking down at the phone on the cushion
-    22: ((-0.5, 8.3, 1.45), "NEWSPAPER"),        # Noor's POV from the doors
-    23: ((-0.5, 8.3, 1.45), "NEWSPAPER"),
+    22: ((0.1, 10.6, 1.8), "NEWSPAPER"),        # over Noor's right shoulder (she stands beside Walter), clear of her body
+    23: ((0.1, 10.6, 1.8), "NEWSPAPER"),
     28: ((0.0, 10.0, 1.50), "DISPLAY"),
     30: ((0.55, 4.6, 1.25), "KAI_PHONE"),
     41: ((0.0, 10.0, 1.50), "DISPLAY"),
     46: ((0.1, 11.2, 1.10), "LANYARD_FLOOR"),    # high, red on grey
-    51: ((0.15, 11.9, 1.05), "NOOR_PHONE_LAP"),  # down into her lap
+    51: ((0.3, 12.6, 1.35), "NOOR_PHONE_LAP"),   # her POV, down at the phone in her lap
     59: ((0.0, 10.0, 1.50), "DISPLAY"),
 }
 
 # The one handheld shot: recorded operator motion layered on the base camera (treatment, scene 4).
-HANDHELD = {20: {"base_loc": (-0.9, 6.5, 1.3), "aim": "DOORS",
+HANDHELD = {20: {"base_loc": (1.0, 8.4, 1.45), "aim": "NOOR_AT_DOORS",
                  "source": "a recorded handheld operator clip (real body motion), not procedural noise",
                  "amplitude": "about 3-5 cm translation and 1-2 degrees rotation, following Noor's panic",
                  "settle": "steady by the cut to shot 21 (Walter's paper); the camera is on sticks again from there"}}
@@ -246,9 +252,25 @@ POS = {
     "C75": {"loc": (-0.25, 10.4, 1.2), "aim": (0.0, 12.75, 1.24), "lens": 75,
             "note": "the confession: near Noor's line of sight down the car, so the panel row reflects in her corneas and reads at 75 mm (dp-notes-02). Her eyeline passes just camera-right of the lens, down the car"},
     "D":  {"loc": (0.7, 10.9, 1.15), "lens": 50, "note": "side B, just in front of Bea (so her head never crosses frame): Noor singles or Walter across the aisle"},
-    "E":  {"loc": (-1.0, 12.6, 1.15), "aim": (0.0, py(3), 1.2), "lens": 40, "note": "side A corner at end A: Walter/Bea two-shots, deep staging"},
+    "E":  {"loc": (-1.0, 12.2, 1.4), "aim": (0.0, py(3), 1.2), "lens": 40, "note": "side A corner at end A: Walter/Bea two-shots, deep staging"},
     "W7": {"loc": (0.0, 8.2, 0.9), "aim": (0.0, 12.6, 1.7), "lens": 32,
            "note": "lie 1 (shot 7): closer and low, so P1's fixture reads large enough to flicker visibly (from W it was a grazing sliver at the far end)"},
+    "G2": {"loc": (1.0, 8.4, 1.45), "aim": (0.9, 6.5, 1.6), "lens": 32,
+           "note": "the handle (shot 20): along the side B wall, Noor's panicked profile at the doors (from G we only saw her back)"},
+    "B2": {"loc": (0.3, 12.85, 1.5), "aim": (0.3, 0.0, 1.2), "lens": 32,
+           "note": "Noor's end, side A corner: looking down the car clear of Bea (from B, Bea's body blocked the foreground)"},
+    "K":  {"loc": (1.25, 4.2, 0.75), "aim": (1.05, 4.875, 0.5), "lens": 40,
+           "note": "at Kai's seat, low beside the phone: the red end-call button with her thumb coming in from above (shot 32). Her face can't share a tight frame with a phone lying on the seat"},
+    "DP_POV": {"loc": (0.3, 6.9, 1.55), "aim": (0.0, 10.29, 1.25), "lens": 32,
+           "note": "Noor's POV from the doors, looking back up the car at Walter and Bea (shot 61)"},
+    "S":  {"loc": (-0.9, 8.9, 1.5), "lens": 50,
+           "note": "Noor standing beside Walter (TA blocking 188-239 s), seen from in front and slightly down the car (shot 24)"},
+    "E3": {"loc": (-0.7, 6.6, 1.4), "aim": (0.0, 10.29, 1.25), "lens": 32,
+           "note": "shot 61: from down the car on side A, Walter (left) and Bea (right) as Noor walks toward camera on side B to the doors"},
+    "R":  {"loc": (-0.6, 3.4, 1.4), "aim": (0.3, 9.0, 1.3), "lens": 32,
+           "note": "shot 31: from beyond Kai's seat, Noor walking down the car toward it"},
+    "DP_KAI": {"loc": (-0.25, 9.7, 1.6), "aim": (1.05, 4.875, 0.48), "lens": 50,
+           "note": "Noor's POV from beside Walter down to Kai's empty seat (shot 25)"},
     "E2": {"loc": (0.0, 7.4, 1.15), "aim": (0.0, 10.29, 1.25), "lens": 32,
            "note": "the Walter/Bea two-shot: from down the car, both in profile facing each other, Noor small between them under the sign. From Noor's end no 32/40 can hold both (they sit 2 m apart, 2.5 m away)"},
     "F":  {"loc": (-0.95, py(8), 1.15), "lens": 40, "note": "across the aisle from Kai"},
@@ -288,20 +310,20 @@ S = [
  (17, 147.0, 153.5, "F", 50, "KAI", "locked", 3, "Kai in the brownout: looks up, nervous laugh", []),
  (18, 153.5, 166.0, "A", 32, None, "locked", 3, "'They're doing work on the —' BLACKOUT. Inhale. Lights up: the seat is empty. 'Kai? ... Kai?'", ["4", "4.up"]),
  (19, 166.0, 170.0, "I", 50, "KAI_PHONE", "locked", 3, "Kai's phone face-up, call connected", []),
- (20, 170.0, 180.0, "G", 32, "DOORS", "handheld", 4, "Noor at the doors, the emergency handle. 'Hey. Hey!' (recorded operator motion)", []),
+ (20, 170.0, 180.0, "G2", 32, None, "handheld", 4, "Noor at the doors, the emergency handle. 'Hey. Hey!' (recorded operator motion)", []),
  (21, 180.0, 186.0, "D", 50, "WALTER", "locked", 4, "Walter writes in the margin and holds it up", []),
  (22, 186.0, 190.0, "I", 50, None, "locked", 4, "DON'T LIE IN HERE.", []),
  (23, 190.0, 200.0, "I", 50, None, "locked", 4, "Bea writes underneath: IT'S AWAKE NOW. YOU WOKE IT.", []),
- (24, 200.0, 210.0, "C", 50, "NOOR_STAND", "locked", 4, "Noor reads it twice; eyes to Kai's seat. 'That's insane.'", []),
- (25, 210.0, 213.0, "B", 50, "KAI_PHONE", "locked", 4, "Kai's empty seat, the phone", []),
+ (24, 200.0, 210.0, "S", 50, "NOOR_STAND", "locked", 4, "Noor reads it twice; eyes to Kai's seat. 'That's insane.'", []),
+ (25, 210.0, 213.0, "DP_KAI", 50, None, "locked", 4, "Kai's empty seat, the phone", []),
  (26, 213.0, 234.0, "T", 32, None, "locked", 4, "Standing beside Walter under P3. 'My name is Noor.' Nothing. 'My name is S—' The wrist clamp. P3 near black, P2/P4 dip. Nobody breathes. Recovery", ["5"]),
- (27, 234.0, 236.0, "D", 50, "NOOR_STAND", "locked", 4, "He releases her. She's shaking", []),
+ (27, 234.0, 236.0, "T", 50, "NOOR_STAND", "locked", 4, "He releases her. She's shaking", []),
  (28, 236.0, 239.0, "I", 50, "DISPLAY", "locked", 4, "Display: 8 MIN", []),
  (29, 239.0, 252.0, "A", 32, None, "locked", 5, "She sits back down slowly (the walk to P1). Long beat of rails", []),
  (30, 252.0, 256.0, "I", 50, "KAI_PHONE", "locked", 5, "Kai's phone, still lit: 'Kai?'", []),
- (31, 256.0, 262.0, "B", 32, "KAI_PHONE", "locked", 5, "She walks down the car to Kai's seat", []),
- (32, 262.0, 272.0, "F", 40, "KAI_PHONE", "locked", 5, "Her thumb over the red end-call button. She can't", []),
- (33, 272.0, 282.0, "E2", 32, None, "locked", 5, "She goes back to her seat; Bea watches the whole time", []),
+ (31, 256.0, 262.0, "R", 32, None, "locked", 5, "She walks down the car to Kai's seat", []),
+ (32, 262.0, 272.0, "K", 40, None, "locked", 5, "Her thumb over the red end-call button. She can't", []),
+ (33, 272.0, 282.0, "E", 32, "AIM_33", "locked", 5, "She goes back to her seat; Bea watches the whole time", []),
  (34, 282.0, 290.0, "C", 50, "BEA", "locked", 5, "Bea: 'You okay?'", []),
  (35, 290.0, 300.0, "D", 50, "NOOR", "locked", 5, "'I'm f—' (stutter) ... 'I'm not fine.'", ["6"]),
  (36, 300.0, 309.0, "C", 50, "BEA", "locked", 5, "'Me neither. I haven't slept in two days.' Nothing happens", []),
@@ -312,7 +334,7 @@ S = [
  (41, 355.0, 358.5, "I", 50, "DISPLAY", "locked", 6, "Display: 5 MIN", []),
  (42, 358.5, 380.0, "A", 32, "AIM_42", "push A->A2", 6, "Tick: the far panel out. Bea stiffens. 'Nobody said anything.' Walter's eyes to the lanyard. The camera rides in behind the dark edge", ["7.1", "7.2", "7.3"]),
  (43, 380.0, 384.5, "C", 50, "BEA", "locked", 6, "Bea: 'It isn't only what you say.'", []),
- (44, 384.5, 398.0, "B", 32, None, "locked", 6, "The dark comes toward camera; Kai's seat goes dark, his phone glows on in it", ["7.4", "7.5"]),
+ (44, 384.5, 398.0, "B2", 32, None, "locked", 6, "The dark comes toward camera; Kai's seat goes dark, his phone glows on in it", ["7.4", "7.5"]),
  (45, 398.0, 405.5, "C", 50, "NOOR", "locked", 6, "She looks down at herself; yanks the lanyard over her head and throws it (each tick takes a step of front light off her face)", ["7.6"]),
  (46, 405.5, 408.5, "I", 50, None, "locked", 6, "The lanyard on the floor: red on grey", []),
  (47, 408.5, 416.0, "C", 50, "NOOR", "locked", 6, "It isn't enough", ["7.7"]),
@@ -328,8 +350,8 @@ S = [
  (57, 486.0, 501.0, "A", 32, None, "locked", 7, "'I didn't tell you because —' the relights run toward us; Kai's empty seat relights", ["8.3", "8.4", "8.5", "8.6", "8.7", "8.8", "8.9"]),
  (58, 501.0, 512.0, "C75", 75, None, "still (the push has landed)", 7, "'I'm sorry.' Silence on the line. The far panel comes on: on the 8.10 frame the tip of the reflected panel row in her corneas completes (P12 itself is sub-pixel at ~10 m; accepted by the Director). Hold C75 as framed, no tighter. The car is asleep", ["8.10"]),
  (59, 512.0, 515.0, "I", 50, "DISPLAY", "locked", 8, "Display: NOW ARRIVING: HOLLOWAY", []),
- (60, 515.0, 519.0, "D", 40, "NOOR", "locked", 8, "The train slows; she stands and looks back at them", []),
- (61, 519.0, 523.0, "E2", 32, None, "locked", 8, "Walter's smallest nod; Bea has closed her eyes", []),
+ (60, 515.0, 519.0, "D", 40, "NOOR_UP", "locked", 8, "The train slows; she stands and looks back at them", []),
+ (61, 519.0, 523.0, "E3", 32, None, "locked", 8, "Walter's smallest nod; Bea has closed her eyes", []),
  (62, 523.0, 550.0, "G", 32, "DOORS", "locked", 8, "Out under the cold-white lamp, phone to her ear. Doors close. PA. She slides away in the glass", []),
  (63, 550.0, 565.0, "A", 32, None, "locked", 8, "The opening frame again: Walter turns the page; Kai's phone dims. CUT TO BLACK", []),
 ]
@@ -343,8 +365,9 @@ MUST = {
     11: ["P1", "NOOR"], 13: ["NOOR", "NOOR_CHIN"],
     16: ["P%d" % i for i in range(1, 13)] + ["KAI"], 18: ["P%d" % i for i in range(1, 13)] + ["KAI", "KAI_PHONE"],
     26: ["P2", "P3", "P4", "NOOR_STAND", "WRIST", "WALTER"],
-    8: ["WALTER"], "8B": ["BEA"], 12: ["WALTER"], "12B": ["BEA"], 39: ["WALTER", "BEA"], 55: ["WALTER", "BEA"], 61: ["WALTER", "BEA"],
-    15: ["BEA", "KAI"], 6: ["NOOR", "NOOR_CHIN"], 38: ["WALTER"], 53: ["WALTER"], 34: ["BEA"], 36: ["BEA"],
+    8: ["WALTER"], "8B": ["BEA"], 12: ["WALTER"], "12B": ["BEA"], 39: ["WALTER", "BEA"], 55: ["WALTER", "BEA"], 61: ["WALTER", "BEA"], 22: ["NEWSPAPER"], 23: ["NEWSPAPER"], 51: ["NOOR_PHONE_LAP"],
+    15: ["BEA", "KAI"], 20: ["NOOR_AT_DOORS"], 24: ["NOOR_STAND"], 25: ["KAI_PHONE"],
+    32: ["KAI_PHONE"], 33: ["BEA"], 44: ["KAI_PHONE"], 60: ["NOOR_UP"], 61: ["WALTER", "BEA"], 22: ["NEWSPAPER"], 23: ["NEWSPAPER"], 51: ["NOOR_PHONE_LAP"], 6: ["NOOR", "NOOR_CHIN"], 38: ["WALTER"], 53: ["WALTER"], 34: ["BEA"], 36: ["BEA"],
     50: ["P1", "P2", "NOOR", "DISPLAY"],
     54: ["NOOR_CHIN", "NOOR_CROWN"], 58: ["NOOR_CHIN", "NOOR_CROWN"],
     57: ["P%d" % i for i in range(1, 13)] + ["KAI_PHONE"],
@@ -442,6 +465,46 @@ def build():
                 q = frame_xy(loc, aim_pt, lens, _P(int(pnl[1:])))
                 if not q or abs(q[0]) > 0.95 or abs(q[1]) > 0.95:
                     problems.append("shot %s: cue %s's panel %s is out of frame at %.1f s (%s)" % (n, cid, pnl, c["t"], q and "%.2f, %.2f" % q))
+    # Occlusion: no seated cast member (Walter, Bea; Kai until cue 4) may stand between the camera and the
+    # shot's subject. Bodies are vertical capsules (radius 0.28 m, floor to head) at their seats.
+    BODIES = {"WALTER": (-1.0, py(3), 1.35), "BEA": (1.0, py(3), 1.35), "KAI": (1.05, py(8), 1.35)}
+    BLK = os.path.join(HERE, "..", "cg", "data", "blocking.json")
+    noor_segs = json.load(open(BLK))["NOOR"] if os.path.exists(BLK) else []
+    def noor_at(t):
+        for g in noor_segs:
+            if g["t"][0] <= t < g["t"][1]:
+                if g["kind"] == "seat":
+                    return (0.0, 12.75, 1.35)
+                if g["kind"] == "stand":
+                    return (g["at"][0], g["at"][1], 1.75) if not g.get("platform") else None
+                u = (t - g["t"][0]) / (g["t"][1] - g["t"][0])
+                return (g["from"][0] + (g["to"][0] - g["from"][0]) * u, g["from"][1] + (g["to"][1] - g["from"][1]) * u, 1.75)
+        return None
+    for s_ in S:
+        n, a_, pos, aim = s_[0], s_[1], s_[3], s_[5]
+        cam = POS.get(pos, {})
+        loc = INSERTS[n][0] if n in INSERTS else cam.get("loc")
+        aim_key = INSERTS[n][1] if n in INSERTS else aim
+        aim_pt = HEAD[aim_key] if aim_key else cam.get("aim")
+        if not loc or not aim_pt:
+            continue
+        mid = (s_[1] + s_[2]) / 2.0
+        bodies = dict(BODIES)
+        nb = noor_at(mid)
+        NOOR_SUBJECT = {"A", "A2", "W", "W7", "T", "G2", "C75", "R", "B2"}   # positions framed on Noor
+        if nb and pos not in NOOR_SUBJECT and not (aim_key and aim_key.startswith("NOOR")) \
+                and ((loc[0] - nb[0]) ** 2 + (loc[1] - nb[1]) ** 2) ** 0.5 > 0.45:   # not a POV from her own head
+            bodies["NOOR"] = nb
+        for who, (bx, by, bh) in bodies.items():
+            if aim_key and aim_key.startswith(who):
+                continue
+            if who == "KAI" and a_ >= 155.0:
+                continue
+            for k in range(1, 20):
+                u = k / 20.0
+                px, py_, pz = (loc[i] + (aim_pt[i] - loc[i]) * u for i in range(3))
+                if pz <= bh and ((px - bx) ** 2 + (py_ - by) ** 2) ** 0.5 < 0.28:
+                    problems.append("shot %s: %s blocks the line to the subject" % (n, who)); break
     if problems:
         raise SystemExit("CHECKS FAILED:\n  " + "\n  ".join(problems))
 

@@ -92,9 +92,9 @@
     1.0
    ],
    "NEWSPAPER": [
-    -0.85,
-    10.0,
-    1.3
+    -0.78,
+    10.1,
+    1.32
    ],
    "LANYARD_FLOOR": [
     0.2,
@@ -115,6 +115,36 @@
     0.0,
     13.0,
     2.0
+   ],
+   "NOOR_UP": [
+    0.0,
+    12.6,
+    1.6
+   ],
+   "NOOR_AT_DOORS": [
+    0.9,
+    6.5,
+    1.6
+   ],
+   "NOOR_AT_KAI": [
+    0.55,
+    4.875,
+    0.95
+   ],
+   "AIM_32": [
+    0.7,
+    4.875,
+    0.85
+   ],
+   "AIM_33": [
+    0.8,
+    9.0,
+    1.4
+   ],
+   "AIM_DOWN_CAR": [
+    0.3,
+    0.0,
+    1.0
    ]
   }
  },
@@ -1543,8 +1573,8 @@
    "E": {
     "loc": [
      -1.0,
-     12.6,
-     1.15
+     12.2,
+     1.4
     ],
     "aim": [
      0.0,
@@ -1567,6 +1597,113 @@
     ],
     "lens": 32,
     "note": "lie 1 (shot 7): closer and low, so P1's fixture reads large enough to flicker visibly (from W it was a grazing sliver at the far end)"
+   },
+   "G2": {
+    "loc": [
+     1.0,
+     8.4,
+     1.45
+    ],
+    "aim": [
+     0.9,
+     6.5,
+     1.6
+    ],
+    "lens": 32,
+    "note": "the handle (shot 20): along the side B wall, Noor's panicked profile at the doors (from G we only saw her back)"
+   },
+   "B2": {
+    "loc": [
+     0.3,
+     12.85,
+     1.5
+    ],
+    "aim": [
+     0.3,
+     0.0,
+     1.2
+    ],
+    "lens": 32,
+    "note": "Noor's end, side A corner: looking down the car clear of Bea (from B, Bea's body blocked the foreground)"
+   },
+   "K": {
+    "loc": [
+     1.25,
+     4.2,
+     0.75
+    ],
+    "aim": [
+     1.05,
+     4.875,
+     0.5
+    ],
+    "lens": 40,
+    "note": "at Kai's seat, low beside the phone: the red end-call button with her thumb coming in from above (shot 32). Her face can't share a tight frame with a phone lying on the seat"
+   },
+   "DP_POV": {
+    "loc": [
+     0.3,
+     6.9,
+     1.55
+    ],
+    "aim": [
+     0.0,
+     10.29,
+     1.25
+    ],
+    "lens": 32,
+    "note": "Noor's POV from the doors, looking back up the car at Walter and Bea (shot 61)"
+   },
+   "S": {
+    "loc": [
+     -0.9,
+     8.9,
+     1.5
+    ],
+    "lens": 50,
+    "note": "Noor standing beside Walter (TA blocking 188-239 s), seen from in front and slightly down the car (shot 24)"
+   },
+   "E3": {
+    "loc": [
+     -0.7,
+     6.6,
+     1.4
+    ],
+    "aim": [
+     0.0,
+     10.29,
+     1.25
+    ],
+    "lens": 32,
+    "note": "shot 61: from down the car on side A, Walter (left) and Bea (right) as Noor walks toward camera on side B to the doors"
+   },
+   "R": {
+    "loc": [
+     -0.6,
+     3.4,
+     1.4
+    ],
+    "aim": [
+     0.3,
+     9.0,
+     1.3
+    ],
+    "lens": 32,
+    "note": "shot 31: from beyond Kai's seat, Noor walking down the car toward it"
+   },
+   "DP_KAI": {
+    "loc": [
+     -0.25,
+     9.7,
+     1.6
+    ],
+    "aim": [
+     1.05,
+     4.875,
+     0.48
+    ],
+    "lens": 50,
+    "note": "Noor's POV from beside Walter down to Kai's empty seat (shot 25)"
    },
    "E2": {
     "loc": [
@@ -2220,27 +2357,27 @@
    ],
    "path": null,
    "scene": 4,
-   "pos": "G",
+   "pos": "G2",
    "lens_mm": 32,
    "move": "handheld",
    "camera_loc": [
-    -0.9,
-    6.5,
-    1.3
+    1.0,
+    8.4,
+    1.45
    ],
    "aim": [
-    1.4,
+    0.9,
     6.5,
-    1.2
+    1.6
    ],
-   "aim_subject": "DOORS",
+   "aim_subject": null,
    "handheld": {
     "base_loc": [
-     -0.9,
-     6.5,
-     1.3
+     1.0,
+     8.4,
+     1.45
     ],
-    "aim": "DOORS",
+    "aim": "NOOR_AT_DOORS",
     "source": "a recorded handheld operator clip (real body motion), not procedural noise",
     "amplitude": "about 3-5 cm translation and 1-2 degrees rotation, following Noor's panic",
     "settle": "steady by the cut to shot 21 (Walter's paper); the camera is on sticks again from there"
@@ -2290,14 +2427,14 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    -0.5,
-    8.3,
-    1.45
+    0.1,
+    10.6,
+    1.8
    ],
    "aim": [
-    -0.85,
-    10.0,
-    1.3
+    -0.78,
+    10.1,
+    1.32
    ],
    "aim_subject": "NEWSPAPER",
    "handheld": null,
@@ -2318,14 +2455,14 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    -0.5,
-    8.3,
-    1.45
+    0.1,
+    10.6,
+    1.8
    ],
    "aim": [
-    -0.85,
-    10.0,
-    1.3
+    -0.78,
+    10.1,
+    1.32
    ],
    "aim_subject": "NEWSPAPER",
    "handheld": null,
@@ -2342,13 +2479,13 @@
    ],
    "path": null,
    "scene": 4,
-   "pos": "C",
+   "pos": "S",
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    -0.7,
-    10.9,
-    1.15
+    -0.9,
+    8.9,
+    1.5
    ],
    "aim": [
     -0.35,
@@ -2370,20 +2507,20 @@
    ],
    "path": null,
    "scene": 4,
-   "pos": "B",
+   "pos": "DP_KAI",
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    0.55,
-    12.85,
-    1.0
+    -0.25,
+    9.7,
+    1.6
    ],
    "aim": [
     1.05,
     4.875,
     0.48
    ],
-   "aim_subject": "KAI_PHONE",
+   "aim_subject": null,
    "handheld": null,
    "cues": [],
    "beat": "Kai's empty seat, the phone"
@@ -2428,13 +2565,13 @@
    ],
    "path": null,
    "scene": 4,
-   "pos": "D",
+   "pos": "T",
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    0.7,
-    10.9,
-    1.15
+    0.5,
+    5.0,
+    1.0
    ],
    "aim": [
     -0.35,
@@ -2540,20 +2677,20 @@
    ],
    "path": null,
    "scene": 5,
-   "pos": "B",
+   "pos": "R",
    "lens_mm": 32,
    "move": "locked",
    "camera_loc": [
-    0.55,
-    12.85,
-    1.0
+    -0.6,
+    3.4,
+    1.4
    ],
    "aim": [
-    1.05,
-    4.875,
-    0.48
+    0.3,
+    9.0,
+    1.3
    ],
-   "aim_subject": "KAI_PHONE",
+   "aim_subject": null,
    "handheld": null,
    "cues": [],
    "beat": "She walks down the car to Kai's seat"
@@ -2568,20 +2705,20 @@
    ],
    "path": null,
    "scene": 5,
-   "pos": "F",
+   "pos": "K",
    "lens_mm": 40,
    "move": "locked",
    "camera_loc": [
-    -0.95,
-    4.875,
-    1.15
+    1.25,
+    4.2,
+    0.75
    ],
    "aim": [
     1.05,
     4.875,
-    0.48
+    0.5
    ],
-   "aim_subject": "KAI_PHONE",
+   "aim_subject": null,
    "handheld": null,
    "cues": [],
    "beat": "Her thumb over the red end-call button. She can't"
@@ -2596,20 +2733,20 @@
    ],
    "path": null,
    "scene": 5,
-   "pos": "E2",
+   "pos": "E",
    "lens_mm": 32,
    "move": "locked",
    "camera_loc": [
-    0.0,
-    7.4,
-    1.15
+    -1.0,
+    12.2,
+    1.4
    ],
    "aim": [
-    0.0,
-    10.29,
-    1.25
+    0.8,
+    9.0,
+    1.4
    ],
-   "aim_subject": null,
+   "aim_subject": "AIM_33",
    "handheld": null,
    "cues": [],
    "beat": "She goes back to her seat; Bea watches the whole time"
@@ -2921,18 +3058,18 @@
    ],
    "path": null,
    "scene": 6,
-   "pos": "B",
+   "pos": "B2",
    "lens_mm": 32,
    "move": "locked",
    "camera_loc": [
-    0.55,
+    0.3,
     12.85,
-    1.0
+    1.5
    ],
    "aim": [
     0.3,
     0.0,
-    1.0
+    1.2
    ],
    "aim_subject": null,
    "handheld": null,
@@ -3133,9 +3270,9 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    0.15,
-    11.9,
-    1.05
+    0.3,
+    12.6,
+    1.35
    ],
    "aim": [
     0.0,
@@ -3429,10 +3566,10 @@
    ],
    "aim": [
     0.0,
-    12.75,
-    1.22
+    12.6,
+    1.6
    ],
-   "aim_subject": "NOOR",
+   "aim_subject": "NOOR_UP",
    "handheld": null,
    "cues": [],
    "beat": "The train slows; she stands and looks back at them"
@@ -3447,13 +3584,13 @@
    ],
    "path": null,
    "scene": 8,
-   "pos": "E2",
+   "pos": "E3",
    "lens_mm": 32,
    "move": "locked",
    "camera_loc": [
-    0.0,
-    7.4,
-    1.15
+    -0.7,
+    6.6,
+    1.4
    ],
    "aim": [
     0.0,

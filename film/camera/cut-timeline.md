@@ -45,14 +45,14 @@ Checks passed on build: the cut is continuous; every cue sits at least 0.5 s ins
 
 | # | In | Out | Pos | Lens | Move | Cues | Beat |
 |---|---|---|---|---|---|---|---|
-| 20 | 2:50.0 | 3:00.0 | G | 32 | handheld | — | Noor at the doors, the emergency handle. 'Hey. Hey!' (recorded operator motion) |
+| 20 | 2:50.0 | 3:00.0 | G2 | 32 | handheld | — | Noor at the doors, the emergency handle. 'Hey. Hey!' (recorded operator motion) |
 | 21 | 3:00.0 | 3:06.0 | D | 50 | locked | — | Walter writes in the margin and holds it up |
 | 22 | 3:06.0 | 3:10.0 | I | 50 | locked | — | DON'T LIE IN HERE. |
 | 23 | 3:10.0 | 3:20.0 | I | 50 | locked | — | Bea writes underneath: IT'S AWAKE NOW. YOU WOKE IT. |
-| 24 | 3:20.0 | 3:30.0 | C | 50 | locked | — | Noor reads it twice; eyes to Kai's seat. 'That's insane.' |
-| 25 | 3:30.0 | 3:33.0 | B | 50 | locked | — | Kai's empty seat, the phone |
+| 24 | 3:20.0 | 3:30.0 | S | 50 | locked | — | Noor reads it twice; eyes to Kai's seat. 'That's insane.' |
+| 25 | 3:30.0 | 3:33.0 | DP_KAI | 50 | locked | — | Kai's empty seat, the phone |
 | 26 | 3:33.0 | 3:54.0 | T | 32 | locked | 5 | Standing beside Walter under P3. 'My name is Noor.' Nothing. 'My name is S—' The wrist clamp. P3 near black, P2/P4 dip. Nobody breathes. Recovery |
-| 27 | 3:54.0 | 3:56.0 | D | 50 | locked | — | He releases her. She's shaking |
+| 27 | 3:54.0 | 3:56.0 | T | 50 | locked | — | He releases her. She's shaking |
 | 28 | 3:56.0 | 3:59.0 | I | 50 | locked | — | Display: 8 MIN |
 
 ## Scene 5: The truth exchange (8:00 → 5:00) · 3:59.0–5:55.0 · 12 shots
@@ -61,9 +61,9 @@ Checks passed on build: the cut is continuous; every cue sits at least 0.5 s ins
 |---|---|---|---|---|---|---|---|
 | 29 | 3:59.0 | 4:12.0 | A | 32 | locked | — | She sits back down slowly (the walk to P1). Long beat of rails |
 | 30 | 4:12.0 | 4:16.0 | I | 50 | locked | — | Kai's phone, still lit: 'Kai?' |
-| 31 | 4:16.0 | 4:22.0 | B | 32 | locked | — | She walks down the car to Kai's seat |
-| 32 | 4:22.0 | 4:32.0 | F | 40 | locked | — | Her thumb over the red end-call button. She can't |
-| 33 | 4:32.0 | 4:42.0 | E2 | 32 | locked | — | She goes back to her seat; Bea watches the whole time |
+| 31 | 4:16.0 | 4:22.0 | R | 32 | locked | — | She walks down the car to Kai's seat |
+| 32 | 4:22.0 | 4:32.0 | K | 40 | locked | — | Her thumb over the red end-call button. She can't |
+| 33 | 4:32.0 | 4:42.0 | E | 32 | locked | — | She goes back to her seat; Bea watches the whole time |
 | 34 | 4:42.0 | 4:50.0 | C | 50 | locked | — | Bea: 'You okay?' |
 | 35 | 4:50.0 | 5:00.0 | D | 50 | locked | 6 | 'I'm f—' (stutter) ... 'I'm not fine.' |
 | 36 | 5:00.0 | 5:09.0 | C | 50 | locked | — | 'Me neither. I haven't slept in two days.' Nothing happens |
@@ -79,7 +79,7 @@ Checks passed on build: the cut is continuous; every cue sits at least 0.5 s ins
 | 41 | 5:55.0 | 5:58.5 | I | 50 | locked | — | Display: 5 MIN |
 | 42 | 5:58.5 | 6:20.0 | A | 32 | push A->A2 | 7.1, 7.2, 7.3 | Tick: the far panel out. Bea stiffens. 'Nobody said anything.' Walter's eyes to the lanyard. The camera rides in behind the dark edge |
 | 43 | 6:20.0 | 6:24.5 | C | 50 | locked | — | Bea: 'It isn't only what you say.' |
-| 44 | 6:24.5 | 6:38.0 | B | 32 | locked | 7.4, 7.5 | The dark comes toward camera; Kai's seat goes dark, his phone glows on in it |
+| 44 | 6:24.5 | 6:38.0 | B2 | 32 | locked | 7.4, 7.5 | The dark comes toward camera; Kai's seat goes dark, his phone glows on in it |
 | 45 | 6:38.0 | 6:45.5 | C | 50 | locked | 7.6 | She looks down at herself; yanks the lanyard over her head and throws it (each tick takes a step of front light off her face) |
 | 46 | 6:45.5 | 6:48.5 | I | 50 | locked | — | The lanyard on the floor: red on grey |
 | 47 | 6:48.5 | 6:56.0 | C | 50 | locked | 7.7 | It isn't enough |
@@ -106,7 +106,7 @@ Checks passed on build: the cut is continuous; every cue sits at least 0.5 s ins
 |---|---|---|---|---|---|---|---|
 | 59 | 8:32.0 | 8:35.0 | I | 50 | locked | — | Display: NOW ARRIVING: HOLLOWAY |
 | 60 | 8:35.0 | 8:39.0 | D | 40 | locked | — | The train slows; she stands and looks back at them |
-| 61 | 8:39.0 | 8:43.0 | E2 | 32 | locked | — | Walter's smallest nod; Bea has closed her eyes |
+| 61 | 8:39.0 | 8:43.0 | E3 | 32 | locked | — | Walter's smallest nod; Bea has closed her eyes |
 | 62 | 8:43.0 | 9:10.0 | G | 32 | locked | — | Out under the cold-white lamp, phone to her ear. Doors close. PA. She slides away in the glass |
 | 63 | 9:10.0 | 9:25.0 | A | 32 | locked | — | The opening frame again: Walter turns the page; Kai's phone dims. CUT TO BLACK |
 

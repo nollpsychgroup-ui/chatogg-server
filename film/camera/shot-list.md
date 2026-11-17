@@ -17,6 +17,7 @@ In live action we'd shoot coverage and find the film in the edit. In animation, 
 - **The Advance ticks are steady:** 8.5 s apart, at least 8 s, never accelerating.
 - **The 75 mm is used only in the confession.**
 - **The camera moves only while the car is awake.**
+- **Nobody blocks the subject.** The line from each camera to its subject is tested against Walter's and Bea's bodies, Kai's until he vanishes, and Noor's position from the TA's `cg/data/blocking.json` at the shot's time.
 - **Everything that must read is in the frame.** Each key shot lists its required panels, faces, sign, display and props, and the script projects them through the lens. That's how the old shot 7 and shot 26 framings were caught and fixed.
 
 ## Rules of the frame
@@ -46,6 +47,13 @@ The locations are in `cues.json` → `camera.positions`, in set coordinates (lig
 | **E2, the two-shot** | (0, 7.4, 1.15), aim (0, 10.29, 1.25) | 32 | Walter and Bea in profile facing each other, Noor small between them under the sign (shots 8, 12, 33, 39, 55, 61). From Noor's end no 32/40 can hold both: they sit 2 m apart, 2.5 m away |
 | **F, Kai's bay** | (−0.95, 4.875, 1.15) | 40/50 | Kai; the thumb over the red button |
 | **G, the doors** | (−0.9, 6.5, 1.3), facing the doors | 32 | the doors and the platform through them |
+| **G2** | (1.0, 8.4, 1.45) | 32 | shot 20, the handheld: Noor's panicked profile at the doors (from G we only saw her back) |
+| **S** | (−0.9, 8.9, 1.5) | 50 | shot 24: Noor standing beside Walter (TA blocking 188–239 s), from in front |
+| **B2** | (0.3, 12.85, 1.5) | 32 | shot 44: from beside Noor's head, looking down the car, clear of Walter and Bea |
+| **R** | (−0.6, 3.4, 1.4) | 32 | shot 31: from beyond Kai's seat, Noor walking toward it |
+| **K** | (1.25, 4.2, 0.75) | 40 | shot 32: low beside Kai's phone, the red end-call button with her thumb coming in from above |
+| **E / E3** | (−1.0, 12.2, 1.4) / (−0.7, 6.6, 1.4) | 32 | shot 33 (Bea watching Noor walk back toward camera) / shot 61 (Walter's nod and Bea's closed eyes as Noor passes to the doors) |
+| **DP_KAI** | (−0.25, 9.7, 1.6) | 50 | shot 25: Noor's POV from beside Walter, down to Kai's empty seat |
 | **I** | per shot | 50 | inserts: the display, the newspaper, the phones, the lanyard |
 
 ## Key shots (notes for the TA and the animators)
