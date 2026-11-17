@@ -42,8 +42,9 @@ def build(D=None, B=None):
     T = 0.06
     sec = Sections(section_bounds(D))
 
-    m_wall = ld.paint("laminate", "set/laminate", stretch=5.0)
-    m_ceil = ld.paint("ceiling", "set/ceiling", variation=0.14)
+    m_wall = ld.paint("laminate", "set/laminate", stretch=6.0, variation=0.12, stroke_scale=14.0)
+    m_wall_end = ld.paint("laminate_end", "set/laminate", axis="z", stretch=4.0, variation=0.12, stroke_scale=14.0)
+    m_ceil = ld.paint("ceiling", "set/ceiling", variation=0.10, stroke_scale=14.0)
     m_floor = ld.paint("floor", "set/floor", stretch=6.0, roughness=0.7)
     m_seat = ld.paint("moquette", "set/moquette", stroke_scale=26.0, stretch=2.5, variation=0.26, roughness=0.9, bump=0.08)
     m_pat = ld.paint("moquette_pattern", "set/moquette_pattern", stroke_scale=26.0, stretch=2.5, roughness=0.9)
@@ -131,7 +132,7 @@ def build(D=None, B=None):
         sec.ybox(f"RAIL_{'B' if s > 0 else 'A'}", s * 0.62, 0.3, L - 0.3, 1.98, 0.03, 0.03, m_trim)
 
     # end wall A: QUIET CAR sign + destination display (cold white-green LED, never amber)
-    for ob in (plane("WALL_A", (0, L, H / 2), (W, H), m_wall, normal="-Y"),):
+    for ob in (plane("WALL_A", (0, L, H / 2), (W, H), m_wall_end, normal="-Y"),):
         sec.assign(ob, ["P1", "P2"])
     m_vinyl = ld.paint("sign_vinyl", "set/sign_vinyl", tier="costume", variation=0.06)
     m_type = ld.paint("sign_text", "set/sign_text", tier="costume", variation=0.0)
@@ -147,7 +148,7 @@ def build(D=None, B=None):
     for nm, c, sz in (("WALL_B_L", (-(HW + gw["half_width"]) / 2, 0, H / 2), (HW - gw["half_width"], T, H)),
                       ("WALL_B_R", ((HW + gw["half_width"]) / 2, 0, H / 2), (HW - gw["half_width"], T, H)),
                       ("WALL_B_TOP", (0, 0, (gw["height"] + H) / 2), (2 * gw["half_width"], T, H - gw["height"]))):
-        sec.assign(box(nm, c, sz, m_wall), ["P12"])
+        sec.assign(box(nm, c, sz, m_wall_end), ["P12"])
     v0, v1 = S["vestibule_y"]
     m_vest = ld.paint("vestibule", "set/floor", variation=0.12)
     vest = [plane("VEST_FLOOR", (0, (v0 + v1) / 2, 0), (W, v1 - v0), m_floor, normal="Z"),
@@ -232,7 +233,16 @@ def _window_chase(D):
         nt.links.new(wave.outputs["Fac"], ramp.inputs["Fac"])
         nt.links.new(ramp.outputs["Color"], mul.inputs[0])
         nt.links.new(mul.outputs[0], em.inputs["Strength"])
-        nt.links.new(em.outputs[0], out.inputs["Surface"])
+        # transparent everywhere except a lit band, so the strip never blocks the view (platform)
+        fac = nt.nodes.new("ShaderNodeMath"); fac.operation = "MINIMUM"; fac.inputs[1].default_value = 1.0
+        fac.use_clamp = True
+        nt.links.new(mul.outputs[0], fac.inputs[0])
+        tr = nt.nodes.new("ShaderNodeBsdfTransparent")
+        mix = nt.nodes.new("ShaderNodeMixShader")
+        nt.links.new(fac.outputs[0], mix.inputs[0])
+        nt.links.new(tr.outputs[0], mix.inputs[1])
+        nt.links.new(em.outputs[0], mix.inputs[2])
+        nt.links.new(mix.outputs[0], out.inputs["Surface"])
         ob = plane(f"WINDOW_CHASE_{side}", (s * (HW + 1.2), L / 2, 1.4), (L + 40, 1.6), mat, "EXTERIOR",
                    normal="-X" if s > 0 else "X")
         for attr in ("visible_diffuse", "visible_shadow", "visible_volume_scatter"):

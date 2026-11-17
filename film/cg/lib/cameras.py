@@ -45,7 +45,7 @@ def build(D=None):
     return out
 
 
-def set_shot(shot_no, t, D=None, focus_subject=None):
+def set_shot(shot_no, t, D=None, aim_override=None):
     """Point SHOT_CAM at shot `shot_no` as it is at time t (seconds)."""
     D = D or dp()
     s = next(x for x in D["shots"] if x["shot"] == shot_no)
@@ -56,7 +56,7 @@ def set_shot(shot_no, t, D=None, focus_subject=None):
         a2 = Vector(D["camera"]["positions"]["A2"]["loc"])
         u = max(0.0, min(1.0, (t - s["in"]) / (s["out"] - s["in"])))
         loc = loc.lerp(a2, u)
-    aim = s["aim"]
+    aim = aim_override or s["aim"]
     aim_at(ob, loc, aim)
     bpy.context.scene.camera = ob
     return s

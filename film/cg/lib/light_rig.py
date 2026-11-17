@@ -164,7 +164,7 @@ def build(D=None, B=None, sections=None):
         for mname in (f"screen_{key}", f"endcall_{key}"):
             m = bpy.data.materials.get(mname)
             if m:
-                drive_level(m.node_tree.nodes["EMIT"].inputs["Strength"], "default_value", ctrls[ch], 2.5)
+                drive_level(m.node_tree.nodes["EMIT"].inputs["Strength"], "default_value", ctrls[ch], 6.0)
         lo = bpy.data.objects.get(f"{ch}_LIGHT")
         if lo:
             drive_level(lo.data, "energy", ctrls[ch], 2.5)

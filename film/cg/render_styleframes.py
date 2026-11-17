@@ -42,7 +42,7 @@ def render(name, beat, samples, paint, res):
     for fn in beat.get("setup", []):
         SETUPS[fn]()
     t = beat["t"]
-    cameras.set_shot(beat["shot"], t)
+    cameras.set_shot(beat["shot"], t, aim_override=beat.get("aim"))
     scene.frame_set(common.t2f(t))
     os.makedirs(STILLS, exist_ok=True)
     scene.render.filepath = os.path.join(STILLS, name + ("" if paint else "_raw") + ".png")

@@ -137,11 +137,11 @@ def _phone(key, at, look_at, C, red_button=False):
     rig.rotation_euler = d.to_track_quat("Z", "Y").to_euler()
     body = box(f"PHONE_{key.upper()}_BODY", (0, 0, -0.005), (0.075, 0.155, 0.009),
                ld.paint(f"phone_case_{key}", "props/noor_phone_case" if key == "noor" else "kai/phone_case", tier="costume", variation=0.0), C)
-    scr = ld.emission(f"screen_{key}", "props/screen_glow", 2.5)
+    scr = ld.emission(f"screen_{key}", "props/screen_glow", 6.0)
     sc = box(f"PHONE_{key.upper()}_SCREEN", (0, 0.005, 0.0), (0.066, 0.13, 0.002), scr, C)
     parts = [body, sc]
     if red_button:
-        rb = box(f"PHONE_{key.upper()}_ENDCALL", (0, -0.058, 0.0012), (0.022, 0.022, 0.002), ld.emission(f"endcall_{key}", "THE_RED", 2.5), C)
+        rb = box(f"PHONE_{key.upper()}_ENDCALL", (0, -0.058, 0.0012), (0.022, 0.022, 0.002), ld.emission(f"endcall_{key}", "THE_RED", 6.0), C)
         parts.append(rb)
     for p in parts:
         p.parent = rig

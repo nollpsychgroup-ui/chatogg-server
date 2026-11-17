@@ -29,6 +29,8 @@ def _paint_group():
     ng = bpy.data.node_groups.new("PaintSurface", "ShaderNodeTree")
     iface = ng.interface
     iface.new_socket("Base Color", in_out="INPUT", socket_type="NodeSocketColor")
+    ax = iface.new_socket("Axis Scale", in_out="INPUT", socket_type="NodeSocketVector")
+    ax.default_value = (1.0, 0.25, 1.0)
     for nm, dv in (("Stroke Scale", 20.0), ("Stretch", 4.0), ("Variation", 0.2), ("Hue Jitter", 0.012),
                    ("Roughness", 0.8), ("Bump", 0.03), ("Metallic", 0.0), ("Seed", 0.0)):
         s = iface.new_socket(nm, in_out="INPUT", socket_type="NodeSocketFloat")
@@ -38,11 +40,8 @@ def _paint_group():
     gi, go = N.new("NodeGroupInput"), N.new("NodeGroupOutput")
     tc = N.new("ShaderNodeTexCoord")
     # stroke space: object coordinates (locked to the surface), long along the stroke axis
-    sep = N.new("ShaderNodeSeparateXYZ"); L.new(tc.outputs["Object"], sep.inputs[0])
-    div = N.new("ShaderNodeMath"); div.operation = "DIVIDE"
-    L.new(sep.outputs["Y"], div.inputs[0]); L.new(gi.outputs["Stretch"], div.inputs[1])
-    comb = N.new("ShaderNodeCombineXYZ")
-    L.new(sep.outputs["X"], comb.inputs["X"]); L.new(div.outputs[0], comb.inputs["Y"]); L.new(sep.outputs["Z"], comb.inputs["Z"])
+    comb = N.new("ShaderNodeVectorMath"); comb.operation = "MULTIPLY"
+    L.new(tc.outputs["Object"], comb.inputs[0]); L.new(gi.outputs["Axis Scale"], comb.inputs[1])
     n1 = N.new("ShaderNodeTexNoise"); n1.noise_dimensions = "4D"
     n1.inputs["Detail"].default_value = 1.5
     n1.inputs["Distortion"].default_value = 0.7
@@ -85,8 +84,9 @@ def _paint_group():
     return ng
 
 
-def paint(name, color, tier="set", **kw):
-    """Painted matte surface. color: palette key ('set/moquette') or linear RGB tuple."""
+def paint(name, color, tier="set", axis="y", **kw):
+    """Painted matte surface. color: palette key ('set/moquette') or linear RGB tuple.
+    axis: the direction strokes run along ('y' = down the car, 'x' = across, 'z' = vertical)."""
     mat = bpy.data.materials.get(name)
     if mat:
         return mat
@@ -104,6 +104,8 @@ def paint(name, color, tier="set", **kw):
     for k, sock in names.items():
         if k in p:
             g.inputs[sock].default_value = p[k]
+    st = p.get("stretch", 4.0)
+    g.inputs["Axis Scale"].default_value = tuple(1.0 / st if a == axis else 1.0 for a in "xyz")
     nt.links.new(g.outputs["BSDF"], out.inputs["Surface"])
     mat.diffuse_color = rgb + (1.0,)
     return mat
@@ -180,6 +182,7 @@ def setup_render(scene, res=(1280, 536), samples=64):
     scene.render.resolution_percentage = 100
     scene.render.fps = 24
     scene.render.use_freestyle = False
+    scene.render.dither_intensity = 0.0   # L2: no output dither, so black stays exactly 0
     scene.render.image_settings.file_format = "PNG"
     scene.render.image_settings.color_mode = "RGB"
     scene.render.image_settings.color_depth = "8"

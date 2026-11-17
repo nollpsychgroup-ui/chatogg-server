@@ -17,7 +17,12 @@
     "NOOR": "phone_ear"
    },
    "setup": [],
-   "caption": "Cue 1: 'Just leaving the office now.' P1 at 30% on the first frame of the flicker, with the ceiling entering the top of frame. Pos C, 40 mm."
+   "caption": "Cue 1, 'Just leaving the office now.' P1 drops to 30% on the first frame of the flicker. Pos C on the 40 mm, tilted so the ceiling enters (the car is awake). Walter's shoulder is in the foreground.",
+   "aim": [
+    0.0,
+    12.75,
+    1.42
+   ]
   },
   "sf03_brownout": {
    "shot": 16,
@@ -66,7 +71,7 @@
    "setup": [
     "lanyard_thrown"
    ],
-   "caption": "Cue 8.0 on the 75 mm, its only use: 'I'm not leaving the office.' P1 steadies at 110%, the MARK screen keys the near cheek, and the car beyond is still dark."
+   "caption": "Cue 8.0 on the 75 mm, its only use: 'I'm not leaving the office.' P1 steadies at 110%, the car beyond her is still dark, and the panel row shows as catchlights."
   },
   "sf07_relight_run": {
    "shot": 57,
@@ -100,7 +105,12 @@
    "setup": [
     "lanyard_thrown"
    ],
-   "caption": "Holloway: Noor out under the single cold-white lamp, phone to her ear, framed by the open doors (Pos G). The car behind camera is fully relit and asleep."
+   "caption": "Holloway: Noor out under the single cold-white lamp, phone to her ear, framed by the open doors (Pos G). The car behind camera is fully relit and asleep.",
+   "aim": [
+    1.4,
+    6.5,
+    1.42
+   ]
   }
  }
 }
