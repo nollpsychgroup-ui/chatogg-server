@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 956 444" width="956" height="444">
+<defs>
+<radialGradient id="phone"><stop offset="0" stop-color="#9cc4ff" stop-opacity="0.9"/><stop offset="1" stop-color="#9cc4ff" stop-opacity="0"/></radialGradient>
+<radialGradient id="phoneface" cx="0.5" cy="1" r="0.9"><stop offset="0" stop-color="#a9cbff" stop-opacity="0.75"/><stop offset="1" stop-color="#a9cbff" stop-opacity="0"/></radialGradient>
+<linearGradient id="topdown" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<radialGradient id="lamp" cx="0.5" cy="0" r="1"><stop offset="0" stop-color="#e6f6f8" stop-opacity="0.95"/><stop offset="0.6" stop-color="#9fb8bd" stop-opacity="0.25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<g><rect width="956" height="400" fill="#6d736a"/><rect y="0" width="956" height="90" fill="#0d0e0d"/>
+<rect x="118" y="12" width="200" height="60" rx="3" fill="#414441" stroke="#333" stroke-width="1"/>
+<rect x="433" y="12" width="170" height="60" rx="3" fill="#414441" stroke="#333" stroke-width="1"/><text x="208" y="122" font-family="Helvetica" font-size="13" fill="#444">P2</text><text x="508" y="122" font-family="Helvetica" font-size="13" fill="#444">P1</text><path d="M360 440 Q371 282 455 267 L581 267 Q665 282 676 440 Z" fill="#1c1e20"/><ellipse cx="518" cy="178" rx="65" ry="84" fill="#5c4c3c"/><path d="M471 264 L518 366 L565 264" stroke="#c8102e" stroke-width="7.4" fill="none"/><rect x="497" y="361" width="42" height="55" fill="#727974" stroke="#999"/></g>
+<rect y="400" width="956" height="44" fill="#111"/>
+<text x="12" y="428" font-family="Helvetica,Arial" font-size="15" fill="#ddd">03 · Shot 8 · Pos C · 40 mm low · "The Henley account. Again." · cue 2: TWO panels in frame, both dipped</text>
+</svg>

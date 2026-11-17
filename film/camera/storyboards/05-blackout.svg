@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 956 444" width="956" height="444">
+<defs>
+<radialGradient id="phone"><stop offset="0" stop-color="#9cc4ff" stop-opacity="0.9"/><stop offset="1" stop-color="#9cc4ff" stop-opacity="0"/></radialGradient>
+<radialGradient id="phoneface" cx="0.5" cy="1" r="0.9"><stop offset="0" stop-color="#a9cbff" stop-opacity="0.75"/><stop offset="1" stop-color="#a9cbff" stop-opacity="0"/></radialGradient>
+<linearGradient id="topdown" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<radialGradient id="lamp" cx="0.5" cy="0" r="1"><stop offset="0" stop-color="#e6f6f8" stop-opacity="0.95"/><stop offset="0.6" stop-color="#9fb8bd" stop-opacity="0.25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<g><rect width="956" height="400" fill="#000"/></g>
+<rect y="400" width="956" height="44" fill="#111"/>
+<text x="12" y="428" font-family="Helvetica,Arial" font-size="15" fill="#ddd">05 · Shot 16 · Pos A · cue 4.1: true black, shot ≥5 s · digital zero on the soundtrack · Kai leaves on the IR marks</text>
+</svg>

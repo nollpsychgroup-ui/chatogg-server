@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 956 444" width="956" height="444">
+<defs>
+<radialGradient id="phone"><stop offset="0" stop-color="#9cc4ff" stop-opacity="0.9"/><stop offset="1" stop-color="#9cc4ff" stop-opacity="0"/></radialGradient>
+<radialGradient id="phoneface" cx="0.5" cy="1" r="0.9"><stop offset="0" stop-color="#a9cbff" stop-opacity="0.75"/><stop offset="1" stop-color="#a9cbff" stop-opacity="0"/></radialGradient>
+<linearGradient id="topdown" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<radialGradient id="lamp" cx="0.5" cy="0" r="1"><stop offset="0" stop-color="#e6f6f8" stop-opacity="0.95"/><stop offset="0.6" stop-color="#9fb8bd" stop-opacity="0.25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<g><rect width="956" height="400" fill="#1d1e1c"/><path d="M193 560 Q212 275 364 246 L592 246 Q744 275 763 560 Z" fill="#0f1011"/><ellipse cx="478" cy="85" rx="118" ry="152" fill="#5c4c3c"/><rect width="956" height="400" fill="url(#phoneface)" opacity="0.7"/><rect x="338" y="0" width="280" height="400" fill="url(#topdown)" opacity="0.35"/><rect x="598" y="150" width="70" height="150" rx="12" fill="#0b0c0e"/><text x="20" y="30" font-family="Helvetica" font-size="14" fill="#bbb">75 mm, the only time · each relight down the car adds front light to her face · the push lands before 8.10</text></g>
+<rect y="400" width="956" height="44" fill="#111"/>
+<text x="12" y="428" font-family="Helvetica,Arial" font-size="15" fill="#ddd">14 · Shots 58 / 63 · Pos C · 75 mm CU, slow push · "I'm not leaving the office." · cues 8.0–8.10</text>
+</svg>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 956 444" width="956" height="444">
+<defs>
+<radialGradient id="phone"><stop offset="0" stop-color="#9cc4ff" stop-opacity="0.9"/><stop offset="1" stop-color="#9cc4ff" stop-opacity="0"/></radialGradient>
+<radialGradient id="phoneface" cx="0.5" cy="1" r="0.9"><stop offset="0" stop-color="#a9cbff" stop-opacity="0.75"/><stop offset="1" stop-color="#a9cbff" stop-opacity="0"/></radialGradient>
+<linearGradient id="topdown" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<radialGradient id="lamp" cx="0.5" cy="0" r="1"><stop offset="0" stop-color="#e6f6f8" stop-opacity="0.95"/><stop offset="0.6" stop-color="#9fb8bd" stop-opacity="0.25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<g><rect width="956" height="400" fill="#15171a"/>
+<rect x="70" y="70" width="650" height="140" fill="#e9ece6" stroke="#888"/>
+<rect x="720" y="70" width="200" height="140" fill="#2a2d31" stroke="#666" stroke-dasharray="4 3"/>
+<text x="738" y="155" font-size="12" fill="#aaa" font-family="Helvetica">unlit vestibule</text>
+<rect x="83" y="130" width="28" height="20" fill="#fff8c8" stroke="#b9a54a"/>
+<text x="97" y="256" font-size="12" text-anchor="middle" fill="#ddd" font-family="Helvetica">P1</text>
+<rect x="137" y="130" width="28" height="20" fill="#fff8c8" stroke="#b9a54a"/>
+<text x="151" y="256" font-size="12" text-anchor="middle" fill="#ddd" font-family="Helvetica">P2</text>
+<rect x="191" y="130" width="28" height="20" fill="#fff8c8" stroke="#b9a54a"/>
+<text x="205" y="256" font-size="12" text-anchor="middle" fill="#ddd" font-family="Helvetica">P3</text>
+<rect x="246" y="130" width="28" height="20" fill="#fff8c8" stroke="#b9a54a"/>
+<text x="260" y="256" font-size="12" text-anchor="middle" fill="#ddd" font-family="Helvetica">P4</text>
+<rect x="300" y="130" width="28" height="20" fill="#fff8c8" stroke="#b9a54a"/>
+<text x="314" y="256" font-size="12" text-anchor="middle" fill="#ddd" font-family="Helvetica">P5</text>
+<rect x="354" y="130" width="28" height="20" fill="#fff8c8" stroke="#b9a54a"/>
+<text x="368" y="256" font-size="12" text-anchor="middle" fill="#ddd" font-family="Helvetica">P6</text>
+<rect x="408" y="130" width="28" height="20" fill="#fff8c8" stroke="#b9a54a"/>
+<text x="422" y="256" font-size="12" text-anchor="middle" fill="#ddd" font-family="Helvetica">P7</text>
+<rect x="462" y="130" width="28" height="20" fill="#fff8c8" stroke="#b9a54a"/>
+<text x="476" y="256" font-size="12" text-anchor="middle" fill="#ddd" font-family="Helvetica">P8</text>
+<rect x="516" y="130" width="28" height="20" fill="#fff8c8" stroke="#b9a54a"/>
+<text x="530" y="256" font-size="12" text-anchor="middle" fill="#ddd" font-family="Helvetica">P9</text>
+<rect x="571" y="130" width="28" height="20" fill="#fff8c8" stroke="#b9a54a"/>
+<text x="585" y="256" font-size="12" text-anchor="middle" fill="#ddd" font-family="Helvetica">P10</text>
+<rect x="625" y="130" width="28" height="20" fill="#fff8c8" stroke="#b9a54a"/>
+<text x="639" y="256" font-size="12" text-anchor="middle" fill="#ddd" font-family="Helvetica">P11</text>
+<rect x="679" y="130" width="28" height="20" fill="#fff8c8" stroke="#b9a54a"/>
+<text x="693" y="256" font-size="12" text-anchor="middle" fill="#ddd" font-family="Helvetica">P12</text>
+<rect x="125" y="196" width="595" height="14" fill="#3c807c"/>
+<rect x="125" y="70" width="595" height="14" fill="#3c807c"/>
+<rect x="340" y="208" width="109" height="10" fill="#ff5a36"/>
+<text x="395" y="234" font-size="12" fill="#ff8a6a" text-anchor="middle" font-family="Helvetica">DOORS → platform</text>
+<circle cx="90" cy="140" r="9" fill="#c8102e"/><text x="90" y="127" font-size="12" fill="#111" text-anchor="middle" font-family="Helvetica" font-weight="bold">NOOR</text>
+<circle cx="205" cy="95" r="9" fill="#967650"/><text x="205" y="82" font-size="12" fill="#111" text-anchor="middle" font-family="Helvetica" font-weight="bold">WALTER</text>
+<circle cx="205" cy="190" r="9" fill="#28345c"/><text x="205" y="177" font-size="12" fill="#111" text-anchor="middle" font-family="Helvetica" font-weight="bold">BEA</text>
+<circle cx="476" cy="192" r="9" fill="#76767a"/><text x="476" y="180" font-size="12" fill="#111" text-anchor="middle" font-family="Helvetica" font-weight="bold">KAI</text>
+<polygon points="895,140 913,131 913,149" fill="#4fc3f7" transform="rotate(0 895 140)"/>
+<text x="901" y="164" font-size="13" fill="#4fc3f7" font-family="Helvetica" font-weight="bold">A</text>
+<polygon points="78,178 96,168 96,186" fill="#4fc3f7" transform="rotate(180 78 178)"/>
+<text x="84" y="202" font-size="13" fill="#4fc3f7" font-family="Helvetica" font-weight="bold">B</text>
+<polygon points="175,80 193,71 193,89" fill="#4fc3f7" transform="rotate(180 175 80)"/>
+<text x="179" y="106" font-size="13" fill="#4fc3f7" font-family="Helvetica" font-weight="bold">C</text>
+<polygon points="233,200 251,191 251,209" fill="#4fc3f7" transform="rotate(180 233 200)"/>
+<text x="237" y="230" font-size="13" fill="#4fc3f7" font-family="Helvetica" font-weight="bold">D</text>
+<polygon points="85,80 103,71 103,89" fill="#4fc3f7" transform="rotate(180 85 80)"/>
+<text x="81" y="106" font-size="13" fill="#4fc3f7" font-family="Helvetica" font-weight="bold">E</text>
+<polygon points="476,78 494,68 494,86" fill="#4fc3f7" transform="rotate(270 476 78)"/>
+<text x="482" y="102" font-size="13" fill="#4fc3f7" font-family="Helvetica" font-weight="bold">F</text>
+<polygon points="395,78 413,68 413,86" fill="#4fc3f7" transform="rotate(270 395 78)"/>
+<text x="401" y="102" font-size="13" fill="#4fc3f7" font-family="Helvetica" font-weight="bold">G</text>
+<text x="70" y="56" font-size="13" fill="#ccc" font-family="Helvetica">END WALL A: QUIET CAR sign + display</text>
+<text x="710" y="56" font-size="13" fill="#ccc" font-family="Helvetica">END WALL B / gangway</text>
+<text x="40" y="378" font-size="12" fill="#999" font-family="Helvetica">side A (top) · side B (bottom) · 1 square ≈ 1.08 m · 13 m seating + 4 m vestibule</text></g>
+<rect y="400" width="956" height="44" fill="#111"/>
+<text x="12" y="428" font-family="Helvetica,Arial" font-size="15" fill="#ddd">00 · Set plan · panels P1–P12 · camera positions A–G (see lighting-plan.md §1)</text>
+</svg>

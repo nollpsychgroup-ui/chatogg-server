@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 956 444" width="956" height="444">
+<defs>
+<radialGradient id="phone"><stop offset="0" stop-color="#9cc4ff" stop-opacity="0.9"/><stop offset="1" stop-color="#9cc4ff" stop-opacity="0"/></radialGradient>
+<radialGradient id="phoneface" cx="0.5" cy="1" r="0.9"><stop offset="0" stop-color="#a9cbff" stop-opacity="0.75"/><stop offset="1" stop-color="#a9cbff" stop-opacity="0"/></radialGradient>
+<linearGradient id="topdown" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<radialGradient id="lamp" cx="0.5" cy="0" r="1"><stop offset="0" stop-color="#e6f6f8" stop-opacity="0.95"/><stop offset="0.6" stop-color="#9fb8bd" stop-opacity="0.25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<g><rect width="956" height="400" fill="#4c504a"/><rect y="0" width="956" height="80" fill="#2c2f2c"/>
+<rect x="73" y="12" width="150" height="50" rx="3" fill="#7b817b" stroke="#333" stroke-width="1"/>
+<rect x="393" y="12" width="170" height="50" rx="3" fill="#333533" stroke="#333" stroke-width="1"/>
+<rect x="733" y="12" width="150" height="50" rx="3" fill="#7b817b" stroke="#333" stroke-width="1"/><text x="138" y="110" font-family="Helvetica" font-size="13" fill="#555">P5</text><text x="468" y="110" font-family="Helvetica" font-size="13" fill="#555">P4</text><text x="798" y="110" font-family="Helvetica" font-size="13" fill="#555">P3</text><path d="M276 430 Q285 288 361 273 L475 273 Q551 288 560 430 Z" fill="#0f1011"/><ellipse cx="418" cy="192" rx="59" ry="76" fill="#322921"/><path d="M375 270 L418 364 L461 270" stroke="#c8102e" stroke-width="6.6" fill="none"/><rect x="399" y="359" width="38" height="49" fill="#3e423f" stroke="#999"/><path d="M608 490 Q616 370 680 358 L776 358 Q840 370 848 490 Z" fill="#2e2618"/><ellipse cx="728" cy="290" rx="50" ry="64" fill="#3a3026"/><path d="M648 330 Q568 280 498 260" stroke="#2e2618" stroke-width="22" fill="none" stroke-linecap="round"/></g>
+<rect y="400" width="956" height="44" fill="#111"/>
+<text x="12" y="428" font-family="Helvetica,Arial" font-size="15" fill="#ddd">08 · Shot 26 · Pos E · 40 mm · "My name is S—" · Walter clamps her wrist · cue 5: P4 near black, P3 and P5 dip</text>
+</svg>

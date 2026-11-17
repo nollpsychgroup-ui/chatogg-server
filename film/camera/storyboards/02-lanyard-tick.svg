@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 956 444" width="956" height="444">
+<defs>
+<radialGradient id="phone"><stop offset="0" stop-color="#9cc4ff" stop-opacity="0.9"/><stop offset="1" stop-color="#9cc4ff" stop-opacity="0"/></radialGradient>
+<radialGradient id="phoneface" cx="0.5" cy="1" r="0.9"><stop offset="0" stop-color="#a9cbff" stop-opacity="0.75"/><stop offset="1" stop-color="#a9cbff" stop-opacity="0"/></radialGradient>
+<linearGradient id="topdown" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<radialGradient id="lamp" cx="0.5" cy="0" r="1"><stop offset="0" stop-color="#e6f6f8" stop-opacity="0.95"/><stop offset="0.6" stop-color="#9fb8bd" stop-opacity="0.25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<g><rect width="956" height="400" fill="#9aa396"/><path d="M290 460 Q303 272 403 254 L553 254 Q653 272 666 460 Z" fill="#303437"/><ellipse cx="478" cy="148" rx="78" ry="100" fill="#9f8369"/><path d="M422 250 L478 372 L534 250" stroke="#c8102e" stroke-width="8.8" fill="none"/><rect x="453" y="366" width="50" height="65" fill="#c5d1ca" stroke="#999"/><rect x="433" y="280" width="90" height="26" fill="#fff" opacity="0.18"/><text x="20" y="34" font-family="Helvetica" font-size="15" fill="#333">cue 0: the badge laminate and her hair blink for 2 frames, nothing else</text></g>
+<rect y="400" width="956" height="44" fill="#111"/>
+<text x="12" y="428" font-family="Helvetica,Arial" font-size="15" fill="#ddd">02 · Shot 2 · Pos C · 50 mm MCU · ceiling OUT (asleep) · cue 0, the subliminal tick</text>
+</svg>

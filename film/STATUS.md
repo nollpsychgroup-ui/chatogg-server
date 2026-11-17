@@ -22,3 +22,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [screenwriter] Voice sides APPROVED by Director; folded in rulings (7 actors, MARK-04 neutral scaffold, PA speaks once) (script/voice-sides.md)
 - [producer] DECISION (human): 7 separate voice actors. The Automated Voice is not doubled, per the Director.
 - [composer] Milestone 4: rough temp score for the animatic rendered from the cue timeline (provisional until camera/cues.json exists): music-only and music+temp-SD mixes, ~9:28 (music/temp/)
+- [dp] Milestone 3 camera package: shot list (68 shots, 7 positions, 3 shooting days + test day), lighting plan (P1–P12 patch, cues 0–8 with sub-cues, test day T1–T10), 18 storyboard frames generated from the set geometry. Sent to Director (camera/shot-list.md, camera/lighting-plan.md, camera/storyboards/)
