@@ -19,3 +19,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [producer] DECISION (human): the film is now stylized, painterly CG animation (see FORMAT.md). Added 3D/Technical Artist and Character Designer. New Milestone 4: previs animatic.
 - [composer] Cue sheet and theme sketches APPROVED by Director (notes/composer-notes-02.md). Folded in the tick-spacing rule and transducer use; agreeing Advance tick spacing with DP (music/cue-sheet.md)
 - [screenwriter] Voice sides for all 7 voices written (script/voice-sides.md)
+- [screenwriter] Voice sides APPROVED by Director; folded in rulings (7 actors, MARK-04 neutral scaffold, PA speaks once) (script/voice-sides.md)

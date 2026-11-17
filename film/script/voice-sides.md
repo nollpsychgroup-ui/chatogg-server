@@ -39,7 +39,7 @@ The Producer's brief counted six, but the list has seven, and so does the script
 | **MUM** (Kai's) | No, phone only | Solo, short |
 | **AUTOMATED VOICE** | No, PA only | Solo, one line |
 
-⚑ **Producer:** please budget for seven, or confirm whether one actor should double. Doubling Mark and the Automated Voice would work, because the PA voice is heavily processed. Mum and Mark shouldn't be doubled, because both need warmth of tone (Director's casting note).
+**Confirmed (Director): seven separate actors.** The Automated Voice is cast separately and not doubled with Mark or Mum, so the car belongs to no one.
 
 ---
 
@@ -434,8 +434,11 @@ The Producer's brief counted six, but the list has seven, and so does the script
 **MARK-04 ⚑ (phone bed, as she stands on the platform)**
 *Context:* "Faintly from the phone, the murmur starts up again. We can't hear what he says."
 *State:* **the audience must not be able to tell** whether it's forgiveness or anger. The Director's ending withholds his reply. Perform it *warm*: the Director's casting note asks for love in the murmur. The degradation makes it ambiguous, and Noor's stillness makes it unbearable.
-*Suggested text (never intelligible):* "Noor. ... Okay. ... Okay. Come home. We'll— just come home."
-*Take notes:* record warm, neutral and strained versions, so the Director can find the most ambiguous one in the mix.
+*Suggested text, two scaffolds (never intelligible):*
+- **A:** "Noor. ... Okay. ... Okay. Come home. We'll— just come home."
+- **B (neutral):** "Noor... Okay... Where are you now?"
+
+*Take notes:* record **warm, neutral and strained** versions of **both** scaffolds (six passes minimum), so the Director can find the most ambiguous one in the mix.
 
 **AUTOMATED VOICE-01**
 > Thank you for riding quietly.
@@ -446,7 +449,7 @@ The Producer's brief counted six, but the list has seven, and so does the script
 *Take notes:*
 - **No irony in the read.** If the actor sounds in on the joke, it dies. Read it the way it would be read for the thousandth announcement in a real recording booth.
 - Give a slight downward lilt on "quietly".
-- Alts: (a) brighter, more customer-service; (b) flatter, more machine. Also give a "Now arriving: Holloway" alt and a "Next stop: Holloway" alt, for display/PA consistency if the Director wants them later. They're **not** in the locked script, so they're unused unless the Director and Producer approve.
+- Alts: (a) brighter, more customer-service; (b) flatter, more machine. A "Now arriving: Holloway" alt and a "Next stop: Holloway" alt may be recorded as **safety only, not for use**. **The PA speaks exactly once in the film** (Director's ruling).
 
 ---
 
@@ -470,6 +473,8 @@ Record after the ensemble session, in character, with the cue stack in cans:
 
 ## Open items
 
-1. ⚑ **Voice count:** seven, not six (see the cast table). The Producer should confirm the budget or doubling.
-2. ⚑ **Phone-bed text** (MARK-01 to 04, MUM-01) and **non-verbals** are performance scaffolding only and must stay unintelligible in the mix. The Director should approve them as non-script material.
-3. **Automated Voice alts** ("Now arriving..." / "Next stop...") are recorded as safety only and not used unless approved through the Producer, because the script is locked.
+**Status: APPROVED by the Director** (`notes/voice-sides-notes-01.md`). The ⚑ items are resolved:
+
+1. **Voice count:** seven separate actors. The Automated Voice is not doubled.
+2. **Phone-bed text** (MARK-01 to 04, MUM-01) and **non-verbals** are approved as performance scaffolding only and must **never be intelligible in the mix**. MARK-04 now has a second, neutral scaffold.
+3. **Automated Voice alts** are safety only, not for use. The PA speaks exactly once.
