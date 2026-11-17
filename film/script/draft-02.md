@@ -174,7 +174,7 @@ My name is S—
 
 Walter's hand **clamps her wrist** before she finishes the word. It's fast, and much stronger than he looks.
 
-Too late for the first sound of it: the panel above her **dips hard**, almost to black, and **THE GROAN** swells up out of the floor, *hungry*.
+But the first sound is already out: the panel above her **dips hard**, almost to black, and **THE GROAN** swells up out of the floor, *hungry*.
 
 Nobody breathes.
 
