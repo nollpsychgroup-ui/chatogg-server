@@ -109,7 +109,7 @@ This film lives at the bottom of the exposure range. Rules for paint as light fa
 | **Asleep, full row (~4300 K, slight green)** | Full palette, full stroke texture, flat and even. Faces read clearly. Unglamorous. |
 | **Breathing (±2–3%)** | Nothing changes in the paint. Only the light moves. |
 | **One panel dipping (cues 1, 2, 5, 6)** | The pool under the panel is the only full-detail area. Outside it, strokes **merge into larger, quieter shapes** and texture contrast drops, the way a painter would simplify a background in shadow. Faces in the dipped pool keep firm features (rule 4). |
-| **Brownout (cue 3, ~2200 K, ~2.5 stops down)** | The whole frame goes close to monochrome warm. Colour separation almost disappears **except the red strap**, which must remain the most saturated thing on screen. Shadows go to warm umber, never to noise. |
+| **Brownout (cue 3, ~2200 K, ~2.5 stops down)** | The whole frame goes close to monochrome warm and colour separation almost disappears. **In the brownout the car owns every colour: the red strap goes dark with everything else** (Director, `notes/cg-notes-03.md`). Under sodium light the red should physically die, and we never grade it back in. Shadows go to warm umber, never to noise. |
 | **Single lit section / creeping dark (cue 7)** | Hard light edge on the floor (section 4). Inside the dark: real black, no texture showing. Inside the light: full detail. |
 | **Phone light from below** | Small, cold, hard-ish source. Lights the underside of the chin, nose and brows. The strokes on the face follow the new terminator. Noor's MARK glow must read as cold blue-white against the warm skin. |
 | **Blackout (cue 4)** | **Mathematically black: 0,0,0.** No paper texture, canvas tooth, grain, vignette or Kuwahara edge glow is allowed to lift it. Any texture overlay is **multiply-only** (black × anything = black). Nothing glows in the dark: no emissive paint, no glow in the eyes. |
@@ -128,7 +128,9 @@ There is **one red** in the film, used on exactly two things:
 - **Noor's lanyard strap**
 - **The end-call button on Kai's phone screen**
 
-Both use **THE RED `#C8102E`** (sRGB). Nothing else in the car may be red, pink, magenta, maroon, coral or rust: not lips, not cheeks, not a bag strap, not a newspaper masthead, not a shoelace, not a phone case, not a sticker, not an exit sign. Skin "warmth" is ochre and umber, not red. Lips are a desaturated mauve-brown. Under the brownout, check that the strap is still the most saturated object in frame.
+Both use **THE RED `#C8102E`** (sRGB).
+
+**Where the red must win** (measured as CIELAB chroma, emitters excluded): under **BASE** light and in the **creeping-dark** states, the strap is the highest-chroma object in frame. That covers the boarding tick (cue 0, shot 2), and the throw onto the floor, red on grey (shots 45–46). **In the brownout (cue 3) it doesn't have to win**: the car owns every colour there, and the strap goes dark with everything else. No grade, colour key or mask is ever used to rescue it, because every change in the frame has to be the car's light. Nothing else in the car may be red, pink, magenta, maroon, coral or rust: not lips, not cheeks, not a bag strap, not a newspaper masthead, not a shoelace, not a phone case, not a sticker, not an exit sign. Skin "warmth" is ochre and umber, not red. Lips are a desaturated mauve-brown. 
 
 Noor's own phone UI has **no red**: her in-call screen uses a dark grey end-call button (see `props/props.md`).
 
@@ -185,7 +187,7 @@ My proposal for how Blender can deliver this. **The TA has final say on method; 
 5. **No outlines** (Freestyle off). No noise in shadows (denoise, or EEVEE).
 6. **Faces:** shape keys or bones for the controls in `expressions/face-rig.md`, with the values on the expression sheets as targets.
 7. **Previs blocking figures** (Milestone 4): heights and seated heights are on the lineup sheet so the proxies are the right size for the DP's lenses and eye-lines.
-8. **Checks I'd like on the first look-dev render:** (a) the blackout frame is all zeros; (b) the strap is the most saturated pixel cluster under cue 3; (c) the catchlight row shows in the eyes at 40 mm and disappears panel by panel in cue 7; (d) nothing in the paint moves between two frames of an asleep shot.
+8. **Checks I'd like on the first look-dev render:** (a) the blackout frame is all zeros; (b) the strap is the highest CIELAB-chroma object under BASE (shot 2) and on the floor in the creeping dark (shot 46), not under cue 3; (c) the catchlight row shows in the eyes at 40 mm and disappears panel by panel in cue 7; (d) nothing in the paint moves between two frames of an asleep shot.
 
 ---
 
