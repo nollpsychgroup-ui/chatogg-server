@@ -42,12 +42,16 @@ def build(D=None, B=None):
     T = 0.06
     sec = Sections(section_bounds(D))
 
-    m_wall = ld.paint("laminate", "set/laminate", stretch=6.0, variation=0.12, stroke_scale=14.0)
-    m_wall_end = ld.paint("laminate_end", "set/laminate", axis="z", stretch=4.0, variation=0.12, stroke_scale=14.0)
-    m_ceil = ld.paint("ceiling", "set/ceiling", variation=0.10, stroke_scale=14.0)
+    m_wall = ld.paint("laminate", "set/laminate", stretch=4.0, stroke_scale=20.0, variation=0.18)
+    m_wall_end = ld.paint("laminate_end", "set/laminate", axis="z", stretch=3.0, stroke_scale=20.0, variation=0.14, tilt=0.08)
+    # wall A (behind Noor, 0.5 m from P1): a darker end-wall panel, ~3.5 stops darker than the laminate (it sits 0.5 m from P1, so it takes much more light than her face), so it lands about a stop under her face,
+    # so her face, not the wall, is the brightest thing in the confession (Director R2: material, not fill)
+    lam = ld.pal("set/laminate")
+    m_wall_a = ld.paint("end_panel_A", tuple(c * 0.09 for c in lam), axis="z", stretch=3.0, stroke_scale=20.0, variation=0.10, tilt=0.06)
+    m_ceil = ld.paint("ceiling", "set/ceiling", axis="x", stretch=3.0, stroke_scale=20.0, variation=0.16)
     m_floor = ld.paint("floor", "set/floor", stretch=6.0, roughness=0.7)
-    m_seat = ld.paint("moquette", "set/moquette", stroke_scale=26.0, stretch=2.5, variation=0.26, roughness=0.9, bump=0.08)
-    m_pat = ld.paint("moquette_pattern", "set/moquette_pattern", stroke_scale=26.0, stretch=2.5, roughness=0.9)
+    m_seat = ld.paint("moquette", "set/moquette", stroke_scale=22.0, stretch=3.0, variation=0.34, roughness=0.9)
+    m_pat = ld.paint("moquette_pattern", "set/moquette_pattern", stroke_scale=22.0, stretch=3.0, variation=0.34, roughness=0.9)
     m_trim = ld.gloss("trim_steel", "set/trim", roughness=0.35, metallic=1.0)
     m_trim_p = ld.paint("trim_paint", "set/trim")
     m_glass = ld.glass()
@@ -132,7 +136,7 @@ def build(D=None, B=None):
         sec.ybox(f"RAIL_{'B' if s > 0 else 'A'}", s * 0.62, 0.3, L - 0.3, 1.98, 0.03, 0.03, m_trim)
 
     # end wall A: QUIET CAR sign + destination display (cold white-green LED, never amber)
-    for ob in (plane("WALL_A", (0, L, H / 2), (W, H), m_wall_end, normal="-Y"),):
+    for ob in (plane("WALL_A", (0, L, H / 2), (W, H), m_wall_a, normal="-Y"),):
         sec.assign(ob, ["P1", "P2"])
     m_vinyl = ld.paint("sign_vinyl", "set/sign_vinyl", tier="costume", variation=0.06)
     m_type = ld.paint("sign_text", "set/sign_text", tier="costume", variation=0.0)

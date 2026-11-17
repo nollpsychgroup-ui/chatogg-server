@@ -14,77 +14,130 @@ import bpy
 from .common import pal
 
 # stroke size tiers (world space): set ~4-6 cm, costume ~1.5-3 cm, faces/hands ~3-6 mm
-TIER = {
-    "set":     dict(stroke_scale=20.0, stretch=4.0, variation=0.22, roughness=0.82, bump=0.05),
-    "costume": dict(stroke_scale=45.0, stretch=3.0, variation=0.18, roughness=0.85, bump=0.02),
-    "face":    dict(stroke_scale=180.0, stretch=2.0, variation=0.08, roughness=0.6, bump=0.004, hue_jitter=0.02),
+TIER = {   # stroke_scale ~ 1 / dab width (m): set ~5 cm, costume ~2 cm, face ~5 mm
+    "set":     dict(stroke_scale=20.0, stretch=4.0, variation=0.30, roughness=0.85, tilt=0.16, bristle=0.12, hue_jitter=0.03),
+    "costume": dict(stroke_scale=45.0, stretch=3.0, variation=0.30, roughness=0.88, tilt=0.40, bristle=0.10, hue_jitter=0.03),
+    "face":    dict(stroke_scale=170.0, stretch=1.8, variation=0.12, roughness=0.62, tilt=0.22, bristle=0.03, hue_jitter=0.025),
 }
 PASS_FACE, PASS_CHAR = 1, 2   # object pass_index for the compositor masks
 
 
 def _paint_group():
+    """PaintSurface v2: brush dabs locked to the surface.
+
+    - Coordinates: object space x Axis Scale (strokes elongate along the stroke axis), warped by a
+      low-frequency noise so stroke edges wobble like a loaded brush.
+    - Two overlapping Voronoi layers = individual dabs; each dab gets one random value (quantised to
+      4 painted steps), a small hue shift and its OWN NORMAL TILT. The tilt is what breaks the real
+      terminator into brush shapes: near the light/shadow turn each dab flips lit/unlit on its own,
+      in flat light it gives colour variation within a plane. Light itself is never quantised.
+    - Bristle streaks along the stroke add brush texture inside each dab.
+    Nothing depends on time, so asleep frames stay bit-identical (no boil).
+    """
     ng = bpy.data.node_groups.get("PaintSurface")
     if ng:
         return ng
     ng = bpy.data.node_groups.new("PaintSurface", "ShaderNodeTree")
     iface = ng.interface
     iface.new_socket("Base Color", in_out="INPUT", socket_type="NodeSocketColor")
+    sh = iface.new_socket("Shadow Color", in_out="INPUT", socket_type="NodeSocketColor")
+    sh.default_value = (0.5, 0.5, 0.5, 1)
     ax = iface.new_socket("Axis Scale", in_out="INPUT", socket_type="NodeSocketVector")
     ax.default_value = (1.0, 0.25, 1.0)
     for nm, dv in (("Stroke Scale", 20.0), ("Stretch", 4.0), ("Variation", 0.2), ("Hue Jitter", 0.012),
-                   ("Roughness", 0.8), ("Bump", 0.03), ("Metallic", 0.0), ("Seed", 0.0)):
-        s = iface.new_socket(nm, in_out="INPUT", socket_type="NodeSocketFloat")
-        s.default_value = dv
+                   ("Roughness", 0.85), ("Bump", 0.03), ("Metallic", 0.0), ("Seed", 0.0), ("Tilt", 0.25),
+                   ("Bristle", 0.05), ("Shadow Mix", 0.0)):
+        sk = iface.new_socket(nm, in_out="INPUT", socket_type="NodeSocketFloat")
+        sk.default_value = dv
     iface.new_socket("BSDF", in_out="OUTPUT", socket_type="NodeSocketShader")
     N, L = ng.nodes, ng.links
     gi, go = N.new("NodeGroupInput"), N.new("NodeGroupOutput")
+
+    def math(op, a, b=None, c=None):
+        m = N.new("ShaderNodeMath"); m.operation = op
+        for i, v in enumerate((a, b, c)):
+            if v is None:
+                continue
+            if isinstance(v, (int, float)):
+                m.inputs[i].default_value = v
+            else:
+                L.new(v, m.inputs[i])
+        return m.outputs[0]
+
+    def vmath(op, a, b=None, scale=None):
+        m = N.new("ShaderNodeVectorMath"); m.operation = op
+        for i, v in enumerate((a, b)):
+            if v is None:
+                continue
+            if isinstance(v, tuple):
+                m.inputs[i].default_value = v
+            else:
+                L.new(v, m.inputs[i])
+        if scale is not None:
+            if isinstance(scale, (int, float)):
+                m.inputs["Scale"].default_value = scale
+            else:
+                L.new(scale, m.inputs["Scale"])
+        return m.outputs["Vector"] if op != "LENGTH" else m.outputs["Value"]
+
     tc = N.new("ShaderNodeTexCoord")
-    # stroke space: object coordinates (locked to the surface), long along the stroke axis
-    comb = N.new("ShaderNodeVectorMath"); comb.operation = "MULTIPLY"
-    L.new(tc.outputs["Object"], comb.inputs[0]); L.new(gi.outputs["Axis Scale"], comb.inputs[1])
-    n1 = N.new("ShaderNodeTexNoise"); n1.noise_dimensions = "4D"
-    n1.inputs["Detail"].default_value = 1.5
-    n1.inputs["Distortion"].default_value = 0.7
-    n1.inputs["Roughness"].default_value = 0.45
-    L.new(comb.outputs[0], n1.inputs["Vector"]); L.new(gi.outputs["Stroke Scale"], n1.inputs["Scale"])
-    L.new(gi.outputs["Seed"], n1.inputs["W"])
-    # quantise into flat dabs (paint is posterised; light never is)
-    ramp = N.new("ShaderNodeValToRGB"); ramp.color_ramp.interpolation = "CONSTANT"
-    els = ramp.color_ramp.elements
-    steps = [(0.0, 0.0), (0.38, 0.25), (0.47, 0.5), (0.55, 0.75), (0.64, 1.0)]
-    for i, (pos, v) in enumerate(steps):
-        e = els[i] if i < 2 else els.new(pos)
-        e.position, e.color = pos, (v, v, v, 1)
-    L.new(n1.outputs["Fac"], ramp.inputs["Fac"])
-    sub = N.new("ShaderNodeMath"); sub.operation = "SUBTRACT"; sub.inputs[1].default_value = 0.5
-    L.new(ramp.outputs["Color"], sub.inputs[0])
-    mul = N.new("ShaderNodeMath"); mul.operation = "MULTIPLY"
-    L.new(sub.outputs[0], mul.inputs[0]); L.new(gi.outputs["Variation"], mul.inputs[1])
-    val = N.new("ShaderNodeMath"); val.operation = "MULTIPLY_ADD"
-    L.new(mul.outputs[0], val.inputs[0]); val.inputs[1].default_value = 2.0; val.inputs[2].default_value = 1.0
-    n2 = N.new("ShaderNodeTexNoise"); n2.inputs["Scale"].default_value = 1.2; n2.inputs["Detail"].default_value = 0.0
-    L.new(tc.outputs["Object"], n2.inputs["Vector"])
-    hsub = N.new("ShaderNodeMath"); hsub.operation = "SUBTRACT"; hsub.inputs[1].default_value = 0.5
-    L.new(n2.outputs["Fac"], hsub.inputs[0])
-    hmul = N.new("ShaderNodeMath"); hmul.operation = "MULTIPLY_ADD"
-    L.new(hsub.outputs[0], hmul.inputs[0]); L.new(gi.outputs["Hue Jitter"], hmul.inputs[1]); hmul.inputs[2].default_value = 0.5
+    p = vmath("MULTIPLY", tc.outputs["Object"], gi.outputs["Axis Scale"])
+    # wobble: low-frequency warp, amplitude ~0.35 dab
+    wn = N.new("ShaderNodeTexNoise"); wn.noise_dimensions = "3D"
+    wn.inputs["Detail"].default_value = 1.0
+    L.new(p, wn.inputs["Vector"])
+    L.new(math("MULTIPLY", gi.outputs["Stroke Scale"], 0.35), wn.inputs["Scale"])
+    wv = vmath("SUBTRACT", wn.outputs["Color"], (0.5, 0.5, 0.5))
+    amp = math("DIVIDE", 0.7, gi.outputs["Stroke Scale"])
+    pw = vmath("ADD", p, vmath("SCALE", wv, None, amp))
+
+    def dabs(offset):
+        v = N.new("ShaderNodeTexVoronoi"); v.voronoi_dimensions = "4D"; v.feature = "F1"
+        v.inputs["Randomness"].default_value = 1.0
+        L.new(vmath("ADD", pw, offset), v.inputs["Vector"])
+        L.new(gi.outputs["Stroke Scale"], v.inputs["Scale"])
+        L.new(gi.outputs["Seed"], v.inputs["W"])
+        return v
+    d1, d2 = dabs((0, 0, 0)), dabs((0.37, 0.61, 0.23))
+    # which layer is on top: a mid-frequency mask
+    mk = N.new("ShaderNodeTexNoise"); mk.inputs["Detail"].default_value = 0.0
+    L.new(pw, mk.inputs["Vector"]); L.new(math("MULTIPLY", gi.outputs["Stroke Scale"], 0.8), mk.inputs["Scale"])
+    top = math("GREATER_THAN", mk.outputs["Fac"], 0.5)
+    mixc = N.new("ShaderNodeMix"); mixc.data_type = "RGBA"
+    L.new(top, mixc.inputs["Factor"]); L.new(d1.outputs["Color"], mixc.inputs[6]); L.new(d2.outputs["Color"], mixc.inputs[7])
+    rnd = mixc.outputs[2]                       # per-dab random RGB
+    sep = N.new("ShaderNodeSeparateColor"); L.new(rnd, sep.inputs[0])
+    # value: 4 painted steps
+    q = math("DIVIDE", math("FLOOR", math("MULTIPLY", sep.outputs["Red"], 4.0)), 3.0)
+    val = math("MULTIPLY_ADD", math("SUBTRACT", q, 0.5), math("MULTIPLY", gi.outputs["Variation"], 2.0), 1.0)
+    # bristle streaks inside the dab, running along the stroke
+    br = N.new("ShaderNodeTexWave"); br.wave_type = "BANDS"; br.bands_direction = "X"
+    br.inputs["Distortion"].default_value = 6.0; br.inputs["Detail"].default_value = 2.0
+    L.new(vmath("MULTIPLY", tc.outputs["Object"], gi.outputs["Axis Scale"]), br.inputs["Vector"])
+    L.new(math("MULTIPLY", gi.outputs["Stroke Scale"], 3.0), br.inputs["Scale"])
+    val = math("MULTIPLY", val, math("MULTIPLY_ADD", math("SUBTRACT", br.outputs["Fac"], 0.5), gi.outputs["Bristle"], 1.0))
+    hue = math("MULTIPLY_ADD", math("SUBTRACT", sep.outputs["Green"], 0.5), gi.outputs["Hue Jitter"], 0.5)
+    # cool/warm halftone dabs: some dabs lean toward the Shadow Color (a design value, not painted light)
+    cm = N.new("ShaderNodeMix"); cm.data_type = "RGBA"
+    L.new(math("MULTIPLY", math("GREATER_THAN", sep.outputs["Blue"], 0.7), gi.outputs["Shadow Mix"]), cm.inputs["Factor"])
+    L.new(gi.outputs["Base Color"], cm.inputs[6]); L.new(gi.outputs["Shadow Color"], cm.inputs[7])
     hsv = N.new("ShaderNodeHueSaturation")
-    L.new(gi.outputs["Base Color"], hsv.inputs["Color"]); L.new(hmul.outputs[0], hsv.inputs["Hue"]); L.new(val.outputs[0], hsv.inputs["Value"])
-    rmix = N.new("ShaderNodeMath"); rmix.operation = "MULTIPLY_ADD"
-    L.new(sub.outputs[0], rmix.inputs[0]); rmix.inputs[1].default_value = 0.15
-    L.new(gi.outputs["Roughness"], rmix.inputs[2])
-    # terminator breakup: stroke-shaped normal perturbation, fixed to the surface
-    bump = N.new("ShaderNodeBump")
-    L.new(gi.outputs["Bump"], bump.inputs["Strength"]); L.new(ramp.outputs["Color"], bump.inputs["Height"])
+    L.new(cm.outputs[2], hsv.inputs["Color"]); L.new(hue, hsv.inputs["Hue"]); L.new(val, hsv.inputs["Value"])
+    # per-dab normal tilt (terminator break-up), surface-locked
+    tilt = vmath("SCALE", vmath("SUBTRACT", rnd, (0.5, 0.5, 0.5)), None, math("MULTIPLY", gi.outputs["Tilt"], 2.0))
+    geo = N.new("ShaderNodeNewGeometry")
+    nrm = vmath("NORMALIZE", vmath("ADD", geo.outputs["Normal"], tilt))
     bsdf = N.new("ShaderNodeBsdfPrincipled")
-    bsdf.inputs["Specular IOR Level"].default_value = 0.25
-    L.new(hsv.outputs["Color"], bsdf.inputs["Base Color"]); L.new(rmix.outputs[0], bsdf.inputs["Roughness"])
-    L.new(gi.outputs["Metallic"], bsdf.inputs["Metallic"]); L.new(bump.outputs["Normal"], bsdf.inputs["Normal"])
+    bsdf.inputs["Specular IOR Level"].default_value = 0.2
+    L.new(hsv.outputs["Color"], bsdf.inputs["Base Color"])
+    L.new(math("MULTIPLY_ADD", math("SUBTRACT", sep.outputs["Blue"], 0.5), 0.12, gi.outputs["Roughness"]), bsdf.inputs["Roughness"])
+    L.new(gi.outputs["Metallic"], bsdf.inputs["Metallic"])
+    L.new(nrm, bsdf.inputs["Normal"])
     L.new(bsdf.outputs["BSDF"], go.inputs["BSDF"])
     return ng
 
 
-def paint(name, color, tier="set", axis="y", **kw):
+def paint(name, color, tier="set", axis="y", shadow=None, **kw):
     """Painted matte surface. color: palette key ('set/moquette') or linear RGB tuple.
     axis: the direction strokes run along ('y' = down the car, 'x' = across, 'z' = vertical)."""
     mat = bpy.data.materials.get(name)
@@ -98,9 +151,14 @@ def paint(name, color, tier="set", axis="y", **kw):
     out = nt.nodes.new("ShaderNodeOutputMaterial")
     g = nt.nodes.new("ShaderNodeGroup"); g.node_tree = _paint_group()
     g.inputs["Base Color"].default_value = rgb + (1.0,)
+    if shadow is not None:
+        srgb = pal(shadow) if isinstance(shadow, str) else tuple(shadow)
+        g.inputs["Shadow Color"].default_value = srgb + (1.0,)
+        kw.setdefault("shadow_mix", 0.6)
     p = dict(TIER[tier]); p.update(kw)
     names = {"stroke_scale": "Stroke Scale", "stretch": "Stretch", "variation": "Variation", "hue_jitter": "Hue Jitter",
-             "roughness": "Roughness", "bump": "Bump", "metallic": "Metallic", "seed": "Seed"}
+             "roughness": "Roughness", "bump": "Bump", "metallic": "Metallic", "seed": "Seed", "tilt": "Tilt",
+             "bristle": "Bristle", "shadow_mix": "Shadow Mix"}
     for k, sock in names.items():
         if k in p:
             g.inputs[sock].default_value = p[k]
@@ -197,8 +255,11 @@ def setup_render(scene, res=(1280, 536), samples=64):
     bpy.context.view_layer.use_pass_object_index = True
 
 
-def canvas_image(w, h, seed=7):
-    """Canvas tooth multiplier, 0.90-1.03 (multiply only)."""
+def canvas_image(w, h, seed=7, strength=1.0):
+    """Painted-board texture: a field of overlapping, oriented brush strokes with bristle streaks
+    over a fine canvas weave, as a MULTIPLIER (~0.84-1.06). Static (same every frame of a shot, so
+    asleep frames stay identical) and multiply-only (0 stays 0). Stroke size scales with the frame
+    (~2.5% of width long), so brushwork reads at every distance, including the Meter."""
     import numpy as np
     img = bpy.data.images.get("canvas_tooth")
     if img and tuple(img.size) == (w, h):
@@ -206,11 +267,46 @@ def canvas_image(w, h, seed=7):
     rng = np.random.default_rng(seed)
     y, x = np.mgrid[0:h, 0:w].astype(np.float32)
     weave = 0.5 + 0.25 * np.sin(x * 2 * np.pi / 3.1) * np.sin(y * 2 * np.pi / 3.3)
-    fib = rng.random((h, w)).astype(np.float32)
-    for _ in range(2):
-        fib = (fib + np.roll(fib, 1, 0) + np.roll(fib, 1, 1) + np.roll(fib, -1, 0) + np.roll(fib, -1, 1)) / 5
-    t = 0.55 * weave + 0.45 * (fib - fib.min()) / (np.ptp(fib) + 1e-6)
-    mult = 0.92 + 0.10 * t
+    acc = np.ones((h, w), np.float32)
+    # flow field: strokes mostly follow a slow, smooth direction field (a painter's hand)
+    def smooth_noise(scale):
+        g = rng.random((h // scale + 2, w // scale + 2)).astype(np.float32)
+        yi, xi = y / scale, x / scale
+        y0, x0 = yi.astype(int), xi.astype(int)
+        fy, fx = yi - y0, xi - x0
+        return (g[y0, x0] * (1 - fx) * (1 - fy) + g[y0, x0 + 1] * fx * (1 - fy) + g[y0 + 1, x0] * (1 - fx) * fy + g[y0 + 1, x0 + 1] * fx * fy)
+    flow = (smooth_noise(max(8, w // 6)) - 0.5) * np.pi * 1.2
+    L = max(10, int(w * 0.025))
+    Wd = max(4, int(L * 0.32))
+    S = L + 4
+    yy, xx = np.mgrid[-S // 2:S // 2, -S // 2:S // 2].astype(np.float32)
+    stamps = []
+    for ang in np.linspace(-np.pi / 2, np.pi / 2, 24, endpoint=False):
+        c, s_ = np.cos(ang), np.sin(ang)
+        u = xx * c + yy * s_
+        v = -xx * s_ + yy * c
+        hw = (Wd / 2) * np.sqrt(np.clip(1 - (2 * u / L) ** 2, 0, 1)) + 1e-3   # tapered, rounded ends
+        body = np.clip((hw - np.abs(v)) / 1.5, 0, 1)                            # ~1.5 px soft edge
+        bristle = 0.7 + 0.3 * np.sin(v * 2.2) * (0.6 + 0.4 * np.sin(u * 0.35))  # streaks along the stroke
+        stamps.append((ang, body * 0.85, bristle))
+    n = int(w * h / (L * Wd) * 4.0)
+    cys = rng.integers(0, h, n); cxs = rng.integers(0, w, n)
+    vals = rng.normal(0.0, 0.045, n).astype(np.float32)
+    for cy, cx, dv in zip(cys, cxs, vals):
+        ang = flow[cy, cx] + rng.normal(0, 0.25)
+        ang = (ang + np.pi / 2) % np.pi - np.pi / 2
+        k = int((ang + np.pi / 2) / np.pi * 24) % 24
+        _, m, br = stamps[k]
+        y0, x0 = cy - S // 2, cx - S // 2
+        ys, xs = max(0, y0), max(0, x0)
+        ye, xe = min(h, y0 + S), min(w, x0 + S)
+        mm = m[ys - y0:ye - y0, xs - x0:xe - x0]
+        bb = br[ys - y0:ye - y0, xs - x0:xe - x0]
+        tgt = 1.0 + dv * bb
+        acc[ys:ye, xs:xe] = acc[ys:ye, xs:xe] * (1 - mm) + tgt * mm
+    mult = (acc - 1.0) * strength + 1.0
+    mult *= 0.97 + 0.04 * weave
+    mult = np.clip(mult, 0.80, 1.08)
     rgba = np.dstack([mult, mult, mult, np.ones_like(mult)]).astype(np.float32)
     img = bpy.data.images.new("canvas_tooth", w, h, float_buffer=True, alpha=False)
     img.colorspace_settings.name = "Non-Color"
@@ -219,7 +315,7 @@ def canvas_image(w, h, seed=7):
     return img
 
 
-def setup_compositor(scene, k_set=7, k_face=3, enabled=True):
+def setup_compositor(scene, k_set=4, k_face=2, enabled=True):
     """RenderLayers -> Kuwahara (big on the set, small on faces/hands) -> canvas tooth x (set only)."""
     ng = bpy.data.node_groups.new("PainterlyComp", "CompositorNodeTree")
     ng.interface.new_socket("Image", in_out="OUTPUT", socket_type="NodeSocketColor")

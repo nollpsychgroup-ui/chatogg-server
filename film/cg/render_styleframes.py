@@ -44,6 +44,7 @@ def render(name, beat, samples, paint, res):
     t = beat["t"]
     cameras.set_shot(beat["shot"], t, aim_override=beat.get("aim"))
     scene.frame_set(common.t2f(t))
+    scene.view_settings.exposure += beat.get("exposure", 0.0)
     os.makedirs(STILLS, exist_ok=True)
     scene.render.filepath = os.path.join(STILLS, name + ("" if paint else "_raw") + ".png")
     bpy.ops.render.render(write_still=True)

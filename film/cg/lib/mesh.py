@@ -54,7 +54,7 @@ def plane(name, center, size, mat, collection="SET", normal="Z"):
     return _obj(name, bm, mat, collection, loc=center)
 
 
-def limb(name, a, b, r, mat, collection="CHARACTERS", r2=None, segs=12):
+def limb(name, a, b, r, mat, collection="CHARACTERS", r2=None, segs=9, smooth=False):
     a, b = Vector(a), Vector(b)
     d = b - a
     ln = max(d.length, 1e-4)
@@ -66,16 +66,16 @@ def limb(name, a, b, r, mat, collection="CHARACTERS", r2=None, segs=12):
         bmesh.ops.translate(bm, vec=Vector((0, 0, z)), verts=res["verts"])
     q = Vector((0, 0, 1)).rotation_difference(d.normalized())
     bmesh.ops.transform(bm, matrix=q.to_matrix().to_4x4(), verts=bm.verts)
-    return _obj(name, bm, mat, collection, loc=(a + b) / 2, smooth=True)
+    return _obj(name, bm, mat, collection, loc=(a + b) / 2, smooth=smooth)
 
 
-def ellipsoid(name, center, radii, mat, collection="CHARACTERS", segs=16, rot=None):
+def ellipsoid(name, center, radii, mat, collection="CHARACTERS", segs=10, rot=None, smooth=False):
     bm = bmesh.new()
     bmesh.ops.create_uvsphere(bm, u_segments=segs, v_segments=segs // 2 + 2, radius=1.0)
     bmesh.ops.scale(bm, vec=Vector(radii), verts=bm.verts)
     if rot is not None:
         bmesh.ops.transform(bm, matrix=rot.to_4x4(), verts=bm.verts)
-    return _obj(name, bm, mat, collection, loc=center, smooth=True)
+    return _obj(name, bm, mat, collection, loc=center, smooth=smooth)
 
 
 def text(name, body, loc, size, mat, rot=(math.pi / 2, 0, 0), collection="SET", align="CENTER"):

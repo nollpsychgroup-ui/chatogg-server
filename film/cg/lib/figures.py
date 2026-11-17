@@ -11,6 +11,7 @@ from mathutils import Matrix, Vector
 from . import lookdev as ld
 from .common import coll, dp, link, load, t2f
 from .mesh import box, ellipsoid, limb
+from . import noor
 
 CAST = {
     "NOOR":   dict(top="noor/suit", arms="noor/suit", legs="noor/skirt", shoes="noor/shoes", skin="noor/skin", hair="noor/hair", iris="noor/iris"),
@@ -26,7 +27,7 @@ def _tag(ob, idx):
     return ob
 
 
-def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_closed=False):
+def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_closed=False, sculpted=True, face=None):
     spec = CAST[name]
     fig = B["figures"][name]
     mark = Vector(at if at else D["set"]["marks"][name])
@@ -59,8 +60,11 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
     lean = Matrix.Rotation(math.radians(8), 3, lat)
     hip = P(-0.10, 0, 0.58)
     sh = P(-0.16, 0, 1.06)
-    obs.append(_tag(ellipsoid(f"{name}_TORSO", (hip + sh) / 2 + Vector((0, 0, 0.02)), (0.12, 0.185 * sw, 0.29 * k), m["top"], C,
-                              rot=lean @ rot), 2))
+    if name == "NOOR" and sculpted:
+        obs += noor.torso(hip, sh, f, lat, C, sw)
+    else:
+        obs.append(_tag(ellipsoid(f"{name}_TORSO", (hip + sh) / 2 + Vector((0, 0, 0.02)), (0.12, 0.185 * sw, 0.29 * k), m["top"], C,
+                                  rot=lean @ rot), 2))
     obs.append(_tag(ellipsoid(f"{name}_PELVIS", hip, (0.15, 0.18 * sw, 0.10), m["legs"], C, rot=rot), 2))
     if spec.get("cardigan"):
         for s in (-1, 1):
@@ -79,21 +83,25 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
     # head, neck, hair, eyes (glossy corneas -> panel catchlights)
     head_c = P(-0.13, 0, 1.31)
     tilt = Matrix.Rotation(math.radians(-6), 3, lat)
-    obs.append(_tag(limb(f"{name}_NECK", sh, head_c - Vector((0, 0, 0.08)), 0.045, skin, C), 1))
-    obs.append(_tag(ellipsoid(f"{name}_HEAD", head_c, (0.095, 0.082, 0.115), skin, C, rot=tilt @ rot), 1))
-    obs.append(_tag(ellipsoid(f"{name}_NOSE", head_c + f * 0.092 - Vector((0, 0, 0.012)), (0.02, 0.014, 0.028), skin, C, rot=rot), 1))
-    obs.append(_tag(ellipsoid(f"{name}_HAIR", head_c - f * 0.025 + Vector((0, 0, 0.035)), (0.10, 0.09, 0.10), hair, C, rot=rot), 2))
-    sclera = ld.gloss("sclera", (0.896, 0.871, 0.807), roughness=0.04, coat=1.0)   # #F3F0E8 (design-notes F2)
-    lid = ld.paint(f"lid_{name}", (0.155, 0.0685, 0.0395), tier="face")                 # #6E4A38
-    lidline = ld.paint("lid_line", (0.006, 0.005, 0.005), tier="face", variation=0.0)
-    for s in (-1, 1):
-        ec = head_c + f * 0.074 + lat * s * 0.033 + Vector((0, 0, 0.012))
-        obs.append(_tag(ellipsoid(f"{name}_EYE_{s}", ec, (0.012, 0.012, 0.012), sclera, C, segs=16), 1))
-        obs.append(_tag(ellipsoid(f"{name}_IRIS_{s}", ec + f * 0.0085, (0.0035, 0.0062, 0.0062), cornea, C, segs=12, rot=rot), 1))
-        if eyes_closed:
-            obs.append(_tag(ellipsoid(f"{name}_LID_{s}", ec + f * 0.001, (0.0135, 0.0135, 0.0135), lid, C, segs=16), 1))
-            obs.append(_tag(limb(f"{name}_LIDLINE_{s}", ec + f * 0.0132 - lat * 0.010 - Vector((0, 0, 0.001)),
-                                 ec + f * 0.0132 + lat * 0.010 - Vector((0, 0, 0.001)), 0.0016, lidline, C), 1))
+    if name == "NOOR" and sculpted:
+        obs.append(_tag(limb(f"{name}_NECK", sh + Vector((0, 0, 0.05)), head_c - Vector((0, 0, 0.06)) - f * 0.01, 0.056, noor.skin_mat(), C, segs=12, smooth=True), 1))
+        obs += noor.build(head_c, f, lat, C, params=face)
+    else:
+        obs.append(_tag(limb(f"{name}_NECK", sh, head_c - Vector((0, 0, 0.08)), 0.045, skin, C), 1))
+        obs.append(_tag(ellipsoid(f"{name}_HEAD", head_c, (0.095, 0.082, 0.115), skin, C, rot=tilt @ rot), 1))
+        obs.append(_tag(ellipsoid(f"{name}_NOSE", head_c + f * 0.092 - Vector((0, 0, 0.012)), (0.02, 0.014, 0.028), skin, C, rot=rot), 1))
+        obs.append(_tag(ellipsoid(f"{name}_HAIR", head_c - f * 0.025 + Vector((0, 0, 0.035)), (0.10, 0.09, 0.10), hair, C, rot=rot), 2))
+        sclera = ld.gloss("sclera", (0.896, 0.871, 0.807), roughness=0.04, coat=1.0)   # #F3F0E8 (design-notes F2)
+        lid = ld.paint(f"lid_{name}", (0.155, 0.0685, 0.0395), tier="face")                 # #6E4A38
+        lidline = ld.paint("lid_line", (0.006, 0.005, 0.005), tier="face", variation=0.0)
+        for s in (-1, 1):
+            ec = head_c + f * 0.074 + lat * s * 0.033 + Vector((0, 0, 0.012))
+            obs.append(_tag(ellipsoid(f"{name}_EYE_{s}", ec, (0.012, 0.012, 0.012), sclera, C, segs=16, smooth=True), 1))
+            obs.append(_tag(ellipsoid(f"{name}_IRIS_{s}", ec + f * 0.0085, (0.0035, 0.0062, 0.0062), cornea, C, segs=12, rot=rot, smooth=True), 1))
+            if eyes_closed:
+                obs.append(_tag(ellipsoid(f"{name}_LID_{s}", ec + f * 0.001, (0.0135, 0.0135, 0.0135), lid, C, segs=16, smooth=True), 1))
+                obs.append(_tag(limb(f"{name}_LIDLINE_{s}", ec + f * 0.0132 - lat * 0.010 - Vector((0, 0, 0.001)),
+                                     ec + f * 0.0132 + lat * 0.010 - Vector((0, 0, 0.001)), 0.0016, lidline, C), 1))
     if spec.get("hood"):
         obs.append(_tag(ellipsoid(f"{name}_HOOD", sh - f * 0.10 + Vector((0, 0, 0.06)), (0.08, 0.17, 0.09), m["top"], C, rot=rot), 2))
     # arms by pose: (elbow, hand) in (fwd, lat, z-unscaled)
@@ -116,8 +124,8 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
     if name == "NOOR":
         red = ld.paint("the_red_strap", "THE_RED", tier="costume", variation=0.06)
         for s in (-1, 1):
-            obs.append(_tag(limb(f"NOOR_STRAP_{s}", P(-0.12, s * 0.07, 1.14), P(-0.03, s * 0.012, 0.90), 0.009, red, C), 2))
-        obs.append(_tag(box("NOOR_BADGE", P(-0.025, 0, 0.85), (0.075, 0.075, 0.10), ld.gloss("badge_plastic", "noor/badge", roughness=0.25), C), 2))
+            obs.append(_tag(limb(f"NOOR_STRAP_{s}", P(-0.10, s * 0.065, 1.10), P(-0.012, s * 0.012, 0.90), 0.008, red, C, segs=8, smooth=True), 2))
+        obs.append(_tag(box("NOOR_BADGE", P(-0.008, 0, 0.85), (0.075, 0.075, 0.10), ld.gloss("badge_plastic", "noor/badge", roughness=0.25), C), 2))
         bpy.data.objects["NOOR_BADGE"].rotation_euler = (0, 0, yaw)
         rh = P(*hands[1][1])
         target = head_c if pose != "phone_lap" else head_c

@@ -52,10 +52,10 @@ def set_shot(shot_no, t, D=None, aim_override=None):
     ob = bpy.data.objects["SHOT_CAM"]
     ob.data.lens = s["lens_mm"]
     loc = Vector(s["camera_loc"])
-    if s["move"].startswith("push A->A2"):
-        a2 = Vector(D["camera"]["positions"]["A2"]["loc"])
+    path = s.get("path")
+    if path:  # moving shots: linear from path.from to path.to over the shot (DP's cues.json)
         u = max(0.0, min(1.0, (t - s["in"]) / (s["out"] - s["in"])))
-        loc = loc.lerp(a2, u)
+        loc = Vector(path["from"]).lerp(Vector(path["to"]), u)
     aim = aim_override or s["aim"]
     aim_at(ob, loc, aim)
     bpy.context.scene.camera = ob
