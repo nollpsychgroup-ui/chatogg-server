@@ -10,7 +10,12 @@ same way music/cue-sheet.md describes it (1M0 bed + 1M1-1M8). Outputs next to th
   temp-score.mp3       music only (hum bed, Undertone, cello warmth, release)
   temp-mix.mp3         music + temp sound-design placeholders (rails, relay ticks,
                        door chimes, the inhale), for cutting the animatic
+  temp-sfx.mp3         the temp sound-design stem alone (temp-score + temp-sfx = temp-mix)
+  *-48k.flac           48 kHz stereo lossless versions of all three, for the TA to mux
   temp-sync-report.txt every cue/event time actually used, so picture can check sync
+
+Dialogue windows (kept clear: Undertone/cellos -4 dB, rails -3 dB) come from a 'dialogue'
+array in cues.json when present, else ./dialogue-windows.json (provisional estimates).
   (.wav versions are written too but git-ignored)
 
 Sample rate is 24 kHz mono: a rough temp, not a final. The cue file format is
@@ -186,6 +191,19 @@ release = np.zeros(N, np.float32)
 for p, lv, d in ((8, .016, 0), (10, .013, .6), (12, .011, 1.2)):
     release += rel * gate(T_PAGE + d, DUR) * lv * osc(F0 * p, ((1, 1), (2, .1)))
 
+# ---------- dialogue windows: keep them clear --------------------------------------------
+DLG_SRC = "camera/cues.json" if "dialogue" in doc else "dialogue-windows.json"
+DLG = doc.get("dialogue") or json.load(open(os.path.join(HERE, "dialogue-windows.json")))["dialogue"]
+duck_pts = [(0, 0.0)]
+for w in DLG:
+    duck_pts += [(w["in"] - .15, 0.0), (w["in"], 1.0), (w["out"], 1.0), (w["out"] + .25, 0.0)]
+duck_pts.append((DUR, 0.0))
+in_dlg = np.clip(env(duck_pts), 0, 1)                  # 1 inside a line, 0 outside
+DUCK_MUSIC = 1 - in_dlg * (1 - 10 ** (-4 / 20))         # Undertone + cellos -4 dB under lines
+DUCK_RAILS = 1 - in_dlg * (1 - 10 ** (-3 / 20))         # rails -3 dB under lines
+und *= DUCK_MUSIC
+warm *= DUCK_MUSIC
+
 score = score * (1 - dark) + und + warm + release
 
 # ---------- temp sound design placeholders -----------------------------------------------
@@ -202,7 +220,7 @@ for c in np.arange(.4, DUR, .83):
         i = int((c + off) * SR)
         if i + 440 < N:
             clack[i:i + 440] += np.exp(-np.arange(440) / 50) * rng.standard_normal(440) * .35
-sfx += rails_amp * (rumble + clack)
+sfx += rails_amp * DUCK_RAILS * (rumble + clack)
 for c in cues:
     if c["type"] in ("tick", "panel_out", "relight"):
         i = int(c["t"] * SR)
@@ -234,6 +252,14 @@ mix = score + sfx
 peak = float(np.max(np.abs(mix))) / .89
 write(mix, "temp-mix", peak)
 write(score, "temp-score", peak)            # same gain as the mix, so levels compare
+write(sfx, "temp-sfx", peak)                # stems sum to the mix: temp-score + temp-sfx
+
+# 48 kHz stereo FLAC for the TA to mux (dual mono, lossless). WAV on request: same ffmpeg line.
+if shutil.which("ffmpeg"):
+    for name in ("temp-mix", "temp-score", "temp-sfx"):
+        src = os.path.join(HERE, name + ".wav")
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", src, "-ar", "48000", "-ac", "2",
+                        "-sample_fmt", "s16", os.path.join(HERE, name + "-48k.flac")], check=False)
 
 fmt = lambda s: f"{int(s // 60)}:{s % 60:05.2f}"
 lines = [f"Temp score sync report. Cue source: {os.path.relpath(path, HERE)}",
@@ -254,7 +280,11 @@ lines += ["", "MUSIC CUES (cue-sheet.md)",
 gaps = [b["t"] - a["t"] for a, b in zip(outs, outs[1:])]
 lines += ["", f"Cue 5 main {DIP_MAIN} (partial {PARTIAL[DIP_MAIN]}), sympathy {DIP_SYMP}, recovered {fmt(T_DIP_END)}",
           f"Breath depth {BREATH_DEPTH}, period {BREATH_PERIOD} s, on {fmt(T_BREATH_ON)}, off {fmt(T_BREATH_OFF or T_LAST_REL)}"]
+on_line = [c["id"] for c in outs + rels + by_type("tick")
+           if any(w["in"] <= c["t"] <= w["out"] for w in DLG)]
+lines += ["", f"Dialogue windows: {len(DLG)} from {DLG_SRC} (Undertone/cellos -4 dB, rails -3 dB inside)",
+          "  Advance/relight ticks landing inside a line: " + (", ".join(on_line) if on_line else "none (OK)")]
 lines += ["", f"Advance tick spacing: min {min(gaps):.1f} s, max {max(gaps):.1f} s "
           f"({'OK' if min(gaps) >= 8 else 'BELOW the 8 s rule'})"]
 open(os.path.join(HERE, "temp-sync-report.txt"), "w").write("\n".join(lines) + "\n")
-print("\n".join(lines[-14:]))
+print("\n".join(lines[-12:]))

@@ -34,6 +34,7 @@ LIGHT CUES (DP 0-8)
 
 EVENTS
   0:00.00  D0
+  0:00.00  doors_open_board
   0:25.00  board_chime
   0:40.00  lanyard
   0:48.00  doors_close
@@ -57,6 +58,7 @@ EVENTS
   8:55.00  doors_close_final
   8:58.00  pa_line
   9:00.00  pull_away
+  9:08.00  pull_away_end
   9:12.00  page_turn
   9:21.00  phone_dims
   9:25.00  cut
@@ -76,5 +78,8 @@ MUSIC CUES (cue-sheet.md)
 
 Cue 5 main P3 (partial 4), sympathy ['P2', 'P4'], recovered 3:52.00
 Breath depth 0.03, period 5.0 s, on 1:20.00, off 8:28.00
+
+Dialogue windows: 40 from dialogue-windows.json (Undertone/cellos -4 dB, rails -3 dB inside)
+  Advance/relight ticks landing inside a line: none (OK)
 
 Advance tick spacing: min 8.5 s, max 8.5 s (OK)

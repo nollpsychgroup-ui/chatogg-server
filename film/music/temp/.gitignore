@@ -1,2 +1,4 @@
 *.wav
 __pycache__/
+temp-score-48k.flac
+temp-sfx-48k.flac
