@@ -429,17 +429,40 @@ def build_bea_reach(D, BL):
     sh = sum(vs[:max(1, len(vs) // 10)], Vector()) / max(1, len(vs) // 10)
     d = (tgt - sh); d.z = 0.0; d.normalize()
     fwd = Vector(D["set"]["marks"]["BEA"]); fwd = Vector((-1.0 if fwd.x > 0 else 1.0, 0, 0))   # into the aisle
-    d = (d * 0.65 + fwd * 0.55 + Vector((0, 0, 0.30))).normalized()   # out and up, so it reads past her body
+    # "don't": fast and urgent, forward toward Kai at chest-to-shoulder height, out in the aisle so it
+    # reads past her body from B (Director), not raised like a hail
+    d = (d * 0.75 + fwd * 0.45 + Vector((0, 0, 0.02))).normalized()
     hp = sh + d * br["reach_m"]
-    elb = sh.lerp(hp, 0.5) + Vector((0, 0, -0.03))
+    elb = sh.lerp(hp, 0.5) + Vector((0, 0, -0.02))
+    side_v = d.cross(Vector((0, 0, 1))).normalized()
     new = [limb("BEA_REACH_UARM", sh, elb, 0.05, uarm.active_material, C, r2=0.042),
            limb("BEA_REACH_FARM", elb, hp, 0.04, uarm.active_material, C, r2=0.032),
-           ellipsoid("BEA_REACH_HAND", hp + d * 0.04, (0.05, 0.035, 0.04), hand.active_material, C)]
+           # open palm toward him: a flat paddle facing along the reach, fingers spread
+           ellipsoid("BEA_REACH_HAND", hp + d * 0.03, (0.012, 0.05, 0.055), hand.active_material, C,
+                     rot=d.to_track_quat("X", "Z").to_matrix())]
+    for k in (-2, -1, 0, 1, 2):
+        a = hp + d * 0.04 + side_v * (0.022 * k) + Vector((0, 0, 0.045 - 0.006 * abs(k)))
+        new.append(limb(f"BEA_REACH_FINGER_{k + 2}", a, a + d * 0.01 + side_v * 0.012 * k + Vector((0, 0, 0.045)),
+                        0.008, hand.active_material, C, segs=8))
     for o in new:
         o.pass_index = 2
-    new[-1].pass_index = 1
+    for o in new[2:]:
+        o.pass_index = 1
     key_visibility(new, [(t0, t1)])
     key_visibility(arm, [(0, t0), (t1, 10_000)])
+    # the body leans out of the seat after the arm: upper body and head slide ~7 cm along the reach
+    lean = d.copy(); lean.z = 0; lean = lean.normalized() * 0.07
+    f0, f1 = t2f(t0), t2f(t1)
+    for ob in bpy.data.collections[C].objects:
+        if any(k in ob.name for k in LOWER) or ob in new or (ob.parent is not None and ob.parent.name in bpy.data.collections[C].objects):
+            continue
+        for f, v in ((f0, Vector()), (f0 + 3, lean), (f1 - 4, lean), (f1 + 6, Vector())):
+            ob.delta_location[0], ob.delta_location[1] = v.x, v.y
+            ob.keyframe_insert("delta_location", index=0, frame=f)
+            ob.keyframe_insert("delta_location", index=1, frame=f)
+    # the reach itself rides with the lean
+    for o in new:
+        o.delta_location[0], o.delta_location[1] = lean.x, lean.y
 
 
 def build(D=None, B=None):
