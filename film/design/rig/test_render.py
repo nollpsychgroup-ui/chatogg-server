@@ -140,15 +140,20 @@ def bea_dark():
 
 def catchlights():
     """Style guide 8c: the panel row shows in the cornea, and panels going out leave it."""
-    for tag, lit in (("6_lit", (True,) * 6), ("2_lit", (True, True) + (False,) * 4)):
+    for tag, lit in (("12_lit", (True,) * 12), ("2_lit", (True, True) + (False,) * 10)):
         sc = reset()
         r = build_head("NOOR")
         place(r, (0, 0, 0), (0, -1, 0))
         set_expression(r, dict(gaze_y=-0.3), from_neutral=True)
         # the row runs away down the car in front of her, as on the 40 mm (P1 above, P2.. ahead)
         panels(sc, lit=lit, y0=-0.15, step=-1.083)
-        camera(sc, (0.032, 0.0, 0.012), dist=0.45, lens=200, height=-0.05)
-        render(sc, os.path.join(OUT, f"catchlight_{tag}.png"), 480, 320)
+        # C75 framing: 75 mm at ~0.9 m, full face in a 2.39 frame; then an unscaled 1:1 crop of her eyes
+        camera(sc, (0.0, 0.0, 0.0), dist=0.9, lens=75, height=-0.04)
+        sc.render.use_border = True
+        sc.render.use_crop_to_border = True
+        sc.render.border_min_x, sc.render.border_max_x = 0.36, 0.64
+        sc.render.border_min_y, sc.render.border_max_y = 0.52, 0.70
+        render(sc, os.path.join(OUT, f"catchlight_{tag}.png"), 1920, 804)
 
 
 if __name__ == "__main__":

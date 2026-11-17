@@ -24,7 +24,7 @@ import os
 
 import bmesh
 import bpy
-from mathutils import Vector
+from mathutils import Matrix, Vector
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PALETTE = os.path.join(os.path.dirname(HERE), "palette.json")
@@ -150,9 +150,11 @@ def _empty(name, parent, loc, collection):
     return e
 
 
-def _sphere(r, segs=24, rings=16):
+def _sphere(r, segs=24, rings=16, pole_y=False):
     bm = bmesh.new()
     bmesh.ops.create_uvsphere(bm, u_segments=segs, v_segments=rings, radius=r)
+    if pole_y:  # poles on the Y axis, so caps cut across Y get clean round rims
+        bmesh.ops.rotate(bm, verts=bm.verts, cent=(0, 0, 0), matrix=Matrix.Rotation(math.pi / 2, 3, "X"))
     return bm
 
 
@@ -306,18 +308,21 @@ def _eye(name, side, sx, s, skull, M, root, collection, pf):
     # eyeball (sclera) + iris + pupil + cornea cap, all on the gaze pivot
     bm = _sphere(r, 24, 16)
     _mesh_obj(f"{name}_HD_SCLERA_{side}", bm, [M["sclera"]], collection, piv, pass_index=pf)
-    bm = _sphere(1.0, 20, 12)
+    # iris and pupil lie ON the eyeball (under the cornea), as caps of a slightly larger sphere
+    for part, cut, grow, mat in (("IRIS", 0.866, 1.004, M["iris"]), ("PUPIL", 0.976, 1.008, M["pupil"])):
+        bm = _sphere(r * grow, 64, 48, pole_y=True)
+        bmesh.ops.delete(bm, geom=[v for v in bm.verts if v.co.y < cut * r * grow], context="VERTS")
+        _mesh_obj(f"{name}_HD_{part}_{side}", bm, [mat], collection, piv, pass_index=pf)
+    # cornea: a smooth spherical cap meeting the eyeball at the iris rim. Its radius is stylised
+    # FLATTER than a real cornea (0.9 r vs ~0.65 r), which makes each panel's reflection bigger,
+    # so the row of panels stays countable on the 75 mm close-up.
+    rc = s.get("cornea_rc", 0.9) * r
+    rim_y = r * math.sqrt(1 - 0.5 ** 2)                    # iris rim on the eyeball (iris radius 0.5 r)
+    yc = rim_y - math.sqrt(max(rc * rc - (0.5 * r) ** 2, 0.0)) + 0.012 * r
+    bm = _sphere(rc, 96, 64, pole_y=True)
+    bmesh.ops.delete(bm, geom=[v for v in bm.verts if v.co.y + yc < rim_y - 0.03 * r], context="VERTS")
     for v in bm.verts:
-        v.co = Vector((v.co.x * r * 0.47, v.co.y * r * 0.12 + r * 0.93, v.co.z * r * 0.47))
-    _mesh_obj(f"{name}_HD_IRIS_{side}", bm, [M["iris"]], collection, piv, pass_index=pf)
-    bm = _sphere(1.0, 16, 10)
-    for v in bm.verts:
-        v.co = Vector((v.co.x * r * 0.21, v.co.y * r * 0.06 + r * 1.035, v.co.z * r * 0.21))
-    _mesh_obj(f"{name}_HD_PUPIL_{side}", bm, [M["pupil"]], collection, piv, pass_index=pf)
-    bm = _sphere(r * 1.03, 28, 18)
-    bmesh.ops.delete(bm, geom=[v for v in bm.verts if v.co.y < r * 0.55], context="VERTS")
-    for v in bm.verts:  # corneal bulge
-        v.co.y += (v.co.y - r * 0.55) * 0.35
+        v.co.y += yc
     cor = _mesh_obj(f"{name}_HD_CORNEA_{side}", bm, [M["cornea"]], collection, piv, pass_index=pf)
     cor.visible_shadow = False
     _drive(piv, "rotation_euler", 2, root, "radians(-28*gaze_x)", ["gaze_x"])
