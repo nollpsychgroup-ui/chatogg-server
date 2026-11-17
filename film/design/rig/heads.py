@@ -101,7 +101,7 @@ def default_materials(name):
         "lid_ink": _mat(f"hd_{k}_lidink", _lin(s.get("lid_ink", "#24180F")), rough=0.6),
         "hair": _mat(f"hd_{k}_hair", c(f"{k}/hair")),
         "brow": _mat(f"hd_{k}_brow", _lin({"noor": "#231B18", "kai": "#1E1A18", "bea": "#231915", "walter": "#9E978D"}[k])),
-        "hair_thin": _mat(f"hd_{k}_hairthin", _lin({"walter": "#D6BFAC"}.get(k, "#1E1A19"))),
+        "hair_thin": _mat(f"hd_{k}_hairthin", _lin({"walter": "#BDB8B0"}.get(k, "#1E1A19"))),
         "lips": _mat(f"hd_{k}_lips", c(f"{k}/lips")),
         "sclera": _mat(f"hd_{k}_sclera", _lin(s.get("sclera", "#E9E6DE")), rough=0.35),
         "iris": _mat(f"hd_{k}_iris", c(f"{k}/iris"), rough=0.4),
@@ -576,7 +576,7 @@ def _hair(name, s, skull, M, root, collection, ph):
         shell(hairline(0.38, -0.02, -0.45), lambda c: 1.045)
     elif name == "WALTER":
         # thinning white hair, combed back: a fuller band round the sides and back, and a thin top
-        # (lighter, scalp showing through) from a receding hairline. Not bald.
+        # (light grey #BDB8B0, so it separates from the skin) from a receding, broken hairline. Not bald.
         # a soft band wrapping continuously round the back, sitting a little behind and above the ears
         # (ears in front), with an irregular painted edge broken into strands at the temples: hair, not hardware
         side = hairline(1.5, 0.12, -0.50)
@@ -595,8 +595,9 @@ def _hair(name, s, skull, M, root, collection, ph):
         bm = _sphere(1.0, 64, 44)
         for v in bm.verts:
             c = v.co.copy()
-            k = ss(-0.06, 0.06, shell_top(c))
-            v.co = skull.shape(c) * (0.94 + (1.012 - 0.94) * k)
+            a_ = math.atan2(c.x, c.y)
+            k = ss(-0.05, 0.05, shell_top(c) + 0.04 * math.sin(13 * a_) + 0.03 * math.sin(7 * c.x * 9))  # soft, broken hairline
+            v.co = skull.shape(c) * (0.94 + (1.016 - 0.94) * k)
         _mesh_obj(f"{name}_HD_HAIR_TOP", bm, [Mt["hair"]], collection, root, pass_index=ph)
 
 
