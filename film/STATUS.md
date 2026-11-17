@@ -18,3 +18,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [composer] Milestone 3: cue sheet written against locked draft-02 (1M0 bed + 1M1–1M8, numbered to DP cues 0–8 / P1–P12), theme sketches for the Undertone, Relight and Page Turn (music/cue-sheet.md, music/sketches/)
 - [producer] DECISION (human): the film is now stylized, painterly CG animation (see FORMAT.md). Added 3D/Technical Artist and Character Designer. New Milestone 4: previs animatic.
 - [composer] Cue sheet and theme sketches APPROVED by Director (notes/composer-notes-02.md). Folded in the tick-spacing rule and transducer use; agreeing Advance tick spacing with DP (music/cue-sheet.md)
+- [screenwriter] Voice sides for all 7 voices written (script/voice-sides.md)
