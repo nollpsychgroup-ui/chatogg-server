@@ -42,4 +42,12 @@ Three concepts for a 5–10 minute short. Each is built around one clear turn th
 
 ## Director's recommendation
 
-_(Director: add your ranked recommendation here.)_
+**Ranking:** 1. RETURN WINDOW · 2. THE QUIET CAR · 3. LOW TIDE
+
+**1. RETURN WINDOW (recommended).** It's the most complete film on the page. Every element does work: the dress, the two-name receipt, the visitor band, the "we" that becomes "I," the laminated note, the wall clock. The three-rung negotiation gives the middle real escalation. The turn is earned, specific and cinematic: a man risks his job for a stranger with nothing more than a keystroke. It's also the cheapest and lowest-risk to make well. One location and two actors mean the budget goes into performance and the frame, where a short wins or loses.
+
+**2. THE QUIET CAR.** After the revision this is a genuinely original horror premise. "The car punishes lies" turns the genre into a film about honesty, and Noor's confession works as both the climax and the cost. It ranks second only on execution risk: four actors, a train carriage, and a supernatural rule that has to read instantly with no exposition. With the right location and a strong sound designer it could be the one that travels furthest.
+
+**3. LOW TIDE.** It has the warmest heart and a lovely payoff in the two handwritings on one letter. But grief-and-a-buried-box is familiar ground, and the production is the hardest of the three: tide-table scheduling, water safety, continuity against a moving sea, and minor-actor hours. Those costs land on the film that is least distinctive on paper.
+
+**Vision for RETURN WINDOW:** I'd shoot it as a held breath. The camera is locked off and mostly static, in wide, patient two-shots across the counter. We cut in close only when someone's composure cracks, so every close-up feels like an intrusion. The palette is department-store dead: fluorescent green-white, beige laminate, and the dress as the only soft, luminous thing in frame. There's no score, just the lights' hum, the unanswered phone, the register's beeps, and the wall clock, which we can hear and occasionally see, edging toward 6:00. Played as real time (eight minutes on the clock, about eight on screen), the comedy comes from the bureaucratic deadpan and the devastation comes from what Maya never says. Casting is everything. Maya needs to be funny-polite on the surface and barely holding together underneath, and Dev needs to be someone we initially take for a jobsworth. The last shot holds on Dev alone with the dress as the clock flips over. We don't cut until it hurts a little. Then we cut to black, with the hum still running.
