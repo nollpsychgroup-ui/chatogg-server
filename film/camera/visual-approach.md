@@ -1,6 +1,6 @@
 # THE QUIET CAR: Visual Approach
 
-**DP prep document** · Based on `script/draft-02.md` (Director-approved, awaiting the human gate) · For Director review.
+**DP prep document** · Based on `script/draft-02.md` (Director-approved, awaiting the human gate) · **Approved by the Director** (see `notes/dp-notes-01.md`); their decisions are folded in.
 
 ---
 
@@ -61,11 +61,11 @@ A small set of matched primes: **25, 32, 40, 50 and 75 mm** (Super 35 equivalent
 | Asleep (baseline) | **Cool fluorescent white, ~4300 K with a touch of green** | Unglamorous transit light, flat and even, with slight under-eye shadows. It should feel safe and dead. |
 | Awake / brownout | **Sodium orange, ~2200 K, about 2.5 stops down** | Real fluorescents don't go orange, but audiences read a warm, dim brownout as a power sag, a failing system, something drawing current. We dim the tunable panels *warm* as they go down. |
 | Blackout | **True black** | 0 IRE, no fill, and no passing light in the windows. The LED display goes dark too. |
-| Windows | Black, with occasional cold tunnel lights passing | Passing lights appear only while the car is asleep, which keeps rule 1. During every cue the windows go dead black: the car closes its eyes to the outside. |
+| Windows | Black, with occasional cold tunnel lights passing | Passing lights appear only while the car is asleep, which keeps rule 1, and **only in the glass**: the window rig is flagged so it lights the window frames and reflections, never faces or panels. During every cue the windows go dead black: the car closes its eyes to the outside. |
 | Phone screens | Cold blue-white | They are the only light the car doesn't control. In the final dark stretch, Noor's **MARK** screen lights her face from below. |
-| Platform (ending) | Single sodium practical, the brownout orange | **Flag for Director:** this deliberately echoes the car's waking colour. She steps out into the colour of what nearly took her, and that's ambiguous about whether she's free. The alternative is a cold moonlit white, which reads cleaner and more hopeful. I prefer the sodium. |
+| Platform (ending) | Single **cold-white practical**: a mercury-vapour or blue-white LED street lamp, not moonlight | **Director's decision.** Orange has to mean only *the car is awake*. The platform is plain and unflattering: the uncoloured light of the truth she now has to stand in. Mark's withheld answer carries the ambiguity. The relit carriage and the platform are two temperatures of "nothing hidden." Keep the light ground haze. |
 
-**Production design asks (for the Director to pass on):** seats in a muted teal moquette, grey laminate walls, and no reds anywhere in the car. Red is kept for one thing: **Noor's lanyard strap.** It's the only saturated object in frame, so the M3 plant (the tick above her as she straightens it) and the moment she throws it on the floor are both easy to follow. Her suit is charcoal, Bea wears navy scrubs, Walter a camel overcoat, and Kai a grey hoodie. Everyone sinks into the car except the badge.
+**Production design asks (for the Director to pass on):** seats in a muted teal moquette, grey laminate walls, and no reds anywhere in the car. Red is kept for **Noor's lanyard strap**, plus one other red (Director's addition): **the red end-call button on Kai's phone**, which must stay readable in the 40 mm insert. It ties her badge to the call she can't end. Phone UIs carry no other red. The strap is the only saturated object in the car, so the M3 plant (the tick above her as she straightens it) and the moment she throws it on the floor are both easy to follow. Her suit is charcoal, Bea wears navy scrubs, Walter a camel overcoat, and Kai a grey hoodie. Everyone sinks into the car except the badge.
 
 ---
 
@@ -88,7 +88,7 @@ Each cue has a fixed look and a fixed sound partner (see *Sync*). The escalation
 | 1 | **Flicker, one panel** | Lie 1, "Just leaving the office" | The panel above her, three or four irregular pulses down to ~30% over about half a second. |
 | 2 | **Flicker, two panels** | Lie 2, "The Henley account" | Two panels, longer and deeper (to ~10%). The car is listening more closely. |
 | 3 | **Brownout** | Kai: "I'm at the library, Mum" | **Every** panel sags warm and dim to sodium orange and *holds*. It's the first time the whole car acts at once. |
-| 4 | **Blackout** | Kai's second lie | A clean snap to true black: panels, windows, display, everything. Held for **about 3 seconds**, long enough to become unbearable. |
+| 4 | **Blackout** | Kai's second lie | A clean snap to true black: panels, windows, display, everything. About **3 seconds** on screen, long enough to become unbearable. **Shot at 5 s or more** so the edit has room. |
 | 5 | **Hard dip** (M1) | "My name is S—", cut off by Walter's hand | The panel above Noor slams to ~5% and the two beside it dip in sympathy, then they recover slowly once she stops. |
 | 6 | **Stutter** | The reflex "I'm f—" | One panel, two quick hiccups. It's smaller, because the lie never finished. |
 | 7 | **Sequential out** | The 5 → 2 minute stretch | One panel at a time, from the far end toward Noor, **snapping straight off** with a relay *tick*. No flicker: this isn't a reaction any more, it's an advance. The darkness is something approaching, not a malfunction. |
@@ -98,7 +98,7 @@ Each cue has a fixed look and a fixed sound partner (see *Sync*). The escalation
 
 Lights alone could read as faulty wiring. What sells the car as *alive* is what happens to the light **between** cues:
 
-- **It breathes.** From the first groan until Noor's confession, every lit panel carries a very slow swell of **±3% at about one cycle every 5 seconds**, in time with a low breath in the sound bed. It's below conscious notice, but the audience will feel the room breathing. When the last panel relights after the confession, **the breathing stops**: the light goes back to dead stable, and the car is asleep again.
+- **It breathes.** From the first groan until Noor's confession, every lit panel carries a very slow swell of **±3% at about one cycle every 5 seconds**, in time with a low breath in the sound bed. **At the test it's checked on the monitor and projected large; if anyone can see it, drop to ±2% or slow it down.** It must be felt, not seen. It's below conscious notice, but the audience will feel the room breathing. When the last panel relights after the confession, **the breathing stops**: the light goes back to dead stable, and the car is asleep again. **There is no parting cue.** After the last relight the car stays dead stable to the end; the only movement left in the frame is Walter turning the page and Kai's phone screen dimming. The car looks completely innocent.
 - **It shuts out the world.** While it's awake there are no tunnel lights in the windows. The car is sealed in its own attention.
 - **It moves.** Each groan is played through bass transducers bolted under the seats and floor, so the set physically hums. Coffee rings in a cup, the newspaper trembles, and the actors feel it in their seats. The camera picks up a faint real tremor.
 
@@ -106,7 +106,7 @@ That's the "waking" arc: **dead stable → breathing → acting → advancing �
 
 ### Kai's vanishing, done in camera
 
-My recommendation is **a single locked-off take with no cut.** Kai is lit at the brownout, then cue 4 takes the frame to true black. In the dark, Kai slips out of his seat and through a slot in the wild wall, guided by IR (infrared) safety light, which the camera's IR-cut filter won't record. The phone is already on the seat. After about 3 seconds the lights snap back up on the same frame. The seat is empty.
+My recommendation is **a single locked-off take with no cut.** Kai is lit at the brownout, then cue 4 takes the frame to true black. In the dark, Kai slips out of his seat and through a slot in the wild wall, guided by IR (infrared) safety light. **The actual camera, filter and ND stack is tested to confirm it records nothing from the IR sources**, since some combinations pick up near-IR, and one glowing frame would ruin the vanishing. The phone is already on the seat. After the blackout (shot at 5 s or more) the lights snap back up on the same frame. The seat is empty.
 
 A cut hidden in the black frames would also work. But a locked frame that never moved is more frightening, and if we hold the wide we can show the whole car, so the audience can see he hasn't simply moved to another seat.
 
@@ -149,9 +149,9 @@ This needs to be agreed with the Composer; I'm messaging them separately. My pro
 - Twelve or so **DMX-addressable, tunable-white LED panels** with high-frequency PWM, plus a console or QLab, plus a **programmer/board operator** on set for every shooting day.
 - **Bass transducers** for the seats and floor, with playback linked to the console.
 - **A blackout-tight set:** every exit sign, monitor glow and gap taped or flagged. True black is the film's biggest scare, and it can be spoiled by one stray LED.
-- **IR safety lighting** so actors can move in the blackout.
-- **A camera and lighting test day** before the shoot: PWM flicker check, the deep-shadow floor, the brownout colour, and a check that the blackout really reaches black.
+- **IR safety lighting** so actors can move in the blackout, plus a test that the camera records none of it.
+- **A camera and lighting test day** before the shoot: PWM flicker check, the deep-shadow floor, the brownout colour, a check that the blackout really reaches black, the breathing pulse viewed projected large, and an IR leakage check.
 
 ---
 
-*Next from camera (on script lock only): `shot-list.md`, `lighting-plan.md` with a full DMX cue list, and `storyboards/`.*
+*Next from camera (on script lock only): `shot-list.md` (including the cue 7 shot where a panel and its window reflection go out together), `lighting-plan.md` with the full DMX cue list **numbered 0–8 to match the table above** so the Composer's cue sheet maps to it 1:1, and `storyboards/`.*
