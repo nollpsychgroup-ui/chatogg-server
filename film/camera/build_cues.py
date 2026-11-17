@@ -303,6 +303,7 @@ def build():
     }
     with open(os.path.join(HERE, "cues.json"), "w") as fh:
         json.dump(doc, fh, indent=1, ensure_ascii=False)
+    export_cg(shots)
 
     def tc(x):
         return "%d:%04.1f" % (int(x // 60), x % 60)
@@ -329,6 +330,101 @@ def build():
     with open(os.path.join(HERE, "cut-timeline.md"), "w") as fh:
         fh.write("\n".join(L))
     print("OK: %d cues, %d shots, Advance gap %.1f s, cut at %s" % (len(C), len(shots), gaps[0], tc(ev["cut"])))
+
+
+# ---- export for the TA's cue driver (film/cg/lib/cue_driver.py schema and axes) ------
+def to_ta(pt):
+    """DP set coords -> TA axes: +X from Noor's end (0) toward the far end, +Y = side A
+    (right-hand side looking down +X), Z up."""
+    if pt is None:
+        return None
+    x, y, z = pt
+    return [round(LEN - y, 3), round(-x, 3), z]
+
+def export_cg(shots):
+    F = 1.0 / FPS
+    def keys(shape, lag=0):
+        out = []
+        for fr, lv in shape:
+            lv = LOOKS[lv]["level"] if isinstance(lv, str) else lv
+            out.append([round((fr + lag) * F, 4), lv, "const"])
+        return out
+    kind = {"tick": "lie", "flicker": "lie", "brownout": "lie", "blackout": "lie", "lights_up": "return",
+            "hard_dip": "lie", "stutter": "lie", "panel_out": "advance", "steady": "truth", "relight": "truth"}
+    cues = []
+    for c in C:
+        ev = []
+        if c["type"] == "brownout":
+            ev.append({"target": "ALL", "keys": [[0.0, 1.0, "smooth"], [round(8 * F, 4), 0.18, "smooth"]],
+                       "kelvin": 2200, "kelvin_fade_s": round(8 * F, 4)})
+        elif c["type"] == "blackout":
+            ev += [{"target": t, "keys": [[0.0, 0.0, "const"]]} for t in
+                   ("ALL", "DISPLAY", "WINDOWS", "PHONE_KAI", "PHONE_NOOR", "DOOR_LIGHT")]
+        elif c["type"] == "lights_up":
+            ev += [{"target": "ALL", "keys": [[0.0, 1.0, "const"]], "kelvin": 4300},
+                   {"target": "DISPLAY", "keys": [[0.0, 1.0, "const"]]},
+                   {"target": "PHONE_KAI", "keys": [[0.0, 1.0, "const"]]}]
+        elif c["type"] == "hard_dip":
+            r = c["recover"]; t0 = r["t"] - c["t"]; t1 = t0 + r["frames"] * F
+            ev.append({"target": c["main"], "keys": [[0.0, 1.0, "const"], [round(2 * F, 4), 0.05, "const"],
+                                                      [round(t0, 4), 0.05, "smooth"], [round(t1, 4), 1.0, "smooth"]]})
+            for p_, lv in c["sympathy"].items():
+                ev.append({"target": p_, "keys": [[0.0, 1.0, "const"], [round(2 * F, 4), lv, "const"],
+                                                   [round(t0, 4), lv, "smooth"], [round(t1, 4), 1.0, "smooth"]]})
+        elif c["type"] == "steady":
+            ev.append({"target": "P1", "breath": 0, "keys": [[0.0, 1.1, "const"]]})
+        elif c["type"] == "relight":
+            ev.append({"target": c["panels"][0], "keys": [[0.0, 1.1, "const"], [round(12 * F, 4), 1.0, "smooth"]]})
+            if c["id"] == "8.10":
+                ev.append({"target": "P1", "keys": [[0.0, 1.0, "const"]]})
+        else:
+            lag = c.get("lag_frames", {})
+            for p_ in c["panels"]:
+                ev.append({"target": p_, "keys": keys(c["shape"], lag.get(p_, 0))})
+            if c["id"] == "1":
+                ev.append({"target": "WINDOWS", "keys": [[0.0, 0.0, "const"]]})
+        item = {"id": c["id"], "tc": c["t"], "label": c["type"], "line": c["line"], "kind": kind[c["type"]], "events": ev}
+        if c.get("breath") == "on":
+            item["awake"] = 1
+        if c.get("breath") == "off":
+            item["awake"] = 0
+        if c.get("note"):
+            item["_note"] = c["note"]
+        cues.append(item)
+    ev_t = {e[0]: e[1] for e in EVENTS}
+    def prac(id, t, label, events):
+        cues.append({"id": id, "tc": t, "label": label, "line": "", "kind": "practical", "events": events})
+    prac("DOORS_CLOSE", ev_t["doors_close"], "doors close, pull away: platform falls behind, passing lights in the glass",
+         [{"target": "PLATFORM", "keys": [[0.0, 1.0, "linear"], [6.0, 0.0, "linear"]]},
+          {"target": "WINDOWS", "keys": [[2.0, 0.0, "linear"], [6.0, 1.0, "linear"]]}])
+    prac("PHONE_NOOR_ON", ev_t["mark_call_1"], "MARK calls", [{"target": "PHONE_NOOR", "keys": [[0.0, 1.0, "const"]]}])
+    prac("PHONE_NOOR_OFF", ev_t["love_you"] + 2.0, "she hangs up", [{"target": "PHONE_NOOR", "keys": [[0.0, 1.0, "linear"], [1.0, 0.0, "linear"]]}])
+    prac("PHONE_NOOR_MARK", ev_t["marks_call"], "MARK calls again: her screen becomes a key", [{"target": "PHONE_NOOR", "keys": [[0.0, 1.0, "const"]]}])
+    prac("ARRIVAL", ev_t["doors_open"], "doors open: platform lamp, door light",
+         [{"target": "PLATFORM", "keys": [[0.0, 1.0, "const"]]}, {"target": "DOOR_LIGHT", "keys": [[0.0, 1.0, "const"]]}])
+    prac("DOORS_CLOSE_FINAL", ev_t["doors_close_final"], "doors close", [{"target": "DOOR_LIGHT", "keys": [[0.0, 0.0, "const"]]}])
+    prac("PULL_AWAY", ev_t["pull_away"], "the platform slides away in the door glass; WINDOWS stay OFF (Director)",
+         [{"target": "PLATFORM", "keys": [[0.0, 1.0, "linear"], [8.0, 0.0, "linear"]]}])
+    prac("PHONE_KAI_DIMS", ev_t["phone_dims"], "Kai's phone fades to black", [{"target": "PHONE_KAI", "keys": [[0.0, 1.0, "linear"], [2.0, 0.0, "linear"]]}])
+    cues.sort(key=lambda c: c["tc"])
+    doc = {
+        "_doc": ["GENERATED by camera/build_cues.py (DP) from the approved lighting plan, in the schema of film/cg/lib/cue_driver.py. Do not edit by hand: ask the DP to change build_cues.py and re-run.",
+                 "Same cue ids and times as camera/cues.json (which the Composer's temp score reads), so lights and music cannot drift.",
+                 "Camera locations in 'shots' are converted to the TA axes (+X from Noor's end, +Y = side A, Z up) for the DP's 13 m set; see camera/lighting-plan.md section 1."],
+        "fps": FPS, "duration_s": 570.0,
+        "baseline": {"kelvin": 4300, "green_tint": 0.06, "level": 1.0},
+        "sodium": {"kelvin": 2200, "green_tint": 0.0},
+        "platform": {"kelvin": 5000, "_note": "cold white, mercury-vapour look; orange is reserved for the car being awake"},
+        "breathing": {"depth": BREATH["depth"], "period_s": BREATH["period_s"], "_note": "provisional until look-dev check L3"},
+        "initial": {"ALL": {"level": 1.0, "breath": 1}, "DISPLAY": {"level": 1.0}, "WINDOWS": {"level": 0.0},
+                    "PLATFORM": {"level": 1.0}, "PHONE_NOOR": {"level": 0.0}, "PHONE_KAI": {"level": 1.0},
+                    "DOOR_LIGHT": {"level": 0.0}, "awake": 0},
+        "cues": cues,
+        "shots": [{"shot": s["shot"], "in": s["in"], "out": s["out"], "lens_mm": s["lens_mm"], "move": s["move"],
+                   "loc": to_ta(s["camera_loc"]), "look_at": to_ta(s["aim"]), "pos": s["pos"]} for s in shots],
+    }
+    with open(os.path.join(HERE, "cue-stack.cg.json"), "w") as fh:
+        json.dump(doc, fh, indent=1, ensure_ascii=False)
 
 if __name__ == "__main__":
     build()
