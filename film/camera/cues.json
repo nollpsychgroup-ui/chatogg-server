@@ -1121,7 +1121,7 @@
    "what": "rails stop over black"
   }
  ],
- "dialogue_note": "source: previs/voice/scratch-voice-lines.json (Screenwriter) (mapped from the original clock). build_cues.py checks that no Advance tick or relight lands on a line",
+ "dialogue_note": "source: previs/voice/scratch-voice-lines.json (Screenwriter). build_cues.py checks that no Advance tick or relight lands on a line",
  "dialogue": [
   {
    "in": 55.5,
