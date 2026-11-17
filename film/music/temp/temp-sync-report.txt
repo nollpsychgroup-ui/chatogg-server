@@ -90,7 +90,7 @@ Line-over-bed margin (after ducking, murmurs excluded: they sit at the edge by d
 Dialogue windows: 58 from camera/cues.json (levels measured from previs/voice) (Undertone/cellos -4 dB, rails -3 dB inside, plus per-line duck to keep 8 dB clear)
   Advance/relight ticks landing inside a line: none (OK)
   Lines without a measured level (ducked by the fixed amounts only): none
-  Reference mix with scratch voice: NOT written (voice track is 570.0 s, cue clock is 552.0 s; waiting for the re-timed scratch voice)
+  Reference mix with scratch voice: written
 
 Quiet spans (Director): 6:55.00-7:03.50 (Undertone held on G, rising; no score event)
 
