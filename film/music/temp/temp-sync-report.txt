@@ -1,0 +1,67 @@
+Temp score sync report. Cue source: cues-provisional.json
+Duration 9:30.00 · cut 9:25.00 · fps 24
+
+LIGHT CUES (DP 0-8)
+  0:40.00      0  tick       P1         (Noor straightens her lanyard)
+  1:20.00      1  flicker    P1         Just leaving the office now.
+  1:35.00      2  flicker    P1,P2      Long day. The Henley account. Again.
+  2:25.00      3  brownout   all        I'm at the library, Mum.
+  2:35.00      4  blackout   all        No, that's — it's the library. They're doing work on the —
+  2:38.00   4.up  lights_up  all        (LIGHTS UP)
+  3:45.00      5  hard_dip   P1,P2,P3   My name is S—
+  4:55.00      6  stutter    P1         I'm f—
+  6:00.00    7.1  panel_out  P12        
+  6:08.50    7.2  panel_out  P11        
+  6:17.00    7.3  panel_out  P10        
+  6:25.50    7.4  panel_out  P9         
+  6:34.00    7.5  panel_out  P8         
+  6:42.50    7.6  panel_out  P7         
+  6:51.00    7.7  panel_out  P6         
+  6:59.50    7.8  panel_out  P5         
+  7:08.00    7.9  panel_out  P4         
+  7:16.50   7.10  panel_out  P3         
+  7:42.00    8.0  steady     P1         No. Listen. I'm not leaving the office.
+  7:50.00    8.1  relight    P3         I haven't been to the office since September. They let me go. The whole floor.
+  8:03.00    8.2  relight    P4         — and I sit there. All day. And then I come home.
+  8:13.00    8.3  relight    P5         I didn't tell you because you'd have been kind about it, and I couldn't —
+  8:14.10    8.4  relight    P6         I didn't tell you because you'd have been kind about it, and I couldn't —
+  8:15.20    8.5  relight    P7         I didn't tell you because you'd have been kind about it, and I couldn't —
+  8:16.30    8.6  relight    P8         I didn't tell you because you'd have been kind about it, and I couldn't —
+  8:17.40    8.7  relight    P9         I didn't tell you because you'd have been kind about it, and I couldn't —
+  8:18.50    8.8  relight    P10        I didn't tell you because you'd have been kind about it, and I couldn't —
+  8:19.60    8.9  relight    P11        I didn't tell you because you'd have been kind about it, and I couldn't —
+  8:28.00   8.10  relight    P12        (Silence on the line.)
+
+EVENTS
+  0:25.00  board_chime
+  0:48.00  doors_close
+  1:20.00  lie_1
+  1:35.00  lie_2
+  1:50.00  love_you
+  2:25.00  kai_lie
+  7:20.00  marks_call
+  7:32.00  he_is_asking
+  8:25.00  silence_on_line
+  8:32.00  train_slows
+  8:40.00  arrival_chime
+  8:41.00  doors_open
+  8:55.00  doors_close_final
+  8:58.00  pa_line
+  9:12.00  page_turn
+  9:21.00  phone_dims
+  9:25.00  cut
+  9:28.00  rails_stop
+
+MUSIC CUES (cue-sheet.md)
+  1M1 First Waking   1:20.00
+  1M2 Second Waking  1:35.00
+  1M3 Brownout       2:25.00 - hard out 2:35.00
+  blackout (zero)    2:35.00 - 2:38.00
+  1M4 Hungry         3:45.00
+  1M5 Stutter        4:55.00
+  1M6 The Advance    6:00.00 - 8:28.00
+  1M7 Relight        7:50.00 - 8:40.00
+  1M8 Page Turn      9:12.00 - 9:20.00 (phone dims 9:21.00)
+  hum to the cut     9:25.00
+
+Advance tick spacing: min 8.5 s, max 8.5 s (OK)

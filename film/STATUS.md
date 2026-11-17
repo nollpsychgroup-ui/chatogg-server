@@ -21,3 +21,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [screenwriter] Voice sides for all 7 voices written (script/voice-sides.md)
 - [screenwriter] Voice sides APPROVED by Director; folded in rulings (7 actors, MARK-04 neutral scaffold, PA speaks once) (script/voice-sides.md)
 - [producer] DECISION (human): 7 separate voice actors. The Automated Voice is not doubled, per the Director.
+- [composer] Milestone 4: rough temp score for the animatic rendered from the cue timeline (provisional until camera/cues.json exists): music-only and music+temp-SD mixes, ~9:28 (music/temp/)

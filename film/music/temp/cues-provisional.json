@@ -1,0 +1,378 @@
+{
+ "_note": "PROVISIONAL cue timeline from the Composer until film/camera/cues.json exists. Times in seconds from the first frame (estimates for a ~9:28 cut). Cue ids match DP cues 0-8 and sub-cues 7.x/8.x; panels P1 (above Noor) .. P12 (far end).",
+ "fps": 24,
+ "duration_s": 570.0,
+ "cues": [
+  {
+   "id": "0",
+   "t": 40.0,
+   "type": "tick",
+   "panels": [
+    "P1"
+   ],
+   "line": "(Noor straightens her lanyard)"
+  },
+  {
+   "id": "1",
+   "t": 80.0,
+   "type": "flicker",
+   "panels": [
+    "P1"
+   ],
+   "line": "Just leaving the office now."
+  },
+  {
+   "id": "2",
+   "t": 95.0,
+   "type": "flicker",
+   "panels": [
+    "P1",
+    "P2"
+   ],
+   "line": "Long day. The Henley account. Again."
+  },
+  {
+   "id": "3",
+   "t": 145.0,
+   "type": "brownout",
+   "panels": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7",
+    "P8",
+    "P9",
+    "P10",
+    "P11",
+    "P12"
+   ],
+   "line": "I'm at the library, Mum."
+  },
+  {
+   "id": "4",
+   "t": 155.0,
+   "type": "blackout",
+   "panels": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7",
+    "P8",
+    "P9",
+    "P10",
+    "P11",
+    "P12"
+   ],
+   "line": "No, that's \u2014 it's the library. They're doing work on the \u2014"
+  },
+  {
+   "id": "4.up",
+   "t": 158.0,
+   "type": "lights_up",
+   "panels": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7",
+    "P8",
+    "P9",
+    "P10",
+    "P11",
+    "P12"
+   ],
+   "line": "(LIGHTS UP)"
+  },
+  {
+   "id": "5",
+   "t": 225.0,
+   "type": "hard_dip",
+   "panels": [
+    "P1",
+    "P2",
+    "P3"
+   ],
+   "line": "My name is S\u2014"
+  },
+  {
+   "id": "6",
+   "t": 295.0,
+   "type": "stutter",
+   "panels": [
+    "P1"
+   ],
+   "line": "I'm f\u2014"
+  },
+  {
+   "id": "7.1",
+   "t": 360.0,
+   "type": "panel_out",
+   "panels": [
+    "P12"
+   ],
+   "line": ""
+  },
+  {
+   "id": "7.2",
+   "t": 368.5,
+   "type": "panel_out",
+   "panels": [
+    "P11"
+   ],
+   "line": ""
+  },
+  {
+   "id": "7.3",
+   "t": 377.0,
+   "type": "panel_out",
+   "panels": [
+    "P10"
+   ],
+   "line": ""
+  },
+  {
+   "id": "7.4",
+   "t": 385.5,
+   "type": "panel_out",
+   "panels": [
+    "P9"
+   ],
+   "line": ""
+  },
+  {
+   "id": "7.5",
+   "t": 394.0,
+   "type": "panel_out",
+   "panels": [
+    "P8"
+   ],
+   "line": ""
+  },
+  {
+   "id": "7.6",
+   "t": 402.5,
+   "type": "panel_out",
+   "panels": [
+    "P7"
+   ],
+   "line": ""
+  },
+  {
+   "id": "7.7",
+   "t": 411.0,
+   "type": "panel_out",
+   "panels": [
+    "P6"
+   ],
+   "line": ""
+  },
+  {
+   "id": "7.8",
+   "t": 419.5,
+   "type": "panel_out",
+   "panels": [
+    "P5"
+   ],
+   "line": ""
+  },
+  {
+   "id": "7.9",
+   "t": 428.0,
+   "type": "panel_out",
+   "panels": [
+    "P4"
+   ],
+   "line": ""
+  },
+  {
+   "id": "7.10",
+   "t": 436.5,
+   "type": "panel_out",
+   "panels": [
+    "P3"
+   ],
+   "line": ""
+  },
+  {
+   "id": "8.0",
+   "t": 462.0,
+   "type": "steady",
+   "panels": [
+    "P1"
+   ],
+   "line": "No. Listen. I'm not leaving the office."
+  },
+  {
+   "id": "8.1",
+   "t": 470.0,
+   "type": "relight",
+   "panels": [
+    "P3"
+   ],
+   "line": "I haven't been to the office since September. They let me go. The whole floor."
+  },
+  {
+   "id": "8.2",
+   "t": 483.0,
+   "type": "relight",
+   "panels": [
+    "P4"
+   ],
+   "line": "\u2014 and I sit there. All day. And then I come home."
+  },
+  {
+   "id": "8.3",
+   "t": 493.0,
+   "type": "relight",
+   "panels": [
+    "P5"
+   ],
+   "line": "I didn't tell you because you'd have been kind about it, and I couldn't \u2014"
+  },
+  {
+   "id": "8.4",
+   "t": 494.1,
+   "type": "relight",
+   "panels": [
+    "P6"
+   ],
+   "line": "I didn't tell you because you'd have been kind about it, and I couldn't \u2014"
+  },
+  {
+   "id": "8.5",
+   "t": 495.2,
+   "type": "relight",
+   "panels": [
+    "P7"
+   ],
+   "line": "I didn't tell you because you'd have been kind about it, and I couldn't \u2014"
+  },
+  {
+   "id": "8.6",
+   "t": 496.3,
+   "type": "relight",
+   "panels": [
+    "P8"
+   ],
+   "line": "I didn't tell you because you'd have been kind about it, and I couldn't \u2014"
+  },
+  {
+   "id": "8.7",
+   "t": 497.4,
+   "type": "relight",
+   "panels": [
+    "P9"
+   ],
+   "line": "I didn't tell you because you'd have been kind about it, and I couldn't \u2014"
+  },
+  {
+   "id": "8.8",
+   "t": 498.5,
+   "type": "relight",
+   "panels": [
+    "P10"
+   ],
+   "line": "I didn't tell you because you'd have been kind about it, and I couldn't \u2014"
+  },
+  {
+   "id": "8.9",
+   "t": 499.6,
+   "type": "relight",
+   "panels": [
+    "P11"
+   ],
+   "line": "I didn't tell you because you'd have been kind about it, and I couldn't \u2014"
+  },
+  {
+   "id": "8.10",
+   "t": 508.0,
+   "type": "relight",
+   "panels": [
+    "P12"
+   ],
+   "line": "(Silence on the line.)"
+  }
+ ],
+ "events": [
+  {
+   "id": "board_chime",
+   "t": 25.0
+  },
+  {
+   "id": "doors_close",
+   "t": 48.0
+  },
+  {
+   "id": "lie_1",
+   "t": 80.0
+  },
+  {
+   "id": "lie_2",
+   "t": 95.0
+  },
+  {
+   "id": "love_you",
+   "t": 110.0
+  },
+  {
+   "id": "kai_lie",
+   "t": 145.0
+  },
+  {
+   "id": "marks_call",
+   "t": 440.0
+  },
+  {
+   "id": "he_is_asking",
+   "t": 452.0
+  },
+  {
+   "id": "silence_on_line",
+   "t": 505.0
+  },
+  {
+   "id": "train_slows",
+   "t": 512.0
+  },
+  {
+   "id": "arrival_chime",
+   "t": 520.0
+  },
+  {
+   "id": "doors_open",
+   "t": 521.0
+  },
+  {
+   "id": "doors_close_final",
+   "t": 535.0
+  },
+  {
+   "id": "pa_line",
+   "t": 538.0
+  },
+  {
+   "id": "page_turn",
+   "t": 552.0
+  },
+  {
+   "id": "phone_dims",
+   "t": 561.0
+  },
+  {
+   "id": "cut",
+   "t": 565.0
+  },
+  {
+   "id": "rails_stop",
+   "t": 568.0
+  }
+ ]
+}
