@@ -227,10 +227,10 @@ def _window_chase(D):
         tc = nt.nodes.new("ShaderNodeTexCoord")
         mp = nt.nodes.new("ShaderNodeMapping"); mp.name = "SCROLL"
         wave = nt.nodes.new("ShaderNodeTexWave"); wave.wave_type = "BANDS"; wave.bands_direction = "Y"
-        wave.inputs["Scale"].default_value = 0.08
+        wave.inputs["Scale"].default_value = 0.05
         ramp = nt.nodes.new("ShaderNodeValToRGB")
-        ramp.color_ramp.elements[0].position = 0.93
-        ramp.color_ramp.elements[1].position = 0.97
+        ramp.color_ramp.elements[0].position = 0.985   # brief, narrow streaks (Director previs note 6)
+        ramp.color_ramp.elements[1].position = 0.995
         mul = nt.nodes.new("ShaderNodeMath"); mul.operation = "MULTIPLY"; mul.name = "LEVEL"; mul.inputs[1].default_value = 0.0
         nt.links.new(tc.outputs["Object"], mp.inputs["Vector"])
         nt.links.new(mp.outputs["Vector"], wave.inputs["Vector"])

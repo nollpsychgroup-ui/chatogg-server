@@ -175,10 +175,10 @@ def build(D=None, B=None, sections=None):
     drive_level(bpy.data.materials["display_led"].node_tree.nodes["EMIT"].inputs["Strength"], "default_value", ctrls["DISPLAY"], 5.0)
     for side in ("A", "B"):
         nt = bpy.data.materials[f"window_chase_{side}"].node_tree
-        drive_level(nt.nodes["LEVEL"].inputs[1], "default_value", ctrls["WINDOWS"], 6.0)
+        drive_level(nt.nodes["LEVEL"].inputs[1], "default_value", ctrls["WINDOWS"], 1.2)   # dimmer than the panels
         fc = nt.nodes["SCROLL"].inputs["Location"].driver_add("default_value", 1)
         fc.driver.type = "SCRIPTED"
-        fc.driver.expression = "frame*0.9"
+        fc.driver.expression = "frame*1.6"
 
     # PLATFORM: one cold-white lamp, ~5000 K, slight green (mercury-vapour look)
     S = D["set"]

@@ -111,7 +111,7 @@ def frame_plan(D):
     for k, dur in (("doors_close", 2), ("doors_open", 2), ("doors_close_final", 2), ("phone_dims", 2.5)):
         if k in ev:
             span(T(ev[k]), T(ev[k] + dur), 2)
-    for a, b in ((48, 58), (512, 521), (540, 549)):
+    for a, b in ((48, 80), (512, 521), (540, 549)):   # passing lights in the glass move: twos
         span(T(a), T(b), 2)
     for e in D["events"]:
         want.add(T(e["t"]))
