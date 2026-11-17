@@ -56,8 +56,8 @@ LIB = {
     "walter/writing":       dict(lid_up=0.45, naso=0.6, gaze_y=0.8),
     "walter/clamp":         dict(lid_up=0.95, brow_in=-0.4, brow_out=0.1, press=0.6, naso=0.75, gaze_x=0.4),  # sheet
     "walter/release":       dict(lid_up=0.6, brow_in=0.2, naso=0.6),
-    "walter/speech":        dict(lid_up=0.45, lid_low=0.15, brow_in=0.28, smile=0.04, chin=0.15, jaw=0.06, naso=0.6, gaze_y=0.7),  # sheet
-    "walter/speech_end":    dict(lid_up=0.66, lid_low=0.32, brow_in=0.15, smile=0.18, naso=0.7, gaze_x=0.4),     # sheet
+    "walter/speech":        dict(head_pitch_deg=12.0, lid_up=0.45, lid_low=0.15, brow_in=0.28, smile=0.04, chin=0.15, jaw=0.06, naso=0.6, gaze_y=0.7),  # sheet
+    "walter/speech_end":    dict(head_pitch_deg=0.0, lid_up=0.66, lid_low=0.32, brow_in=0.15, smile=0.18, naso=0.7, gaze_x=0.4),     # sheet
     "walter/to_lanyard":    dict(lid_up=0.65, naso=0.6, gaze_x=0.4, gaze_y=0.5),
     "walter/asking":        dict(lid_up=0.68, brow_in=0.22, smile=0.08, lid_low=0.12, naso=0.65, gaze_x=0.55, jaw=0.05),  # sheet
     "walter/nod":           dict(lid_up=0.55, smile=0.1, lid_low=0.15, naso=0.65),
@@ -132,6 +132,7 @@ NOTES = {
     "noor/platform_neutral": "Director's note: Noor is neutral on the platform, not hopeful and not afraid.",
     "noor/love_you": "'Love you' is TRUE: the only early smile where her lower lid lifts a touch.",
     "gaze": "gaze_x + = the character's right, gaze_y + = down. Gaze values are intent (down to the paper, toward Noor); in staging, aim the eyes at the real subject and let gaze override.",
+    "head_pitch_deg": "Pose hint, not a face control (set_expression ignores it): tip the head DOWN by this many degrees. Shot 38 (Director): Walter's head is tipped ~12 deg down to the paper for most of the speech, so P3 models his brow and cheeks; he lifts to Noor only on speech_end (338 s), which is also the acting beat. No light-linking.",
     "walter/clamp": "The only time his lids open fully. Fastest move in the film: no anticipation, 2-3 frames in.",
 }
 
