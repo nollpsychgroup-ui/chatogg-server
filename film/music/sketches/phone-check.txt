@@ -1,0 +1,8 @@
+Phone-speaker check (phone band = 300 Hz - 6 kHz, roughly a phone/laptop speaker)
+Undertone level relative to the full mix in the same section, in dB:
+
+  lie 2          full range   -4.7 dB   phone band   -9.9 dB
+  brownout       full range   -0.3 dB   phone band   -0.8 dB
+  creeping dark  full range   -1.0 dB   phone band   -2.1 dB
+
+A phone-band figure within ~10 dB of full range means the motif still reads on a phone.
