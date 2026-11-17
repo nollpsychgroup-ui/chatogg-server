@@ -14,8 +14,8 @@ same way music/cue-sheet.md describes it (1M0 bed + 1M1-1M8). Outputs next to th
   *-48k.flac           48 kHz stereo lossless versions of all three, for the TA to mux
   temp-sync-report.txt every cue/event time actually used, so picture can check sync
 
-Dialogue windows (kept clear: Undertone/cellos -4 dB, rails -3 dB) come from a 'dialogue'
-array in cues.json when present, else ./dialogue-windows.json (provisional estimates).
+Dialogue windows (kept clear: Undertone/cellos -4 dB, rails -3 dB) come from the 'dialogue'
+array in camera/cues.json (DP's build_cues.py; it also refuses any tick inside a line).
   (.wav versions are written too but git-ignored)
 
 Sample rate is 24 kHz mono: a rough temp, not a final. The cue file format is
@@ -192,8 +192,8 @@ for p, lv, d in ((8, .016, 0), (10, .013, .6), (12, .011, 1.2)):
     release += rel * gate(T_PAGE + d, DUR) * lv * osc(F0 * p, ((1, 1), (2, .1)))
 
 # ---------- dialogue windows: keep them clear --------------------------------------------
-DLG_SRC = "camera/cues.json" if "dialogue" in doc else "dialogue-windows.json"
-DLG = doc.get("dialogue") or json.load(open(os.path.join(HERE, "dialogue-windows.json")))["dialogue"]
+DLG_SRC = "camera/cues.json" if doc.get("dialogue") else "NONE (no 'dialogue' in the cue file: no ducking)"
+DLG = doc.get("dialogue") or []
 duck_pts = [(0, 0.0)]
 for w in DLG:
     duck_pts += [(w["in"] - .15, 0.0), (w["in"], 1.0), (w["out"], 1.0), (w["out"] + .25, 0.0)]

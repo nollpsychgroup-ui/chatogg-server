@@ -79,7 +79,7 @@ MUSIC CUES (cue-sheet.md)
 Cue 5 main P3 (partial 4), sympathy ['P2', 'P4'], recovered 3:52.00
 Breath depth 0.03, period 5.0 s, on 1:20.00, off 8:28.00
 
-Dialogue windows: 40 from dialogue-windows.json (Undertone/cellos -4 dB, rails -3 dB inside)
+Dialogue windows: 40 from camera/cues.json (Undertone/cellos -4 dB, rails -3 dB inside)
   Advance/relight ticks landing inside a line: none (OK)
 
 Advance tick spacing: min 8.5 s, max 8.5 s (OK)
