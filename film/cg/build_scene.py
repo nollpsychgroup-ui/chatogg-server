@@ -16,7 +16,7 @@ import bpy  # noqa: E402
 from lib import build_set, cameras, common, cue_driver, figures, light_rig, lookdev  # noqa: E402
 
 
-def build(res=(1280, 536), samples=64, paint=True, poses=None, standing=None):
+def build(res=(1280, 536), samples=64, paint=True, poses=None, standing=None, closed=()):
     common.clear_scene()
     scene = bpy.context.scene
     scene.name = "QUIET_CAR"
@@ -24,7 +24,7 @@ def build(res=(1280, 536), samples=64, paint=True, poses=None, standing=None):
     D, B = common.dp(), common.load("build.json")
     common.coll("SET"); common.coll("CHARACTERS"); common.coll("PROPS_LOOSE"); common.coll("EXTERIOR")
     sec = build_set.build(D, B)
-    figures.build(D, B, poses, standing)
+    figures.build(D, B, poses, standing, closed)
     ll = sec.finalize()
     light_rig.build(D, B, ll)
     cue_driver.build(D, B)

@@ -31,7 +31,10 @@
     "NOOR": "lap"
    },
    "setup": [],
-   "caption": "Cue 3: 'I'm at the library, Mum.' BROWN (2200 K, -2.5 stops) holds on every panel. Bea is across from Walter; the strap is the most saturated thing in frame."
+   "caption": "Cue 3: 'I'm at the library, Mum.' BROWN (2200 K, -2.5 stops) holds on every panel. Bea is across from Walter; the strap is the most saturated thing in frame.",
+   "eyes_closed": [
+    "BEA"
+   ]
   },
   "sf04a_blackout": {
    "shot": 18,

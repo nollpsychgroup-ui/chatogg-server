@@ -38,7 +38,7 @@ SETUPS = {"lanyard_thrown": lanyard_thrown}
 
 
 def render(name, beat, samples, paint, res):
-    scene = build_scene.build(res=res, samples=samples, paint=paint, poses=beat.get("poses"), standing=beat.get("standing"))
+    scene = build_scene.build(res=res, samples=samples, paint=paint, poses=beat.get("poses"), standing=beat.get("standing"), closed=tuple(beat.get("eyes_closed", [])))
     for fn in beat.get("setup", []):
         SETUPS[fn]()
     t = beat["t"]

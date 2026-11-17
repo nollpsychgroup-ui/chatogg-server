@@ -26,7 +26,7 @@ def _tag(ob, idx):
     return ob
 
 
-def figure(name, D, B, pose=None, at=None, standing=False, facing=None):
+def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_closed=False):
     spec = CAST[name]
     fig = B["figures"][name]
     mark = Vector(at if at else D["set"]["marks"][name])
@@ -83,9 +83,17 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None):
     obs.append(_tag(ellipsoid(f"{name}_HEAD", head_c, (0.095, 0.082, 0.115), skin, C, rot=tilt @ rot), 1))
     obs.append(_tag(ellipsoid(f"{name}_NOSE", head_c + f * 0.092 - Vector((0, 0, 0.012)), (0.02, 0.014, 0.028), skin, C, rot=rot), 1))
     obs.append(_tag(ellipsoid(f"{name}_HAIR", head_c - f * 0.025 + Vector((0, 0, 0.035)), (0.10, 0.09, 0.10), hair, C, rot=rot), 2))
+    sclera = ld.gloss("sclera", (0.896, 0.871, 0.807), roughness=0.04, coat=1.0)   # #F3F0E8 (design-notes F2)
+    lid = ld.paint(f"lid_{name}", (0.155, 0.0685, 0.0395), tier="face")                 # #6E4A38
+    lidline = ld.paint("lid_line", (0.006, 0.005, 0.005), tier="face", variation=0.0)
     for s in (-1, 1):
-        obs.append(_tag(ellipsoid(f"{name}_EYE_{s}", head_c + f * 0.078 + lat * s * 0.033 + Vector((0, 0, 0.012)),
-                                  (0.012, 0.012, 0.012), cornea, C, segs=12), 1))
+        ec = head_c + f * 0.074 + lat * s * 0.033 + Vector((0, 0, 0.012))
+        obs.append(_tag(ellipsoid(f"{name}_EYE_{s}", ec, (0.012, 0.012, 0.012), sclera, C, segs=16), 1))
+        obs.append(_tag(ellipsoid(f"{name}_IRIS_{s}", ec + f * 0.0085, (0.0035, 0.0062, 0.0062), cornea, C, segs=12, rot=rot), 1))
+        if eyes_closed:
+            obs.append(_tag(ellipsoid(f"{name}_LID_{s}", ec + f * 0.001, (0.0135, 0.0135, 0.0135), lid, C, segs=16), 1))
+            obs.append(_tag(limb(f"{name}_LIDLINE_{s}", ec + f * 0.0132 - lat * 0.010 - Vector((0, 0, 0.001)),
+                                 ec + f * 0.0132 + lat * 0.010 - Vector((0, 0, 0.001)), 0.0016, lidline, C), 1))
     if spec.get("hood"):
         obs.append(_tag(ellipsoid(f"{name}_HOOD", sh - f * 0.10 + Vector((0, 0, 0.06)), (0.08, 0.17, 0.09), m["top"], C, rot=rot), 2))
     # arms by pose: (elbow, hand) in (fwd, lat, z-unscaled)
@@ -160,7 +168,7 @@ def _phone(key, at, look_at, C, red_button=False):
     return rig
 
 
-def build(D=None, B=None, poses=None, standing=None):
+def build(D=None, B=None, poses=None, standing=None, closed=()):
     D = D or dp()
     B = B or load("build.json")
     poses = poses or {}
@@ -170,7 +178,7 @@ def build(D=None, B=None, poses=None, standing=None):
             figure(n, D, B, pose=standing[n].get("pose", "standing"), at=standing[n]["at"], standing=True,
                    facing=standing[n].get("facing"))
         else:
-            figure(n, D, B, poses.get(n))
+            figure(n, D, B, poses.get(n), eyes_closed=(n in closed))
     animate_kai(D)
 
 
