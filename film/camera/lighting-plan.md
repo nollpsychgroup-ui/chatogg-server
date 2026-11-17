@@ -196,8 +196,8 @@ At 438 s the display reads 2 MIN. At 440 s Noor's phone rings (MARK), and from h
 | L3 | **Breathing visibility:** ±3% / 5 s, viewed on a monitor **and projected large** | nobody can point to it. If anyone can, drop to ±2% or slow it, and update `breath` in `cues.json` (the Composer's hum follows) |
 | L4 | **Brush stillness:** any animated brushwork | dead still while the car is asleep. Also test the Director's option: a faint boil only while the car is awake, locked to BREATH |
 | L5 | **Hard edge:** the cue 7 dark | the edge falls within about 15 cm of the panel join on the floor, seats and walls; the paint doesn't soften it |
-| L6 | **Brownout colour** | 2200 K vs 2400 K: it reads as a power sag, not as "warm scene" |
-| L7 | **The two reds** | the lanyard strap and Kai's end-call button read as red; nothing else in the car is red |
+| L6 | **Brownout colour** | 2200 K vs 2400 K: it reads as a power sag, not as "warm scene". **2400 K is the most we move** (Director); no camera white-balance chase |
+| L7 | **The two reds** | the lanyard strap and Kai's end-call button read as red; nothing else in the car is red. Restated by the Designer and Director: **under BASE the strap is the most chromatic object; under BROWN and DIP it's the only red by hue separation.** It need not out-chroma the sodium-lit surfaces, which is honest physics: the car takes the colour out of everything. The strap widens to 25 mm, and strap and badge stay crisp out of the merge into the darks |
 | L8 | **Lights on ones** | every light key lands on a whole frame, with no sub-frame or smoothed keys except the named eases |
 | L9 | **Meter count** | in Pos A, all 12 panels are individually countable at 1080p |
 
