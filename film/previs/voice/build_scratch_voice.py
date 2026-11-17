@@ -236,8 +236,16 @@ say('WALTER-02.6', 'WALTER', 'This is the only place nobody can say that to me.'
 say('NOOR-17', 'NOOR', 'Nobody said anything.', 'WHISPER', end=CUE_T['7.2'] - PRE)
 say('BEA-03', 'BEA', 'It isn\'t only what you say.', 'LOW', start=381.0)
 say('BEA-04', 'BEA', 'Whatever it is, say it.', 'WHISPER', end=CUE_T['7.8'] - PRE)
-say('NOOR-19', 'NOOR', 'I can\'t', 'WHISPER', end=CUE_T['7.9'] - 0.15, sub='I can\'t —', note='the 7.9 tick cuts her off')
-say('BEA-05', 'BEA', 'Say it.', 'LOW', start=433.0)
+# "I can't -" / "Say it.": a live overlap (Director ruling); the 7.9 tick FOLLOWS the pair.
+bea5 = fade(synth('BEA', 'Say it.', 'LOW'))
+b5_start = CUE_T['7.9'] - 0.4 - dur(bea5)
+n19 = synth('NOOR', 'I can\'t, he\'ll', 'WHISPER')            # performed past the cut
+n19 = fade(n19[:int((dur(fade(synth('NOOR', 'I can\'t', 'WHISPER'))) + 0.12) * SR)], tout=0.03)
+put('NOOR-19', 'NOOR', n19, b5_start + 0.15 - dur(n19), 'WHISPER', sub=None,
+    note='Bea overlaps on the dash; cut off by "Say it."')
+put('BEA-05', 'BEA', bea5, b5_start, 'LOW', note='ends 0.4 s before the 7.9 tick')
+# one two-speaker title for the overlap (a 0.5 s title would be unreadable)
+SUBS.append(dict(start=b5_start + 0.15 - dur(n19), end=CUE_T['7.9'], text='- I can\'t —\n- Say it.', italic=False))
 say('WALTER-03', 'WALTER', 'He\'s asking.', 'LOW', start=EV_T['he_is_asking'])
 
 # ---- Scene 7: the confession -------------------------------------------

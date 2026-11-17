@@ -356,24 +356,24 @@
    "id": "NOOR-19",
    "voice": "NOOR",
    "level": "WHISPER",
-   "start": 427.25,
-   "end": 427.85,
-   "note": "the 7.9 tick cuts her off"
+   "start": 426.474,
+   "end": 427.194,
+   "note": "Bea overlaps on the dash; cut off by \"Say it.\""
   },
   {
    "id": "BEA-05",
    "voice": "BEA",
    "level": "LOW",
-   "start": 433.0,
-   "end": 433.558,
-   "note": ""
+   "start": 427.044,
+   "end": 427.6,
+   "note": "ends 0.4 s before the 7.9 tick"
   },
   {
    "id": "WALTER-03",
    "voice": "WALTER",
    "level": "LOW",
    "start": 452.0,
-   "end": 452.752,
+   "end": 452.764,
    "note": ""
   },
   {
@@ -381,7 +381,7 @@
    "voice": "NOOR",
    "level": "LOW",
    "start": 456.5,
-   "end": 456.886,
+   "end": 456.881,
    "note": ""
   },
   {
@@ -389,30 +389,30 @@
    "voice": "MARK",
    "level": "MURMUR",
    "start": 457.4,
-   "end": 459.574,
+   "end": 459.57,
    "note": ""
   },
   {
    "id": "NOOR-21.1",
    "voice": "NOOR",
    "level": "LOW",
-   "start": 458.569,
-   "end": 458.909,
+   "start": 458.565,
+   "end": 458.908,
    "note": ""
   },
   {
    "id": "NOOR-21.2",
    "voice": "NOOR",
    "level": "LOW",
-   "start": 459.209,
-   "end": 459.696,
+   "start": 459.208,
+   "end": 459.695,
    "note": ""
   },
   {
    "id": "NOOR-21.3",
    "voice": "NOOR",
    "level": "LOW",
-   "start": 460.146,
+   "start": 460.145,
    "end": 461.75,
    "note": ""
   },
@@ -420,23 +420,23 @@
    "id": "NOOR-22.1",
    "voice": "NOOR",
    "level": "LOW",
-   "start": 464.57,
-   "end": 466.791,
+   "start": 464.575,
+   "end": 466.793,
    "note": ""
   },
   {
    "id": "NOOR-22.2",
    "voice": "NOOR",
    "level": "LOW",
-   "start": 467.591,
-   "end": 468.341,
+   "start": 467.593,
+   "end": 468.339,
    "note": ""
   },
   {
    "id": "NOOR-22.3",
    "voice": "NOOR",
    "level": "LOW",
-   "start": 468.941,
+   "start": 468.939,
    "end": 469.75,
    "note": ""
   },
@@ -444,31 +444,31 @@
    "id": "NOOR-23.1",
    "voice": "NOOR",
    "level": "LOW",
-   "start": 475.004,
-   "end": 478.345,
+   "start": 475.009,
+   "end": 478.346,
    "note": ""
   },
   {
    "id": "NOOR-23.2",
    "voice": "NOOR",
    "level": "LOW",
-   "start": 479.045,
-   "end": 480.044,
+   "start": 479.046,
+   "end": 480.047,
    "note": ""
   },
   {
    "id": "NOOR-23.3",
    "voice": "NOOR",
    "level": "LOW",
-   "start": 480.544,
-   "end": 481.063,
+   "start": 480.547,
+   "end": 481.066,
    "note": ""
   },
   {
    "id": "NOOR-23.4",
    "voice": "NOOR",
    "level": "LOW",
-   "start": 481.663,
+   "start": 481.666,
    "end": 482.75,
    "note": ""
   },
@@ -484,7 +484,7 @@
    "id": "NOOR-25",
    "voice": "NOOR",
    "level": "WHISPER",
-   "start": 503.031,
+   "start": 503.033,
    "end": 503.8,
    "note": "then silence on the line"
   },
@@ -493,7 +493,7 @@
    "voice": "MARK",
    "level": "MURMUR_FAR",
    "start": 529.0,
-   "end": 530.679,
+   "end": 530.691,
    "note": "the neutral scaffold (Director ruling); unintelligible"
   },
   {
