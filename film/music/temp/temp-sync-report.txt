@@ -1,95 +1,97 @@
 Temp score sync report. Cue source: ../../camera/cues.json
-Duration 9:30.00 · cut 9:25.00 · fps 24
+Duration 9:12.00 · cut 9:07.00 · fps 24
 
 LIGHT CUES (DP 0-8)
-  0:40.00      0  tick       P1         (Noor straightens her lanyard, the badge settling face-out)
-  1:20.00      1  flicker    P1         Just leaving the office now.
-  1:35.00      2  flicker    P1,P2      Long day. The Henley account. Again.
-  2:25.00      3  brownout   all        I'm at the library, Mum.
-  2:35.00      4  blackout   all        No, that's — it's the library. They're doing work on the —
-  2:38.00   4.up  lights_up  all        (LIGHTS UP)
-  3:45.00      5  hard_dip   P3,P2,P4   My name is S—
-  4:55.00      6  stutter    P1         I'm f—
-  6:00.00    7.1  panel_out  P12        (display 5 MIN; no word spoken)
-  6:08.50    7.2  panel_out  P11        after NOOR: "Nobody said anything."
-  6:17.00    7.3  panel_out  P10        after Walter's eyes reach her lanyard
-  6:25.50    7.4  panel_out  P9         after BEA: "It isn't only what you say."
-  6:34.00    7.5  panel_out  P8         after Noor looks down at herself (Kai's seat goes dark; his phone glows on)
-  6:42.50    7.6  panel_out  P7         after the lanyard hits the floor ("It isn't enough.")
-  6:51.00    7.7  panel_out  P6         (silence; Bea leans in)
-  6:59.50    7.8  panel_out  P5         after BEA: "Whatever it is, say it."
-  7:08.00    7.9  panel_out  P4         after the overlap: NOOR "I can't —" / BEA "Say it." (the car's answer)
-  7:16.50   7.10  panel_out  P3         (silence: rails and the rising groan only, no score event; held on Bea as her light dies to the edge; two panels left)
-  7:42.00    8.0  steady     P1         No. Listen. I'm not leaving the office.
-  7:50.00    8.1  relight    P3         ...They let me go. The whole floor.
-  8:03.00    8.2  relight    P4         ...And then I come home.
-  8:13.00    8.3  relight    P5         I didn't tell you because —
-  8:14.10    8.4  relight    P6         — you'd have been kind about it —
-  8:15.20    8.5  relight    P7         — and I couldn't — (run)
-  8:16.30    8.6  relight    P8         (run; Kai's empty seat relights, phone still glowing)
-  8:17.40    8.7  relight    P9         (run)
-  8:18.50    8.8  relight    P10        (run)
-  8:19.60    8.9  relight    P11        (run)
-  8:28.00   8.10  relight    P12        (Silence on the line.)
+  0:27.00      0  tick       P1         (Noor straightens her lanyard, the badge settling face-out)
+  1:07.00      1  flicker    P1         Just leaving the office now.
+  1:22.00      2  flicker    P1,P2      Long day. The Henley account. Again.
+  2:12.00      3  brownout   all        I'm at the library, Mum.
+  2:22.00      4  blackout   all        No, that's — it's the library. They're doing work on the —
+  2:25.00   4.up  lights_up  all        (LIGHTS UP)
+  3:32.00      5  hard_dip   P3,P2,P4   My name is S—
+  4:42.00      6  stutter    P1         I'm f—
+  5:47.00    7.1  panel_out  P12        (display 5 MIN; no word spoken)
+  5:55.50    7.2  panel_out  P11        after NOOR: "Nobody said anything."
+  6:04.00    7.3  panel_out  P10        after Walter's eyes reach her lanyard
+  6:12.50    7.4  panel_out  P9         after BEA: "It isn't only what you say."
+  6:21.00    7.5  panel_out  P8         after Noor looks down at herself (Kai's seat goes dark; his phone glows on)
+  6:29.50    7.6  panel_out  P7         after the lanyard hits the floor ("It isn't enough.")
+  6:38.00    7.7  panel_out  P6         (silence; Bea leans in)
+  6:46.50    7.8  panel_out  P5         after BEA: "Whatever it is, say it."
+  6:55.00    7.9  panel_out  P4         after the overlap: NOOR "I can't —" / BEA "Say it." (the car's answer)
+  7:03.50   7.10  panel_out  P3         (silence: rails and the rising groan only, no score event; held on Bea as her light dies to the edge; two panels left)
+  7:29.00    8.0  steady     P1         No. Listen. I'm not leaving the office.
+  7:37.00    8.1  relight    P3         ...They let me go. The whole floor.
+  7:50.00    8.2  relight    P4         ...And then I come home.
+  8:00.00    8.3  relight    P5         I didn't tell you because —
+  8:01.10    8.4  relight    P6         — you'd have been kind about it —
+  8:02.20    8.5  relight    P7         — and I couldn't — (run)
+  8:03.30    8.6  relight    P8         (run; Kai's empty seat relights, phone still glowing)
+  8:04.40    8.7  relight    P9         (run)
+  8:05.50    8.8  relight    P10        (run)
+  8:06.60    8.9  relight    P11        (run)
+  8:15.00   8.10  relight    P12        (Silence on the line.)
 
 EVENTS
   0:00.00  D0
   0:00.00  doors_open_board
-  0:25.00  board_chime
-  0:40.00  lanyard
-  0:48.00  doors_close
-  0:50.00  D1
-  1:05.00  mark_call_1
-  1:20.00  lie_1
-  1:35.00  lie_2
-  1:50.00  love_you
-  2:13.00  mum_call
-  2:25.00  kai_lie
-  3:56.00  D2
-  4:24.00  thumb_over_end_call
-  5:57.00  D3
-  7:18.00  D4
-  7:20.00  marks_call
-  7:32.00  he_is_asking
-  8:25.00  silence_on_line
-  8:32.00  train_slows
-  8:40.00  arrival_chime
-  8:41.00  doors_open
-  8:55.00  doors_close_final
-  8:58.00  pa_line
-  9:00.00  pull_away
-  9:08.00  pull_away_end
-  9:12.00  page_turn
-  9:21.00  phone_dims
-  9:25.00  cut
-  9:28.00  rails_stop
+  0:12.00  board_chime
+  0:27.00  lanyard
+  0:35.00  doors_close
+  0:37.00  D1
+  0:52.00  mark_call_1
+  1:07.00  lie_1
+  1:22.00  lie_2
+  1:37.00  love_you
+  2:00.00  mum_call
+  2:12.00  kai_lie
+  3:43.00  D2
+  4:11.00  thumb_over_end_call
+  5:44.00  D3
+  7:05.00  D4
+  7:07.00  marks_call
+  7:19.00  he_is_asking
+  8:12.00  silence_on_line
+  8:19.00  train_slows
+  8:27.00  arrival_chime
+  8:28.00  doors_open
+  8:42.00  doors_close_final
+  8:45.00  pa_line
+  8:47.00  pull_away
+  8:52.00  pull_away_end
+  8:54.00  page_turn
+  9:03.00  phone_dims
+  9:07.00  cut
+  9:10.00  rails_stop
 
 MUSIC CUES (cue-sheet.md)
-  1M1 First Waking   1:20.00
-  1M2 Second Waking  1:35.00
-  1M3 Brownout       2:25.00 - hard out 2:35.00
-  blackout (zero)    2:35.00 - 2:38.00
-  1M4 Hungry         3:45.00
-  1M5 Stutter        4:55.00
-  1M6 The Advance    6:00.00 - 8:28.00
-  1M7 Relight        7:50.00 - 8:40.00
-  1M8 Page Turn      9:12.00 - 9:20.00 (phone dims 9:21.00)
-  hum to the cut     9:25.00
+  1M1 First Waking   1:07.00
+  1M2 Second Waking  1:22.00
+  1M3 Brownout       2:12.00 - hard out 2:22.00
+  blackout (zero)    2:22.00 - 2:25.00
+  1M4 Hungry         3:32.00
+  1M5 Stutter        4:42.00
+  1M6 The Advance    5:47.00 - 8:15.00
+  1M7 Relight        7:37.00 - 8:27.00
+  1M8 Page Turn      8:54.00 - 9:02.00 (phone dims 9:03.00)
+  hum to the cut     9:07.00
 
-Cue 5 main P3 (partial 4), sympathy ['P2', 'P4'], recovered 3:52.00
-Breath depth 0.03, period 5.0 s, on 1:20.00, off 8:28.00
+Cue 5 main P3 (partial 4), sympathy ['P2', 'P4'], recovered 3:39.00
+Breath depth 0.03, period 5.0 s, on 1:07.00, off 8:15.00
 
-Calibration: asleep bed -48 dBFS RMS (mux at unity gain with the scratch voice); peak -17.8 dBFS
+Calibration: asleep bed -48 dBFS RMS (mux at unity gain with the scratch voice); peak -18.4 dBFS
 Line-over-bed margin (after ducking, murmurs excluded: they sit at the edge by design): min 8.0 dB; tightest:
-    KAI-04.laugh 2:31.47  line  -28.8  bed  -36.8  duck  6.5 dB  LOW
-    MUM-02a    2:39.00  line  -41.5  bed  -49.5  duck  0.5 dB  PHONE
-    MUM-02b    2:41.40  line  -41.6  bed  -49.6  duck  1.1 dB  PHONE
-    NOOR-09    3:26.50  line  -45.9  bed  -53.9  duck  5.3 dB  FAINT
-    MUM-02c    4:13.00  line  -47.9  bed  -55.9  duck  6.9 dB  PHONE_TINY
+    KAI-04.laugh 2:18.47  line  -28.8  bed  -36.8  duck  5.0 dB  LOW
+    MUM-02a    2:26.00  line  -41.5  bed  -49.5  duck  1.0 dB  PHONE
+    MUM-02b    2:28.40  line  -41.6  bed  -49.6  duck  0.7 dB  PHONE
+    NOOR-09    3:13.50  line  -45.9  bed  -53.9  duck  5.0 dB  FAINT
+    MUM-02c    4:00.00  line  -47.9  bed  -55.9  duck  7.0 dB  PHONE_TINY
 
-Dialogue windows: 58 from previs/voice/scratch-voice-lines.json (Undertone/cellos -4 dB, rails -3 dB inside, plus per-line duck to keep 8 dB clear)
+Dialogue windows: 58 from camera/cues.json (levels measured from previs/voice) (Undertone/cellos -4 dB, rails -3 dB inside, plus per-line duck to keep 8 dB clear)
   Advance/relight ticks landing inside a line: none (OK)
+  Lines without a measured level (ducked by the fixed amounts only): none
+  Reference mix with scratch voice: NOT written (voice track is 570.0 s, cue clock is 552.0 s; waiting for the re-timed scratch voice)
 
-Quiet spans (Director): 7:08.00-7:16.50 (Undertone held on G, rising; no score event)
+Quiet spans (Director): 6:55.00-7:03.50 (Undertone held on G, rising; no score event)
 
 Advance tick spacing: min 8.5 s, max 8.5 s (OK)

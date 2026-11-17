@@ -212,29 +212,31 @@ for p, lv, d in ((8, .016, 0), (10, .013, .6), (12, .011, 1.2)):
     release += rel * gate(T_PAGE + d, DUR) * lv * osc(F0 * p, ((1, 1), (2, .1)))
 
 # ---------- dialogue windows: keep them clear --------------------------------------------
-# Source priority: the scratch voice actually placed in the animatic (real in/out + measured
-# level), else cues.json "dialogue" (timing only), else none.
+# Timing comes from cues.json "dialogue" (the DP maps it onto the current clock). Levels come
+# from the scratch voice: each line is measured in scratch-voice.flac at the scratch file's
+# OWN times for that clip id, so a re-timed cue clock never mis-measures.
 VOICE_DIR = os.path.normpath(os.path.join(HERE, "..", "..", "previs", "voice"))
 VOICE_JSON = os.path.join(VOICE_DIR, "scratch-voice-lines.json")
 VOICE_AUDIO = os.path.join(VOICE_DIR, "scratch-voice.flac")
-DLG = []
+vinfo = {}
 if os.path.exists(VOICE_JSON):
-    DLG_SRC = "previs/voice/scratch-voice-lines.json"
-    vlines = json.load(open(VOICE_JSON))["lines"]
     vx = None
     if os.path.exists(VOICE_AUDIO) and shutil.which("ffmpeg"):
         raw = subprocess.run(["ffmpeg", "-v", "error", "-i", VOICE_AUDIO, "-ac", "1", "-ar", str(SR),
                               "-f", "s16le", "-"], capture_output=True, check=False).stdout
         vx = np.frombuffer(raw, "<i2").astype(np.float32) / 32767
-    for c in vlines:
-        w = {"in": float(c["start"]), "out": float(c["end"]), "who": c["voice"], "line": c["id"],
-             "level": c.get("level", "")}
+    for c in json.load(open(VOICE_JSON))["lines"]:
+        r = None
         if vx is not None:
-            seg = vx[int(w["in"] * SR):int(w["out"] * SR)]
-            w["rms_db"] = 20 * math.log10(float(np.sqrt(np.mean(seg ** 2))) + 1e-9) if len(seg) else None
-        DLG.append(w)
-elif doc.get("dialogue"):
-    DLG_SRC, DLG = "camera/cues.json", doc["dialogue"]
+            seg = vx[int(c["start"] * SR):int(c["end"] * SR)]
+            r = 20 * math.log10(float(np.sqrt(np.mean(seg ** 2))) + 1e-9) if len(seg) else None
+        vinfo[c["id"]] = {"level": c.get("level", ""), "rms_db": r}
+DLG = []
+if doc.get("dialogue"):
+    DLG_SRC = "camera/cues.json (levels measured from previs/voice)" if vinfo else "camera/cues.json"
+    for w in doc["dialogue"]:
+        cid = str(w.get("line", "")).split(":")[0].strip()
+        DLG.append({**w, "line": cid or w.get("line", ""), **vinfo.get(cid, {})})
 else:
     DLG_SRC = "NONE (no dialogue source: no ducking)"
 duck_pts = [(0, 0.0)]
@@ -297,7 +299,8 @@ def write(sig, name, peak):
 BED_DB, MARGIN_DB, MAX_DUCK_DB = -48.0, 8.0, 12.0
 mix = score + sfx
 rms_db = lambda x: 20 * math.log10(float(np.sqrt(np.mean(np.asarray(x, np.float64) ** 2))) + 1e-12)
-gain = 10 ** ((BED_DB - rms_db(mix[int(2 * SR):int(24 * SR)])) / 20)
+CAL = (1.0, max(6.0, EV.get("board_chime", 25.0) - 1.0))   # asleep, before Noor boards
+gain = 10 ** ((BED_DB - rms_db(mix[int(CAL[0] * SR):int(CAL[1] * SR)])) / 20)
 score, sfx = score * gain, sfx * gain
 
 # ---------- temp SD: THE GROAN placeholder (absolute levels, dBFS RMS at its loudest) ----
@@ -393,7 +396,12 @@ if shutil.which("ffmpeg"):
                         os.path.join(HERE, name + "-48k.flac")], check=True)
         os.remove(tmp)
     # reference only: temp mix + scratch voice at unity gain (the TA muxes the two separately)
-    if os.path.exists(VOICE_AUDIO):
+    v_dur = json.load(open(VOICE_JSON)).get("duration_s") if os.path.exists(VOICE_JSON) else None
+    REF_OK = os.path.exists(VOICE_AUDIO) and v_dur is not None and abs(v_dur - DUR) < .01
+    ref = os.path.join(HERE, "reference-mix-with-scratch-voice.mp3")
+    if not REF_OK and os.path.exists(ref):
+        os.remove(ref)                      # never leave a reference on a different clock
+    if REF_OK:
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", os.path.join(HERE, "temp-mix-48k.flac"),
                         "-i", VOICE_AUDIO, "-filter_complex", "[0:a][1:a]amix=inputs=2:normalize=0[a]",
                         "-map", "[a]", "-ac", "2", "-b:a", "128k",
@@ -430,6 +438,10 @@ if margins:
               for m in worst]
 lines += ["", f"Dialogue windows: {len(DLG)} from {DLG_SRC} (Undertone/cellos -4 dB, rails -3 dB inside, plus per-line duck to keep {MARGIN_DB:.0f} dB clear)",
           "  Advance/relight ticks landing inside a line: " + (", ".join(on_line) if on_line else "none (OK)")]
+nolev = [w["line"] for w in DLG if w.get("rms_db") is None]
+lines += [f"  Lines without a measured level (ducked by the fixed amounts only): {', '.join(nolev) if nolev else 'none'}"]
+if shutil.which("ffmpeg"):
+    lines += [f"  Reference mix with scratch voice: {'written' if REF_OK else f'NOT written (voice track is {v_dur} s, cue clock is {DUR} s; waiting for the re-timed scratch voice)'}"]
 lines += ["", "Quiet spans (Director): " + ", ".join(f"{fmt(qa)}-{fmt(qb)} (Undertone held on G, rising; no score event)" for qa, qb in QUIET)]
 lines += ["", f"Advance tick spacing: min {min(gaps):.1f} s, max {max(gaps):.1f} s "
           f"({'OK' if min(gaps) >= 8 else 'BELOW the 8 s rule'})"]
