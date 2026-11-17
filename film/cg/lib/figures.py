@@ -1,146 +1,201 @@
-"""Blocking figures: seated, painted mannequins in costume colour, built from primitives.
-They are placeholders for the Character Designer's sheets (design/), sized and posed so the
-light reads correctly on faces and costumes in previs. Only Noor's lanyard is red.
+"""Blocking figures: painted mannequins at the Character Designer's sizes, posed on the DP's marks.
+Placeholders for design/sheets; they exist so light reads correctly on faces and costumes in
+previs. Glossy corneas show the real panel row as catchlights. Only the strap and Kai's end-call
+button are THE_RED.
 """
 import math
 
 import bpy
-from mathutils import Vector
+from mathutils import Matrix, Vector
 
 from . import lookdev as ld
-from .common import link, load
+from .common import coll, dp, link, load, t2f
 from .mesh import box, ellipsoid, limb
 
 CAST = {
-    "NOOR":   dict(top="noor_suit", arms="noor_suit", legs="noor_suit", skin="skin_a", hair="hair_dark", build=0.95, pose="phone_ear"),
-    "WALTER": dict(top="walter_coat", arms="walter_coat", legs="trousers", skin="skin_b", hair="hair_grey", build=1.05, pose="paper"),
-    "BEA":    dict(top="bea_scrubs", arms="bea_cardigan", legs="bea_scrubs", skin="skin_c", hair="hair_dark", build=1.0, pose="lap", head_back=True),
-    "KAI":    dict(top="kai_hoodie", arms="kai_hoodie", legs="trousers", skin="skin_d", hair="hair_dark", build=1.0, pose="phone_hands", hood=True),
+    "NOOR":   dict(top="noor/suit", arms="noor/suit", legs="noor/skirt", shoes="noor/shoes", skin="noor/skin", hair="noor/hair", iris="noor/iris"),
+    "WALTER": dict(top="walter/coat", arms="walter/coat", legs="walter/trousers", shoes="walter/shoes", skin="walter/skin", hair="walter/hair", iris="walter/iris"),
+    "BEA":    dict(top="bea/scrubs", arms="bea/cardigan", legs="bea/scrubs", shoes="bea/clogs", skin="bea/skin", hair="bea/hair", iris="bea/iris", cardigan=True),
+    "KAI":    dict(top="kai/hoodie", arms="kai/hoodie", legs="kai/jeans", shoes="kai/sneakers", skin="kai/skin", hair="kai/hair", iris="kai/iris", hood=True),
 }
+DEFAULT_POSE = {"NOOR": "lap", "WALTER": "paper", "BEA": "lap", "KAI": "phone_hands"}
 
 
-def _mat(key, **kw):
-    return ld.paint_material(f"char_{key}", key, stroke_scale=kw.pop("stroke_scale", 22.0), stretch=kw.pop("stretch", 1.5), **kw)
+def _tag(ob, idx):
+    ob.pass_index = idx
+    return ob
 
 
-def _skin(key):
-    return ld.paint_material(f"char_{key}", key, stroke_scale=26.0, stretch=1.0, variation=0.10, roughness=0.55, hue_jitter=0.03, bump=0.01)
+def figure(name, D, B, pose=None, at=None, standing=False, facing=None):
+    spec = CAST[name]
+    fig = B["figures"][name]
+    mark = Vector(at if at else D["set"]["marks"][name])
+    fa = facing or fig["facing"]
+    f = Vector((fa[0], fa[1], 0)).normalized()
+    lat = Vector((0, 0, 1)).cross(f)
+    eye = fig["eye"] if not standing else fig["height"] * 0.935
+    hip_z = 0.56 if not standing else fig["height"] * 0.52
+    # upper body scaled so the eye lands on the Designer's seated eye height
+    k = (eye + 0.02 - hip_z) / (1.31 - 0.58)
+    sw = fig["shoulder"] / 0.44
+    O = Vector((mark.x, mark.y, 0)) + f * 0.10
+    C = f"CHAR_{name}"
+    coll(C, coll("CHARACTERS"))
 
+    def P(fw, la, z):
+        zz = hip_z + (z - 0.58) * k if z >= 0.58 else z
+        return O + f * fw + lat * la + Vector((0, 0, zz))
 
-def seated(name, lay, pose=None):
-    spec = dict(CAST[name])
-    if pose:
-        spec["pose"] = pose
-    ch = lay["characters"][name]
-    W = lay["car"]["width"]
-    pw = lay["seats"]["pair_width"]
-    f = ch["facing"]
-    side = ch["side"]
-    y0 = side * (W / 2 - 0.04 - (0.75 if ch["seat"] == "aisle" else 0.25) * pw)
-    x0 = ch["x"]
-    coll = f"CHAR_{name}"
-    b = spec["build"]
+    def Pz(fw, la, zabs):
+        return O + f * fw + lat * la + Vector((0, 0, zabs))
 
-    def P(fwd, lat, z):
-        return Vector((x0 + f * fwd, y0 + lat, z))
-
-    top, arms, legs = _mat(spec["top"]), _mat(spec["arms"]), _mat(spec["legs"])
-    skin, hair = _skin(spec["skin"]), _mat(spec["hair"], stroke_scale=40.0, stretch=3.0)
+    m = {r: ld.paint(f"c_{spec[r].replace('/', '_')}", spec[r], tier="costume") for r in ("top", "arms", "legs", "shoes")}
+    skin = ld.paint(f"c_{spec['skin'].replace('/', '_')}", spec["skin"], tier="face")
+    hair = ld.paint(f"c_{spec['hair'].replace('/', '_')}", spec["hair"], tier="costume", stretch=6.0)
+    cornea = ld.gloss(f"cornea_{name}", spec["iris"], roughness=0.03, coat=1.0)
     obs = []
-    lean = math.radians(8)
+    yaw = math.atan2(f.y, f.x)
+    rot = Matrix.Rotation(yaw, 3, "Z")
+    lean = Matrix.Rotation(math.radians(8), 3, lat)
     hip = P(-0.10, 0, 0.58)
-    sh = P(-0.16, 0, 1.06 * b ** 0.3)
-    # torso
-    t = ellipsoid(f"{name}_TORSO", (hip + sh) / 2 + Vector((0, 0, 0.03)), (0.12 * b, 0.185 * b, 0.30), top, coll)
-    t.rotation_euler = (0, -f * lean, 0)
-    obs.append(t)
-    obs.append(ellipsoid(f"{name}_PELVIS", hip, (0.15, 0.18 * b, 0.10), legs, coll))
+    sh = P(-0.16, 0, 1.06)
+    obs.append(_tag(ellipsoid(f"{name}_TORSO", (hip + sh) / 2 + Vector((0, 0, 0.02)), (0.12, 0.185 * sw, 0.29 * k), m["top"], C,
+                              rot=lean @ rot), 2))
+    obs.append(_tag(ellipsoid(f"{name}_PELVIS", hip, (0.15, 0.18 * sw, 0.10), m["legs"], C, rot=rot), 2))
+    if spec.get("cardigan"):
+        for s in (-1, 1):
+            obs.append(_tag(ellipsoid(f"{name}_CARDIGAN_{s}", (hip + sh) / 2 + lat * s * 0.10 * sw + Vector((0, 0, 0.02)),
+                                      (0.125, 0.09 * sw, 0.29 * k), m["arms"], C, rot=lean @ rot), 2))
     # legs
     for s in (-1, 1):
-        knee, foot = P(0.32, s * 0.11, 0.60), P(0.38, s * 0.12, 0.09)
-        obs.append(limb(f"{name}_THIGH_{s}", P(-0.06, s * 0.10, 0.58), knee, 0.075 * b, legs, coll, r2=0.06))
-        obs.append(limb(f"{name}_SHIN_{s}", knee, foot, 0.055, legs, coll, r2=0.045))
-        obs.append(ellipsoid(f"{name}_SHOE_{s}", P(0.44, s * 0.12, 0.04), (0.13, 0.05, 0.04), _mat("phone"), coll))
-    # head and neck
-    head_c = P(-0.13 - (0.05 if spec.get("head_back") else 0), 0, 1.31 * b ** 0.3)
-    obs.append(limb(f"{name}_NECK", sh + Vector((0, 0, 0.0)), head_c - Vector((0, 0, 0.08)), 0.045, skin, coll))
-    hd = ellipsoid(f"{name}_HEAD", head_c, (0.095, 0.085, 0.115), skin, coll)
-    if spec.get("head_back"):
-        hd.rotation_euler = (0, -f * math.radians(22), 0)
-    obs.append(hd)
-    hr = ellipsoid(f"{name}_HAIR", head_c + Vector((-f * 0.02, 0, 0.035)), (0.10, 0.09, 0.10), hair, coll)
-    obs.append(hr)
+        if standing:
+            knee, foot = Pz(0.0, s * 0.10, 0.48), Pz(0.02, s * 0.11, 0.08)
+            top = Pz(-0.02, s * 0.10, hip_z)
+        else:
+            knee, foot, top = Pz(0.32, s * 0.11, 0.58), Pz(0.38, s * 0.12, 0.09), Pz(-0.06, s * 0.10, 0.57)
+        obs.append(_tag(limb(f"{name}_THIGH_{s}", top, knee, 0.075, m["legs"], C, r2=0.06), 2))
+        obs.append(_tag(limb(f"{name}_SHIN_{s}", knee, foot, 0.055, m["legs"], C, r2=0.045), 2))
+        obs.append(_tag(ellipsoid(f"{name}_SHOE_{s}", foot + f * 0.06 - Vector((0, 0, 0.05)), (0.13, 0.05, 0.04), m["shoes"], C, rot=rot), 2))
+    # head, neck, hair, eyes (glossy corneas -> panel catchlights)
+    head_c = P(-0.13, 0, 1.31)
+    tilt = Matrix.Rotation(math.radians(-6), 3, lat)
+    obs.append(_tag(limb(f"{name}_NECK", sh, head_c - Vector((0, 0, 0.08)), 0.045, skin, C), 1))
+    obs.append(_tag(ellipsoid(f"{name}_HEAD", head_c, (0.095, 0.082, 0.115), skin, C, rot=tilt @ rot), 1))
+    obs.append(_tag(ellipsoid(f"{name}_NOSE", head_c + f * 0.092 - Vector((0, 0, 0.012)), (0.02, 0.014, 0.028), skin, C, rot=rot), 1))
+    obs.append(_tag(ellipsoid(f"{name}_HAIR", head_c - f * 0.025 + Vector((0, 0, 0.035)), (0.10, 0.09, 0.10), hair, C, rot=rot), 2))
+    for s in (-1, 1):
+        obs.append(_tag(ellipsoid(f"{name}_EYE_{s}", head_c + f * 0.078 + lat * s * 0.033 + Vector((0, 0, 0.012)),
+                                  (0.012, 0.012, 0.012), cornea, C, segs=12), 1))
     if spec.get("hood"):
-        obs.append(ellipsoid(f"{name}_HOOD", sh + Vector((-f * 0.10, 0, 0.06)), (0.08, 0.17, 0.09), top, coll))
-    # arms by pose
-    pose = spec["pose"]
+        obs.append(_tag(ellipsoid(f"{name}_HOOD", sh - f * 0.10 + Vector((0, 0, 0.06)), (0.08, 0.17, 0.09), m["top"], C, rot=rot), 2))
+    # arms by pose: (elbow, hand) in (fwd, lat, z-unscaled)
+    pose = pose or DEFAULT_POSE[name]
     hands = {
-        "phone_ear":   [((-0.04, -0.25, 0.86), (0.12, -0.10, 0.70)), ((-0.02, 0.22, 1.00), (-0.10, 0.11, 1.27))],
-        "phone_lap":   [((-0.02, -0.24, 0.82), (0.20, -0.06, 0.80)), ((-0.02, 0.24, 0.82), (0.20, 0.06, 0.80))],
+        "phone_ear":   [((-0.04, -0.25, 0.86), (0.12, -0.10, 0.70)), ((-0.04, 0.22, 1.00), (-0.11, 0.11, 1.27))],
+        "phone_lap":   [((-0.02, -0.24, 0.82), (0.20, -0.06, 0.78)), ((-0.02, 0.24, 0.82), (0.20, 0.06, 0.78))],
         "paper":       [((0.02, -0.25, 0.86), (0.26, -0.17, 0.92)), ((0.02, 0.25, 0.86), (0.26, 0.17, 0.92))],
         "lap":         [((-0.04, -0.24, 0.80), (0.16, -0.08, 0.66)), ((-0.04, 0.24, 0.80), (0.16, 0.08, 0.66))],
         "phone_hands": [((-0.02, -0.24, 0.82), (0.20, -0.05, 0.84)), ((-0.02, 0.24, 0.82), (0.20, 0.05, 0.84))],
+        "standing":    [((-0.02, -0.24, 0.82), (0.02, -0.22, 0.58)), ((-0.04, 0.22, 1.00), (-0.11, 0.11, 1.27))],
     }[pose]
     for s, (elb, hand) in zip((-1, 1), hands):
-        shp = P(-0.16, s * 0.19 * b, 1.04)
+        shp = P(-0.16, s * 0.19 * sw, 1.04)
         e, h = P(*elb), P(*hand)
-        obs.append(limb(f"{name}_UARM_{s}", shp, e, 0.05 * b, arms, coll, r2=0.042))
-        obs.append(limb(f"{name}_FARM_{s}", e, h, 0.04, arms, coll, r2=0.032))
-        obs.append(ellipsoid(f"{name}_HAND_{s}", h, (0.045, 0.035, 0.05), skin, coll))
-
+        obs.append(_tag(limb(f"{name}_UARM_{s}", shp, e, 0.05, m["arms"], C, r2=0.042), 2))
+        obs.append(_tag(limb(f"{name}_FARM_{s}", e, h, 0.04, m["arms"], C, r2=0.032), 2))
+        obs.append(_tag(ellipsoid(f"{name}_HAND_{s}", h, (0.045, 0.035, 0.05), skin, C, rot=rot), 1))
     # props
     if name == "NOOR":
-        red = ld.paint_material("lanyard_red", "lanyard", stroke_scale=40.0, variation=0.08)
+        red = ld.paint("the_red_strap", "THE_RED", tier="costume", variation=0.06)
         for s in (-1, 1):
-            obs.append(limb(f"NOOR_LANYARD_{s}", P(-0.12, s * 0.07, 1.14), P(-0.03, s * 0.012, 0.90), 0.009, red, coll))
-        obs.append(box("NOOR_BADGE", P(-0.025, 0, 0.85), (0.012, 0.075, 0.10), _mat("badge", stroke_scale=60.0), coll))
-        obs.append(_phone("noor", P(*hands[1][1]) + Vector((f * 0.02, 0.0, 0.0)), head_c, coll))
+            obs.append(_tag(limb(f"NOOR_STRAP_{s}", P(-0.12, s * 0.07, 1.14), P(-0.03, s * 0.012, 0.90), 0.009, red, C), 2))
+        obs.append(_tag(box("NOOR_BADGE", P(-0.025, 0, 0.85), (0.075, 0.075, 0.10), ld.gloss("badge_plastic", "noor/badge", roughness=0.25), C), 2))
+        bpy.data.objects["NOOR_BADGE"].rotation_euler = (0, 0, yaw)
+        rh = P(*hands[1][1])
+        target = head_c if pose != "phone_lap" else head_c
+        at_ = rh + f * 0.02 if pose != "phone_lap" else (P(*hands[0][1]) + P(*hands[1][1])) / 2 + Vector((0, 0, 0.03))
+        _phone("noor", at_, target, C, red_button=False)
     elif name == "WALTER":
-        paper = box("WALTER_PAPER", P(0.29, 0, 0.98), (0.02, 0.36, 0.30), _mat("newspaper", stroke_scale=50.0, stretch=8.0, variation=0.25), coll)
-        paper.rotation_euler = (0, -f * math.radians(20), 0)
+        paper = box("WALTER_PAPER", P(0.29, 0, 0.98), (0.02, 0.36, 0.30), ld.paint("newsprint", "props/newsprint", tier="costume", stretch=8.0, variation=0.25), C)
+        paper.rotation_euler = (0, -math.radians(20), yaw)
+        _tag(paper, 2)
     elif name == "BEA":
-        obs.append(box("BEA_BAG", P(0.17, 0, 0.66), (0.20, 0.32, 0.16), _mat("bea_cardigan"), coll, bevel=0.03))
+        obs.append(_tag(box("BEA_TOTE", P(0.17, 0, 0.66), (0.20, 0.32, 0.16), ld.paint("tote", "bea/tote", tier="costume"), C, bevel=0.03), 2))
+        bpy.data.objects["BEA_TOTE"].rotation_euler = (0, 0, yaw)
     elif name == "KAI":
-        obs.append(_phone("kai", P(0.24, 0, 0.88), head_c, coll))
+        _phone("kai", P(0.24, 0, 0.88), head_c, C, red_button=True)
     return obs
 
 
-def _phone(key, at, look_at, coll):
-    """Phone with an emissive screen (material screen_<key>) and a small soft light toward the face."""
+def _phone(key, at, look_at, C, red_button=False):
+    """Phone with an emissive screen (screen_<key>) and a small soft light toward the face.
+    Kai's screen carries the red end-call button (THE_RED, the film's second red)."""
     rig = bpy.data.objects.new(f"PHONE_{key.upper()}_RIG", None)
     rig.location = at
-    link(rig, coll)
+    link(rig, C)
     d = (Vector(look_at) - Vector(at)).normalized()
     rig.rotation_euler = d.to_track_quat("Z", "Y").to_euler()
-    body = box(f"PHONE_{key.upper()}_BODY", (0, 0, -0.005), (0.075, 0.155, 0.009), _mat("phone", variation=0.0), coll)
-    body.parent = rig
-    scr = ld.emission_material(f"screen_{key}", (0.70, 0.82, 1.0), 3.0)  # cold blue-white
-    sc = box(f"PHONE_{key.upper()}_SCREEN", (0, 0, 0.0), (0.066, 0.142, 0.002), scr, coll)
-    sc.parent = rig
-    sc.visible_diffuse = False
-    sc.visible_shadow = False
+    body = box(f"PHONE_{key.upper()}_BODY", (0, 0, -0.005), (0.075, 0.155, 0.009),
+               ld.paint(f"phone_case_{key}", "props/noor_phone_case" if key == "noor" else "kai/phone_case", tier="costume", variation=0.0), C)
+    scr = ld.emission(f"screen_{key}", "props/screen_glow", 2.5)
+    sc = box(f"PHONE_{key.upper()}_SCREEN", (0, 0.005, 0.0), (0.066, 0.13, 0.002), scr, C)
+    parts = [body, sc]
+    if red_button:
+        rb = box(f"PHONE_{key.upper()}_ENDCALL", (0, -0.058, 0.0012), (0.022, 0.022, 0.002), ld.emission(f"endcall_{key}", "THE_RED", 2.5), C)
+        parts.append(rb)
+    for p in parts:
+        p.parent = rig
+        p.pass_index = 2
+    for p in parts[1:]:
+        p.visible_diffuse = False
+        p.visible_shadow = False
     ldata = bpy.data.lights.new(f"PHONE_{key.upper()}_LIGHT", "AREA")
     ldata.size, ldata.size_y = 0.07, 0.14
-    ldata.shape = "RECTANGLE"
-    ldata.color = (0.70, 0.82, 1.0)
-    ldata.energy = 3.0
+    ldata.color = ld.pal("props/screen_glow")
     lo = bpy.data.objects.new(f"PHONE_{key.upper()}_LIGHT", ldata)
     lo.parent = rig
-    lo.location = (0, 0, 0.01)
-    lo.rotation_euler = (math.pi, 0, 0)  # area lights emit along local -Z; flip to face +Z (the face)
-    link(lo, coll)
+    lo.location = (0, 0, 0.012)
+    lo.rotation_euler = (math.pi, 0, 0)
+    link(lo, C)
     return rig
 
 
-def build(layout=None, poses=None):
-    lay = layout or load("set_layout.json")
+def build(D=None, B=None, poses=None, standing=None):
+    D = D or dp()
+    B = B or load("build.json")
     poses = poses or {}
+    standing = standing or {}
     for n in CAST:
-        seated(n, lay, poses.get(n))
+        if n in standing:
+            figure(n, D, B, pose=standing[n].get("pose", "standing"), at=standing[n]["at"], standing=True,
+                   facing=standing[n].get("facing"))
+        else:
+            figure(n, D, B, poses.get(n))
+    animate_kai(D)
+
+
+def animate_kai(D):
+    """Cue 4: Kai is removed in the dark (no animation). His phone is left face-up on the seat."""
+    f = t2f(next(c["t"] for c in D["cues"] if c["id"] == "4"), D["fps"]) + 1
+    ph = bpy.data.objects["PHONE_KAI_RIG"]
+    phone_parts = {ph.name} | {c.name for c in ph.children}
+    for ob in bpy.data.collections["CHAR_KAI"].objects:
+        if ob.name in phone_parts:
+            continue
+        for fr, hide in ((0, False), (f, True)):
+            ob.hide_render = hide
+            ob.keyframe_insert("hide_render", frame=fr)
+    seat = Vector(D["set"]["marks"]["KAI_PHONE"])
+    for fr, loc, rot in ((0, tuple(ph.location), tuple(ph.rotation_euler)), (f, (seat.x - 0.1, seat.y, seat.z + 0.03), (0, 0, math.radians(20)))):
+        ph.location, ph.rotation_euler = loc, rot
+        ph.keyframe_insert("location", frame=fr)
+        ph.keyframe_insert("rotation_euler", frame=fr)
+    for fc in ph.animation_data.action.layers[0].strips[0].channelbags[0].fcurves:
+        for kp in fc.keyframe_points:
+            kp.interpolation = "CONSTANT"
 
 
 def set_visible(name, visible):
-    coll = bpy.data.collections.get(f"CHAR_{name}")
-    if coll:
-        coll.hide_render = not visible
-        coll.hide_viewport = not visible
+    c = bpy.data.collections.get(f"CHAR_{name}")
+    if c:
+        c.hide_render = not visible

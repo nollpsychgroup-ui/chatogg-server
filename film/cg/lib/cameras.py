@@ -1,33 +1,62 @@
-"""Virtual cameras from data/set_layout.json (provisional until camera/shot-list.md).
-Super 35 gate (24.89 mm wide), 2.39:1, spherical (no anamorphic artefacts), deep stop."""
+"""Virtual cameras from camera/cues.json: S35 cropped to 2.39:1, spherical, one camera object
+per DP position (A, A2, B..G) plus SHOT_CAM, which is set per shot (loc, aim, lens; A->A2 push
+interpolated over the shot). Cameras are keyed on ones (DP rule)."""
 import bpy
 from mathutils import Vector
 
-from .common import link, load
+from .common import dp, link
 
-SENSOR_W = 24.89
+SUBJECT_Z = {}
 
 
-def build(layout=None):
-    lay = layout or load("set_layout.json")
-    cams = {}
-    for name, c in lay["cameras"].items():
-        if name.startswith("_"):
+def _cam(name, sensor, lens, loc, aim):
+    cd = bpy.data.cameras.new(name)
+    cd.lens = lens
+    cd.sensor_fit = "HORIZONTAL"
+    cd.sensor_width = sensor["width_mm"]
+    cd.sensor_height = sensor["height_mm"]
+    cd.clip_start = 0.05
+    cd.clip_end = 80.0
+    cd.dof.use_dof = True
+    cd.dof.aperture_fstop = 4.0
+    ob = bpy.data.objects.new(name, cd)
+    link(ob, "CAMERAS")
+    aim_at(ob, loc, aim)
+    return ob
+
+
+def aim_at(ob, loc, aim):
+    ob.location = loc
+    d = Vector(aim) - Vector(loc)
+    ob.rotation_euler = d.to_track_quat("-Z", "Y").to_euler()
+    ob.data.dof.focus_distance = max(0.5, d.length)
+
+
+def build(D=None):
+    D = D or dp()
+    sensor = D["camera"]["sensor"]
+    out = {}
+    for k, p in D["camera"]["positions"].items():
+        if "loc" not in p:
             continue
-        cd = bpy.data.cameras.new(name)
-        cd.lens = c["lens"]
-        cd.sensor_fit = "HORIZONTAL"
-        cd.sensor_width = SENSOR_W
-        cd.clip_start = 0.05
-        cd.clip_end = 60.0
-        cd.dof.use_dof = True
-        cd.dof.aperture_fstop = 4.0
-        ob = bpy.data.objects.new(name, cd)
-        ob.location = c["loc"]
-        d = Vector(c["look_at"]) - Vector(c["loc"])
-        ob.rotation_euler = d.to_track_quat("-Z", "Y").to_euler()
-        cd.dof.focus_distance = c.get("focus", min(d.length, 6.0))
-        ob["use"] = c.get("use", "")
-        link(ob, "CAMERAS")
-        cams[name] = ob
-    return cams
+        aim = p.get("aim", D["set"]["marks"]["NOOR"])
+        out[k] = _cam(f"CAM_{k}", sensor, p["lens"], p["loc"], aim)
+    out["SHOT"] = _cam("SHOT_CAM", sensor, 32, (0, -3.5, 1.65), (0, 13, 1.65))
+    return out
+
+
+def set_shot(shot_no, t, D=None, focus_subject=None):
+    """Point SHOT_CAM at shot `shot_no` as it is at time t (seconds)."""
+    D = D or dp()
+    s = next(x for x in D["shots"] if x["shot"] == shot_no)
+    ob = bpy.data.objects["SHOT_CAM"]
+    ob.data.lens = s["lens_mm"]
+    loc = Vector(s["camera_loc"])
+    if s["move"].startswith("push A->A2"):
+        a2 = Vector(D["camera"]["positions"]["A2"]["loc"])
+        u = max(0.0, min(1.0, (t - s["in"]) / (s["out"] - s["in"])))
+        loc = loc.lerp(a2, u)
+    aim = s["aim"]
+    aim_at(ob, loc, aim)
+    bpy.context.scene.camera = ob
+    return s

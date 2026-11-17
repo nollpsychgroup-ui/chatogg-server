@@ -1,86 +1,106 @@
 {
- "_doc": "Style frame definitions for render_styleframes.py: which cue/offset (s), camera, poses and set-ups. Lighting comes from cue-stack.json.",
+ "_doc": "Style frames: each is a real frame of the cue-driven scene. 'shot' and 't' come from camera/cues.json; the light state is whatever the cue stack says at t. Poses/setups are previs blocking stand-ins until Milestone 4.",
  "frames": {
-  "sf01_first_flicker": {
-   "caption": "Cue 1, 'Just leaving the office now.' P1 mid-flicker, over Walter's shoulder on the 32 mm.",
-   "cue": "1",
-   "offset": 0.17,
-   "camera": "CAM_WALTER_32",
+  "sf01_meter_asleep": {
+   "shot": 4,
+   "t": 56.0,
+   "poses": {
+    "NOOR": "lap"
+   },
+   "setup": [],
+   "caption": "Asleep. The Meter (Pos A, 32 mm): the sign, the display at 11 MIN, Noor under P1 and all 12 panels countable. Passing lights only in the glass."
+  },
+  "sf02_first_flicker": {
+   "shot": 7,
+   "t": 80.0,
    "poses": {
     "NOOR": "phone_ear"
    },
-   "setup": []
+   "setup": [],
+   "caption": "Cue 1: 'Just leaving the office now.' P1 at 30% on the first frame of the flicker, with the ceiling entering the top of frame. Pos C, 40 mm."
   },
-  "sf02a_brownout": {
-   "caption": "Cue 3, 'I'm at the library, Mum.' Every panel sags to sodium and holds. Master 32 mm.",
-   "cue": "3",
-   "offset": 3.0,
-   "camera": "CAM_MASTER_32",
+  "sf03_brownout": {
+   "shot": 16,
+   "t": 147.0,
    "poses": {
     "NOOR": "lap"
    },
-   "setup": []
+   "setup": [],
+   "caption": "Cue 3: 'I'm at the library, Mum.' BROWN (2200 K, -2.5 stops) holds on every panel. Bea is across from Walter; the strap is the most saturated thing in frame."
   },
-  "sf02b_blackout": {
-   "caption": "Cue 4, blackout. True black: panels, windows, display and phones all at zero.",
-   "cue": "4",
-   "offset": 1.0,
-   "camera": "CAM_MASTER_32",
+  "sf04a_blackout": {
+   "shot": 18,
+   "t": 156.5,
    "poses": {
     "NOOR": "lap"
    },
-   "setup": []
+   "setup": [],
+   "caption": "Cue 4: blackout. Every pixel is 0, after the painterly comp too."
   },
-  "sf02c_lights_up": {
-   "caption": "Cue 4 lights up, same locked wide. Kai's seat is empty and the car is indifferent.",
-   "cue": "4.UP",
-   "offset": 1.0,
-   "camera": "CAM_MASTER_32",
+  "sf04b_lights_up": {
+   "shot": 18,
+   "t": 160.0,
    "poses": {
     "NOOR": "lap"
    },
-   "setup": [
-    "kai_gone"
-   ]
+   "setup": [],
+   "caption": "Cue 4.up, the same locked Meter: Kai's seat is empty and his phone glows on the cushion. The car is indifferent."
   },
-  "sf03_creeping_dark": {
-   "caption": "Cue 7.7, the creeping dark: P6-P12 out, a hard edge walking up the aisle toward camera.",
-   "cue": "7.7",
-   "offset": 1.0,
-   "camera": "CAM_MASTER_32",
+  "sf05_two_panels_left": {
+   "shot": 50,
+   "t": 441.0,
    "poses": {
-    "NOOR": "lap"
+    "NOOR": "phone_lap"
    },
    "setup": [
-    "kai_gone",
     "lanyard_thrown"
-   ]
+   ],
+   "caption": "After 7.10, two panels left (Pos A2, where the creep push lands). Noor is in the last pool with MARK glowing in her lap; Walter and Bea sit at the hard edge; Kai's phone is the only light in the dark."
   },
-  "sf04a_final_relight": {
-   "caption": "Cue 8.10, the last panel (P12) snaps on at its 110% overshoot. The room is whole again.",
-   "cue": "8.10",
-   "offset": 0.0,
-   "camera": "CAM_MASTER_32",
-   "poses": {
-    "NOOR": "phone_ear"
-   },
-   "setup": [
-    "kai_gone",
-    "lanyard_thrown"
-   ]
-  },
-  "sf04b_confession_75": {
-   "caption": "Cue 8.3, the confession on the 75 mm: P1 steady and bright, relights spreading out from her.",
-   "cue": "8.3",
-   "offset": 1.0,
-   "camera": "CAM_NOOR_75",
+  "sf06_confession_75": {
+   "shot": 54,
+   "t": 463.0,
    "poses": {
     "NOOR": "phone_ear"
    },
    "setup": [
-    "kai_gone",
     "lanyard_thrown"
-   ]
+   ],
+   "caption": "Cue 8.0 on the 75 mm, its only use: 'I'm not leaving the office.' P1 steadies at 110%, the MARK screen keys the near cheek, and the car beyond is still dark."
+  },
+  "sf07_relight_run": {
+   "shot": 57,
+   "t": 497.6,
+   "poses": {
+    "NOOR": "phone_ear"
+   },
+   "setup": [
+    "lanyard_thrown"
+   ],
+   "caption": "Cues 8.3-8.7: the relights run toward the Meter. Kai's empty seat (P8) has just come back, with its 110% overshoot on P9."
+  },
+  "sf08_platform": {
+   "shot": 62,
+   "t": 530.0,
+   "poses": {},
+   "standing": {
+    "NOOR": {
+     "at": [
+      2.7,
+      6.5,
+      0
+     ],
+     "facing": [
+      -1,
+      0
+     ],
+     "pose": "standing"
+    }
+   },
+   "setup": [
+    "lanyard_thrown"
+   ],
+   "caption": "Holloway: Noor out under the single cold-white lamp, phone to her ear, framed by the open doors (Pos G). The car behind camera is fully relit and asleep."
   }
  }
 }

@@ -1,8 +1,10 @@
-"""Build THE QUIET CAR carriage scene from scratch: set, look-dev, figures, light rig, cues, cameras.
+"""Build THE QUIET CAR carriage scene from scratch.
 
-Usage (either works):
-    blender -b --python film/cg/build_scene.py -- [--save out.blend]
-    python film/cg/build_scene.py [--save out.blend]        # with the `bpy` wheel (pip install bpy)
+Shared data: camera/cues.json (DP: set, panels, marks, looks, breath, cues, events, cameras, shots)
+and design/palette.json (Character Designer). TA build detail: cg/data/build.json.
+
+    python film/cg/build_scene.py [--save film/cg/.cache/quiet_car.blend]     (bpy wheel)
+    blender -b --python film/cg/build_scene.py -- [--save ...]
 """
 import os
 import sys
@@ -14,19 +16,20 @@ import bpy  # noqa: E402
 from lib import build_set, cameras, common, cue_driver, figures, light_rig, lookdev  # noqa: E402
 
 
-def build(res=(960, 402), samples=64, paint=True, poses=None):
+def build(res=(1280, 536), samples=64, paint=True, poses=None, standing=None):
     common.clear_scene()
     scene = bpy.context.scene
     scene.name = "QUIET_CAR"
     lookdev.setup_render(scene, res=res, samples=samples)
-    lay = common.load("set_layout.json")
-    cues = common.load("cue-stack.json")
-    build_set.build(lay)
-    figures.build(lay, poses)
-    light_rig.build(lay, cues)
-    cue_driver.build(cues, lay)
-    cams = cameras.build(lay)
-    scene.camera = cams["CAM_MASTER_32"]
+    D, B = common.dp(), common.load("build.json")
+    common.coll("SET"); common.coll("CHARACTERS"); common.coll("PROPS_LOOSE"); common.coll("EXTERIOR")
+    sec = build_set.build(D, B)
+    figures.build(D, B, poses, standing)
+    ll = sec.finalize()
+    light_rig.build(D, B, ll)
+    cue_driver.build(D, B)
+    cams = cameras.build(D)
+    scene.camera = cams["A"]
     lookdev.setup_compositor(scene, enabled=paint)
     return scene
 

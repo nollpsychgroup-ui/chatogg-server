@@ -1,0 +1,24 @@
+{
+  "_doc": "TA-owned build detail only. Everything shared (set dimensions, panels, marks, doors, looks, breath, cues, events, cameras, shots) is read from camera/cues.json (DP) and colours from design/palette.json (Character Designer).",
+  "windows": {
+    "sill": 0.95, "head": 1.88,
+    "bays_A": [[0.3, 2.9], [3.1, 5.7], [5.9, 8.5], [8.7, 11.3], [11.5, 12.6]],
+    "bays_B": [[0.3, 2.9], [3.1, 5.25], [7.75, 10.2], [10.4, 12.6]]
+  },
+  "benches": {"depth": 0.5, "seat_z": 0.46, "back_top": 0.98, "end_gap": 0.25},
+  "noor_seat": {"width": 0.9, "depth": 0.48},
+  "gangway": {"half_width": 1.18, "height": 2.15},
+  "door_height": 2.0,
+  "panel_rig": {"watts": 70.0, "diffuser_strength": 4.0, "spread_deg": 100.0, "z": 2.29, "skirt_depth": 0.02,
+                 "_note": "Hard section edge (DP L5): each panel's direct light is linked to its own section of the set (virtual baffles at the panel joins); characters and props receive every panel so the spill rim from P2 still reaches Walter and Bea at 7.10. Bounce is unrestricted."},
+  "green_scale": 0.25,
+  "white_balance_k": 4000,
+  "figures": {
+    "_note": "Character Designer lineup: height / seated eye height / shoulder width (m).",
+    "NOOR":   {"height": 1.66, "eye": 1.16, "shoulder": 0.44, "facing": [0, -1]},
+    "KAI":    {"height": 1.78, "eye": 1.14, "shoulder": 0.46, "facing": [-1, 0]},
+    "BEA":    {"height": 1.62, "eye": 1.13, "shoulder": 0.43, "facing": [-1, 0]},
+    "WALTER": {"height": 1.83, "eye": 1.20, "shoulder": 0.45, "facing": [1, 0]}
+  },
+  "platform": {"lamp_watts": 900.0, "slide_m": 30.0, "slide_s": 8.0}
+}
