@@ -164,7 +164,7 @@ Everyone sinks into the car except the badge. Costume chroma is kept **below 25%
 
 ### 6.4 Skin under each light
 
-**Global look (Director-approved, after M4 pass 3):** white balance stays at 4000 K, so BASE stays cool. The view transform is Khronos PBR Neutral at −0.55 EV, which keeps skin's ochre/umber warmth in the halftones (AgX Punchy was greying it out). Guard: **top-lit skin stays under ~235** (8-bit). Walter's albedo was lowered to `#CEAB92` (from `#D9B79E`) for this guard: same hue, about 12% less light.
+**Global look (Director-approved, after M4 pass 3):** white balance stays at 4000 K, so BASE stays cool. The view transform is Khronos PBR Neutral at −0.55 EV, which keeps skin's ochre/umber warmth in the halftones (AgX Punchy was greying it out). Guard: **top-lit skin stays under ~235** (8-bit). Walter's albedo was lowered in two uniform steps to `#C3A189` (from `#D9B79E`, via `#CEAB92`) for this guard, because his forehead tips toward P3 when he pitches down to the paper in shot 38: same hue, about 20% less light, over his whole skin. No regional or height-based falloff (that would be painted light, §0).
 
 
 Skin is painted with **ochre/umber in the halftones and cool grey-green in the shadow** (fluorescent spill off the teal and grey surfaces). Never red in the shadow core. Under cue 3 all four skins collapse into a narrow warm band, so **value differences between the four characters must hold in black and white** (checked on the lineup sheet in greyscale).
