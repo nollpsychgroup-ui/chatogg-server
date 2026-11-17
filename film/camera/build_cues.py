@@ -232,7 +232,7 @@ HEAD = {"NOOR": (0.0, 12.75, 1.22), "NOOR_STAND": (-0.35, 10.0, 1.62), "WALTER":
         "NOOR_AT_DOORS": (1.0, 7.25, 1.62),       # at the emergency release by the doors (shot 20; TA blocking)
         "HANDLE": (1.385, 7.75, 1.45),           # the emergency release (TA set)
         "NOOR_PLATFORM": (2.6, 6.85, 1.62),      # on the platform, framed in the right door leaf's window, clear of the seam (shot 62)
-        "NOOR_AT_KAI": (0.55, 4.875, 0.95),      # leaning in over Kai's seat, thumb over the call (32)
+        "NOOR_AT_KAI": (0.75, 5.3, 0.95),        # leaning in over Kai's seat, thumb over the call (32; TA blocking)
         "AIM_32": (0.7, 4.875, 0.85),            # between the screen and her face
         "AIM_33": (0.8, 9.0, 1.4),               # her walk back up the car, Bea watching
         "AIM_DOWN_CAR": (0.3, 0.0, 1.0)}         # looking down the car from Noor's end       # the creep push: ~1 deg up from level       # shot 15: Bea's reach in the foreground, Kai deep    # MARK, in her lap (shot 51)
@@ -278,7 +278,7 @@ POS = {
            "note": "the handle (shot 20): Noor at the emergency release, the release itself and the doors in one frame (previs-notes-02)"},
     "B2": {"loc": (0.3, 12.85, 1.5), "aim": (0.3, 0.0, 1.2), "lens": 32,
            "note": "Noor's end, side A corner: looking down the car clear of Bea (from B, Bea's body blocked the foreground)"},
-    "K":  {"loc": (1.25, 4.2, 0.75), "aim": (1.05, 4.875, 0.5), "lens": 40,
+    "K":  {"loc": (1.12, 4.62, 0.72), "aim": (0.96, 4.845, 0.505), "lens": 50,
            "note": "at Kai's seat, low beside the phone: the red end-call button with her thumb coming in from above (shot 32). Her face can't share a tight frame with a phone lying on the seat"},
     "DP_POV": {"loc": (0.3, 6.9, 1.55), "aim": (0.0, 10.29, 1.25), "lens": 32,
            "note": "Noor's POV from the doors, looking back up the car at Walter and Bea (shot 61)"},
@@ -341,7 +341,7 @@ S = [
  (29, 239.0, 252.0, "A", 32, None, "locked", 5, "She sits back down slowly (the walk to P1). Long beat of rails", []),
  (30, 252.0, 256.0, "I", 50, "KAI_PHONE", "locked", 5, "Kai's phone, still lit: 'Kai?'", []),
  (31, 256.0, 262.0, "R", 32, None, "locked", 5, "She walks down the car to Kai's seat", []),
- (32, 262.0, 272.0, "K", 40, None, "locked", 5, "Her thumb over the red end-call button. She can't", []),
+ (32, 262.0, 272.0, "K", 50, None, "locked", 5, "Her thumb over the red end-call button. She can't", []),
  (33, 272.0, 282.0, "E", 32, "AIM_33", "locked", 5, "She goes back to her seat; Bea watches the whole time", []),
  (34, 282.0, 290.0, "C", 50, "BEA", "locked", 5, "Bea: 'You okay?'", []),
  (35, 290.0, 300.0, "D", 50, "NOOR", "locked", 5, "'I'm f—' (stutter) ... 'I'm not fine.'", ["6"]),
@@ -386,7 +386,7 @@ MUST = {
     26: ["P2", "P3", "P4", "NOOR_STAND", "WRIST", "WALTER"],
     8: ["WALTER"], "8B": ["BEA"], 12: ["WALTER"], "12B": ["BEA"], 39: ["WALTER", "BEA"], 55: ["WALTER", "BEA"], 61: ["WALTER", "BEA"], 22: ["NEWSPAPER"], 23: ["NEWSPAPER"], 51: ["NOOR_PHONE_LAP"],
     15: ["BEA", "KAI"], 20: ["NOOR_AT_DOORS", "HANDLE", "DOORS"], 62: ["NOOR_PLATFORM"], 24: ["NOOR_STAND"], 25: ["KAI_PHONE"],
-    32: ["KAI_PHONE"], 33: ["BEA"], 44: ["KAI_PHONE"], 60: ["NOOR_UP"], 61: ["WALTER", "BEA"], 22: ["NEWSPAPER"], 23: ["NEWSPAPER"], 51: ["NOOR_PHONE_LAP"], 6: ["NOOR", "NOOR_CHIN"], 38: ["WALTER"], 53: ["WALTER"], 34: ["BEA"], 36: ["BEA"],
+    32: [], 33: ["BEA"], 44: ["KAI_PHONE"], 60: ["NOOR_UP"], 61: ["WALTER", "BEA"], 22: ["NEWSPAPER"], 23: ["NEWSPAPER"], 51: ["NOOR_PHONE_LAP"], 6: ["NOOR", "NOOR_CHIN"], 38: ["WALTER"], 53: ["WALTER"], 34: ["BEA"], 36: ["BEA"],
     50: ["P1", "P2", "NOOR", "DISPLAY"],
     54: ["NOOR_CHIN", "NOOR_CROWN"], 58: ["NOOR_CHIN", "NOOR_CROWN"],
     57: ["P%d" % i for i in range(1, 13)] + ["KAI_PHONE"],

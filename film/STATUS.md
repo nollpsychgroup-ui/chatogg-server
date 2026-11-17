@@ -80,3 +80,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [screenwriter] Scratch voice + SRT rebuilt on cues.json clock v2 (−13 s; 552 s); build is clock-aware (previs/voice/)
 - [composer] Temp mix re-rendered on cue clock v2 (552 s, cut 9:07): dialogue timing from cues.json, levels measured per clip id from the scratch voice, sample-exact dead air at the new blackout (142.000). Reference-with-voice withheld until the scratch voice is re-timed (music/temp/)
 - [designer] shot_expressions re-timed to clock v2 (DP trims [0,13), [545,550)); 'clock': 'v2' at top level. TA's generated margin-note hands accepted for previs
+- [dp] Re-ran all checks against the TA's blocking on clock v2 (pass). Shot 32 is now a 50 mm insert 0.32 m from Kai's phone: MUM and the thumb over the red button fill the frame (verified by test render) (camera/)

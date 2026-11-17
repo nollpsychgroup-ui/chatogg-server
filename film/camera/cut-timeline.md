@@ -62,7 +62,7 @@ Checks passed on build: the cut is continuous; every cue sits at least 0.5 s ins
 | 29 | 3:46.0 | 3:59.0 | A | 32 | locked | — | She sits back down slowly (the walk to P1). Long beat of rails |
 | 30 | 3:59.0 | 4:03.0 | I | 50 | locked | — | Kai's phone, still lit: 'Kai?' |
 | 31 | 4:03.0 | 4:09.0 | R | 32 | locked | — | She walks down the car to Kai's seat |
-| 32 | 4:09.0 | 4:19.0 | K | 40 | locked | — | Her thumb over the red end-call button. She can't |
+| 32 | 4:09.0 | 4:19.0 | K | 50 | locked | — | Her thumb over the red end-call button. She can't |
 | 33 | 4:19.0 | 4:29.0 | E | 32 | locked | — | She goes back to her seat; Bea watches the whole time |
 | 34 | 4:29.0 | 4:37.0 | C | 50 | locked | — | Bea: 'You okay?' |
 | 35 | 4:37.0 | 4:47.0 | D | 50 | locked | 6 | 'I'm f—' (stutter) ... 'I'm not fine.' |
