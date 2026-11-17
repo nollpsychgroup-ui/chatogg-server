@@ -20,3 +20,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [composer] Cue sheet and theme sketches APPROVED by Director (notes/composer-notes-02.md). Folded in the tick-spacing rule and transducer use; agreeing Advance tick spacing with DP (music/cue-sheet.md)
 - [screenwriter] Voice sides for all 7 voices written (script/voice-sides.md)
 - [screenwriter] Voice sides APPROVED by Director; folded in rulings (7 actors, MARK-04 neutral scaffold, PA speaks once) (script/voice-sides.md)
+- [producer] DECISION (human): 7 separate voice actors. The Automated Voice is not doubled, per the Director.
