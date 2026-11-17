@@ -79,7 +79,15 @@ MUSIC CUES (cue-sheet.md)
 Cue 5 main P3 (partial 4), sympathy ['P2', 'P4'], recovered 3:52.00
 Breath depth 0.03, period 5.0 s, on 1:20.00, off 8:28.00
 
-Dialogue windows: 40 from camera/cues.json (Undertone/cellos -4 dB, rails -3 dB inside)
-  Advance/relight ticks landing inside a line: none (OK)
+Calibration: asleep bed -48 dBFS RMS (mux at unity gain with the scratch voice); peak -17.8 dBFS
+Line-over-bed margin (after ducking, murmurs excluded: they sit at the edge by design): min 8.0 dB; tightest:
+    KAI-04.laugh 2:31.47  line  -28.8  bed  -36.8  duck  6.5 dB  LOW
+    MUM-02a    2:39.00  line  -41.5  bed  -49.5  duck  0.5 dB  PHONE
+    MUM-02b    2:41.40  line  -41.6  bed  -49.6  duck  1.1 dB  PHONE
+    NOOR-09    3:26.50  line  -45.9  bed  -53.9  duck  5.3 dB  FAINT
+    MUM-02c    4:13.00  line  -47.9  bed  -55.9  duck  6.9 dB  PHONE_TINY
+
+Dialogue windows: 58 from previs/voice/scratch-voice-lines.json (Undertone/cellos -4 dB, rails -3 dB inside, plus per-line duck to keep 8 dB clear)
+  Advance/relight ticks landing inside a line: 8.3, 8.4, 8.5
 
 Advance tick spacing: min 8.5 s, max 8.5 s (OK)

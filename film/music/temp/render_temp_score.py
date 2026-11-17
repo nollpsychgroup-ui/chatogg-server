@@ -12,7 +12,13 @@ same way music/cue-sheet.md describes it (1M0 bed + 1M1-1M8). Outputs next to th
                        door chimes, the inhale), for cutting the animatic
   temp-sfx.mp3         the temp sound-design stem alone (temp-score + temp-sfx = temp-mix)
   *-48k.flac           48 kHz stereo lossless versions of all three, for the TA to mux
+  reference-mix-with-scratch-voice.mp3   listening reference only (mix + scratch voice, unity)
   temp-sync-report.txt every cue/event time actually used, so picture can check sync
+
+Levels are ABSOLUTE (no normalisation): the asleep bed is -48 dBFS RMS, calibrated to the
+scratch voice (normal speech ~-28). Every line stays >= 8 dB over the bed via per-line
+ducking measured from previs/voice/scratch-voice.flac (murmurs capped at 4 dB of duck).
+The temp SFX now includes a GROAN placeholder at fixed levels (brownout ~-31 dBFS RMS).
 
 Dialogue windows (kept clear: Undertone/cellos -4 dB, rails -3 dB) come from the 'dialogue'
 array in camera/cues.json (DP's build_cues.py; it also refuses any tick inside a line).
@@ -192,8 +198,31 @@ for p, lv, d in ((8, .016, 0), (10, .013, .6), (12, .011, 1.2)):
     release += rel * gate(T_PAGE + d, DUR) * lv * osc(F0 * p, ((1, 1), (2, .1)))
 
 # ---------- dialogue windows: keep them clear --------------------------------------------
-DLG_SRC = "camera/cues.json" if doc.get("dialogue") else "NONE (no 'dialogue' in the cue file: no ducking)"
-DLG = doc.get("dialogue") or []
+# Source priority: the scratch voice actually placed in the animatic (real in/out + measured
+# level), else cues.json "dialogue" (timing only), else none.
+VOICE_DIR = os.path.normpath(os.path.join(HERE, "..", "..", "previs", "voice"))
+VOICE_JSON = os.path.join(VOICE_DIR, "scratch-voice-lines.json")
+VOICE_AUDIO = os.path.join(VOICE_DIR, "scratch-voice.flac")
+DLG = []
+if os.path.exists(VOICE_JSON):
+    DLG_SRC = "previs/voice/scratch-voice-lines.json"
+    vlines = json.load(open(VOICE_JSON))["lines"]
+    vx = None
+    if os.path.exists(VOICE_AUDIO) and shutil.which("ffmpeg"):
+        raw = subprocess.run(["ffmpeg", "-v", "error", "-i", VOICE_AUDIO, "-ac", "1", "-ar", str(SR),
+                              "-f", "s16le", "-"], capture_output=True, check=False).stdout
+        vx = np.frombuffer(raw, "<i2").astype(np.float32) / 32767
+    for c in vlines:
+        w = {"in": float(c["start"]), "out": float(c["end"]), "who": c["voice"], "line": c["id"],
+             "level": c.get("level", "")}
+        if vx is not None:
+            seg = vx[int(w["in"] * SR):int(w["out"] * SR)]
+            w["rms_db"] = 20 * math.log10(float(np.sqrt(np.mean(seg ** 2))) + 1e-9) if len(seg) else None
+        DLG.append(w)
+elif doc.get("dialogue"):
+    DLG_SRC, DLG = "camera/cues.json", doc["dialogue"]
+else:
+    DLG_SRC = "NONE (no dialogue source: no ducking)"
 duck_pts = [(0, 0.0)]
 for w in DLG:
     duck_pts += [(w["in"] - .15, 0.0), (w["in"], 1.0), (w["out"], 1.0), (w["out"] + .25, 0.0)]
@@ -212,7 +241,7 @@ T_OPEN, T_CLOSE2, T_STOP = EV["doors_open"], EV["doors_close_final"], EV["rails_
 rails_amp = env([(0, .25), (EV["doors_close"], .25), (EV["doors_close"] + 3, .5),
                  (T_BLACK - .001, .5), (T_BLACK, 0), (T_UP - .001, 0), (T_UP, .5),
                  (T_SLOW, .5), (T_OPEN, .0), (T_CLOSE2 + 1, 0), (T_CLOSE2 + 4, .5),
-                 (T_STOP - .3, .5), (T_STOP, 0)])
+                 (CUT - .001, .5), (CUT, 1.0), (T_STOP - .3, 1.0), (T_STOP, 0)])
 rumble = np.convolve(rng.standard_normal(N).astype(np.float32), np.ones(220, np.float32) / 220, mode="same") * .6
 clack = np.zeros(N, np.float32)
 for c in np.arange(.4, DUR, .83):
@@ -248,8 +277,78 @@ def write(sig, name, peak):
                         base + ".mp3"], check=False)
 
 
+# ---------- absolute calibration (mux at unity gain with the scratch voice) ---------------
+# The asleep bed (hum + rails, before Noor boards) is set to BED_DB dBFS RMS: room tone,
+# about 20 dB under normal speech (~-28 dBFS RMS in the scratch voice).
+BED_DB, MARGIN_DB, MAX_DUCK_DB = -48.0, 8.0, 12.0
 mix = score + sfx
-peak = float(np.max(np.abs(mix))) / .89
+rms_db = lambda x: 20 * math.log10(float(np.sqrt(np.mean(np.asarray(x, np.float64) ** 2))) + 1e-12)
+gain = 10 ** ((BED_DB - rms_db(mix[int(2 * SR):int(24 * SR)])) / 20)
+score, sfx = score * gain, sfx * gain
+
+# ---------- temp SD: THE GROAN placeholder (absolute levels, dBFS RMS at its loudest) ----
+def groan(start, length, level_db, attack=.3):
+    """Metallic wet exhale: shaped noise with low resonances at the hum's partials and an
+    inharmonic metal band. Sound design will replace it; levels are what matter here."""
+    i0, i1 = max(0, int(start * SR)), min(N, int((start + length) * SR))
+    out = np.zeros(N, np.float32)
+    if i1 - i0 < SR // 10:
+        return out
+    n = i1 - i0
+    spec = np.fft.rfft(rng.standard_normal(n))
+    fr = np.fft.rfftfreq(n, 1 / SR)
+    shape = np.zeros_like(fr)
+    for f0, bw, g in ((50, 6, 1.0), (100, 8, .8), (150, 10, .5), (53, 4, .6), (47, 4, .6)):
+        shape += g * np.exp(-((fr - f0) / bw) ** 2)
+    for f0 in (577, 793, 1122, 1532):
+        shape += .12 * np.exp(-((fr - f0) / 25) ** 2)
+    shape += .05 * np.exp(-((fr - 300) / 250) ** 2)
+    seg = np.fft.irfft(spec * shape, n)
+    x = np.linspace(0, 1, n)
+    e = np.interp(x, [0, attack, .75, 1], [0, 1, .7, 0])
+    seg *= e
+    loud = seg[int(n * attack):int(n * .75)] if n > 10 else seg
+    seg *= 10 ** (level_db / 20) / (np.sqrt(np.mean(loud ** 2)) + 1e-12)
+    out[i0:i1] = seg
+    return out
+
+
+gr = np.zeros(N, np.float32)
+gr += groan(flick[0]["t"], 4.0, -50)                       # lie 1: could be the brakes
+gr += groan(flick[1]["t"], 5.5, -42)                       # lie 2: louder, closer
+gr += groan(T_BROWN, T_BLACK - T_BROWN, -30, attack=.2)    # brownout: from the walls; hard out
+gr += groan(T_DIP, T_DIP_END - T_DIP, -33, attack=.12)     # "S-": hungry, settles with the light
+for k, c in enumerate(outs):                               # the Advance: one exhale per tick, rising
+    gr += groan(c["t"], 8.0, -46 + 1.0 * k, attack=.4)
+for k, c in enumerate(rels[:-1]):                          # receding into the rails
+    gr += groan(c["t"], 4.0, -38 - 1.5 * k, attack=.3)
+gr *= 1 - dark
+gr *= (t < T_LAST_REL + .5)
+sfx = sfx + gr
+
+# per-line duck: keep the whole bed >= MARGIN_DB under each measured line (cap MAX_DUCK_DB;
+# murmurs are meant to sit at the edge of audibility, so they get at most MURMUR_DUCK_DB)
+MURMUR_DUCK_DB = 4.0
+duck_db = np.zeros(N, np.float32)
+margins = []
+for w in DLG:
+    if w.get("rms_db") is None:
+        continue
+    i0, i1 = int(w["in"] * SR), int(w["out"] * SR)
+    bed = rms_db((score + sfx)[i0:i1])
+    cap = MURMUR_DUCK_DB if str(w.get("level", "")).startswith("MURMUR") else MAX_DUCK_DB
+    need = min(cap, max(0.0, bed - (w["rms_db"] - MARGIN_DB)))
+    w["bed_db"], w["duck_db"] = bed, need
+    if need > 0:
+        a0, a1 = max(0, i0 - int(.15 * SR)), min(N, i1 + int(.25 * SR))
+        ramp = np.interp(t[a0:a1], [w["in"] - .15, w["in"], w["out"], w["out"] + .25], [0, need, need, 0])
+        duck_db[a0:a1] = np.maximum(duck_db[a0:a1], ramp)
+    margins.append((w["rms_db"] - (bed - need), w))
+dg = (10 ** (-duck_db / 20)).astype(np.float32)
+score, sfx = score * dg, sfx * dg
+mix = score + sfx
+peak = 1.0                                   # absolute levels: no normalisation
+assert float(np.max(np.abs(mix))) < 1.0, "temp mix clips"
 write(mix, "temp-mix", peak)
 write(score, "temp-score", peak)            # same gain as the mix, so levels compare
 write(sfx, "temp-sfx", peak)                # stems sum to the mix: temp-score + temp-sfx
@@ -260,6 +359,12 @@ if shutil.which("ffmpeg"):
         src = os.path.join(HERE, name + ".wav")
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", src, "-ar", "48000", "-ac", "2",
                         "-sample_fmt", "s16", os.path.join(HERE, name + "-48k.flac")], check=False)
+    # reference only: temp mix + scratch voice at unity gain (the TA muxes the two separately)
+    if os.path.exists(VOICE_AUDIO):
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", os.path.join(HERE, "temp-mix-48k.flac"),
+                        "-i", VOICE_AUDIO, "-filter_complex", "[0:a][1:a]amix=inputs=2:normalize=0[a]",
+                        "-map", "[a]", "-ac", "2", "-b:a", "128k",
+                        os.path.join(HERE, "reference-mix-with-scratch-voice.mp3")], check=False)
 
 fmt = lambda s: f"{int(s // 60)}:{s % 60:05.2f}"
 lines = [f"Temp score sync report. Cue source: {os.path.relpath(path, HERE)}",
@@ -282,9 +387,17 @@ lines += ["", f"Cue 5 main {DIP_MAIN} (partial {PARTIAL[DIP_MAIN]}), sympathy {D
           f"Breath depth {BREATH_DEPTH}, period {BREATH_PERIOD} s, on {fmt(T_BREATH_ON)}, off {fmt(T_BREATH_OFF or T_LAST_REL)}"]
 on_line = [c["id"] for c in outs + rels + by_type("tick")
            if any(w["in"] <= c["t"] <= w["out"] for w in DLG)]
-lines += ["", f"Dialogue windows: {len(DLG)} from {DLG_SRC} (Undertone/cellos -4 dB, rails -3 dB inside)",
+lines += ["", f"Calibration: asleep bed {BED_DB:.0f} dBFS RMS (mux at unity gain with the scratch voice); "
+          f"peak {20 * math.log10(float(np.max(np.abs(mix)))):.1f} dBFS"]
+if margins:
+    worst = sorted([m for m in margins if not str(m[1].get("level", "")).startswith("MURMUR")],
+                   key=lambda m: m[0])[:5]
+    lines += [f"Line-over-bed margin (after ducking, murmurs excluded: they sit at the edge by design): min {worst[0][0]:.1f} dB; tightest:"]
+    lines += [f"    {m[1]['line']:<10} {fmt(m[1]['in'])}  line {m[1]['rms_db']:6.1f}  bed {m[1]['bed_db'] - m[1]['duck_db']:6.1f}  duck {m[1]['duck_db']:4.1f} dB  {m[1]['level']}"
+              for m in worst]
+lines += ["", f"Dialogue windows: {len(DLG)} from {DLG_SRC} (Undertone/cellos -4 dB, rails -3 dB inside, plus per-line duck to keep {MARGIN_DB:.0f} dB clear)",
           "  Advance/relight ticks landing inside a line: " + (", ".join(on_line) if on_line else "none (OK)")]
 lines += ["", f"Advance tick spacing: min {min(gaps):.1f} s, max {max(gaps):.1f} s "
           f"({'OK' if min(gaps) >= 8 else 'BELOW the 8 s rule'})"]
 open(os.path.join(HERE, "temp-sync-report.txt"), "w").write("\n".join(lines) + "\n")
-print("\n".join(lines[-12:]))
+print("\n".join(lines[-20:]))
