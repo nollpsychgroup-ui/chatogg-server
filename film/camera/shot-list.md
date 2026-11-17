@@ -37,12 +37,12 @@ The locations are in `cues.json` → `camera.positions`, in set coordinates (lig
 | **A, the Meter** | (0, −3.8, 1.65): unlit vestibule, standing eye height, level | 32 | the full row P12 → P1 (P12 inside the frame with margin), Kai and the doors in the near right foreground, Walter (left) and Bea (right) in the mid-ground, Noor at the far end under the sign and display |
 | **A2** | (0, −1.0, 1.65): where the creep push lands | 32 | the same axis, 2.8 m in; P11 and P12 above frame (they're dark by then) |
 | **B, Noor's end** | (0.55, 12.85, 1.0): side B corner beside Noor, low, looking down the car | 32 | the dark coming toward camera; Kai's seat and phone deep in frame |
-| **C, Walter's side** | (−0.95, 9.6, 1.15) | 50 | Noor singles (aim NOOR) or Bea across the aisle (aim BEA) |
+| **C, Walter's side** | (−0.7, 10.9, 1.15): just in front of Walter, so his head never crosses frame (moved after previs pass 1) | 50 | Noor singles (aim NOOR) or Bea across the aisle (aim BEA) |
 | **W, the call** | (0, 6.0, 1.0): low in the aisle by the doors, aim (0, 12.6, 1.8) | 32 | Noor framed between Walter (left) and Bea (right), with P1 and P2 above her: the two lies are countable in one frame, and we watch her the way Walter does (treatment, scene 2: wide, 25–32 mm) |
 | **T, the test** | (0.5, 5.0, 1.0): beside Kai's empty seat, aim (−0.4, 11.0, 1.9) | 32 | Noor standing by Walter, the wrist, and P2, P3 and P4 overhead, watched from the seat the car emptied |
 | **C75** | (−0.25, 10.4, 1.2), aim at Noor's eyes | 75 | the confession close-ups only. The push travels from y 9.6 to 10.4 over shots 54–56 and holds there for 58: forehead to chin, so the panel row reads in her corneas |
-| **D, Bea's side** | (0.95, 9.6, 1.15) | 40/50 | Noor singles from the other side, or Walter across the aisle |
-| **E** | (−1.0, 12.6, 1.15): side A corner by end wall A | 32/40 | Walter/Bea two-shots, deep staging down the car |
+| **D, Bea's side** | (0.7, 10.9, 1.15): just in front of Bea (moved after previs pass 1) | 40/50 | Noor singles from the other side, or Walter across the aisle |
+| **E2, the two-shot** | (0, 7.4, 1.15), aim (0, 10.29, 1.25) | 32 | Walter and Bea in profile facing each other, Noor small between them under the sign (shots 8, 12, 33, 39, 55, 61). From Noor's end no 32/40 can hold both: they sit 2 m apart, 2.5 m away |
 | **F, Kai's bay** | (−0.95, 4.875, 1.15) | 40/50 | Kai; the thumb over the red button |
 | **G, the doors** | (−0.9, 6.5, 1.3), facing the doors | 32 | the doors and the platform through them |
 | **I** | per shot | 50 | inserts: the display, the newspaper, the phones, the lanyard |

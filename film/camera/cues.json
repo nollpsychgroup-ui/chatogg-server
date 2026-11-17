@@ -105,6 +105,11 @@
     0.0,
     12.45,
     0.62
+   ],
+   "AIM_15": [
+    0.8,
+    7.5,
+    1.1
    ]
   }
  },
@@ -1472,12 +1477,12 @@
    },
    "C": {
     "loc": [
-     -0.95,
-     9.6,
+     -0.7,
+     10.9,
      1.15
     ],
     "lens": 50,
-    "note": "side A beside Walter: Noor singles (aim NOOR) or Bea across the aisle (aim BEA)"
+    "note": "side A, just in front of Walter (so his head never crosses frame): Noor singles (aim NOOR) or Bea across the aisle (aim BEA)"
    },
    "W": {
     "loc": [
@@ -1523,12 +1528,12 @@
    },
    "D": {
     "loc": [
-     0.95,
-     9.6,
+     0.7,
+     10.9,
      1.15
     ],
     "lens": 50,
-    "note": "side B beside Bea: Noor singles or Walter across the aisle"
+    "note": "side B, just in front of Bea (so her head never crosses frame): Noor singles or Walter across the aisle"
    },
    "E": {
     "loc": [
@@ -1543,6 +1548,20 @@
     ],
     "lens": 40,
     "note": "side A corner at end A: Walter/Bea two-shots, deep staging"
+   },
+   "E2": {
+    "loc": [
+     0.0,
+     7.4,
+     1.15
+    ],
+    "aim": [
+     0.0,
+     10.29,
+     1.25
+    ],
+    "lens": 32,
+    "note": "the Walter/Bea two-shot: from down the car, both in profile facing each other, Noor small between them under the sign. From Noor's end no 32/40 can hold both (they sit 2 m apart, 2.5 m away)"
    },
    "F": {
     "loc": [
@@ -1615,8 +1634,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    -0.95,
-    9.6,
+    -0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -1645,8 +1664,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    0.95,
-    9.6,
+    0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -1729,8 +1748,8 @@
    "lens_mm": 40,
    "move": "locked",
    "camera_loc": [
-    0.95,
-    9.6,
+    0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -1783,18 +1802,18 @@
    ],
    "path": null,
    "scene": 2,
-   "pos": "E",
-   "lens_mm": 40,
+   "pos": "E2",
+   "lens_mm": 32,
    "move": "locked",
    "camera_loc": [
-    -1.0,
-    12.6,
+    0.0,
+    7.4,
     1.15
    ],
    "aim": [
     0.0,
-    10.292,
-    1.2
+    10.29,
+    1.25
    ],
    "aim_subject": null,
    "handheld": null,
@@ -1897,20 +1916,20 @@
    ],
    "path": null,
    "scene": 2,
-   "pos": "B",
-   "lens_mm": 40,
+   "pos": "E2",
+   "lens_mm": 32,
    "move": "locked",
    "camera_loc": [
-    0.55,
-    12.85,
-    1.0
+    0.0,
+    7.4,
+    1.15
    ],
    "aim": [
-    1.0,
-    10.292,
-    1.22
+    0.0,
+    10.29,
+    1.25
    ],
-   "aim_subject": "BEA",
+   "aim_subject": null,
    "handheld": null,
    "cues": [],
    "beat": "Walter and Bea staring at her"
@@ -1981,20 +2000,20 @@
    ],
    "path": null,
    "scene": 3,
-   "pos": "E",
+   "pos": "B",
    "lens_mm": 32,
    "move": "locked",
    "camera_loc": [
-    -1.0,
-    12.6,
-    1.15
+    0.55,
+    12.85,
+    1.0
    ],
    "aim": [
-    1.05,
-    4.875,
-    1.22
+    0.8,
+    7.5,
+    1.1
    ],
-   "aim_subject": "KAI",
+   "aim_subject": "AIM_15",
    "handheld": null,
    "cues": [],
    "beat": "Bea's hand shoots out, too far away"
@@ -2168,8 +2187,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    0.95,
-    9.6,
+    0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -2252,8 +2271,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    -0.95,
-    9.6,
+    -0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -2338,8 +2357,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    0.95,
-    9.6,
+    0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -2502,18 +2521,18 @@
    ],
    "path": null,
    "scene": 5,
-   "pos": "E",
-   "lens_mm": 40,
+   "pos": "E2",
+   "lens_mm": 32,
    "move": "locked",
    "camera_loc": [
-    -1.0,
-    12.6,
+    0.0,
+    7.4,
     1.15
    ],
    "aim": [
     0.0,
-    10.292,
-    1.2
+    10.29,
+    1.25
    ],
    "aim_subject": null,
    "handheld": null,
@@ -2534,8 +2553,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    -0.95,
-    9.6,
+    -0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -2562,8 +2581,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    0.95,
-    9.6,
+    0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -2592,8 +2611,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    -0.95,
-    9.6,
+    -0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -2620,8 +2639,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    0.95,
-    9.6,
+    0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -2648,8 +2667,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    0.95,
-    9.6,
+    0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -2672,18 +2691,18 @@
    ],
    "path": null,
    "scene": 5,
-   "pos": "E",
-   "lens_mm": 40,
+   "pos": "E2",
+   "lens_mm": 32,
    "move": "locked",
    "camera_loc": [
-    -1.0,
-    12.6,
+    0.0,
+    7.4,
     1.15
    ],
    "aim": [
     0.0,
-    10.292,
-    1.2
+    10.29,
+    1.25
    ],
    "aim_subject": null,
    "handheld": null,
@@ -2704,8 +2723,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    -0.95,
-    9.6,
+    -0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -2803,8 +2822,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    -0.95,
-    9.6,
+    -0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -2862,8 +2881,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    -0.95,
-    9.6,
+    -0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -2920,8 +2939,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    -0.95,
-    9.6,
+    -0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -2950,8 +2969,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    0.95,
-    9.6,
+    0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -2980,8 +2999,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    -0.95,
-    9.6,
+    -0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -3067,8 +3086,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    -0.95,
-    9.6,
+    -0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -3095,8 +3114,8 @@
    "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    0.95,
-    9.6,
+    0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -3160,18 +3179,18 @@
    ],
    "path": null,
    "scene": 7,
-   "pos": "E",
-   "lens_mm": 40,
+   "pos": "E2",
+   "lens_mm": 32,
    "move": "locked",
    "camera_loc": [
-    -1.0,
-    12.6,
+    0.0,
+    7.4,
     1.15
    ],
    "aim": [
     0.0,
-    10.292,
-    1.2
+    10.29,
+    1.25
    ],
    "aim_subject": null,
    "handheld": null,
@@ -3329,8 +3348,8 @@
    "lens_mm": 40,
    "move": "locked",
    "camera_loc": [
-    0.95,
-    9.6,
+    0.7,
+    10.9,
     1.15
    ],
    "aim": [
@@ -3353,18 +3372,18 @@
    ],
    "path": null,
    "scene": 8,
-   "pos": "E",
-   "lens_mm": 40,
+   "pos": "E2",
+   "lens_mm": 32,
    "move": "locked",
    "camera_loc": [
-    -1.0,
-    12.6,
+    0.0,
+    7.4,
     1.15
    ],
    "aim": [
     0.0,
-    10.292,
-    1.2
+    10.29,
+    1.25
    ],
    "aim_subject": null,
    "handheld": null,

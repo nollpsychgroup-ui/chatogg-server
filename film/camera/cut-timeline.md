@@ -21,11 +21,11 @@ Checks passed on build: the cut is continuous; every cue sits at least 0.5 s ins
 |---|---|---|---|---|---|---|---|
 | 6 | 1:03.0 | 1:18.0 | D | 40 | locked | — | Phone buzzes, MARK; she glances up at the sign and answers low |
 | 7 | 1:18.0 | 1:26.0 | W | 32 | locked | 1 | 'Just leaving the office now.' The ceiling enters: P1 in the top of frame |
-| 8 | 1:26.0 | 1:31.0 | E | 40 | locked | — | Walter's eyes lift; Bea's eyes open |
+| 8 | 1:26.0 | 1:31.0 | E2 | 32 | locked | — | Walter's eyes lift; Bea's eyes open |
 | 9 | 1:31.0 | 1:41.0 | W | 32 | locked | 2 | 'The Henley account. Again.' P1 and P2 both in frame, Walter and Bea watching her |
 | 10 | 1:41.0 | 1:48.0 | A | 32 | locked | — | The whole car reacts: paper lowers, Bea sits up, Kai: 'Was that the brakes?' |
 | 11 | 1:48.0 | 1:56.0 | W | 32 | locked | — | 'No, don't wait up. Love you.' Hangs up, sags, looks up |
-| 12 | 1:56.0 | 2:00.0 | B | 40 | locked | — | Walter and Bea staring at her |
+| 12 | 1:56.0 | 2:00.0 | E2 | 32 | locked | — | Walter and Bea staring at her |
 | 13 | 2:00.0 | 2:10.0 | W | 32 | locked | — | Mouths 'Sorry', points over her shoulder at the sign |
 
 ## Scene 3: Kai (~10:00 → ~9:00) · 2:10.0–2:50.0 · 6 shots
@@ -33,7 +33,7 @@ Checks passed on build: the cut is continuous; every cue sits at least 0.5 s ins
 | # | In | Out | Pos | Lens | Move | Cues | Beat |
 |---|---|---|---|---|---|---|---|
 | 14 | 2:10.0 | 2:18.0 | F | 40 | locked | — | Kai's phone: MUM. 'Yeah?' |
-| 15 | 2:18.0 | 2:23.0 | E | 32 | locked | — | Bea's hand shoots out, too far away |
+| 15 | 2:18.0 | 2:23.0 | B | 32 | locked | — | Bea's hand shoots out, too far away |
 | 16 | 2:23.0 | 2:27.0 | A | 32 | locked | 3 | 'I'm at the library, Mum.' Brownout |
 | 17 | 2:27.0 | 2:33.5 | F | 50 | locked | — | Kai in the brownout: looks up, nervous laugh |
 | 18 | 2:33.5 | 2:46.0 | A | 32 | locked | 4, 4.up | 'They're doing work on the —' BLACKOUT. Inhale. Lights up: the seat is empty. 'Kai? ... Kai?' |
@@ -61,13 +61,13 @@ Checks passed on build: the cut is continuous; every cue sits at least 0.5 s ins
 | 30 | 4:12.0 | 4:16.0 | I | 50 | locked | — | Kai's phone, still lit: 'Kai?' |
 | 31 | 4:16.0 | 4:22.0 | B | 32 | locked | — | She walks down the car to Kai's seat |
 | 32 | 4:22.0 | 4:32.0 | F | 40 | locked | — | Her thumb over the red end-call button. She can't |
-| 33 | 4:32.0 | 4:42.0 | E | 40 | locked | — | She goes back to her seat; Bea watches the whole time |
+| 33 | 4:32.0 | 4:42.0 | E2 | 32 | locked | — | She goes back to her seat; Bea watches the whole time |
 | 34 | 4:42.0 | 4:50.0 | C | 50 | locked | — | Bea: 'You okay?' |
 | 35 | 4:50.0 | 5:00.0 | D | 50 | locked | 6 | 'I'm f—' (stutter) ... 'I'm not fine.' |
 | 36 | 5:00.0 | 5:09.0 | C | 50 | locked | — | 'Me neither. I haven't slept in two days.' Nothing happens |
 | 37 | 5:09.0 | 5:13.0 | D | 50 | locked | — | 'You've seen this before.' |
 | 38 | 5:13.0 | 5:44.0 | D | 50 | locked | — | Walter: 'I ride it every night.' ... the wife speech, one unbroken shot |
-| 39 | 5:44.0 | 5:49.0 | E | 40 | locked | — | Bea looks at him with real tenderness |
+| 39 | 5:44.0 | 5:49.0 | E2 | 32 | locked | — | Bea looks at him with real tenderness |
 | 40 | 5:49.0 | 5:55.0 | C | 50 | locked | — | Noor turns the badge over in her fingers |
 
 ## Scene 6: The creeping dark (5:00 → 2:00) · 5:55.0–7:35.5 · 13 shots
@@ -93,7 +93,7 @@ Checks passed on build: the cut is continuous; every cue sits at least 0.5 s ins
 | # | In | Out | Pos | Lens | Move | Cues | Beat |
 |---|---|---|---|---|---|---|---|
 | 54 | 7:35.5 | 7:49.0 | C75 | 75 | push | 8.0 | She answers. 'Mark.' ... 'I'm not leaving the office.' (P1 burns brighter) |
-| 55 | 7:49.0 | 7:54.0 | E | 40 | locked | 8.1 | Walter and Bea come back into the light |
+| 55 | 7:49.0 | 7:54.0 | E2 | 32 | locked | 8.1 | Walter and Bea come back into the light |
 | 56 | 7:54.0 | 8:06.0 | C75 | 75 | push | 8.2 | 'I go to the library —' the half-beat, her eyes to Kai's phone — '— and I come home.' |
 | 57 | 8:06.0 | 8:21.0 | A | 32 | locked | 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 8.9 | 'I didn't tell you because —' the relights run toward us; Kai's empty seat relights |
 | 58 | 8:21.0 | 8:32.0 | C75 | 75 | still (the push has landed) | 8.10 | 'I'm sorry.' Silence on the line. The far panel comes on: on the 8.10 frame the tip of the reflected panel row in her corneas completes (P12 itself is sub-pixel at ~10 m; accepted by the Director). Hold C75 as framed, no tighter. The car is asleep |
@@ -104,7 +104,7 @@ Checks passed on build: the cut is continuous; every cue sits at least 0.5 s ins
 |---|---|---|---|---|---|---|---|
 | 59 | 8:32.0 | 8:35.0 | I | 50 | locked | — | Display: NOW ARRIVING: HOLLOWAY |
 | 60 | 8:35.0 | 8:39.0 | D | 40 | locked | — | The train slows; she stands and looks back at them |
-| 61 | 8:39.0 | 8:43.0 | E | 40 | locked | — | Walter's smallest nod; Bea has closed her eyes |
+| 61 | 8:39.0 | 8:43.0 | E2 | 32 | locked | — | Walter's smallest nod; Bea has closed her eyes |
 | 62 | 8:43.0 | 9:10.0 | G | 32 | locked | — | Out under the cold-white lamp, phone to her ear. Doors close. PA. She slides away in the glass |
 | 63 | 9:10.0 | 9:25.0 | A | 32 | locked | — | The opening frame again: Walter turns the page; Kai's phone dims. CUT TO BLACK |
 
