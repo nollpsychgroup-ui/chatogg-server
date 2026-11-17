@@ -8,11 +8,12 @@
 
 **The ceiling panels are the monster.** The car has no face, so the lights stand in for one. They are how it looks at you, breathes, and reaches for you. The camera holds still and lets the lights perform.
 
-Three rules come out of that:
+Four rules come out of that:
 
 1. **A dead-stable baseline.** While the car is asleep the light never changes. There is no "atmospheric" flicker, no passing-light wobble across faces, no stray movement. Every change in the light must mean something, so we can't spend any on mood. If the audience catches one flicker that doesn't follow a lie, the rule stops working.
 2. **The truth does nothing.** When someone tells the truth, the frame stays flat, even and unchanged. The calm is the reward, and it should feel almost unbearable after a cue.
-3. **The camera doesn't flinch.** When the car reacts, the camera holds. We don't whip-pan to a flickering panel or crash-zoom on a scream. A locked frame reads as evidence: *this really happened, and nothing was cut.*
+3. **The panel row is a meter.** The audience should be able to *count* the panels. The opening wide is shot down the length of the car and shows the whole row lit. The same master frame comes back at every escalation (1 panel, 2 panels, the whole car, the dark creeping up the row, the relight), so the viewer reads how bad things are from how many panels are lit. It's a gauge, not a backdrop.
+4. **The camera doesn't flinch.** When the car reacts, the camera holds. We don't whip-pan to a flickering panel or crash-zoom on a scream. A locked frame reads as evidence: *this really happened, and nothing was cut.*
 
 ---
 
@@ -46,7 +47,7 @@ A small set of matched primes: **25, 32, 40, 50 and 75 mm** (Super 35 equivalent
 
 ## Camera movement
 
-- **Default: locked off** on sticks or a static dolly. The train moves and the camera doesn't.
+- **Default: locked off** on sticks or a static dolly. The train moves and the camera doesn't. **The camera moves only while the car is awake.** Every move listed below happens between the first groan and the last relight, and while the car is asleep the frame never moves.
 - **Slow dolly pushes**, motivated only by the car advancing: one creep toward Noor during the sequential panel-outs, matching the dark's pace, and one push toward her through the confession on the 75. They should be slow enough that the audience feels them before they see them.
 - **One handheld passage:** Noor at the doors yanking the emergency handle after Kai vanishes. It's the only time the frame loses control, because it's the only time Noor does. As soon as Walter holds up the newspaper, we go back to sticks.
 - **No camera shake for the groan.** The set itself vibrates (see *Selling the carriage*), and the camera sits on that floor, so any tremor in the frame is physical, not added in post.
