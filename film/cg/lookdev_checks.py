@@ -73,24 +73,37 @@ def _chroma(a):
     return np.hypot(500 * (f[..., 0] - f[..., 1]), 200 * (f[..., 1] - f[..., 2]))
 
 
-def check_strap():
-    """8b/L7: under cue 3 the strap must be the most saturated (most chromatic) thing on screen.
-    Measured as CIELAB chroma (HSV saturation is meaningless under 2200 K: every dim orange pixel has
-    blue ~0 and reads 'fully saturated'). Emitters (the panels themselves) are excluded."""
-    a = load_png(os.path.join(STILLS, "sf03_brownout.png"))
+def _strap_frame(label, shot, t, setup=(), cam=None, poses=None):
+    import render_styleframes as rs
+    scene = build_scene.build(res=(1280, 536), samples=64, poses=poses)
+    for fn in setup:
+        rs.SETUPS[fn]()
+    cameras.set_shot(shot, t)
+    if cam:
+        cameras.aim_at(scene.camera, cam[0], cam[1]); scene.camera.data.lens = cam[2]
+    scene.frame_set(common.t2f(t))
+    p = os.path.join(OUT, f"8b_{label}.png")
+    scene.render.filepath = p
+    bpy.ops.render.render(write_still=True)
+    a = load_png(p)
     C = _chroma(a)
     mx = a.max(2)
-    red = (a[..., 0] > 3 * a[..., 1]) & (a[..., 0] > 3 * a[..., 2]) & (mx > 0.08)
-    emit = mx > 0.55
-    other = (~red) & (~emit)
+    red = (a[..., 0] > 3 * a[..., 1]) & (a[..., 0] > 3 * a[..., 2]) & (mx > 0.05)
+    other = (~red) & (mx < 0.85)          # emitters excluded (diffusers, screens clip near white)
     if red.sum() == 0:
-        return False, "sf03_brownout.png: no strap pixels found"
-    s90 = float(np.percentile(C[red], 90))
-    o999 = float(np.percentile(C[other], 99.9))
-    ok = s90 > o999
-    return ok, (f"sf03_brownout.png (CIELAB chroma, emitters excluded): strap p90 = {s90:.1f} ({int(red.sum())} px) vs "
-                f"everything else p99.9 = {o999:.1f}. Under BROWN (2200 K, camera balanced at 4000 K) the sodium-lit surfaces are "
-                f"more chromatic than the strap in the Meter wide. Earlier PASS used an HSV metric that was invalid here.")
+        return False, f"8b_{label}.png: strap not in frame"
+    s90, o999 = float(np.percentile(C[red], 90)), float(np.percentile(C[other], 99.9))
+    return s90 > o999, f"8b_{label}.png: strap p90 chroma {s90:.1f} ({int(red.sum())} px) vs everything else p99.9 {o999:.1f}"
+
+
+def check_strap():
+    """8b/L7 (style guide 8b as amended, Director cg-notes-03): the strap is the highest CIELAB chroma
+    object (emitters excluded) under BASE (shot 2) and in the creeping dark with the lanyard on the floor
+    (shot 46 insert). No brownout assertion (under sodium the car owns every colour), no grade."""
+    r1 = _strap_frame("shot02_BASE", 2, 40.5, poses={"NOOR": "lap"})
+    r2 = _strap_frame("shot46_floor", 46, 407.0, setup=("lanyard_thrown",),
+                      cam=((0.35, 10.75, 0.95), (0.05, 11.75, 0.02), 50))
+    return r1[0] and r2[0], r1[1] + "; " + r2[1]
 
 
 def eye_crop(scene, name, pad=0.06):
@@ -236,7 +249,7 @@ def check_keys():
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     rows = []
-    for nm, fn in (("L2 / 8a blackout = 0", check_blackout), ("8b / L7 strap most saturated under cue 3", check_strap),
+    for nm, fn in (("L2 / 8a blackout = 0", check_blackout), ("8b / L7 strap highest chroma (BASE shot 2; floor shot 46)", check_strap),
                    ("L8 light keys on whole frames", check_keys), ("Designer palette chart (colour fidelity)", check_palette_chart), ("L1 / 8d asleep frames identical", check_still),
                    ("8c catchlight row", check_catchlights)):
         ok, msg = fn()

@@ -131,8 +131,8 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
     if name == "NOOR":
         red = ld.paint("the_red_strap", "THE_RED", tier="costume", variation=0.06)
         for s in (-1, 1):
-            obs.append(_tag(limb(f"NOOR_STRAP_{s}", P(-0.10, s * 0.065, 1.10), P(-0.012, s * 0.012, 0.90), 0.008, red, C, segs=8, smooth=True), 2))
-        obs.append(_tag(box("NOOR_BADGE", P(-0.008, 0, 0.85), (0.075, 0.075, 0.10), ld.gloss("badge_plastic", "noor/badge", roughness=0.25), C), 2))
+            obs.append(_tag(limb(f"NOOR_STRAP_{s}", P(-0.075, s * 0.062, 1.12), P(0.006, s * 0.014, 0.90), 0.0125, red, C, segs=10, smooth=True), 1))  # 25 mm strap, small kernel (8b)
+        obs.append(_tag(box("NOOR_BADGE", P(0.008, 0, 0.85), (0.075, 0.008, 0.10), ld.gloss("badge_plastic", "noor/badge", roughness=0.25), C), 1))
         bpy.data.objects["NOOR_BADGE"].rotation_euler = (0, 0, yaw)
         rh = P(*hands[1][1])
         target = head_c if pose != "phone_lap" else head_c

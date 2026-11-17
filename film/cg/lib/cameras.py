@@ -51,6 +51,9 @@ def set_shot(shot_no, t, D=None, aim_override=None):
     s = next(x for x in D["shots"] if x["shot"] == shot_no)
     ob = bpy.data.objects["SHOT_CAM"]
     ob.data.lens = s["lens_mm"]
+    if s["camera_loc"] is None:   # inserts (pos I): placement per shot, set by the caller
+        bpy.context.scene.camera = ob
+        return s
     loc = Vector(s["camera_loc"])
     path = s.get("path")
     if path:  # moving shots: linear from path.from to path.to over the shot (DP's cues.json)

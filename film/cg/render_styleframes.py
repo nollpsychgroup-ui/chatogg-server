@@ -29,9 +29,10 @@ def lanyard_thrown():
     red = bpy.data.materials["the_red_strap"]
     pts = [(0.05, 11.95, 0.012), (0.2, 11.8, 0.012), (0.18, 11.62, 0.012), (0.0, 11.58, 0.012), (-0.08, 11.75, 0.012)]
     for i in range(len(pts) - 1):
-        limb(f"STRAP_FLOOR_{i}", pts[i], pts[i + 1], 0.009, red, "PROPS_LOOSE").pass_index = 2
+        limb(f"STRAP_FLOOR_{i}", pts[i], pts[i + 1], 0.0125, red, "PROPS_LOOSE").pass_index = 1   # 25 mm, small kernel
     b = box("BADGE_FLOOR", (-0.12, 11.88, 0.006), (0.075, 0.10, 0.006), bpy.data.materials["badge_plastic"], "PROPS_LOOSE")
     b.rotation_euler = (0, 0, math.radians(30))
+    b.pass_index = 1
 
 
 SETUPS = {"lanyard_thrown": lanyard_thrown}
