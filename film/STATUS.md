@@ -51,3 +51,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [designer] M4: per-shot expression track for all four (63 shots, 59-name library from the sheets) in design/expressions/shot_expressions.json + shot-expressions.md; heads.apply_track() keys it with eased holds (clamp 2 frames)
 - [composer] M4 temp mix for the animatic: conformed to camera/cues.json, dialogue windows kept clear (provisional, from shot beats), 48 kHz stereo FLAC for the TA to mux, plus score/SFX stems (music/temp/)
 - [dp] cues.json now carries dialogue[] (seeded from the Composer's provisional windows); the build checks that no Advance tick or relight lands on a line (camera/)
+- [screenwriter] Milestone 4: scratch TTS voice track + subtitles, cue-anchored to camera/cues.json (previs/voice/, previs/quiet-car.srt)
