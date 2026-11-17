@@ -95,8 +95,7 @@ def frame_plan(D):
             want.add(f)
     awake0 = T(next(c["t"] for c in D["cues"] if c["id"] == "1"))
     awake1 = T(next(c["t"] for c in D["cues"] if c["id"] == "8.10")) + 13
-    span(0, F, 48)
-    span(awake0, awake1, 6)
+    span(0, F, 4)            # pass 2: everyone breathes, so every shot is drawn at least on fours (6 fps)
     for s in D["shots"]:
         want.add(s["frames"][0])
         if s.get("path") or s["move"] == "handheld":
@@ -124,9 +123,10 @@ def frame_plan(D):
     span(T(c0) - 3, T(c0) + 6, 1)
     span(T(BL["walter_paper"]["up"][0]), T(BL["walter_paper"]["up"][0]) + 14, 2)
     J = json.load(open(os.path.join(common.FILM_DIR, "design", "expressions", "shot_expressions.json")))
+    cm = common.clock_map(D) if "v2" not in str(J.get("clock", "")) else (lambda t: t)
     for tr in J["tracks"].values():
         for t, name, _ in tr:
-            span(T(t) - 8, T(t), 2)
+            span(T(cm(t)) - 8, T(cm(t)), 2)
     return sorted(f for f in want if 0 <= f < F)
 
 
@@ -140,6 +140,14 @@ if __name__ == "__main__":
         json.dump({"frames": plan}, open(PLAN, "w"))
     t_from, t_to = arg("--from", 0.0), arg("--to", D["duration_s"])
     todo = [f for f in plan if t_from * 24 <= f < t_to * 24]
+    if "--shots" in argv:   # re-render whole shots (plan frames inside them), replacing what is cached
+        ids = set(arg("--shots", "").split(","))
+        rng_ = [s["frames"] for s in D["shots"] if str(s["shot"]) in ids]
+        todo = [f for f in plan if any(a <= f < b for a, b in rng_)]
+        for f in (todo if "--plan" not in argv else []):
+            p = os.path.join(OUT, f"{f:05d}.png")
+            if os.path.exists(p):
+                os.remove(p)
     if "--frames" in argv:   # spot checks: explicit frames (or times like 188s) to --out
         todo = [round(float(x[:-1]) * 24) if x.endswith("s") else int(x) for x in arg("--frames", "").split(",")]
         OUT = arg("--out", OUT)

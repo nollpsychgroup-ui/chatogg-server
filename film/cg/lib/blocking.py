@@ -247,10 +247,39 @@ def build_walter(D, BL):
 def apply_faces():
     import heads  # design/rig on sys.path via figures
     J = json.load(open(os.path.join(FILM_DIR, "design", "expressions", "shot_expressions.json")))
+    if "v2" not in str(J.get("clock", "")):   # tracks still on the original clock: map them (DP trims)
+        from .common import clock_map
+        m = clock_map()
+        J["tracks"] = {k: [[round(m(t), 3)] + list(rest) for t, *rest in tr] for k, tr in J["tracks"].items()}
     for name, track in J["tracks"].items():
         roots = [o for o in bpy.data.objects if o.name.startswith(f"{name}_HEADRIG")]
         for r in roots:
             heads.apply_track(r, track, J["library"], fps=J.get("fps", 24))
+
+
+BREATH = {"NOOR": (4.2, 0.0), "WALTER": (5.2, 1.3), "BEA": (4.7, 2.9), "KAI": (3.8, 4.1)}   # period s, phase rad
+LOWER = ("THIGH", "SHIN", "SHOE", "PELVIS", "_ROOT", "FLOOR")
+
+
+def add_idles(amp=0.004):
+    """Every figure breathes, always (Director: only the sleeping car is still): the upper body and head
+    rise and settle a few mm on each character's own period. Drivers on delta_location, so they add to
+    the placed poses, walks and the platform slide without touching their keys. Frame-driven and
+    deterministic (asleep frames stay identical frame to frame only where nobody is in shot)."""
+    n = 0
+    for c in bpy.data.collections:
+        if not c.name.startswith("CHAR_"):
+            continue
+        who = c.name.split("_")[1]
+        per, ph = BREATH.get(who, (4.5, 0.0))
+        for ob in c.objects:
+            if any(k in ob.name for k in LOWER) or (ob.parent is not None and ob.parent.name in c.objects):
+                continue
+            d = ob.driver_add("delta_location", 2).driver
+            d.type = "SCRIPTED"
+            d.expression = f"{amp}*0.5*(1-cos(frame*6.283185/{per * 24:.1f}+{ph}))"
+            n += 1
+    return n
 
 
 def build(D=None, B=None):
@@ -263,4 +292,5 @@ def build(D=None, B=None):
     v = build_noor(D, B, BL)
     build_walter(D, BL)
     apply_faces()
+    add_idles()
     return v

@@ -107,3 +107,18 @@ def section_bounds(d=None):
 def t2f(t, fps=24):
     """Seconds -> whole frame (DP: lights on ones, every key on a whole frame; frame 0 = 0 s)."""
     return int(round(t * fps))
+
+
+def clock_map(D=None):
+    """Original-clock seconds -> the current cues.json clock (DP trims, e.g. 'v2: trims [0, 13), [545, 550)').
+    Identity when cues.json carries no trims."""
+    import re
+    D = D or dp()
+    trims = [(float(a), float(b) - float(a)) for a, b in re.findall(r"\[([\d.]+), ([\d.]+)\)", D.get("clock", ""))]
+
+    def m(t):
+        s = 0.0
+        for a, l in trims:
+            s += l if t >= a + l else max(0.0, t - a)
+        return t - s
+    return m

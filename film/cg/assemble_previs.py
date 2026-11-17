@@ -87,7 +87,7 @@ def main():
         tc = f"{int(secs // 3600):02d}:{int(secs // 60) % 60:02d}:{int(secs) % 60:02d}:{f % fps:02d}"
         d.text((10, 6), f"TC {tc}   SHOT {s['shot']:>2}   SC {s['scene']}   {s['pos']} {s['lens_mm']}mm {s['move']}", fill=(200, 200, 190), font=font)
         d.text((10, 26), (s["beat"][:118] + ("" if src is not None else "   [NOT RENDERED]")), fill=(140, 140, 135), font=font_s)
-        d.text((W - 150, 6), "PREVIS PASS 1", fill=(120, 120, 115), font=font)
+        d.text((W - 150, 6), "PREVIS PASS 2", fill=(120, 120, 115), font=font)
         frame = np.vstack([pic, np.asarray(bar)])
         p.stdin.write(frame.tobytes())
     p.stdin.close()

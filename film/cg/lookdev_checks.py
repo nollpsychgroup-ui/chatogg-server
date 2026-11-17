@@ -100,8 +100,8 @@ def check_strap():
     """8b/L7 (style guide 8b as amended, Director cg-notes-03): the strap is the highest CIELAB chroma
     object (emitters excluded) under BASE (shot 2) and in the creeping dark with the lanyard on the floor
     (shot 46 insert). No brownout assertion (under sodium the car owns every colour), no grade."""
-    r1 = _strap_frame("shot02_BASE", 2, 40.5, poses={"NOOR": "lap"})
-    r2 = _strap_frame("shot46_floor", 46, 407.0, setup=("lanyard_thrown",),
+    r1 = _strap_frame("shot02_BASE", 2, 27.5, poses={"NOOR": "lap"})
+    r2 = _strap_frame("shot46_floor", 46, 394.0, setup=("lanyard_thrown",),
                       cam=((0.35, 10.75, 0.95), (0.05, 11.75, 0.02), 50))
     return r1[0] and r2[0], r1[1] + "; " + r2[1]
 
