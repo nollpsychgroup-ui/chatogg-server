@@ -3,9 +3,12 @@
 
     python3 themes.py         # needs numpy; ffmpeg optional (for .mp3)
 
-Three short, self-contained sketches of the film's themes, each as
+Four short, self-contained sketches of the film's themes, each as
 .mp3 (render; .wav is git-ignored) and .mid (microtuned by pitch bend, +/-2 st):
 
+  theme-0-carriage-chord  1M0, the panel hum: asleep, the 2-frame tick, a lie,
+                      the brownout sag, blackout at digital zero, lights up in tune,
+                      panels out P12->P3 and relit P3->P12 (no Undertone, no SD).
   theme-1-undertone   THE UNDERTONE, the car's motif (cues 1M1-1M6):
                       x1, x2, x3 cluster, the hungry swell, then the inhale
                       reversed. Over a quiet carriage chord for reference.
@@ -137,6 +140,41 @@ def write_midi(path, title, voices):
         fh.write(b"MThd" + struct.pack(">IHHH", 6, 1, len(tracks), 480) + b"".join(tracks))
 
 
+# ---------- theme 0: CARRIAGE CHORD (1M0) -----------------------------------------
+def theme_carriage_chord():
+    """Asleep -> tick -> awake (breathing) -> one-panel lie -> brownout sag ->
+    blackout (digital zero) -> lights up, in tune -> panels out P12->P3 -> relight."""
+    D = 40.0
+    TICK, WAKE, LIE, BROWN, BLACK, UP = 4.0, 7.0, 7.0, 13.0, 18.0, 21.0
+    OUT0, IN0 = 24.0, 32.0
+    pc = Piece(D)
+    t = pc.t
+    breathe = 1 + .03 * np.sin(2 * np.pi * t / 5.0) * ((t > WAKE) & (t < IN0 + 6))
+    order_out = [12] + list(range(11, 2, -1))
+    out_at = {P: OUT0 + i * .7 for i, P in enumerate(order_out)}
+    in_at = {P: IN0 + i * .55 for i, P in enumerate(range(3, 13))}
+    for P in range(1, 13):
+        cents = [(0, 0), (BROWN, 0), (BROWN + 1.5, -70), (BLACK, -90), (UP, 0)]
+        if P == 1:
+            cents = [(0, 0), (TICK, 0), (TICK + .04, -8), (TICK + .08, 0), (LIE, 0), (LIE + .3, -11),
+                     (LIE + 1, 3), (LIE + 1.6, -9), (LIE + 3.5, 0)] + cents[1:]
+        amp = [(0, 1), (BROWN, 1), (BROWN + 2, .5), (BLACK - .001, .5), (BLACK, 0), (UP - .001, 0), (UP, 1)]
+        if P >= 3:
+            amp += [(out_at[P], 1), (out_at[P] + .03, 0), (in_at[P], 0), (in_at[P] + .05, 1.12), (in_at[P] + .5, 1)]
+        amp += [(D - 1, 1), (D, 0)]
+        before = pc.mix.copy()
+        pc.panel(P, amp, cents_pts=tuple(cents))
+        pc.mix = before + (pc.mix - before) * breathe
+    pc.fundamental([(0, 1), (BLACK - .001, 1), (BLACK, 0), (UP - .001, 0), (UP, 1), (D - 1, 1), (D, 0)])
+    for at in [TICK] + list(out_at.values()) + list(in_at.values()):
+        pc.tick(at, .15)
+    pc.mix[int(BLACK * SR):int(UP * SR)] = 0
+    pc.midi = [(f"P{P} partial {PANEL_PARTIAL[P]}", 89, F0 * PANEL_PARTIAL[P],
+                [(0, BLACK, 65)] + ([(UP, out_at[P], 65), (in_at[P], D, 70)] if P >= 3 else [(UP, D, 65)]))
+               for P in range(1, 13)]
+    pc.write("theme-0-carriage-chord")
+
+
 # ---------- theme 1: THE UNDERTONE ------------------------------------------------
 def theme_undertone():
     D = 30.0
@@ -207,4 +245,4 @@ def theme_page_turn():
 
 
 if __name__ == "__main__":
-    theme_undertone(); theme_relight(); theme_page_turn()
+    theme_carriage_chord(); theme_undertone(); theme_relight(); theme_page_turn()

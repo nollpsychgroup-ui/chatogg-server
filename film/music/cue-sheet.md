@@ -1,6 +1,6 @@
 # THE QUIET CAR: Music Cue Sheet
 
-**Composer** · Milestone 3 · against the **locked** `script/draft-02.md` · implements `music/score-concept.md` (v2, approved, plus `notes/composer-notes-01.md`) · lighting cue numbers **0–8** and panels **P1–P12** as agreed with the DP (`camera/visual-approach.md`; sub-cues 7.x/8.x as the DP proposed for `lighting-plan.md`)
+**Composer** · Milestone 3 · against the **locked** `script/draft-02.md` · implements `music/score-concept.md` (v2, approved, plus `notes/composer-notes-01.md`) · scene numbers **1–8** from `notes/directors-treatment.md`, lighting cue numbers **0–8** and panels **P1–P12** as agreed with the DP (`camera/visual-approach.md`; sub-cues 7.x/8.x as the DP proposed for `lighting-plan.md`)
 
 > **How to read this.** The score is mostly a *system*, not a set of pieces: the panel hum (cue **1M0**) runs the whole film and changes state on the DP's lighting cues. The other cues are layers that sit on that bed. **In/out points are script lines and lighting cue numbers**, which are the real sync. Timecodes are **estimates** for a ~9:05 cut, to be replaced from the DP's shooting cue stack and the edit.
 >
@@ -23,18 +23,20 @@
 
 ## Cue list
 
-| Cue | Title | In | Out | Est. TC | DP cue / panels |
-|---|---|---|---|---|---|
-| **1M0** | Carriage Chord (bed) | first frame | CUT TO BLACK | 0:00 – 9:05 | all; P1–P12 + fundamental |
-| **1M1** | First Waking | "Just leaving the office now." | end of groan | 1:20 – 1:27 | DP 1 · P1 |
-| **1M2** | Second Waking | "The Henley account. Again." | end of groan | 1:35 – 1:44 | DP 2 · P1, P2 |
-| **1M3** | Brownout | "I'm at the library, Mum." | **hard out on DP 4** | 2:25 – 2:35 | DP 3 · all |
-| — | *(Blackout: no music)* | DP 4 | lights up | 2:35 – 2:38 | DP 4 |
-| **1M4** | Hungry | "My name is S—" | panel back to white | 3:45 – 3:53 | DP 5 · P1 (+P2, P3 in sympathy) |
-| **1M5** | Stutter | "I'm f—" | "I'm not fine." | 4:55 – 4:57 | DP 6 · P1 |
-| **1M6** | The Advance | first far-end *tick* (DP 7.1) | receded by DP 8.10 | 6:00 – 8:08 | DP 7.1–7.10 · P12 → P3 |
-| **1M7** | Relight | DP 8.1 (P3 relights) | thinned out by the door chime | 7:22 – 8:20 | DP 8.1–8.10 · P3 → P12 |
-| **1M8** | Page Turn | Walter turns the page | before Kai's phone dims | 8:52 – 9:01 | no light change |
+| Cue | Scene | Title | In | Out | Est. TC | DP cue / panels |
+|---|---|---|---|---|---|---|
+| **1M0** | 1–8 | Carriage Chord (bed) | first frame | CUT TO BLACK | 0:00 – 9:05 | all; P1–P12 + fundamental |
+| **1M1** | 2 | First Waking | "Just leaving the office now." | end of groan | 1:20 – 1:27 | DP 1 · P1 |
+| **1M2** | 2 | Second Waking | "The Henley account. Again." | end of groan | 1:35 – 1:44 | DP 2 · P1, P2 |
+| **1M3** | 3 | Brownout | "I'm at the library, Mum." | **hard out on DP 4** | 2:25 – 2:35 | DP 3 · all |
+| — | 3 | *(Blackout: no music)* | DP 4 | lights up | 2:35 – 2:38 | DP 4 |
+| **1M4** | 4 | Hungry | "My name is S—" | panel back to white | 3:45 – 3:53 | DP 5 · P1 (+P2, P3 in sympathy) |
+| **1M5** | 5 | Stutter | "I'm f—" | "I'm not fine." | 4:55 – 4:57 | DP 6 · P1 |
+| **1M6** | 6 → 7 | The Advance | first far-end *tick* (DP 7.1) | receded by DP 8.10 | 6:00 – 8:08 | DP 7.1–7.10 · P12 → P3 |
+| **1M7** | 7 → 8 | Relight | DP 8.1 (P3 relights) | thinned out by the door chime | 7:22 – 8:20 | DP 8.1–8.10 · P3 → P12 |
+| **1M8** | 8 | Page Turn | Walter turns the page | before Kai's phone dims | 8:52 – 9:01 | no light change |
+
+**By scene** (treatment): 1 Boarding: bed only, cue 0 tick · 2 The call: 1M1, 1M2 · 3 Kai: 1M3, blackout silence · 4 The note and the test: 1M4 · 5 Truth exchange: 1M5 only, otherwise unscored · 6 Creeping dark: 1M6 · 7 Confession: 1M6 receding, 1M7 · 8 Holloway: 1M7 tail out before the doors, PA unscored, 1M8, silent credits.
 
 Approximate on-screen music (cues 1M1–1M8, excluding the bed): **about 3 minutes, almost all of it below conscious notice.**
 
@@ -77,6 +79,7 @@ Approximate on-screen music (cues 1M1–1M8, excluding the bed): **about 3 minut
 - **In:** "The Henley account. Again." on DP 2 · **Out:** groan fades, before Kai's "Was that the brakes?"
 - **Music:** P1 and P2 bend ≈ **20¢**. **Undertone ×2** (G and A♭ rubbing), louder and longer (~4.5 s).
 - **SD:** the groan is "louder, longer and closer." The Undertone grows with it. **Dialogue:** Kai's line is in the clear.
+- **"No, don't wait up. Love you."** is true: **nothing happens**, no bend and no Undertone (treatment, scene 2: "the first silent proof of the rule").
 
 ## 1M3: Brownout
 
@@ -196,6 +199,7 @@ Approximate on-screen music (cues 1M1–1M8, excluding the bed): **about 3 minut
 
 | File | What |
 |---|---|
+| `theme-0-carriage-chord.mp3` / `.mid` | 1M0: the panel hum's states, from asleep to tick, lie, brownout sag, blackout zero, lights up, advance and relight |
 | `theme-1-undertone.mp3` / `.mid` | THE UNDERTONE: ×1, ×2, ×3, the hungry swell, the inhale shape (1M1–1M6) |
 | `theme-2-relight.mp3` / `.mid` | 1M7: P3 → P12 at the script's pace, cellos on 4/6/7/9, vibrato freeze, thinning |
 | `theme-3-page-turn.mp3` / `.mid` | 1M8: dead-stable hum, the subliminal triad, hum to the cut, rails, stop |
