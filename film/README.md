@@ -10,7 +10,9 @@ branch `claude/film-production-multi-agent-c55jcr`.
 |------|------|---------|
 | Producer (coordinator) | Schedule, milestones, check-ins with the human, `STATUS.md` | session_01W37kuJZHggutJjVDbzw8Cv |
 | Screenwriter | `pitches/`, `script/` | see `CREW.md` |
-| Director | Creative vision, `notes/`, approves script drafts | see `CREW.md` |
+| Director | Creative vision, `notes/`, approves script drafts, camera and music work | see `CREW.md` |
+| Cinematographer (DP) | `camera/`: visual approach, lighting plan, shot list, storyboards | see `CREW.md` |
+| Composer | `music/`: score concept, cue sheet, themes, MIDI/audio sketches | see `CREW.md` |
 
 The human (the film's owner) approves at milestones. Nobody skips a milestone gate.
 
@@ -21,8 +23,16 @@ The human (the film's owner) approves at milestones. Nobody skips a milestone ga
 2. **Script draft**: Screenwriter writes `script/draft-01.md` (target 5–10 pages,
    screenplay format in Markdown). Director gives notes in `notes/director-notes-01.md`;
    Screenwriter revises (`draft-02.md`, ...) until Director approves. **GATE: human approves the script.**
-3. **Director's package**: Director writes `notes/directors-treatment.md` (tone, visual
-   style, casting notes, scene-by-scene intent) and `notes/shot-list.md`. **GATE: human approves.**
+   *Prep in parallel:* while the script is in draft, the DP writes `camera/visual-approach.md`
+   and the Composer writes `music/score-concept.md`, both reviewed by the Director. Base them on
+   the latest draft and expect changes. Don't build detailed shot lists or cues until the script is locked.
+3. **Director's package** (after the script is locked):
+   - Director: `notes/directors-treatment.md` (tone, casting, scene-by-scene intent).
+   - DP: `camera/shot-list.md`, `camera/lighting-plan.md`, `camera/storyboards/` (SVG or HTML frames).
+   - Composer: `music/cue-sheet.md` (each cue's in/out point, purpose, instrumentation, and how it
+     interacts with sound design) and sketches of the main themes in `music/sketches/`.
+   - DP and Composer coordinate directly where picture and sound meet (lighting cues and stingers).
+   - Director approves all of it. **GATE: human approves.**
 
 ## Working rules
 
