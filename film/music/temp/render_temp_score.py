@@ -44,6 +44,21 @@ flick = by_type("flicker")
 outs = by_type("panel_out")
 rels = by_type("relight")
 T_STEADY = first("steady")
+# shared values from the DP's file when present (single source of truth)
+if "panels" in doc:
+    PARTIAL = {pn["id"]: pn["partial"] for pn in doc["panels"]}
+BR = doc.get("breath", {})
+BREATH_DEPTH = BR.get("depth", BREATH_DEPTH)
+BREATH_PERIOD = BR.get("period_s", BREATH_PERIOD)
+cue_t = {c["id"]: c["t"] for c in cues}
+T_BREATH_ON = cue_t.get(BR.get("on_cue", "1"), flick[0]["t"])
+T_BREATH_OFF = cue_t.get(BR.get("off_cue", ""), None)
+DIP = by_type("hard_dip")[0]
+DIP_MAIN = DIP.get("main", DIP["panels"][0])
+DIP_SYMP = list(DIP.get("sympathy", {}) or [q for q in DIP["panels"] if q != DIP_MAIN])
+DIP_REC = DIP.get("recover", {})
+T_DIP_REC = DIP_REC.get("t", T_DIP + 2)
+T_DIP_END = T_DIP_REC + DIP_REC.get("frames", 96) / float(doc.get("fps", 24))
 T_LAST_REL = rels[-1]["t"]
 CUT = EV["cut"]
 DUR = float(doc.get("duration_s", CUT + 5))
@@ -69,7 +84,7 @@ dark = gate(T_BLACK, T_UP)
 
 # ---------- 1M0: carriage chord ------------------------------------------------------
 score = np.zeros(N, np.float32)
-breath_on = gate(flick[0]["t"], T_LAST_REL + .5)
+breath_on = gate(T_BREATH_ON, T_BREATH_OFF if T_BREATH_OFF is not None else T_LAST_REL + .5)
 breathe = 1 + BREATH_DEPTH * np.sin(2 * np.pi * t / BREATH_PERIOD) * breath_on
 out_at = {c["panels"][0]: c["t"] for c in outs}
 in_at = {c["panels"][0]: c["t"] for c in rels}
@@ -85,9 +100,9 @@ for P, p in PARTIAL.items():
             d = -11 if k == 0 else -20
             s0 = fc["t"]
             cents += [(s0, 0), (s0 + .3, d), (s0 + 1, 3), (s0 + 1.6, d * .85), (s0 + 3.5 + k, 0)]
-    if P in by_type("hard_dip")[0]["panels"]:
-        d = -20 if P == "P1" else -10
-        cents += [(T_DIP, 0), (T_DIP + .2, d), (T_DIP + 6, 0)]
+    if P == DIP_MAIN or P in DIP_SYMP:                   # cue 5 "S-": main panel + sympathy
+        d = -20 if P == DIP_MAIN else -10
+        cents += [(T_DIP, 0), (T_DIP + .2, d), (T_DIP_REC, d * .8), (T_DIP_END, 0)]
     cents += [(T_BROWN, 0), (T_BROWN + 1.5, -70), (T_BLACK, -90), (T_UP, 0)]
     amp = [(0, 1), (T_BROWN, 1), (T_BROWN + 2, .5), (T_BLACK - .001, .5), (T_BLACK, 0),
            (T_UP - .001, 0), (T_UP, 1)]
@@ -95,12 +110,15 @@ for P, p in PARTIAL.items():
         amp += [(out_at[P], 1), (out_at[P] + .03, 0)]
         if P in in_at:
             amp += [(in_at[P], 0), (in_at[P] + .05, 1.12), (in_at[P] + .5, 1)]
-    if P == "P1":
-        amp += [(T_STEADY, 1), (T_STEADY + .3, 1.12)]
+    if P == DIP_MAIN or P in DIP_SYMP:                   # hum dips with its light
+        lo = .3 if P == DIP_MAIN else .75
+        amp += [(T_DIP, 1), (T_DIP + .08, lo), (T_DIP_REC, lo), (T_DIP_END, 1)]
+    if P == "P1":                                        # 8.0: held brighter until 8.10
+        amp += [(T_STEADY, 1), (T_STEADY + .3, 1.12), (T_LAST_REL, 1.12), (T_LAST_REL + .5, 1)]
     if p >= 5:                                           # thin from the top under 1M8
         amp += [(T_PAGE, 1), (T_PAGE + 6, .35), (CUT - .001, .35)]
     else:
-        amp += [(CUT - .001, 1.12 if P == "P1" else 1)]
+        amp += [(CUT - .001, 1)]
     amp += [(CUT, 0)]
     b = breathe if P != "P1" else breathe * (1 - gate(T_STEADY, DUR)) + gate(T_STEADY, DUR)
     f = F0 * p * 2 ** (env(cents) / 1200)
@@ -137,7 +155,7 @@ und = np.zeros(N, np.float32)
 und += undertone(flick[0]["t"], 3.5, .04, 1)                         # 1M1
 und += undertone(flick[1]["t"], 4.5, .08, 2)                         # 1M2
 und += undertone(T_BROWN, (T_BLACK - T_BROWN) + 3, .22, 3, cut=T_BLACK)   # 1M3, hard out
-und += undertone(T_DIP, 7.5, .16, 3, attack=.2)                      # 1M4 hungry, slow settle
+und += undertone(T_DIP, T_DIP_END - T_DIP, .16, 3, attack=.2)        # 1M4 hungry, settles with the light
 # 1M6: one breath of the car per tick, rising; then falling per relight, gone by the last
 steps = [(c["t"], .05 + .012 * k) for k, c in enumerate(outs)]
 peak_t, peak_lv = EV.get("he_is_asking", outs[-1]["t"] + 8), .05 + .012 * len(outs)
@@ -234,6 +252,8 @@ lines += ["", "MUSIC CUES (cue-sheet.md)",
           f"  1M8 Page Turn      {fmt(T_PAGE)} - {fmt(gone)} (phone dims {fmt(T_PHONE)})",
           f"  hum to the cut     {fmt(CUT)}"]
 gaps = [b["t"] - a["t"] for a, b in zip(outs, outs[1:])]
+lines += ["", f"Cue 5 main {DIP_MAIN} (partial {PARTIAL[DIP_MAIN]}), sympathy {DIP_SYMP}, recovered {fmt(T_DIP_END)}",
+          f"Breath depth {BREATH_DEPTH}, period {BREATH_PERIOD} s, on {fmt(T_BREATH_ON)}, off {fmt(T_BREATH_OFF or T_LAST_REL)}"]
 lines += ["", f"Advance tick spacing: min {min(gaps):.1f} s, max {max(gaps):.1f} s "
           f"({'OK' if min(gaps) >= 8 else 'BELOW the 8 s rule'})"]
 open(os.path.join(HERE, "temp-sync-report.txt"), "w").write("\n".join(lines) + "\n")

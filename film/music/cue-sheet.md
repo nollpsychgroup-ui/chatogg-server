@@ -30,7 +30,7 @@
 | **1M2** | 2 | Second Waking | "The Henley account. Again." | end of groan | 1:35 – 1:44 | DP 2 · P1, P2 |
 | **1M3** | 3 | Brownout | "I'm at the library, Mum." | **hard out on DP 4** | 2:25 – 2:35 | DP 3 · all |
 | — | 3 | *(Blackout: no music)* | DP 4 | lights up | 2:35 – 2:38 | DP 4 |
-| **1M4** | 4 | Hungry | "My name is S—" | panel back to white | 3:45 – 3:53 | DP 5 · P1 (+P2, P3 in sympathy) |
+| **1M4** | 4 | Hungry | "My name is S—" | panel back to white | 3:45 – 3:53 | DP 5 · **P3** (+P2, P4 in sympathy) |
 | **1M5** | 5 | Stutter | "I'm f—" | "I'm not fine." | 4:55 – 4:57 | DP 6 · P1 |
 | **1M6** | 6 → 7 | The Advance | first far-end *tick* (DP 7.1) | receded by DP 8.10 | 6:00 – 8:28 | DP 7.1–7.10 · P12 → P3 |
 | **1M7** | 7 → 8 | Relight | DP 8.1 (P3 relights) | thinned out by the door chime | 7:42 – 8:40 | DP 8.1–8.10 · P3 → P12 |
@@ -99,7 +99,7 @@ Approximate on-screen music (cues 1M1–1M8, excluding the bed): **about 3 minut
 
 - **In:** "My name is S—" on DP 5 · **Out:** as "the panel climbs back up to white."
 - **Purpose:** the car hears *intent*. The swell is cut off by Walter's grip, not by the lie finishing.
-- **Music:** P1 bends ~20¢ (P2/P3 ~10¢ in sympathy). **Undertone ×3 "hungry" swell** rises fast out of the floor (~1.5 s), then *settles* slowly back into the rails over ~6 s while Walter holds on. Its longest decay in the film.
+- **Music:** Noor is standing beside Walter under **P3** (DP, `camera/cues.json`), so the main panel is P3, **partial 4, the car's own G**. P3's partial bends ~20¢ and its hum drops with the light (to ~30%). P2 and P4 bend ~10¢ in sympathy (to ~75%). **Undertone ×3 "hungry" swell** rises fast out of the floor (~1.5 s), then *settles* back into the rails with the panel's slow 72-frame recovery (in to fully settled ≈ 7 s), while Walter holds on. Its longest decay in the film.
 - **SD:** groan swell "up out of the floor" (SD), transducers. "Nobody breathes": no new sound events during the settle.
 
 ## (Rails beat and Kai's phone, 8 MIN): no cue
@@ -192,8 +192,8 @@ Approximate on-screen music (cues 1M1–1M8, excluding the bed): **about 3 minut
 ## Open items
 
 0. **Status:** cue sheet and theme sketches **approved** by the Director (`notes/composer-notes-02.md`).
-1. **Timecode:** replace the estimates once the DP's `lighting-plan.md` and the shooting cue stack exist. The cue numbering already matches 1:1.
-2. **Breathing values** after the test day (`BREATH_DEPTH`, `BREATH_PERIOD`).
+1. **Timecode:** the shared timeline is now `camera/cues.json` (DP, also driving the 3D/TA's Blender lights). The temp score (`music/temp/`) renders straight from it. The estimates in this sheet already match it (cut 9:25). Re-time happens in the DP's `build_cues.py` after the voice record; then re-run `music/temp/render_temp_score.py`.
+2. **Breathing values** after the look-dev visibility check. The single source is `breath` in `camera/cues.json`, which the temp render reads.
 3. **Test-day listening (Director attending):** play the sketches on the real system and on a phone, especially 1M2 (deniable?), 1M8 (subliminal?) and the phone check.
 4. **Panel count:** 12 is provisional until the set is measured. If it changes, panels P2…P(n−1) take consecutive partials and the far panel stays A♭.
 
