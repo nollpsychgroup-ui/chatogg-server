@@ -41,3 +41,7 @@ Most of the film plays at **5–25% of each control**. The sheet values are peak
 ## Asymmetry
 
 Allowed and encouraged on brows and mouth corners (`_L` / `_R`). Kai is the most asymmetric (lopsided smile). Walter is the most symmetric (stillness).
+
+## In 3D
+
+`../rig/heads.py` implements these controls as custom properties on a head root, with drivers to lids, eyes, brows and lips. See `../rig/README.md`. In 3D, `_L` is the character's left; the 2D sheets draw `_L` on camera-left.
