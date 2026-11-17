@@ -46,3 +46,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [designer] Style guide §5/§6.1/§8 amended per Director (cg-notes-03): the red strap must win under BASE and in the creeping dark (shots 2, 45–46, CIELAB chroma); in the brownout the car owns every colour, and no grade rescues the red. Noor sheet note updated (design/)
 - [dp] Brownout colour ruling recorded (Director): BROWN stays 2200 K (L6 may land at 2400 K max), no WB chase; strap rule restated per Designer (camera/lighting-plan.md)
 - [designer] Red rule final per Director: option (c) plus 25 mm strap and strap/badge on pass_index 1 (style-guide §6.1, props.md/svg)
+- [producer] GATE 3 passed: the human approved the M3 package (commit 1fc90ab frames). Milestone 4 (previs animatic) started. Face refinement continues inside M4.
