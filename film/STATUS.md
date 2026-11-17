@@ -53,3 +53,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [dp] cues.json now carries dialogue[] (seeded from the Composer's provisional windows); the build checks that no Advance tick or relight lands on a line (camera/)
 - [screenwriter] Milestone 4: scratch TTS voice track + subtitles, cue-anchored to camera/cues.json (previs/voice/, previs/quiet-car.srt)
 - [screenwriter] Scratch voice: NOOR-24 re-anchored to end 0.3 s before relight 8.3 (per DP); build now checks no tick lands in a line (previs/voice/)
+- [dp] Director approved option (b): "I can't —"/"Say it." overlap restored; 7.9 follows the pair, 7.10 8.5 s later in silence held on Bea (shot 49 now 426.5–440); no cue times changed (camera/)

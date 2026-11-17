@@ -85,8 +85,8 @@ ADV = [("7.1", 360.0, "P12", "(display 5 MIN; no word spoken)"),
        ("7.6", 402.5, "P7", "after the lanyard hits the floor (\"It isn't enough.\")"),
        ("7.7", 411.0, "P6", "(silence; Bea leans in)"),
        ("7.8", 419.5, "P5", "after BEA: \"Whatever it is, say it.\""),
-       ("7.9", 428.0, "P4", "after NOOR: \"I can't —\""),
-       ("7.10", 436.5, "P3", "after BEA: \"Say it.\" (two panels left; Walter and Bea go into the edge)")]
+       ("7.9", 428.0, "P4", "after the overlap: NOOR \"I can't —\" / BEA \"Say it.\" (the car's answer)"),
+       ("7.10", 436.5, "P3", "(silence: rails and the rising groan only, no score event; held on Bea as her light dies to the edge; two panels left)")]
 for id, t, p, line in ADV:
     cue(id, t, "panel_out", [p], line, [(0, 0.0)], note="snap off, relay tick on the same frame, no flicker")
 
@@ -175,8 +175,8 @@ DIALOGUE = [
     (363.0, 365.5, 'NOOR', 'Nobody said anything.'),
     (380.5, 384.0, 'BEA', "It isn't only what you say."),
     (416.0, 419.0, 'BEA', 'Whatever it is, say it.'),
-    (421.0, 422.8, 'NOOR', "I can't —"),
-    (433.0, 434.5, 'BEA', 'Say it.'),
+    (426.0, 427.2, 'NOOR', "I can't —"),
+    (426.9, 427.6, 'BEA', 'Say it.'),
     (452.0, 454.5, 'WALTER', "He's asking."),
     (457.0, 458.5, 'NOOR', 'Mark.'),
     (459.0, 461.5, 'MARK', '(murmur)'),
@@ -297,8 +297,8 @@ S = [
  (45, 398.0, 405.5, "C", 50, "NOOR", "locked", 6, "She looks down at herself; yanks the lanyard over her head and throws it (each tick takes a step of front light off her face)", ["7.6"]),
  (46, 405.5, 408.5, "I", 50, None, "locked", 6, "The lanyard on the floor: red on grey", []),
  (47, 408.5, 416.0, "C", 50, "NOOR", "locked", 6, "It isn't enough", ["7.7"]),
- (48, 416.0, 432.0, "D", 50, "NOOR", "locked", 6, "Bea (off): 'Whatever it is, say it.' Noor: 'I can't —'", ["7.8", "7.9"]),
- (49, 432.0, 440.0, "C", 50, "BEA", "locked", 6, "'Say it.' On the last tick Bea's light dies to an edge", ["7.10"]),
+ (48, 416.0, 426.5, "D", 50, "NOOR", "locked", 6, "Bea (off): 'Whatever it is, say it.' Noor gathers herself", ["7.8"]),
+ (49, 426.5, 440.0, "C", 50, "BEA", "locked", 6, "Noor (off): 'I can't —' / Bea over her: 'Say it.' The 7.9 tick answers the pair. Then 8.5 s of silence (rails, the rising groan, no score event) held on Bea, and on 7.10 her own light dies to the edge", ["7.9", "7.10"]),
  (50, 440.0, 445.0, "A2", 32, None, "locked", 6, "Two panels left; Noor in the last pool; display 2 MIN; her phone buzzes", []),
  (51, 445.0, 448.0, "I", 50, None, "locked", 6, "MARK, in her lap", []),
  (52, 448.0, 451.0, "C", 50, "NOOR", "locked", 6, "She looks across at Kai's phone glowing in the dark", []),

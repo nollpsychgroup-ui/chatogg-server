@@ -81,8 +81,8 @@ Checks passed on build: the cut is continuous; every cue sits at least 0.5 s ins
 | 45 | 6:38.0 | 6:45.5 | C | 50 | locked | 7.6 | She looks down at herself; yanks the lanyard over her head and throws it (each tick takes a step of front light off her face) |
 | 46 | 6:45.5 | 6:48.5 | I | 50 | locked | — | The lanyard on the floor: red on grey |
 | 47 | 6:48.5 | 6:56.0 | C | 50 | locked | 7.7 | It isn't enough |
-| 48 | 6:56.0 | 7:12.0 | D | 50 | locked | 7.8, 7.9 | Bea (off): 'Whatever it is, say it.' Noor: 'I can't —' |
-| 49 | 7:12.0 | 7:20.0 | C | 50 | locked | 7.10 | 'Say it.' On the last tick Bea's light dies to an edge |
+| 48 | 6:56.0 | 7:06.5 | D | 50 | locked | 7.8 | Bea (off): 'Whatever it is, say it.' Noor gathers herself |
+| 49 | 7:06.5 | 7:20.0 | C | 50 | locked | 7.9, 7.10 | Noor (off): 'I can't —' / Bea over her: 'Say it.' The 7.9 tick answers the pair. Then 8.5 s of silence (rails, the rising groan, no score event) held on Bea, and on 7.10 her own light dies to the edge |
 | 50 | 7:20.0 | 7:25.0 | A2 | 32 | locked | — | Two panels left; Noor in the last pool; display 2 MIN; her phone buzzes |
 | 51 | 7:25.0 | 7:28.0 | I | 50 | locked | — | MARK, in her lap |
 | 52 | 7:28.0 | 7:31.0 | C | 50 | locked | — | She looks across at Kai's phone glowing in the dark |

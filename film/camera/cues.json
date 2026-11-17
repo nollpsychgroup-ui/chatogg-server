@@ -680,7 +680,7 @@
    "panels": [
     "P4"
    ],
-   "line": "after NOOR: \"I can't —\"",
+   "line": "after the overlap: NOOR \"I can't —\" / BEA \"Say it.\" (the car's answer)",
    "shape": [
     [
      0,
@@ -696,7 +696,7 @@
    "panels": [
     "P3"
    ],
-   "line": "after BEA: \"Say it.\" (two panels left; Walter and Bea go into the edge)",
+   "line": "(silence: rails and the rising groan only, no score event; held on Bea as her light dies to the edge; two panels left)",
    "shape": [
     [
      0,
@@ -1241,14 +1241,14 @@
    "line": "Whatever it is, say it."
   },
   {
-   "in": 421.0,
-   "out": 422.8,
+   "in": 426.0,
+   "out": 427.2,
    "who": "NOOR",
    "line": "I can't —"
   },
   {
-   "in": 433.0,
-   "out": 434.5,
+   "in": 426.9,
+   "out": 427.6,
    "who": "BEA",
    "line": "Say it."
   },
@@ -2831,10 +2831,10 @@
   {
    "shot": 48,
    "in": 416.0,
-   "out": 432.0,
+   "out": 426.5,
    "frames": [
     9984,
-    10368
+    10236
    ],
    "path": null,
    "scene": 6,
@@ -2854,17 +2854,16 @@
    "aim_subject": "NOOR",
    "handheld": null,
    "cues": [
-    "7.8",
-    "7.9"
+    "7.8"
    ],
-   "beat": "Bea (off): 'Whatever it is, say it.' Noor: 'I can't —'"
+   "beat": "Bea (off): 'Whatever it is, say it.' Noor gathers herself"
   },
   {
    "shot": 49,
-   "in": 432.0,
+   "in": 426.5,
    "out": 440.0,
    "frames": [
-    10368,
+    10236,
     10560
    ],
    "path": null,
@@ -2885,9 +2884,10 @@
    "aim_subject": "BEA",
    "handheld": null,
    "cues": [
+    "7.9",
     "7.10"
    ],
-   "beat": "'Say it.' On the last tick Bea's light dies to an edge"
+   "beat": "Noor (off): 'I can't —' / Bea over her: 'Say it.' The 7.9 tick answers the pair. Then 8.5 s of silence (rails, the rising groan, no score event) held on Bea, and on 7.10 her own light dies to the edge"
   },
   {
    "shot": 50,

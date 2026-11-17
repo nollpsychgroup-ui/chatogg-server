@@ -145,8 +145,8 @@ Times are from `cues.json` (estimates for a ~9:25 cut, to be re-timed to the voi
 | **7.6** | 402.5 | the lanyard hits the floor | P7 (the doors) | P1–P6 |
 | **7.7** | 411.0 | (silence; Bea leans in) | P6 | P1–P5 |
 | **7.8** | 419.5 | BEA: "Whatever it is, say it." | P5 | P1–P4 |
-| **7.9** | 428.0 | NOOR: "I can't —" | P4 | P1–P3 |
-| **7.10** | 436.5 | BEA: "*Say it.*" | **P3: Walter and Bea go into the edge** | **P1–P2** |
+| **7.9** | 428.0 | the overlap: NOOR "I can't —" / BEA over her, "*Say it.*" (the car's answer to the pair) | P4 | P1–P3 |
+| **7.10** | 436.5 | (8.5 s of silence: rails and the rising groan only, **no score event**, so the tick lands as the car's decision, not a cut. Held on Bea) | **P3: Bea's own light dies to the edge; Walter goes with her** | **P1–P2** |
 
 At 438 s the display reads 2 MIN. At 440 s Noor's phone rings (MARK), and from here her screen is a key on her face.
 
