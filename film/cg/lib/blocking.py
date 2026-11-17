@@ -86,6 +86,41 @@ def _reach(info, target_name, t, D=None):
         limb(f"NOOR_REACH_THUMB_{side}", hp + (tgt - hp) * 0.25, tgt + Vector((0, 0, 0.016)), 0.010, m_skin, C, r2=0.008).pass_index = 1
 
 
+def _walk_cycle(info, root, facing, hz=0.9, swing_deg=22.0, bob=0.018):
+    """Previs walk: each leg (thigh, shin, shoe) swings as one piece about its hip, opposite legs in
+    antiphase, with a two-per-cycle body bob on the walk root. Frame-driven (no keys)."""
+    obs = _coll_objects(info["collection"])
+    lat_x = abs(facing[1]) >= abs(facing[0])   # walking along Y -> swing about X
+    idx = 0 if lat_x else 1
+    sgn = (1 if facing[1] > 0 else -1) if lat_x else (-1 if facing[0] > 0 else 1)
+    w = f"frame*6.283185*{hz}/24"
+    for side, ph in (("-1", 0.0), ("1", math.pi)):
+        legs = [o for o in obs if o.name.split(".")[0] in (f"NOOR_THIGH_{side}", f"NOOR_SHIN_{side}", f"NOOR_SHOE_{side}")]
+        thigh = next((o for o in legs if o.name.startswith("NOOR_THIGH_")), None)
+        if thigh is None:
+            continue
+        vs = sorted((thigh.matrix_world @ v.co for v in thigh.data.vertices), key=lambda v: -v.z)
+        hip = sum(vs[:max(1, len(vs) // 10)], Vector()) / max(1, len(vs) // 10)
+        piv = bpy.data.objects.new(f"NOOR_HIP_{side}_{root.name}", None)
+        link(piv, info["collection"])
+        piv.location = hip
+        bpy.context.view_layer.update()
+        piv.parent = root
+        piv.matrix_parent_inverse = root.matrix_world.inverted()
+        bpy.context.view_layer.update()
+        for o in legs:
+            mw = o.matrix_world.copy()
+            o.parent = piv
+            o.matrix_parent_inverse = piv.matrix_world.inverted()
+            o.matrix_world = mw
+        d = piv.driver_add("rotation_euler", idx).driver
+        d.type = "SCRIPTED"
+        d.expression = f"{sgn * math.radians(swing_deg):.4f}*sin({w}+{ph:.4f})"
+    d = root.driver_add("delta_location", 2).driver
+    d.type = "SCRIPTED"
+    d.expression = f"{bob}*abs(sin({w}))"
+
+
 def build_noor(D, B, BL):
     variants = {}   # key -> {"collection", "intervals", "root"}
     for i, seg in enumerate(BL["NOOR"]):
@@ -130,6 +165,7 @@ def build_noor(D, B, BL):
                 for kp in fc.keyframe_points:
                     kp.interpolation = "LINEAR"
             variants[key] = dict(info, intervals=[(t0, t1)])
+            _walk_cycle(info, root, seg["facing"])
     throw = BL["lanyard_throw_t"]
     for key, v in variants.items():
         obs = _coll_objects(v["collection"])
@@ -256,6 +292,68 @@ def apply_faces():
         for r in roots:
             heads.apply_track(r, track, J["library"], fps=J.get("fps", 24))
             _head_pitch(r, track, J["library"], J.get("fps", 24))
+    return J
+
+
+def apply_look_ats(D, BL, J, ease=4, step=2):
+    """Story looks (Director: the plants and guilt live in them): from the key of each listed expression
+    until that character's next key (or the end of the shot), aim gaze_x/gaze_y at the real target.
+    Computed from the evaluated scene every `step` frames (heads breathe, pitch and walk), with an
+    `ease`-frame blend from and back to the expression track's own gaze at each edge."""
+    from bpy_extras import anim_utils
+    sc = bpy.context.scene
+    fps = J.get("fps", 24)
+    shots = D["shots"]
+    keep = sc.frame_current
+    n = 0
+    for la in BL.get("look_at", []):
+        track = J["tracks"][la["who"]]
+        for i, (t, name, *_) in enumerate(track):
+            if name != la["expr"]:
+                continue
+            nxt = track[i + 1][0] if i + 1 < len(track) else t + 5
+            sh = next((x for x in shots if x["in"] <= t < x["out"]), None)
+            t1 = min(nxt, sh["out"]) if sh else nxt
+            f0, f1 = round(t * fps), round(t1 * fps)
+            for root in [o for o in bpy.data.objects if o.name.startswith(f"{la['who']}_HEADRIG")]:
+                ad = root.animation_data
+                cb = anim_utils.action_get_channelbag_for_slot(ad.action, ad.action_slot)
+                fcs = {c: next(fc for fc in cb.fcurves if fc.data_path == f'["{c}"]') for c in ("gaze_x", "gaze_y")}
+                edge = {c: (fc.evaluate(f0 - ease), fc.evaluate(f1 + ease)) for c, fc in fcs.items()}
+                vals = {}
+                for f in list(range(f0, f1, step)) + [f1]:
+                    sc.frame_set(f)
+                    tg = [o for o in bpy.data.objects if o.name.startswith(la["target"]) and not o.hide_render]
+                    if not tg:
+                        continue
+                    d = root.matrix_world.inverted() @ tg[0].matrix_world.translation
+                    yaw = math.degrees(math.atan2(d.x, d.y))
+                    down = math.degrees(math.atan2(-d.z, math.hypot(d.x, d.y)))
+                    # beyond the eyes' 28 deg the head turns too (up to 40 deg), eyes take the rest
+                    head = max(-40.0, min(40.0, yaw - max(-28.0, min(28.0, yaw)) * 0.6)) if abs(yaw) > 28 else 0.0
+                    vals[f] = (max(-1, min(1, (yaw - head) / 28.0)), max(-1, min(1, down / 20.0)), head)
+                if not vals:
+                    continue
+                if any(v[2] for v in vals.values()):   # head turn: world-Z delta (delta composes in parent space)
+                    base = root.delta_rotation_euler[2]
+                    root.delta_rotation_euler[2] = base
+                    root.keyframe_insert("delta_rotation_euler", index=2, frame=f0 - ease * 2)
+                    for f, v in vals.items():
+                        root.delta_rotation_euler[2] = base - math.radians(v[2])
+                        root.keyframe_insert("delta_rotation_euler", index=2, frame=f)
+                    root.delta_rotation_euler[2] = base
+                    root.keyframe_insert("delta_rotation_euler", index=2, frame=f1 + ease * 2)
+                for c, fc in fcs.items():
+                    for j in reversed(range(len(fc.keyframe_points))):   # by index: refs go stale on removal
+                        if f0 - ease <= fc.keyframe_points[j].co.x <= f1 + ease:
+                            fc.keyframe_points.remove(fc.keyframe_points[j])
+                    fc.keyframe_points.insert(f0 - ease, edge[c][0])
+                    fc.keyframe_points.insert(f1 + ease, edge[c][1])
+                    for f, v in vals.items():
+                        fc.keyframe_points.insert(f, v[0] if c == "gaze_x" else v[1])
+                n += 1
+    sc.frame_set(keep)
+    return n
 
 
 def _head_pitch(root, track, library, fps, ease=10):
@@ -312,6 +410,38 @@ def add_idles(amp=0.004):
     return n
 
 
+def build_bea_reach(D, BL):
+    """Shot 15: Bea's hand shoots out toward Kai ('don't'), far too far away. Her nearer arm is swapped
+    for an almost straight arm aimed at him for the beat (a pop, like Walter's clamp)."""
+    br = BL.get("bea_reach")
+    if not br:
+        return
+    t0, t1 = br["t"]
+    C = "CHAR_BEA"
+    obs = list(bpy.data.collections[C].objects)
+    tgt = Vector(D["set"]["marks"][br["toward"]])
+    wc = lambda o: o.matrix_world @ (sum((Vector(c) for c in o.bound_box), Vector()) / 8)
+    hand = min([o for o in obs if o.name.startswith("BEA_HAND_")], key=lambda o: (wc(o) - tgt).length)
+    side = hand.name.split(".")[0].rsplit("_", 1)[1]
+    arm = [o for o in obs if o.name.split(".")[0] in (f"BEA_UARM_{side}", f"BEA_FARM_{side}", f"BEA_HAND_{side}")]
+    uarm = next(o for o in arm if o.name.startswith("BEA_UARM_"))
+    vs = sorted((uarm.matrix_world @ v.co for v in uarm.data.vertices), key=lambda v: -v.z)
+    sh = sum(vs[:max(1, len(vs) // 10)], Vector()) / max(1, len(vs) // 10)
+    d = (tgt - sh); d.z = 0.0; d.normalize()
+    fwd = Vector(D["set"]["marks"]["BEA"]); fwd = Vector((-1.0 if fwd.x > 0 else 1.0, 0, 0))   # into the aisle
+    d = (d * 0.65 + fwd * 0.55 + Vector((0, 0, 0.30))).normalized()   # out and up, so it reads past her body
+    hp = sh + d * br["reach_m"]
+    elb = sh.lerp(hp, 0.5) + Vector((0, 0, -0.03))
+    new = [limb("BEA_REACH_UARM", sh, elb, 0.05, uarm.active_material, C, r2=0.042),
+           limb("BEA_REACH_FARM", elb, hp, 0.04, uarm.active_material, C, r2=0.032),
+           ellipsoid("BEA_REACH_HAND", hp + d * 0.04, (0.05, 0.035, 0.04), hand.active_material, C)]
+    for o in new:
+        o.pass_index = 2
+    new[-1].pass_index = 1
+    key_visibility(new, [(t0, t1)])
+    key_visibility(arm, [(0, t0), (t1, 10_000)])
+
+
 def build(D=None, B=None):
     D = D or dp()
     B = B or load("build.json")
@@ -321,6 +451,8 @@ def build(D=None, B=None):
     figures.animate_kai(D)
     v = build_noor(D, B, BL)
     build_walter(D, BL)
-    apply_faces()
+    build_bea_reach(D, BL)
+    J = apply_faces()
     add_idles()
+    apply_look_ats(D, BL, J)
     return v

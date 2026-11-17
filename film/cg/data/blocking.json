@@ -25,5 +25,13 @@
  "lanyard_throw_t": 389.5,
  "walter_paper": {"up": [167.0, 200.0], "notes": [[173.0, "DON'T LIE IN HERE."], [177.0, "IT'S AWAKE NOW.\nYOU WOKE IT."]]},
  "walter_clamp": [212.2, 221.5],
- "phone_noor_lap_mark": "NOOR_PHONE_LAP"
+ "phone_noor_lap_mark": "NOOR_PHONE_LAP",
+ "look_at": [
+  {"who": "WALTER", "expr": "walter/to_badge",    "target": "NOOR_BADGE",        "note": "shot 3: eyes to the badge, then back to the paper"},
+  {"who": "WALTER", "expr": "walter/to_lanyard",  "target": "NOOR_BADGE",        "note": "shot 42: to her lanyard, as when she boarded"},
+  {"who": "NOOR",   "expr": "noor/insane_barely", "target": "PHONE_KAI_SCREEN",  "note": "shot 24: eyes to Kai's seat"},
+  {"who": "NOOR",   "expr": "noor/to_kais_phone", "target": "PHONE_KAI_SCREEN",  "note": "shot 52"},
+  {"who": "NOOR",   "expr": "noor/library_catch", "target": "PHONE_KAI_SCREEN",  "note": "shot 56: the half-beat"}
+ ],
+ "bea_reach": {"t": [125.15, 128.5], "toward": "KAI", "reach_m": 0.62, "note": "shot 15: her hand shoots out, too far away"}
 }

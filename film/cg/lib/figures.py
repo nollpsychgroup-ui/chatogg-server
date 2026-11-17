@@ -98,7 +98,7 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
                                                                shadow=f"{key}/skin_shadow", axis="x", stretch=3.0,
                                                                variation=0.025, shadow_mix=0.08, tilt=0.07)
     mats = {"skin": face_skin,
-            "hair": ld.paint(f"c_{key}_hair_rig", f"{key}/hair", tier="costume", stroke_scale=90.0, stretch=6.0, axis="z", variation=0.35),
+            "hair": ld.paint(f"c_{key}_hair_rig", f"{key}/hair", tier="costume", stroke_scale=90.0, stretch=6.0, axis="z", variation=0.12 if name == "NOOR" else 0.35),
             "lips": ld.paint(f"c_{key}_lips", f"{key}/lips", tier="face", variation=0.04)}
     root = _heads.build_head(name, collection=C, mats=mats)
     _heads.place(root, head_c, f)
