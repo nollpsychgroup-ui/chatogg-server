@@ -1,0 +1,501 @@
+{
+ "note": "sRGB hex is the design value; 'linear' is the same colour as linear-sRGB floats for Blender base colour. THE_RED is used on exactly two objects.",
+ "colours": {
+  "THE_RED (strap, Kai end-call only)": {
+   "hex": "#C8102E",
+   "linear": [
+    0.5776,
+    0.0052,
+    0.0273
+   ]
+  },
+  "set/moquette": {
+   "hex": "#3F6866",
+   "linear": [
+    0.0497,
+    0.1384,
+    0.1329
+   ]
+  },
+  "set/moquette_pattern": {
+   "hex": "#2F504F",
+   "linear": [
+    0.0284,
+    0.0802,
+    0.0782
+   ]
+  },
+  "set/laminate": {
+   "hex": "#A8ABA5",
+   "linear": [
+    0.3916,
+    0.4072,
+    0.3763
+   ]
+  },
+  "set/ceiling": {
+   "hex": "#D9DBD3",
+   "linear": [
+    0.6939,
+    0.7084,
+    0.6514
+   ]
+  },
+  "set/floor": {
+   "hex": "#4B4D4A",
+   "linear": [
+    0.0704,
+    0.0742,
+    0.0685
+   ]
+  },
+  "set/trim": {
+   "hex": "#8E9394",
+   "linear": [
+    0.2705,
+    0.2918,
+    0.2961
+   ]
+  },
+  "set/sign_text": {
+   "hex": "#2C2E30",
+   "linear": [
+    0.0252,
+    0.0273,
+    0.0296
+   ]
+  },
+  "set/sign_vinyl": {
+   "hex": "#E4E4DC",
+   "linear": [
+    0.7758,
+    0.7758,
+    0.7157
+   ]
+  },
+  "set/led_display": {
+   "hex": "#CFE8D8",
+   "linear": [
+    0.624,
+    0.807,
+    0.6867
+   ]
+  },
+  "noor/suit": {
+   "hex": "#3A3B40",
+   "linear": [
+    0.0423,
+    0.0437,
+    0.0513
+   ]
+  },
+  "noor/lapel": {
+   "hex": "#2C2D31",
+   "linear": [
+    0.0252,
+    0.0262,
+    0.0307
+   ]
+  },
+  "noor/skirt": {
+   "hex": "#36373C",
+   "linear": [
+    0.0369,
+    0.0382,
+    0.0452
+   ]
+  },
+  "noor/blouse": {
+   "hex": "#C8CED4",
+   "linear": [
+    0.5776,
+    0.6172,
+    0.6584
+   ]
+  },
+  "noor/tights": {
+   "hex": "#2F2B2B",
+   "linear": [
+    0.0284,
+    0.0242,
+    0.0242
+   ]
+  },
+  "noor/shoes": {
+   "hex": "#161515",
+   "linear": [
+    0.008,
+    0.0075,
+    0.0075
+   ]
+  },
+  "noor/badge": {
+   "hex": "#EEEEE8",
+   "linear": [
+    0.855,
+    0.855,
+    0.807
+   ]
+  },
+  "noor/badge_logo": {
+   "hex": "#4B5867",
+   "linear": [
+    0.0704,
+    0.0976,
+    0.1356
+   ]
+  },
+  "noor/bag": {
+   "hex": "#25221F",
+   "linear": [
+    0.0185,
+    0.016,
+    0.0137
+   ]
+  },
+  "noor/skin": {
+   "hex": "#A9714F",
+   "linear": [
+    0.3968,
+    0.1651,
+    0.0782
+   ]
+  },
+  "noor/skin_shadow": {
+   "hex": "#7E5A47",
+   "linear": [
+    0.2086,
+    0.1022,
+    0.063
+   ]
+  },
+  "noor/lips": {
+   "hex": "#8A5A52",
+   "linear": [
+    0.2542,
+    0.1022,
+    0.0844
+   ]
+  },
+  "noor/hair": {
+   "hex": "#1E1A19",
+   "linear": [
+    0.013,
+    0.0103,
+    0.0097
+   ]
+  },
+  "noor/iris": {
+   "hex": "#3B2A20",
+   "linear": [
+    0.0437,
+    0.0232,
+    0.0144
+   ]
+  },
+  "kai/hoodie": {
+   "hex": "#76787B",
+   "linear": [
+    0.1812,
+    0.1878,
+    0.1981
+   ]
+  },
+  "kai/hoodie_dark": {
+   "hex": "#5E6063",
+   "linear": [
+    0.1119,
+    0.117,
+    0.1248
+   ]
+  },
+  "kai/jeans": {
+   "hex": "#2A2C30",
+   "linear": [
+    0.0232,
+    0.0252,
+    0.0296
+   ]
+  },
+  "kai/sneakers": {
+   "hex": "#D8D6CF",
+   "linear": [
+    0.6867,
+    0.6724,
+    0.624
+   ]
+  },
+  "kai/sole": {
+   "hex": "#9A9893",
+   "linear": [
+    0.3231,
+    0.314,
+    0.2918
+   ]
+  },
+  "kai/phone_case": {
+   "hex": "#8E9399",
+   "linear": [
+    0.2705,
+    0.2918,
+    0.3185
+   ]
+  },
+  "kai/skin": {
+   "hex": "#D6B08C",
+   "linear": [
+    0.6724,
+    0.4342,
+    0.2623
+   ]
+  },
+  "kai/skin_shadow": {
+   "hex": "#A68D78",
+   "linear": [
+    0.3813,
+    0.2664,
+    0.1878
+   ]
+  },
+  "kai/lips": {
+   "hex": "#A57E72",
+   "linear": [
+    0.3763,
+    0.2086,
+    0.1683
+   ]
+  },
+  "kai/hair": {
+   "hex": "#1A1817",
+   "linear": [
+    0.0103,
+    0.0091,
+    0.0086
+   ]
+  },
+  "kai/iris": {
+   "hex": "#2C211B",
+   "linear": [
+    0.0252,
+    0.0152,
+    0.011
+   ]
+  },
+  "bea/scrubs": {
+   "hex": "#22314F",
+   "linear": [
+    0.016,
+    0.0307,
+    0.0782
+   ]
+  },
+  "bea/cardigan": {
+   "hex": "#B7AC95",
+   "linear": [
+    0.4735,
+    0.4125,
+    0.3005
+   ]
+  },
+  "bea/tote": {
+   "hex": "#5A4A3B",
+   "linear": [
+    0.1022,
+    0.0685,
+    0.0437
+   ]
+  },
+  "bea/clogs": {
+   "hex": "#2B3550",
+   "linear": [
+    0.0242,
+    0.0356,
+    0.0802
+   ]
+  },
+  "bea/fob_watch": {
+   "hex": "#B9BDC0",
+   "linear": [
+    0.4851,
+    0.5089,
+    0.5271
+   ]
+  },
+  "bea/skin": {
+   "hex": "#5E3C2C",
+   "linear": [
+    0.1119,
+    0.0452,
+    0.0252
+   ]
+  },
+  "bea/skin_shadow": {
+   "hex": "#46322A",
+   "linear": [
+    0.0612,
+    0.0319,
+    0.0232
+   ]
+  },
+  "bea/lips": {
+   "hex": "#5A3A35",
+   "linear": [
+    0.1022,
+    0.0423,
+    0.0356
+   ]
+  },
+  "bea/hair": {
+   "hex": "#45413E",
+   "linear": [
+    0.0595,
+    0.0529,
+    0.0482
+   ]
+  },
+  "bea/hair_grey": {
+   "hex": "#9A9590",
+   "linear": [
+    0.3231,
+    0.3005,
+    0.2789
+   ]
+  },
+  "bea/iris": {
+   "hex": "#1F1612",
+   "linear": [
+    0.0137,
+    0.008,
+    0.006
+   ]
+  },
+  "walter/coat": {
+   "hex": "#A8875A",
+   "linear": [
+    0.3916,
+    0.2423,
+    0.1022
+   ]
+  },
+  "walter/scarf": {
+   "hex": "#77777A",
+   "linear": [
+    0.1845,
+    0.1845,
+    0.1946
+   ]
+  },
+  "walter/shirt": {
+   "hex": "#B9C4CC",
+   "linear": [
+    0.4851,
+    0.552,
+    0.6038
+   ]
+  },
+  "walter/trousers": {
+   "hex": "#4E4A45",
+   "linear": [
+    0.0762,
+    0.0685,
+    0.0595
+   ]
+  },
+  "walter/shoes": {
+   "hex": "#3E3328",
+   "linear": [
+    0.0482,
+    0.0331,
+    0.0212
+   ]
+  },
+  "walter/skin": {
+   "hex": "#D9B79E",
+   "linear": [
+    0.6939,
+    0.4735,
+    0.3419
+   ]
+  },
+  "walter/skin_shadow": {
+   "hex": "#A9978A",
+   "linear": [
+    0.3968,
+    0.3095,
+    0.2542
+   ]
+  },
+  "walter/lips": {
+   "hex": "#A88378",
+   "linear": [
+    0.3916,
+    0.227,
+    0.1878
+   ]
+  },
+  "walter/hair": {
+   "hex": "#DCD8D0",
+   "linear": [
+    0.7157,
+    0.6867,
+    0.6308
+   ]
+  },
+  "walter/iris": {
+   "hex": "#4A5660",
+   "linear": [
+    0.0685,
+    0.0931,
+    0.117
+   ]
+  },
+  "props/newsprint": {
+   "hex": "#D9D3C3",
+   "linear": [
+    0.6939,
+    0.6514,
+    0.5457
+   ]
+  },
+  "props/news_ink": {
+   "hex": "#2B2B2B",
+   "linear": [
+    0.0242,
+    0.0242,
+    0.0242
+   ]
+  },
+  "props/pen_ink": {
+   "hex": "#1F2A44",
+   "linear": [
+    0.0137,
+    0.0232,
+    0.0578
+   ]
+  },
+  "props/noor_phone_case": {
+   "hex": "#2A3140",
+   "linear": [
+    0.0232,
+    0.0307,
+    0.0513
+   ]
+  },
+  "props/screen_glow": {
+   "hex": "#D6E4FF",
+   "linear": [
+    0.6724,
+    0.7758,
+    1.0
+   ]
+  },
+  "props/noor_end_button": {
+   "hex": "#5A6170",
+   "linear": [
+    0.1022,
+    0.1195,
+    0.162
+   ]
+  }
+ }
+}
