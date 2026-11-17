@@ -31,7 +31,7 @@ CHAR = {
     ),
     "bea": dict(
         skin="#5E3C2C", shade="#46322A", lip="#5A3A35", hair="#45413E", hair_hi="#9A9590",
-        brow="#231915", iris="#1F1612", eye_tilt=0.0, brow_th=0.03, brow_arch=0.018,
+        brow="#231915", iris="#1F1612", sclera="#F3F0E8", lid_ink="#0E0907", lid_w=1.35, lid_albedo="#6E4A38", eye_tilt=0.0, brow_th=0.03, brow_arch=0.018,
         head=[(0, 0), (0.33, 0.03), (0.48, 0.17), (0.52, 0.40), (0.52, 0.60), (0.47, 0.77), (0.34, 0.91), (0.16, 0.985), (0, 1.0)],
         mouth_w=0.175, lip_th=1.15, age=0.55,
     ),
@@ -310,7 +310,7 @@ def _eye(L, fv, c, p, side, sgn, W, H, uid, turn):
     if not closed:
         shape = smooth(fv.pts(eye_pts, True), tension=0.45)
         L.add(f'<clipPath id="{eid}"><path d="{shape}"/></clipPath>')
-        L.path(shape, fill="#E9E6DE")
+        L.path(shape, fill=c.get("sclera", "#E9E6DE"))
         L.add(f'<g clip-path="url(#{eid})">')
         gx, gy = p.get("gaze_x", 0), p.get("gaze_y", 0)
         ix, iy = fv.p(ex + gx * 0.04 - 0.012 * turn, ey - 0.012 + gy * 0.025, True)
@@ -329,7 +329,7 @@ def _eye(L, fv, c, p, side, sgn, W, H, uid, turn):
             L.rect(ix - r * 0.1, iy + r * 0.35, r * 0.22, r * 0.22, "#D8E6FF", rx=1)
         L.add("</g>")
         # upper lid line + lashes
-        L.path(smooth(fv.pts(upper, True), closed=False), stroke=INK, sw=W * 0.02)
+        L.path(smooth(fv.pts(upper, True), closed=False), stroke=c.get("lid_ink", INK), sw=W * 0.02 * c.get("lid_w", 1.0))
         L.path(smooth(fv.pts(upper[1:], True), closed=False), stroke=INK, sw=W * 0.026)
         # lid crease
         cre = [(ex - sgn * ew * 0.36, uy - eh * 0.1), (ex + sgn * ew * 0.05, uy - eh * 0.42), (ex + sgn * ew * 0.42, uy - eh * 0.15)]
@@ -342,10 +342,10 @@ def _eye(L, fv, c, p, side, sgn, W, H, uid, turn):
     else:
         tension = p.get("tension", 0)
         cl = [inner, (ex - sgn * ew * 0.1, ey + eh * 0.32 - 0.02 * tension), (ex + sgn * ew * 0.25, ey + eh * 0.3 - 0.01 * tension), (outer[0], outer[1] + 0.005)]
-        L.path(smooth(fv.pts(cl, True), closed=False), stroke=INK, sw=W * 0.022)
+        L.path(smooth(fv.pts(cl, True), closed=False), stroke=c.get("lid_ink", INK), sw=W * 0.022 * c.get("lid_w", 1.0))
         # lid surface
         L.path(smooth(fv.pts([inner, (ex, ey - eh * 0.7), outer, (ex + sgn * ew * 0.2, ey + eh * 0.28), (ex - sgn * ew * 0.1, ey + eh * 0.3)], True)),
-               fill=c["shade"], op=0.25)
+               fill=c.get("lid_albedo", c["shade"]), op=0.25 if "lid_albedo" not in c else 0.9)
         if tension > 0.2:
             # awake: a squeeze crease at the outer corner and under the brow
             for k in range(2):

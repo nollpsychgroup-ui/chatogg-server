@@ -68,7 +68,11 @@ Every light in the car is overhead. A real fluorescent panel straight above will
 - Catchlights are **never painted**. The eyes have a real glossy cornea, so the panel row reflects in them as a small row of soft rectangles. **When panels go out, the catchlights go out.** In the creeping dark you should be able to read the car's state in Noor's eyes. During the phone-lit stretch the catchlight becomes the phone's small blue-white square below the pupil.
 - The **only** glossy surfaces on a character are the corneas, tear films (Noor in the confession), lips at a very low sheen, and plastic props (badge, phones). Skin is matte gouache.
 
-### 2.4 Tears
+### 2.4 Bea in the dark states (Director F2)
+
+Bea's skin sits close in value to her navy scrubs. To keep her eyes-closed-but-awake acting alive under the brownout and at the edge of the creeping dark, we raise contrast **in the acting zones, not the skin**: brighter sclera `#F3F0E8`, a near-black lid line 35% heavier, and a slightly lighter lid albedo `#6E4A38` (a material value, not painted light). The oatmeal cardigan frames her face. The check strip is on `expressions/bea-expressions.svg`, and the TA's brownout style frame includes Bea as the real test.
+
+### 2.5 Tears
 
 A tear is a thin wet line that catches the panel above. It's built from the cornea/tear-film gloss, not painted. Noor's confession: wet lower lid, one track on the camera-side cheek, no streaming.
 

@@ -135,7 +135,38 @@ def expr_sheet(key):
             line += r + "   "
         if line:
             d.text(cx - cw / 2 + 26, yy, line, size=12, fill="#555", family="Menlo, monospace")
+    if key == "bea":
+        dark_check(d)
     out(f"expressions/{key}-expressions.svg", d, f"{SHEETS[key]['name']} expressions")
+
+
+def dark_check(d):
+    """F2: Bea's acting zones under the dark states (approximate grade, for design only)."""
+    d.h = 1400
+    d.text(40, 1030, "F2 · DARK-STATE CHECK: eyes closed but awake, under each light (approximation; the TA's brownout style frame is the real test)", size=13, fill="#777", weight="bold")
+    d.add('<filter id="brown" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.62 0.08 0 0 0  0.30 0.24 0 0 0  0.08 0.06 0.06 0 0  0 0 0 1 0"/></filter>')
+    d.add('<filter id="edge" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.30 0 0 0 0  0 0.31 0 0 0  0 0 0.32 0 0  0 0 0 1 0"/></filter>')
+    states = [("Asleep car (~4300 K)", None), ("Brownout, cue 3 (exposed for it)", "brown"), ("Edge of the creeping dark, cue 7", "edge")]
+    for i, (lab, f) in enumerate(states):
+        cx = 220 + i * 420
+        L = Layer()
+        L.path(smooth([(cx - 120, 1330), (cx - 50, 1270), (cx + 50, 1270), (cx + 120, 1330)]), fill="#B7AC95")
+        L.path(poly([(cx - 30, 1240), (cx + 30, 1240), (cx + 30, 1290), (cx - 30, 1290)]), fill="#22314F")
+        draw_face(L, cx, 1060, 150, 195, "bea", dict(lid_up=0.0, tension=0.7, brow_in=-0.15, press=0.25, smile=-0.05), turn=0.35)
+        d.group(L.parts, f'filter="url(#{f})"' if f else 'filter="url(#paintFine)"')
+        d.text(cx, 1360, lab, size=13, anchor="middle", fill="#333")
+    d.lines(1300, 1080, [
+        "Bea's dark skin sits close in value to",
+        "her navy scrubs, so the dark states",
+        "could swallow her acting. Fix, per",
+        "Director F2: lift the SCLERA (#F3F0E8)",
+        "and LID-LINE contrast (near-black ink,",
+        "35% heavier line, slightly lighter lid",
+        "albedo), never her skin value. The",
+        "oatmeal cardigan frames her face.",
+        "TA: include Bea in the brownout",
+        "style frame as an explicit check.",
+    ], size=13.5, fill="#2A2A2A")
 
 
 def lineup():
