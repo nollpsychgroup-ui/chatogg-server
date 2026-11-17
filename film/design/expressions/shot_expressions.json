@@ -1,5 +1,6 @@
 {
  "_note": "Per-shot expression track for the M4 previs (Character Designer).",
+ "clock": "v2",
  "fps": 24,
  "library": {
   "noor/pleasant": {
@@ -432,257 +433,257 @@
  "tracks": {
   "NOOR": [
    [
-    25.0,
+    12.0,
     "noor/pleasant",
     1
    ],
    [
-    33.0,
+    20.0,
     "noor/relieved",
     1
    ],
    [
-    36.0,
+    23.0,
     "noor/fine_performed",
     2
    ],
    [
-    40.0,
+    27.0,
     "noor/relieved",
     2
    ],
    [
-    63.0,
+    50.0,
     "noor/sorry_mouthed",
     6
    ],
    [
-    66.0,
+    53.0,
     "noor/fine_performed",
     6
    ],
    [
-    78.0,
+    65.0,
     "noor/fine_performed",
     7
    ],
    [
-    86.0,
+    73.0,
     "noor/fine_listening",
     8
    ],
    [
-    91.0,
+    78.0,
     "noor/fine_performed",
     9
    ],
    [
-    101.0,
+    88.0,
     "noor/fine_listening",
     10
    ],
    [
-    108.0,
+    95.0,
     "noor/love_you",
     11
    ],
    [
-    112.0,
+    99.0,
     "noor/sag",
     11
    ],
    [
-    114.5,
+    101.5,
     "noor/unsettled",
     11
    ],
    [
-    120.0,
+    107.0,
     "noor/sorry_mouthed",
     13
    ],
    [
-    125.0,
+    112.0,
     "noor/unsettled",
     13
    ],
    [
-    135.0,
+    122.0,
     "noor/unsettled",
     14
    ],
    [
-    143.0,
+    130.0,
     "noor/unsettled",
     16
    ],
    [
-    147.0,
+    134.0,
     "noor/shock",
     17
    ],
    [
-    166.0,
+    153.0,
     "noor/shock",
     18
    ],
    [
-    170.0,
+    157.0,
     "noor/panic_shout",
     20
    ],
    [
-    180.0,
+    167.0,
     "noor/shock",
     21
    ],
    [
-    186.0,
+    173.0,
     "noor/reading",
     22
    ],
    [
-    204.0,
+    191.0,
     "noor/insane_barely",
     24
    ],
    [
-    213.0,
+    200.0,
     "noor/test",
     26
    ],
    [
-    222.0,
+    209.0,
     "noor/clamped_fear",
     26
    ],
    [
-    234.0,
+    221.0,
     "noor/shaking",
     27
    ],
    [
-    239.0,
+    226.0,
     "noor/shaking",
     29
    ],
    [
-    262.0,
+    249.0,
     "noor/cant_end_call",
     32
    ],
    [
-    272.0,
+    259.0,
     "noor/shaking",
     33
    ],
    [
-    282.0,
+    269.0,
     "noor/listening",
     34
    ],
    [
-    290.0,
+    277.0,
     "noor/caught_f",
     35
    ],
    [
-    294.0,
+    281.0,
     "noor/not_fine",
     35
    ],
    [
-    300.0,
+    287.0,
     "noor/listening",
     36
    ],
    [
-    309.0,
+    296.0,
     "noor/unsettled",
     37
    ],
    [
-    313.0,
+    300.0,
     "noor/listening",
     38
    ],
    [
-    349.0,
+    336.0,
     "noor/badge_turn",
     40
    ],
    [
-    358.5,
+    345.5,
     "noor/unsettled",
     42
    ],
    [
-    380.0,
+    367.0,
     "noor/listening",
     43
    ],
    [
-    398.0,
+    385.0,
     "noor/realising",
     45
    ],
    [
-    408.5,
+    395.5,
     "noor/cant",
     47
    ],
    [
-    416.0,
+    403.0,
     "noor/cant",
     48
    ],
    [
-    440.0,
+    427.0,
     "noor/phone_buzz",
     50
    ],
    [
-    448.0,
+    435.0,
     "noor/to_kais_phone",
     52
    ],
    [
-    455.5,
+    442.5,
     "noor/not_fine",
     54
    ],
    [
-    460.0,
+    447.0,
     "noor/confession",
     54
    ],
    [
-    476.0,
+    463.0,
     "noor/library_catch",
     56
    ],
    [
-    480.0,
+    467.0,
     "noor/confession",
     56
    ],
    [
-    501.0,
+    488.0,
     "noor/sorry_small",
     58
    ],
    [
-    505.0,
+    492.0,
     "noor/waiting",
     58
    ],
    [
-    515.0,
+    502.0,
     "noor/look_back",
     60
    ],
    [
-    523.0,
+    510.0,
     "noor/platform_neutral",
     62
    ]
@@ -694,117 +695,117 @@
     1
    ],
    [
-    44.0,
+    31.0,
     "walter/to_badge",
     3
    ],
    [
-    46.0,
+    33.0,
     "walter/watching",
     3
    ],
    [
-    86.0,
+    73.0,
     "walter/eyes_lift",
     8
    ],
    [
-    101.0,
+    88.0,
     "walter/stare",
     10
    ],
    [
-    116.0,
+    103.0,
     "walter/stare",
     12
    ],
    [
-    180.0,
+    167.0,
     "walter/writing",
     21
    ],
    [
-    184.0,
+    171.0,
     "walter/stare",
     21
    ],
    [
-    213.0,
+    200.0,
     "walter/stare",
     26
    ],
    [
-    222.0,
+    209.0,
     "walter/clamp",
     26
    ],
    [
-    234.0,
+    221.0,
     "walter/release",
     27
    ],
    [
-    239.0,
+    226.0,
     "walter/watching",
     29
    ],
    [
-    300.0,
+    287.0,
     "walter/eyes_lift",
     36
    ],
    [
-    313.0,
+    300.0,
     "walter/speech",
     38
    ],
    [
-    338.0,
+    325.0,
     "walter/speech_end",
     38
    ],
    [
-    349.0,
+    336.0,
     "walter/watching",
     40
    ],
    [
-    366.0,
+    353.0,
     "walter/to_lanyard",
     42
    ],
    [
-    384.5,
+    371.5,
     "walter/stare",
     44
    ],
    [
-    451.0,
+    438.0,
     "walter/asking",
     53
    ],
    [
-    469.0,
+    456.0,
     "walter/stare",
     55
    ],
    [
-    515.0,
+    502.0,
     "walter/stare",
     60
    ],
    [
-    520.0,
+    507.0,
     "walter/nod",
     61
    ],
    [
-    523.0,
+    510.0,
     "walter/watching",
     62
    ],
    [
-    556.0,
+    538.0,
     "walter/page_turn",
     63
    ]
@@ -816,102 +817,102 @@
     1
    ],
    [
-    86.0,
+    73.0,
     "bea/assess",
     8
    ],
    [
-    101.0,
+    88.0,
     "bea/sits_up",
     10
    ],
    [
-    116.0,
+    103.0,
     "bea/sits_up",
     12
    ],
    [
-    138.0,
+    125.0,
     "bea/reach_dont",
     15
    ],
    [
-    143.0,
+    130.0,
     "bea/frozen",
     16
    ],
    [
-    190.0,
+    177.0,
     "bea/writing",
     23
    ],
    [
-    196.0,
+    183.0,
     "bea/watching_noor",
     23
    ],
    [
-    222.0,
+    209.0,
     "bea/frozen",
     26
    ],
    [
-    234.0,
+    221.0,
     "bea/watching_noor",
     27
    ],
    [
-    272.0,
+    259.0,
     "bea/watching_noor",
     33
    ],
    [
-    282.0,
+    269.0,
     "bea/you_okay",
     34
    ],
    [
-    300.0,
+    287.0,
     "bea/me_neither",
     36
    ],
    [
-    339.0,
+    326.0,
     "bea/tenderness",
     39
    ],
    [
-    360.0,
+    347.0,
     "bea/stiffens",
     42
    ],
    [
-    380.0,
+    367.0,
     "bea/not_only",
     43
    ],
    [
-    416.0,
+    403.0,
     "bea/say_it",
     48
    ],
    [
-    432.0,
+    419.0,
     "bea/say_it",
     49
    ],
    [
-    469.0,
+    456.0,
     "bea/watching_noor",
     55
    ],
    [
-    515.0,
+    502.0,
     "bea/watching_noor",
     60
    ],
    [
-    519.0,
+    506.0,
     "bea/closed_rest",
     61
    ]
@@ -923,32 +924,32 @@
     1
    ],
    [
-    101.0,
+    88.0,
     "kai/brakes",
     10
    ],
    [
-    106.0,
+    93.0,
     "kai/scrolling",
     10
    ],
    [
-    130.0,
+    117.0,
     "kai/eyeroll",
     14
    ],
    [
-    134.0,
+    121.0,
     "kai/library_lie",
     14
    ],
    [
-    143.0,
+    130.0,
     "kai/library_lie",
     16
    ],
    [
-    147.0,
+    134.0,
     "kai/nervous_laugh",
     17
    ]
@@ -960,7 +961,7 @@
   "noor/platform_neutral": "Director's note: Noor is neutral on the platform, not hopeful and not afraid.",
   "noor/love_you": "'Love you' is TRUE: the only early smile where her lower lid lifts a touch.",
   "gaze": "gaze_x + = the character's right, gaze_y + = down. Gaze values are intent (down to the paper, toward Noor); in staging, aim the eyes at the real subject and let gaze override.",
-  "head_pitch_deg": "Pose hint, not a face control (set_expression ignores it): tip the head DOWN by this many degrees. Shot 38 (Director): Walter's head is tipped ~12 deg down to the paper for most of the speech, so P3 models his brow and cheeks; he lifts to Noor only on speech_end (338 s), which is also the acting beat. No light-linking.",
+  "head_pitch_deg": "Pose hint, not a face control (set_expression ignores it): tip the head DOWN by this many degrees. Shot 38 (Director): Walter's head is tipped ~12 deg down to the paper for most of the speech, so P3 models his brow and cheeks; he lifts to Noor only on speech_end (325 s on clock v2), which is also the acting beat. No light-linking.",
   "walter/clamp": "The only time his lids open fully. Fastest move in the film: no anticipation, 2-3 frames in."
  }
 }

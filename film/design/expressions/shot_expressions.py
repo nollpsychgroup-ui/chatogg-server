@@ -4,7 +4,7 @@ Writes shot_expressions.json: a library of named expressions (face-rig values, r
 _L = the character's LEFT) plus, per character, a list of [time_s, name, shot] keys across the film.
 The TA applies it with heads.apply_track(root, keys, library, fps).
 
-Times are absolute seconds on the film clock (camera/cues.json). Off-screen characters stay keyed
+Times are absolute seconds on the film clock, CLOCK v2 (camera/cues.json: trims [0, 13), [545, 550)). Off-screen characters stay keyed
 so continuity holds when a cut lands on them. Acting range is small (face-rig.md): these are targets
 the animator eases into, not poses to hit.
 
@@ -86,43 +86,43 @@ LIB = {
     "kai/nervous_laugh":    dict(lid_up=1.0, brow_in=0.5, brow_out=-0.05, smile=0.32, jaw=0.2, naso=0.3, gaze_y=-0.8),  # sheet
 }
 
-# per character: (time_s, expression). One line per beat, in shot order (shot numbers from camera/cues.json).
+# per character: (time_s on CLOCK v2, expression). One line per beat, in shot order (shot numbers from camera/cues.json).
 TRACK = {
     "NOOR": [
-        (25.0, "noor/pleasant", 1), (33.0, "noor/relieved", 1), (36.0, "noor/fine_performed", 2), (40.0, "noor/relieved", 2),
-        (63.0, "noor/sorry_mouthed", 6), (66.0, "noor/fine_performed", 6), (78.0, "noor/fine_performed", 7),
-        (86.0, "noor/fine_listening", 8), (91.0, "noor/fine_performed", 9), (101.0, "noor/fine_listening", 10),
-        (108.0, "noor/love_you", 11), (112.0, "noor/sag", 11), (114.5, "noor/unsettled", 11), (120.0, "noor/sorry_mouthed", 13),
-        (125.0, "noor/unsettled", 13), (135.0, "noor/unsettled", 14), (143.0, "noor/unsettled", 16), (147.0, "noor/shock", 17),
-        (166.0, "noor/shock", 18), (170.0, "noor/panic_shout", 20), (180.0, "noor/shock", 21), (186.0, "noor/reading", 22),
-        (204.0, "noor/insane_barely", 24), (213.0, "noor/test", 26), (222.0, "noor/clamped_fear", 26), (234.0, "noor/shaking", 27),
-        (239.0, "noor/shaking", 29), (262.0, "noor/cant_end_call", 32), (272.0, "noor/shaking", 33), (282.0, "noor/listening", 34),
-        (290.0, "noor/caught_f", 35), (294.0, "noor/not_fine", 35), (300.0, "noor/listening", 36), (309.0, "noor/unsettled", 37),
-        (313.0, "noor/listening", 38), (349.0, "noor/badge_turn", 40), (358.5, "noor/unsettled", 42), (380.0, "noor/listening", 43),
-        (398.0, "noor/realising", 45), (408.5, "noor/cant", 47), (416.0, "noor/cant", 48), (440.0, "noor/phone_buzz", 50),
-        (448.0, "noor/to_kais_phone", 52), (455.5, "noor/not_fine", 54), (460.0, "noor/confession", 54),
-        (476.0, "noor/library_catch", 56), (480.0, "noor/confession", 56), (501.0, "noor/sorry_small", 58),
-        (505.0, "noor/waiting", 58), (515.0, "noor/look_back", 60), (523.0, "noor/platform_neutral", 62),
+        (12.0, "noor/pleasant", 1), (20.0, "noor/relieved", 1), (23.0, "noor/fine_performed", 2), (27.0, "noor/relieved", 2),
+        (50.0, "noor/sorry_mouthed", 6), (53.0, "noor/fine_performed", 6), (65.0, "noor/fine_performed", 7),
+        (73.0, "noor/fine_listening", 8), (78.0, "noor/fine_performed", 9), (88.0, "noor/fine_listening", 10),
+        (95.0, "noor/love_you", 11), (99.0, "noor/sag", 11), (101.5, "noor/unsettled", 11), (107.0, "noor/sorry_mouthed", 13),
+        (112.0, "noor/unsettled", 13), (122.0, "noor/unsettled", 14), (130.0, "noor/unsettled", 16), (134.0, "noor/shock", 17),
+        (153.0, "noor/shock", 18), (157.0, "noor/panic_shout", 20), (167.0, "noor/shock", 21), (173.0, "noor/reading", 22),
+        (191.0, "noor/insane_barely", 24), (200.0, "noor/test", 26), (209.0, "noor/clamped_fear", 26), (221.0, "noor/shaking", 27),
+        (226.0, "noor/shaking", 29), (249.0, "noor/cant_end_call", 32), (259.0, "noor/shaking", 33), (269.0, "noor/listening", 34),
+        (277.0, "noor/caught_f", 35), (281.0, "noor/not_fine", 35), (287.0, "noor/listening", 36), (296.0, "noor/unsettled", 37),
+        (300.0, "noor/listening", 38), (336.0, "noor/badge_turn", 40), (345.5, "noor/unsettled", 42), (367.0, "noor/listening", 43),
+        (385.0, "noor/realising", 45), (395.5, "noor/cant", 47), (403.0, "noor/cant", 48), (427.0, "noor/phone_buzz", 50),
+        (435.0, "noor/to_kais_phone", 52), (442.5, "noor/not_fine", 54), (447.0, "noor/confession", 54),
+        (463.0, "noor/library_catch", 56), (467.0, "noor/confession", 56), (488.0, "noor/sorry_small", 58),
+        (492.0, "noor/waiting", 58), (502.0, "noor/look_back", 60), (510.0, "noor/platform_neutral", 62),
     ],
     "WALTER": [
-        (0.0, "walter/watching", 1), (44.0, "walter/to_badge", 3), (46.0, "walter/watching", 3), (86.0, "walter/eyes_lift", 8),
-        (101.0, "walter/stare", 10), (116.0, "walter/stare", 12), (180.0, "walter/writing", 21), (184.0, "walter/stare", 21),
-        (213.0, "walter/stare", 26), (222.0, "walter/clamp", 26), (234.0, "walter/release", 27), (239.0, "walter/watching", 29),
-        (300.0, "walter/eyes_lift", 36), (313.0, "walter/speech", 38), (338.0, "walter/speech_end", 38), (349.0, "walter/watching", 40),
-        (366.0, "walter/to_lanyard", 42), (384.5, "walter/stare", 44), (451.0, "walter/asking", 53), (469.0, "walter/stare", 55),
-        (515.0, "walter/stare", 60), (520.0, "walter/nod", 61), (523.0, "walter/watching", 62), (556.0, "walter/page_turn", 63),
+        (0.0, "walter/watching", 1), (31.0, "walter/to_badge", 3), (33.0, "walter/watching", 3), (73.0, "walter/eyes_lift", 8),
+        (88.0, "walter/stare", 10), (103.0, "walter/stare", 12), (167.0, "walter/writing", 21), (171.0, "walter/stare", 21),
+        (200.0, "walter/stare", 26), (209.0, "walter/clamp", 26), (221.0, "walter/release", 27), (226.0, "walter/watching", 29),
+        (287.0, "walter/eyes_lift", 36), (300.0, "walter/speech", 38), (325.0, "walter/speech_end", 38), (336.0, "walter/watching", 40),
+        (353.0, "walter/to_lanyard", 42), (371.5, "walter/stare", 44), (438.0, "walter/asking", 53), (456.0, "walter/stare", 55),
+        (502.0, "walter/stare", 60), (507.0, "walter/nod", 61), (510.0, "walter/watching", 62), (538.0, "walter/page_turn", 63),
     ],
     "BEA": [
-        (0.0, "bea/closed_awake", 1), (86.0, "bea/assess", 8), (101.0, "bea/sits_up", 10), (116.0, "bea/sits_up", 12),
-        (138.0, "bea/reach_dont", 15), (143.0, "bea/frozen", 16), (190.0, "bea/writing", 23), (196.0, "bea/watching_noor", 23),
-        (222.0, "bea/frozen", 26), (234.0, "bea/watching_noor", 27), (272.0, "bea/watching_noor", 33), (282.0, "bea/you_okay", 34),
-        (300.0, "bea/me_neither", 36), (339.0, "bea/tenderness", 39), (360.0, "bea/stiffens", 42), (380.0, "bea/not_only", 43),
-        (416.0, "bea/say_it", 48), (432.0, "bea/say_it", 49), (469.0, "bea/watching_noor", 55), (515.0, "bea/watching_noor", 60),
-        (519.0, "bea/closed_rest", 61),
+        (0.0, "bea/closed_awake", 1), (73.0, "bea/assess", 8), (88.0, "bea/sits_up", 10), (103.0, "bea/sits_up", 12),
+        (125.0, "bea/reach_dont", 15), (130.0, "bea/frozen", 16), (177.0, "bea/writing", 23), (183.0, "bea/watching_noor", 23),
+        (209.0, "bea/frozen", 26), (221.0, "bea/watching_noor", 27), (259.0, "bea/watching_noor", 33), (269.0, "bea/you_okay", 34),
+        (287.0, "bea/me_neither", 36), (326.0, "bea/tenderness", 39), (347.0, "bea/stiffens", 42), (367.0, "bea/not_only", 43),
+        (403.0, "bea/say_it", 48), (419.0, "bea/say_it", 49), (456.0, "bea/watching_noor", 55), (502.0, "bea/watching_noor", 60),
+        (506.0, "bea/closed_rest", 61),
     ],
     "KAI": [
-        (0.0, "kai/scrolling", 1), (101.0, "kai/brakes", 10), (106.0, "kai/scrolling", 10), (130.0, "kai/eyeroll", 14),
-        (134.0, "kai/library_lie", 14), (143.0, "kai/library_lie", 16), (147.0, "kai/nervous_laugh", 17),
+        (0.0, "kai/scrolling", 1), (88.0, "kai/brakes", 10), (93.0, "kai/scrolling", 10), (117.0, "kai/eyeroll", 14),
+        (121.0, "kai/library_lie", 14), (130.0, "kai/library_lie", 16), (134.0, "kai/nervous_laugh", 17),
     ],
 }
 
@@ -132,7 +132,7 @@ NOTES = {
     "noor/platform_neutral": "Director's note: Noor is neutral on the platform, not hopeful and not afraid.",
     "noor/love_you": "'Love you' is TRUE: the only early smile where her lower lid lifts a touch.",
     "gaze": "gaze_x + = the character's right, gaze_y + = down. Gaze values are intent (down to the paper, toward Noor); in staging, aim the eyes at the real subject and let gaze override.",
-    "head_pitch_deg": "Pose hint, not a face control (set_expression ignores it): tip the head DOWN by this many degrees. Shot 38 (Director): Walter's head is tipped ~12 deg down to the paper for most of the speech, so P3 models his brow and cheeks; he lifts to Noor only on speech_end (338 s), which is also the acting beat. No light-linking.",
+    "head_pitch_deg": "Pose hint, not a face control (set_expression ignores it): tip the head DOWN by this many degrees. Shot 38 (Director): Walter's head is tipped ~12 deg down to the paper for most of the speech, so P3 models his brow and cheeks; he lifts to Noor only on speech_end (325 s on clock v2), which is also the acting beat. No light-linking.",
     "walter/clamp": "The only time his lids open fully. Fastest move in the film: no anticipation, 2-3 frames in.",
 }
 
@@ -141,7 +141,7 @@ def main():
     for ch, keys in TRACK.items():
         for t, name, shot in keys:
             assert name in LIB, name
-    out = {"_note": __doc__.strip().splitlines()[0], "fps": 24, "library": LIB,
+    out = {"_note": __doc__.strip().splitlines()[0], "clock": "v2", "fps": 24, "library": LIB,
            "tracks": {ch: [[t, n, s] for t, n, s in keys] for ch, keys in TRACK.items()}, "notes": NOTES}
     with open(os.path.join(HERE, "shot_expressions.json"), "w") as f:
         json.dump(out, f, indent=1)
