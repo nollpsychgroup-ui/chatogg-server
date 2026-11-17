@@ -244,11 +244,12 @@ def setup_render(scene, res=(1280, 536), samples=64):
     scene.render.image_settings.file_format = "PNG"
     scene.render.image_settings.color_mode = "RGB"
     scene.render.image_settings.color_depth = "8"
-    scene.view_settings.view_transform = "AgX"
-    # AgX Punchy: keeps skin and costume albedos closer to design/palette.json (base AgX desaturated
-    # and lifted lit skin to pale peach -- Designer colour-fidelity note); black stays 0
-    scene.view_settings.look = "AgX - Punchy"
-    scene.view_settings.exposure = -0.1
+    # Look (c2), Director-approved after the Designer's skin-warmth finding: Khronos PBR Neutral keeps
+    # hue and saturation in lit skin (AgX Punchy greyed peach to near-white), WB stays 4000 K so BASE
+    # reads cool and BROWN reads as sag; -0.55 EV matches the AgX frame means. Black stays 0.
+    scene.view_settings.view_transform = "Khronos PBR Neutral"
+    scene.view_settings.look = "None"
+    scene.view_settings.exposure = -0.55
     w = bpy.data.worlds.new("NightVoid")   # world black (0): no ambient, no HDRI, no fill
     w.use_nodes = True
     w.node_tree.nodes["Background"].inputs["Color"].default_value = (0, 0, 0, 1)
@@ -377,3 +378,28 @@ def setup_compositor(scene, k_set=4, k_face=2, enabled=True):
     L.new(dmix.outputs[2], mul.inputs[6]); L.new(cim.outputs["Image"], mul.inputs[7])
     L.new(mul.outputs[2], out.inputs[0])
     return ng
+
+
+def top_falloff(mat, z0, z1, amount):
+    """Lower a painted material's albedo toward the top of its object (object-space z0 -> z1, smooth),
+    by `amount` at the top. For top-lit skin (crown and forehead) under the panels (Director: keep
+    top-lit skin under ~235 in close shots by albedo, not exposure)."""
+    nt = mat.node_tree
+    g = next(n for n in nt.nodes if n.type == "GROUP")
+    base = tuple(g.inputs["Base Color"].default_value)
+    tc = nt.nodes.new("ShaderNodeTexCoord")
+    sep = nt.nodes.new("ShaderNodeSeparateXYZ")
+    nt.links.new(tc.outputs["Object"], sep.inputs[0])
+    mr = nt.nodes.new("ShaderNodeMapRange")
+    mr.interpolation_type = "SMOOTHSTEP"
+    mr.inputs["From Min"].default_value, mr.inputs["From Max"].default_value = z0, z1
+    mr.inputs["To Min"].default_value, mr.inputs["To Max"].default_value = 1.0, 1.0 - amount
+    nt.links.new(sep.outputs["Z"], mr.inputs["Value"])
+    mix = nt.nodes.new("ShaderNodeMix")
+    mix.data_type = "RGBA"
+    mix.blend_type = "MULTIPLY"
+    mix.inputs[0].default_value = 1.0
+    mix.inputs[6].default_value = base
+    nt.links.new(mr.outputs[0], mix.inputs[7])
+    nt.links.new(mix.outputs[2], g.inputs["Base Color"])
+    return mat
