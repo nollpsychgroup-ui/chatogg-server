@@ -36,7 +36,7 @@ CHAR = {
         mouth_w=0.175, lip_th=1.15, age=0.55,
     ),
     "walter": dict(
-        skin="#D9B79E", shade="#A9978A", lip="#A88378", hair="#DCD8D0", hair_hi="#F2EFE8",
+        skin="#CEAB92", shade="#A9978A", lip="#A88378", hair="#DCD8D0", hair_hi="#F2EFE8",
         brow="#B9B3AA", iris="#4A5660", eye_tilt=0.016, brow_th=0.042, brow_arch=0.012,
         head=[(0, 0), (0.30, 0.02), (0.43, 0.15), (0.46, 0.38), (0.455, 0.58), (0.42, 0.76), (0.32, 0.90), (0.15, 0.98), (0, 1.0)],
         mouth_w=0.165, lip_th=0.75, age=1.0,

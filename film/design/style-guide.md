@@ -160,9 +160,12 @@ Everyone sinks into the car except the badge. Costume chroma is kept **below 25%
 | Noor | Charcoal suit `#3A3B40`, pale grey-blue blouse `#C8CED4`, **THE RED strap `#C8102E`**, white badge `#EEEEE8`, black laptop bag `#25221F`, skin `#A9714F`, hair `#1E1A19` |
 | Kai | Grey hoodie `#76787B`, black jeans `#2A2C30`, off-white sneakers `#D8D6CF`, white earbuds, skin `#D6B08C`, hair `#1A1817` |
 | Bea | Navy scrubs `#22314F`, oatmeal cardigan `#B7AC95`, brown tote `#5A4A3B`, skin `#5E3C2C`, hair charcoal with grey `#4A4643` / `#9A9590` |
-| Walter | Camel overcoat `#A8875A`, grey scarf `#77777A`, pale blue shirt `#B9C4CC`, brown-grey trousers `#4E4A45`, skin `#D9B79E` (desaturated, no flush), hair `#DCD8D0` |
+| Walter | Camel overcoat `#A8875A`, grey scarf `#77777A`, pale blue shirt `#B9C4CC`, brown-grey trousers `#4E4A45`, skin `#CEAB92` (desaturated, no flush), hair `#DCD8D0` |
 
 ### 6.4 Skin under each light
+
+**Global look (Director-approved, after M4 pass 3):** white balance stays at 4000 K, so BASE stays cool. The view transform is Khronos PBR Neutral at −0.55 EV, which keeps skin's ochre/umber warmth in the halftones (AgX Punchy was greying it out). Guard: **top-lit skin stays under ~235** (8-bit). Walter's albedo was lowered to `#CEAB92` (from `#D9B79E`) for this guard: same hue, about 12% less light.
+
 
 Skin is painted with **ochre/umber in the halftones and cool grey-green in the shadow** (fluorescent spill off the teal and grey surfaces). Never red in the shadow core. Under cue 3 all four skins collapse into a narrow warm band, so **value differences between the four characters must hold in black and white** (checked on the lineup sheet in greyscale).
 

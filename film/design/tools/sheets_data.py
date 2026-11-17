@@ -111,7 +111,7 @@ SHEETS = {
             ("coat", (c["walter"]["coat"], "Overcoat", "camel wool, long, well kept")),
             ("scarf", (c["walter"]["scarf"], "Scarf", "grey wool")),
             ("paper", (c["walter"]["paper"], "Newspaper", "folded to one page; black masthead")),
-            ("hands", ("#D9B79E", "Hands", "large, strong: the clamp")),
+            ("hands", ("#CEAB92", "Hands", "large, strong: the clamp")),
             ("trousers", (c["walter"]["trousers"], "Trousers", "brown-grey wool")),
             ("shoe", (c["walter"]["shoe"], "Shoes", "brown leather, polished")),
         ],
