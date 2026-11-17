@@ -9,7 +9,7 @@ from mathutils import Vector
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tools"))
-from heads import build_head, place, set_expression  # noqa: E402
+from heads import build_head, build_neck, place, set_expression  # noqa: E402
 from sheets_data import EXPRESSIONS  # noqa: E402
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "renders")
@@ -156,7 +156,26 @@ def catchlights():
         render(sc, os.path.join(OUT, f"catchlight_{tag}.png"), 1920, 804)
 
 
+def walter_s38():
+    """Shot 38 check: Walter's speech, 50 mm, his own top panel only (P3 slightly in front, above)."""
+    for tag, ex in (("speech", "walter/speech"), ("speech_end", "walter/speech_end")):
+        sc = reset()
+        r = build_head("WALTER")
+        build_neck(r, "WALTER")
+        place(r, (0, 0, 0), (0, -1, 0))
+        import json
+        L = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "expressions", "shot_expressions.json")))["library"]
+        set_expression(r, L[ex], from_neutral=True)
+        panels(sc, power=25.0, lit=(True,), y0=-0.25)
+        camera(sc, (0, 0, -0.03), dist=1.05, lens=50, height=0.0)
+        render(sc, os.path.join(OUT, f"walter_s38_{tag}.png"), 960, 402)
+
+
 if __name__ == "__main__":
+    if "--s38" in sys.argv:
+        os.makedirs(OUT, exist_ok=True)
+        walter_s38()
+        sys.exit()
     if "--catch" in sys.argv:
         os.makedirs(OUT, exist_ok=True)
         catchlights()
@@ -168,3 +187,4 @@ if __name__ == "__main__":
         expressions(n)
     bea_dark()
     catchlights()
+    walter_s38()

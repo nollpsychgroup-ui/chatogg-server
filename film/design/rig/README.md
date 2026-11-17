@@ -31,6 +31,10 @@ set_expression(root, {"smile": 0.45, "lid_low": 0.0}, frame=240, from_neutral=Tr
 
 The skull is a **superellipsoid** (a boxier cranium, flatter face plane and firmer jaw than an egg) plus smooth **anatomy fields** (`ANATOMY`, `CHARACTER_ANATOMY`): brow ridge, glabella, shallow sockets, cheekbones, muzzle, chin, temples, jaw angle and under-eye fullness, with the jaw underside flattened toward the neck. Per character: Noor has defined cheekbones and a softer, tapered jaw; Kai has full young cheeks and a soft chin; Bea has full cheeks and tired under-eyes; Walter has a heavy brow, hollow cheeks, jowls, a high forehead and only a band of hair. Every feature (eyes, brows, lips) sits on the displaced surface (`Skull.front_y` solves for it).
 
+## Walter for shot 38 (pass 2)
+
+Thinning white hair, not bald: a side and back band, plus a thin, scalp-toned top from a receding hairline. Bushy brows (0.85 cm, lifted off the skin, `#9E978D` so they read on pale skin). Heavy lids with a darker lid albedo and lid line. A static nasolabial crease and cheek fold, forehead lines, jowls and hollow cheeks. Sockets kept shallow so his eyes survive top light. **`build_neck(root, "WALTER")`** gives a thicker, shorter older neck that meets the jaw, with the grey wool scarf at its base. Use it in place of the limb neck. Check renders: `renders/walter_s38_speech.png` and `walter_s38_speech_end.png` (50 mm, his single top panel only).
+
 ## Known limits (previs, not final)
 
 `naso` is a control with no geometry yet. The mouth interior only shows when `jaw > 0` (there's no hole in the skin), and the lips are thin ribbons. Hair is simple caps. The final heads are for the modellers. This rig fixes **proportions, eye placement and size, lid behaviour, and the control set**.
