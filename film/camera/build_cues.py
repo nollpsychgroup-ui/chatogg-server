@@ -246,6 +246,8 @@ POS = {
             "note": "the confession: near Noor's line of sight down the car, so the panel row reflects in her corneas and reads at 75 mm (dp-notes-02). Her eyeline passes just camera-right of the lens, down the car"},
     "D":  {"loc": (0.7, 10.9, 1.15), "lens": 50, "note": "side B, just in front of Bea (so her head never crosses frame): Noor singles or Walter across the aisle"},
     "E":  {"loc": (-1.0, 12.6, 1.15), "aim": (0.0, py(3), 1.2), "lens": 40, "note": "side A corner at end A: Walter/Bea two-shots, deep staging"},
+    "W7": {"loc": (0.0, 8.2, 0.9), "aim": (0.0, 12.6, 1.7), "lens": 32,
+           "note": "lie 1 (shot 7): closer and low, so P1's fixture reads large enough to flicker visibly (from W it was a grazing sliver at the far end)"},
     "E2": {"loc": (0.0, 7.4, 1.15), "aim": (0.0, 10.29, 1.25), "lens": 32,
            "note": "the Walter/Bea two-shot: from down the car, both in profile facing each other, Noor small between them under the sign. From Noor's end no 32/40 can hold both (they sit 2 m apart, 2.5 m away)"},
     "F":  {"loc": (-0.95, py(8), 1.15), "lens": 40, "note": "across the aisle from Kai"},
@@ -270,13 +272,15 @@ S = [
  (4, 47.5, 60.0, "A", 32, None, "locked", 1, "Doors close, train pulls away; 11 MIN", []),
  (5, 60.0, 63.0, "I", 50, "DISPLAY", "locked", 1, "Display: 11 MIN", []),
  (6, 63.0, 78.0, "D", 40, "NOOR", "locked", 2, "Phone buzzes, MARK; she glances up at the sign and answers low", []),
- (7, 78.0, 86.0, "W", 32, None, "locked", 2, "'Just leaving the office now.' The ceiling enters: P1 in the top of frame", ["1"]),
- (8, 86.0, 91.0, "E2", 32, None, "locked", 2, "Walter's eyes lift; Bea's eyes open", []),
+ (7, 78.0, 86.0, "W7", 32, None, "locked", 2, "'Just leaving the office now.' The ceiling enters: P1 in the top of frame", ["1"]),
+ (8, 86.0, 88.5, "D", 50, "WALTER", "locked", 2, "Walter's eyes lift from his paper to Noor (single)", []),
+ ("8B", 88.5, 91.0, "C", 50, "BEA", "locked", 2, "Bea's eyes open, on Noor (single)", []),
  (9, 91.0, 101.0, "W", 32, None, "locked", 2, "'The Henley account. Again.' P1 and P2 both in frame, Walter and Bea watching her", ["2"]),
  (10, 101.0, 108.0, "A", 32, None, "locked", 2, "The whole car reacts: paper lowers, Bea sits up, Kai: 'Was that the brakes?'", []),
  (11, 108.0, 116.0, "W", 32, None, "locked", 2, "'No, don't wait up. Love you.' Hangs up, sags, looks up", []),
- (12, 116.0, 120.0, "E2", 32, None, "locked", 2, "Walter and Bea staring at her", []),
- (13, 120.0, 130.0, "W", 32, None, "locked", 2, "Mouths 'Sorry', points over her shoulder at the sign", []),
+ (12, 116.0, 118.0, "B", 40, "WALTER", "locked", 2, "Noor's POV: Walter staring at her", []),
+ ("12B", 118.0, 120.0, "B", 40, "BEA", "locked", 2, "Noor's POV: Bea staring at her", []),
+ (13, 120.0, 130.0, "D", 40, "NOOR", "locked", 2, "Mouths 'Sorry', points over her shoulder at the sign", []),
  (14, 130.0, 138.0, "F", 40, "KAI", "locked", 3, "Kai's phone: MUM. 'Yeah?'", []),
  (15, 138.0, 143.0, "B", 32, "AIM_15", "locked", 3, "Bea's hand shoots out, too far away", []),
  (16, 143.0, 147.0, "A", 32, None, "locked", 3, "'I'm at the library, Mum.' Brownout", ["3"]),
@@ -335,10 +339,10 @@ def _P(i):
 MUST = {
     1: ["P%d" % i for i in range(1, 13)] + ["NOOR", "SIGN", "DISPLAY"],
     7: ["P1", "NOOR", "NOOR_CHIN"], 9: ["P1", "P2", "NOOR", "NOOR_CHIN", "WALTER", "BEA"],
-    11: ["P1", "NOOR"], 13: ["SIGN", "NOOR"],
+    11: ["P1", "NOOR"], 13: ["NOOR", "NOOR_CHIN"],
     16: ["P%d" % i for i in range(1, 13)] + ["KAI"], 18: ["P%d" % i for i in range(1, 13)] + ["KAI", "KAI_PHONE"],
     26: ["P2", "P3", "P4", "NOOR_STAND", "WRIST", "WALTER"],
-    8: ["WALTER", "BEA", "NOOR"], 12: ["WALTER", "BEA", "NOOR"], 39: ["WALTER", "BEA"], 55: ["WALTER", "BEA"], 61: ["WALTER", "BEA"],
+    8: ["WALTER"], "8B": ["BEA"], 12: ["WALTER"], "12B": ["BEA"], 39: ["WALTER", "BEA"], 55: ["WALTER", "BEA"], 61: ["WALTER", "BEA"],
     15: ["BEA", "KAI"], 6: ["NOOR", "NOOR_CHIN"], 38: ["WALTER"], 53: ["WALTER"], 34: ["BEA"], 36: ["BEA"],
     50: ["P1", "P2", "NOOR", "DISPLAY"],
     54: ["NOOR_CHIN", "NOOR_CROWN"], 58: ["NOOR_CHIN", "NOOR_CROWN"],
@@ -367,7 +371,7 @@ def build():
     # continuity of the cut
     for a, b in zip(S, S[1:]):
         if abs(a[2] - b[1]) > 1e-6:
-            problems.append("gap/overlap between shots %d and %d" % (a[0], b[0]))
+            problems.append("gap/overlap between shots %s and %s" % (a[0], b[0]))
     if S[-1][2] != ev["cut"]:
         problems.append("last shot doesn't end on the cut")
     # every cue inside its declared shot, and no cut within 0.5 s of a cue
@@ -376,7 +380,7 @@ def build():
         for cid in s[9]:
             where[cid] = s[0]
             if not (s[1] + 0.5 <= times[cid] <= s[2] - 0.5):
-                problems.append("cue %s not safely inside shot %d" % (cid, s[0]))
+                problems.append("cue %s not safely inside shot %s" % (cid, s[0]))
     for c in C:
         if c["id"] not in where:
             problems.append("cue %s is not assigned to a shot" % c["id"])
@@ -402,9 +406,9 @@ def build():
     # the 75 mm only in the confession, camera moves only while awake
     for s in S:
         if s[4] == 75 and s[7] != 7:
-            problems.append("75 mm outside the confession (shot %d)" % s[0])
+            problems.append("75 mm outside the confession (shot %s)" % s[0])
         if s[6] not in ("locked", "still (the push has landed)") and not (awake[0] <= s[1] and s[2] <= awake[1]):
-            problems.append("camera moves while the car is asleep (shot %d)" % s[0])
+            problems.append("camera moves while the car is asleep (shot %s)" % s[0])
     for s_ in S:
         n, pos, lens, aim = s_[0], s_[3], s_[4], s_[5]
         cam = POS.get(pos, {})
@@ -415,7 +419,7 @@ def build():
             pt = _P(int(lab[1:])) if lab[0] == "P" and lab[1:].isdigit() else HEAD[lab]
             q = frame_xy(cam["loc"], aim_pt, lens, pt)
             if not q or abs(q[0]) > 0.95 or abs(q[1]) > 0.95:
-                problems.append("shot %d: %s falls outside the frame (%s)" % (n, lab, q and "%.2f, %.2f" % q))
+                problems.append("shot %s: %s falls outside the frame (%s)" % (n, lab, q and "%.2f, %.2f" % q))
     if problems:
         raise SystemExit("CHECKS FAILED:\n  " + "\n  ".join(problems))
 
@@ -426,7 +430,7 @@ def build():
             cam["loc"], aim = INSERTS[n]
         aim_pt = HEAD[aim] if aim else cam.get("aim")
         if not cam.get("loc") or not aim_pt:
-            raise SystemExit("shot %d has no camera location or aim" % n)
+            raise SystemExit("shot %s has no camera location or aim" % n)
         path = PATHS.get(n)
         shots.append({"shot": n, "in": a, "out": b, "frames": [round(a * FPS), round(b * FPS)],
                       "path": {"from": path[0], "to": path[1]} if path else None,
@@ -476,7 +480,7 @@ def build():
         L += ["", "## Scene %d: %s · %s–%s · %d shots" % (sc, SCENES[sc], tc(ss[0]["in"]), tc(ss[-1]["out"]), len(ss)), "",
               "| # | In | Out | Pos | Lens | Move | Cues | Beat |", "|---|---|---|---|---|---|---|---|"]
         for s in ss:
-            L.append("| %d | %s | %s | %s | %d | %s | %s | %s |" % (s["shot"], tc(s["in"]), tc(s["out"]), s["pos"],
+            L.append("| %s | %s | %s | %s | %d | %s | %s | %s |" % (s["shot"], tc(s["in"]), tc(s["out"]), s["pos"],
                      s["lens_mm"], s["move"], ", ".join(s["cues"]) or "—", s["beat"].replace("|", "/")))
     L += ["", "**Cut to black at %s; rails stop at %s; the title and credits are silent.**" % (tc(ev["cut"]), tc(ev["rails_stop"])), ""]
     with open(os.path.join(HERE, "cut-timeline.md"), "w") as fh:

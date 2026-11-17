@@ -1549,6 +1549,20 @@
     "lens": 40,
     "note": "side A corner at end A: Walter/Bea two-shots, deep staging"
    },
+   "W7": {
+    "loc": [
+     0.0,
+     8.2,
+     0.9
+    ],
+    "aim": [
+     0.0,
+     12.6,
+     1.7
+    ],
+    "lens": 32,
+    "note": "lie 1 (shot 7): closer and low, so P1's fixture reads large enough to flicker visibly (from W it was a grazing sliver at the far end)"
+   },
    "E2": {
     "loc": [
      0.0,
@@ -1772,18 +1786,18 @@
    ],
    "path": null,
    "scene": 2,
-   "pos": "W",
+   "pos": "W7",
    "lens_mm": 32,
    "move": "locked",
    "camera_loc": [
     0.0,
-    6.0,
-    1.0
+    8.2,
+    0.9
    ],
    "aim": [
     0.0,
     12.6,
-    1.8
+    1.7
    ],
    "aim_subject": null,
    "handheld": null,
@@ -1795,30 +1809,58 @@
   {
    "shot": 8,
    "in": 86.0,
-   "out": 91.0,
+   "out": 88.5,
    "frames": [
     2064,
+    2124
+   ],
+   "path": null,
+   "scene": 2,
+   "pos": "D",
+   "lens_mm": 50,
+   "move": "locked",
+   "camera_loc": [
+    0.7,
+    10.9,
+    1.15
+   ],
+   "aim": [
+    -1.0,
+    10.292,
+    1.22
+   ],
+   "aim_subject": "WALTER",
+   "handheld": null,
+   "cues": [],
+   "beat": "Walter's eyes lift from his paper to Noor (single)"
+  },
+  {
+   "shot": "8B",
+   "in": 88.5,
+   "out": 91.0,
+   "frames": [
+    2124,
     2184
    ],
    "path": null,
    "scene": 2,
-   "pos": "E2",
-   "lens_mm": 32,
+   "pos": "C",
+   "lens_mm": 50,
    "move": "locked",
    "camera_loc": [
-    0.0,
-    7.4,
+    -0.7,
+    10.9,
     1.15
    ],
    "aim": [
-    0.0,
-    10.29,
-    1.25
+    1.0,
+    10.292,
+    1.22
    ],
-   "aim_subject": null,
+   "aim_subject": "BEA",
    "handheld": null,
    "cues": [],
-   "beat": "Walter's eyes lift; Bea's eyes open"
+   "beat": "Bea's eyes open, on Noor (single)"
   },
   {
    "shot": 9,
@@ -1909,30 +1951,58 @@
   {
    "shot": 12,
    "in": 116.0,
-   "out": 120.0,
+   "out": 118.0,
    "frames": [
     2784,
+    2832
+   ],
+   "path": null,
+   "scene": 2,
+   "pos": "B",
+   "lens_mm": 40,
+   "move": "locked",
+   "camera_loc": [
+    0.55,
+    12.85,
+    1.0
+   ],
+   "aim": [
+    -1.0,
+    10.292,
+    1.22
+   ],
+   "aim_subject": "WALTER",
+   "handheld": null,
+   "cues": [],
+   "beat": "Noor's POV: Walter staring at her"
+  },
+  {
+   "shot": "12B",
+   "in": 118.0,
+   "out": 120.0,
+   "frames": [
+    2832,
     2880
    ],
    "path": null,
    "scene": 2,
-   "pos": "E2",
-   "lens_mm": 32,
+   "pos": "B",
+   "lens_mm": 40,
    "move": "locked",
    "camera_loc": [
-    0.0,
-    7.4,
-    1.15
+    0.55,
+    12.85,
+    1.0
    ],
    "aim": [
-    0.0,
-    10.29,
-    1.25
+    1.0,
+    10.292,
+    1.22
    ],
-   "aim_subject": null,
+   "aim_subject": "BEA",
    "handheld": null,
    "cues": [],
-   "beat": "Walter and Bea staring at her"
+   "beat": "Noor's POV: Bea staring at her"
   },
   {
    "shot": 13,
@@ -1944,20 +2014,20 @@
    ],
    "path": null,
    "scene": 2,
-   "pos": "W",
-   "lens_mm": 32,
+   "pos": "D",
+   "lens_mm": 40,
    "move": "locked",
    "camera_loc": [
-    0.0,
-    6.0,
-    1.0
+    0.7,
+    10.9,
+    1.15
    ],
    "aim": [
     0.0,
-    12.6,
-    1.8
+    12.75,
+    1.22
    ],
-   "aim_subject": null,
+   "aim_subject": "NOOR",
    "handheld": null,
    "cues": [],
    "beat": "Mouths 'Sorry', points over her shoulder at the sign"

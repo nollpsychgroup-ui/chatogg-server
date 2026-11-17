@@ -15,18 +15,20 @@ Checks passed on build: the cut is continuous; every cue sits at least 0.5 s ins
 | 4 | 0:47.5 | 1:00.0 | A | 32 | locked | — | Doors close, train pulls away; 11 MIN |
 | 5 | 1:00.0 | 1:03.0 | I | 50 | locked | — | Display: 11 MIN |
 
-## Scene 2: The call: Noor's lies (11:00 → ~10:00) · 1:03.0–2:10.0 · 8 shots
+## Scene 2: The call: Noor's lies (11:00 → ~10:00) · 1:03.0–2:10.0 · 10 shots
 
 | # | In | Out | Pos | Lens | Move | Cues | Beat |
 |---|---|---|---|---|---|---|---|
 | 6 | 1:03.0 | 1:18.0 | D | 40 | locked | — | Phone buzzes, MARK; she glances up at the sign and answers low |
-| 7 | 1:18.0 | 1:26.0 | W | 32 | locked | 1 | 'Just leaving the office now.' The ceiling enters: P1 in the top of frame |
-| 8 | 1:26.0 | 1:31.0 | E2 | 32 | locked | — | Walter's eyes lift; Bea's eyes open |
+| 7 | 1:18.0 | 1:26.0 | W7 | 32 | locked | 1 | 'Just leaving the office now.' The ceiling enters: P1 in the top of frame |
+| 8 | 1:26.0 | 1:28.5 | D | 50 | locked | — | Walter's eyes lift from his paper to Noor (single) |
+| 8B | 1:28.5 | 1:31.0 | C | 50 | locked | — | Bea's eyes open, on Noor (single) |
 | 9 | 1:31.0 | 1:41.0 | W | 32 | locked | 2 | 'The Henley account. Again.' P1 and P2 both in frame, Walter and Bea watching her |
 | 10 | 1:41.0 | 1:48.0 | A | 32 | locked | — | The whole car reacts: paper lowers, Bea sits up, Kai: 'Was that the brakes?' |
 | 11 | 1:48.0 | 1:56.0 | W | 32 | locked | — | 'No, don't wait up. Love you.' Hangs up, sags, looks up |
-| 12 | 1:56.0 | 2:00.0 | E2 | 32 | locked | — | Walter and Bea staring at her |
-| 13 | 2:00.0 | 2:10.0 | W | 32 | locked | — | Mouths 'Sorry', points over her shoulder at the sign |
+| 12 | 1:56.0 | 1:58.0 | B | 40 | locked | — | Noor's POV: Walter staring at her |
+| 12B | 1:58.0 | 2:00.0 | B | 40 | locked | — | Noor's POV: Bea staring at her |
+| 13 | 2:00.0 | 2:10.0 | D | 40 | locked | — | Mouths 'Sorry', points over her shoulder at the sign |
 
 ## Scene 3: Kai (~10:00 → ~9:00) · 2:10.0–2:50.0 · 6 shots
 

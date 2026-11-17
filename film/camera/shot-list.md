@@ -1,7 +1,7 @@
 # THE QUIET CAR: Shot List (CG)
 
 **DP** · Milestone 3 · Built on the locked `script/draft-02.md` and `FORMAT.md` (CG animation) · Read it with:
-- **`camera/cut-timeline.md`**: all **63 shots** in order, **grouped by the treatment's 8 scenes**, with in/out times, position, lens, move and the cues each one holds (generated);
+- **`camera/cut-timeline.md`**: all **65 shots** in order (63 plus sub-shots 8B and 12B, added after previs pass 1), **grouped by the treatment's 8 scenes**, with in/out times, position, lens, move and the cues each one holds (generated);
 - **`camera/cues.json`**: the same cut as data, with camera locations and aim points for the TA's Blender cameras;
 - `camera/lighting-plan.md` for the set plan, panels and cues, and `camera/storyboards/index.html` for the key frames.
 
@@ -39,6 +39,7 @@ The locations are in `cues.json` → `camera.positions`, in set coordinates (lig
 | **B, Noor's end** | (0.55, 12.85, 1.0): side B corner beside Noor, low, looking down the car | 32 | the dark coming toward camera; Kai's seat and phone deep in frame |
 | **C, Walter's side** | (−0.7, 10.9, 1.15): just in front of Walter, so his head never crosses frame (moved after previs pass 1) | 50 | Noor singles (aim NOOR) or Bea across the aisle (aim BEA) |
 | **W, the call** | (0, 6.0, 1.0): low in the aisle by the doors, aim (0, 12.6, 1.8) | 32 | Noor framed between Walter (left) and Bea (right), with P1 and P2 above her: the two lies are countable in one frame, and we watch her the way Walter does (treatment, scene 2: wide, 25–32 mm) |
+| **W7** | (0, 8.2, 0.9), aim (0, 12.6, 1.7) | 32 | lie 1 (shot 7) only: closer and low, so P1's fixture is large at the top of frame and visibly flickers (Director, previs-notes-01) |
 | **T, the test** | (0.5, 5.0, 1.0): beside Kai's empty seat, aim (−0.4, 11.0, 1.9) | 32 | Noor standing by Walter, the wrist, and P2, P3 and P4 overhead, watched from the seat the car emptied |
 | **C75** | (−0.25, 10.4, 1.2), aim at Noor's eyes | 75 | the confession close-ups only. The push travels from y 9.6 to 10.4 over shots 54–56 and holds there for 58: forehead to chin, so the panel row reads in her corneas |
 | **D, Bea's side** | (0.7, 10.9, 1.15): just in front of Bea (moved after previs pass 1) | 40/50 | Noor singles from the other side, or Walter across the aisle |
@@ -53,7 +54,10 @@ The locations are in `cues.json` → `camera.positions`, in set coordinates (lig
 |---|---|---|
 | **1** | A · 32 · the opening Meter | All 12 panels lit and countable. Noor walks the full length away from us and sits facing us under the sign. Hold. The passing lights play in the glass only. *Board 01* |
 | **2** | C · 50 · the lanyard | The ceiling is out (asleep). The 2-frame tick reads only as a blink in the badge laminate and her hair. *Board 02* |
-| **7, 9, 11, 13** | **W** · 32 low · the call | **The ceiling enters.** P1 is in the top of frame for lie 1; P1 and P2 are both in frame for lie 2, so it's countable, with Walter (left) and Bea (right) flanking her as they react. **Keep Noor oblivious in it: the audience is ahead of her** (Director). Changed from C · 40 after the TA's style frames (approved): no 40 mm from Walter's side can hold P1 and Noor in a 2.39 frame (geometry check in `build_cues.py`). *Board 03* |
+| **7, 9, 11** | **W7 / W** · 32 low · the call | **The ceiling enters.** Shot 7 is from W7, so P1's own fixture is large at the top of frame and flickers on cue 1. Shots 9 and 11 are from W: P1 and P2 over Noor, countable, with Walter (left) and Bea (right) flanking her. **Keep Noor oblivious: the audience is ahead of her** (Director). *Board 03* |
+| **8 / 8B** | D · 50 Walter / C · 50 Bea | Previs pass 1: the eye beat was unreadable as a two-shot, so it's split into two quick singles: Walter's eyes lift from his paper; Bea's eyes open |
+| **12 / 12B** | B · 40 | Noor's POV: Walter, then Bea, staring at her. The first time the regulars look at her; their stares must read |
+| **13** | D · 40 | Mouthed "Sorry" and the point over her shoulder: a performance single (it was unreadable at W 32) |
 | **16–18** | A / F / A · the vanishing | We're in A from just before cue 3; a short F single gives Kai his nervous laugh; then **A holds from 153.5 s through the blackout and lights-up to 166 s, with no cut.** Kai is in the near right foreground; the seat is empty when the lights return. No dent in the cushion, no swinging strap. *Boards 04–06* |
 | **20** | G · 32 · handheld | The only handheld. It steadies the moment we cut to Walter's paper |
 | **22–23** | inserts · the newspaper | Two different hands, designed by the Character Designer. *Board 07* |
