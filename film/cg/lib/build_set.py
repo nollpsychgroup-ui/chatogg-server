@@ -47,7 +47,7 @@ def build(D=None, B=None):
     # wall A (behind Noor, 0.5 m from P1): a darker end-wall panel, ~4 stops darker than the laminate (it sits 0.5 m from P1, so it takes much more light than her face), so it lands about a stop under her face,
     # so her face, not the wall, is the brightest thing in the confession (Director R2: material, not fill)
     lam = ld.pal("set/laminate")
-    m_wall_a = ld.paint("end_panel_A", tuple(c * 0.055 for c in lam), axis="z", stretch=5.0, stroke_scale=20.0, variation=0.04, tilt=0.04, bristle=0.06)
+    m_wall_a = ld.paint("end_panel_A", tuple(c * 0.10 for c in lam), axis="z", stretch=5.0, stroke_scale=20.0, variation=0.04, tilt=0.04, bristle=0.06)
     m_ceil = ld.paint("ceiling", "set/ceiling", axis="x", stretch=4.5, stroke_scale=20.0, variation=0.05)
     m_floor = ld.paint("floor", "set/floor", stretch=6.0, roughness=0.7)
     m_seat = ld.paint("moquette", "set/moquette", stroke_scale=22.0, stretch=4.0, variation=0.10, roughness=0.9)

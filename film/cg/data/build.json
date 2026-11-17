@@ -60,7 +60,7 @@
   },
   "door_height": 2.0,
   "panel_rig": {
-    "watts": 70.0,
+    "watts": 135.0,
     "diffuser_strength": 1.6,
     "spread_deg": 100.0,
     "z": 2.29,
