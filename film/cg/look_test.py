@@ -18,8 +18,10 @@ from lib import common  # noqa: E402
 FRAMES = [("38 Walter", 310.0), ("58 C75", 490.0), ("4 Meter BASE", 43.0), ("16 BROWN", 134.0), ("blackout", 143.0)]
 
 
-def render_set(tag, out, view=None, look=None):
+def render_set(tag, out, view=None, look=None, exposure=None):
     sc = bpy.context.scene
+    if exposure is not None:
+        sc.view_settings.exposure = exposure
     if view:
         try:
             sc.view_settings.view_transform = view
@@ -67,6 +69,10 @@ if __name__ == "__main__":
             render_set("a_current", out)
         if "c" in which:
             render_set("c_neutral", out, view="Khronos PBR Neutral")
+    if "2" in which:
+        build()
+        ev = float(argv[argv.index("--ev") + 1]) if "--ev" in argv else -0.55
+        render_set("c2_neutral_ev", out, view="Khronos PBR Neutral", exposure=ev)
     if "b" in which:
         build(wb=4300.0)
         render_set("b_wb4300", out)
