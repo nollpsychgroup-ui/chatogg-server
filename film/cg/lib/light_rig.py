@@ -16,6 +16,7 @@ PHONE_NOOR, PHONE_KAI.
 import math
 
 import bpy
+from mathutils import Vector
 
 from . import lookdev as ld
 from .common import coll, kelvin_rgb, link, load, dp
@@ -196,12 +197,16 @@ def build(D=None, B=None, sections=None):
     lamp.color = prgb
     lamp.shadow_soft_size = 0.12
     lob = bpy.data.objects.new("PLATFORM_LAMP", lamp)
-    lob.location = (HW + 2.0, dy + 1.6, 3.15)
+    px, py = B["platform"]["post_xy"]
+    hz = B["platform"]["head_z"]
+    aim = Vector(D["set"]["marks"][B["platform"]["aim"]])
+    lob.location = (px + 0.12, py - 0.12, hz - 0.03)
+    lob.rotation_euler = (aim - Vector(lob.location)).to_track_quat("-Z", "Y").to_euler()   # front-above key on her face
     lob.parent = rig
     link(lob, "EXTERIOR")
     drive_level(lamp, "energy", ctrls["PLATFORM"], B["platform"]["lamp_watts"])
     m_head = ld.emission("platform_lamp_head", prgb, 25.0)
-    head = box("PLATFORM_LAMP_HEAD", (HW + 2.0, dy + 1.6, 3.2), (0.55, 0.2, 0.05), m_head, "EXTERIOR")
+    head = box("PLATFORM_LAMP_HEAD", (px + 0.12, py - 0.12, hz), (0.45, 0.18, 0.05), m_head, "EXTERIOR")
     head.visible_diffuse = False
     head.parent = rig
     drive_level(m_head.node_tree.nodes["EMIT"].inputs["Strength"], "default_value", ctrls["PLATFORM"], 25.0)

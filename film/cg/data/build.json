@@ -109,7 +109,7 @@
     }
   },
   "platform": {
-    "lamp_watts": 900.0,
+    "lamp_watts": 260.0, "post_xy": [2.2, 7.25], "head_z": 2.7, "aim": "NOOR_PLATFORM",
     "slide_m": 30.0,
     "slide_s": 8.0
   }

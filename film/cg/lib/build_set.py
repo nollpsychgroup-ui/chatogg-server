@@ -206,7 +206,10 @@ def _platform(D, B):
     m_edge = ld.paint("platform_edge", (0.42, 0.42, 0.40))
     parts = [plane("PLATFORM_FLOOR", (HW + 3.1, dy, -0.02), (5.8, 16.0), m_conc, "EXTERIOR"),
              box("PLATFORM_EDGE", (HW + 0.35, dy, -0.01), (0.3, 16.0, 0.02), m_edge, "EXTERIOR"),
-             box("PLATFORM_POST", (HW + 2.4, dy + 1.6, 1.6), (0.09, 0.09, 3.2), m_conc, "EXTERIOR")]
+             # DP (shot 62): post on the camera side of her, slightly to her right as we see her; head just out of frame
+             box("PLATFORM_POST", (*B["platform"]["post_xy"], B["platform"]["head_z"] / 2), (0.09, 0.09, B["platform"]["head_z"]),
+                 ld.paint("platform_post", (0.30, 0.31, 0.30), axis="z", stretch=5.0, stroke_scale=20.0, variation=0.07, tilt=0.12, bristle=0.10),
+                 "EXTERIOR")]
     # light ground haze: a low volume box (only the platform lamp lights it)
     haze = box("PLATFORM_HAZE", (HW + 3.0, dy, 0.6), (5.4, 16.0, 1.2), None, "EXTERIOR")
     hm = bpy.data.materials.new("haze"); hm.use_nodes = True

@@ -255,6 +255,36 @@ def apply_faces():
         roots = [o for o in bpy.data.objects if o.name.startswith(f"{name}_HEADRIG")]
         for r in roots:
             heads.apply_track(r, track, J["library"], fps=J.get("fps", 24))
+            _head_pitch(r, track, J["library"], J.get("fps", 24))
+
+
+def _head_pitch(root, track, library, fps, ease=10):
+    """Pose hint head_pitch_deg (Designer): tip the head down (chin toward the paper) about the rig's
+    lateral axis. Keyed on delta_rotation_euler so the rig's own placement is untouched; each change
+    eases over `ease` frames ending on the key (the lift to Noor at speech_end is the acting beat)."""
+    from mathutils import Quaternion
+    # delta rotation composes in parent space, so pitch about the WORLD lateral axis (up x forward)
+    bpy.context.view_layer.update()
+    fwd = root.matrix_world.to_3x3() @ Vector((0, 1, 0))
+    fwd.z = 0
+    fwd.normalize()
+    axis = Vector((0, 0, 1)).cross(fwd)
+
+    def put(deg, frame):
+        root.delta_rotation_euler = Quaternion(axis, math.radians(deg)).to_euler()
+        root.keyframe_insert("delta_rotation_euler", frame=frame)
+
+    prev = 0.0
+    keyed = False
+    for t, name, *_ in track:
+        p = float(library.get(name, {}).get("head_pitch_deg", 0.0))
+        if p == prev:
+            continue
+        f = round(t * fps)
+        put(prev, max(0, f - ease))
+        put(p, f)
+        prev, keyed = p, True
+    return keyed
 
 
 BREATH = {"NOOR": (4.2, 0.0), "WALTER": (5.2, 1.3), "BEA": (4.7, 2.9), "KAI": (3.8, 4.1)}   # period s, phase rad
