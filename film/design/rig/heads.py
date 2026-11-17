@@ -548,3 +548,17 @@ def set_expression(root, params, frame=None, from_neutral=False):
         if frame is not None:
             root.keyframe_insert(f'["{k}"]', frame=frame)
     return vals
+
+
+def apply_track(root, keys, library, fps=24, ease_frames=7, fast=("walter/clamp",)):
+    """Key a per-shot expression track (expressions/shot_expressions.json) onto a head rig.
+    keys: [[time_s, name, shot], ...]. Each change holds the previous expression until
+    `ease_frames` before the new key, then eases in (Bezier). Names in `fast` ease in 2 frames."""
+    prev = None
+    for t, name, _shot in keys:
+        f = round(t * fps)
+        if prev is not None:
+            ease = 2 if name in fast else ease_frames
+            set_expression(root, library[prev], frame=max(0, f - ease), from_neutral=True)
+        set_expression(root, library[name], frame=f, from_neutral=True)
+        prev = name

@@ -48,3 +48,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [designer] Red rule final per Director: option (c) plus 25 mm strap and strap/badge on pass_index 1 (style-guide §6.1, props.md/svg)
 - [producer] GATE 3 passed: the human approved the M3 package (commit 1fc90ab frames). Milestone 4 (previs animatic) started. Face refinement continues inside M4.
 - [dp] Milestone 4: every shot in cues.json now carries a camera (inserts got cameras and prop marks; shot 20 has a handheld spec); build fails if any shot lacks one. Added camera/previs-review.md (per-pass review checklist and re-time procedure)
+- [designer] M4: per-shot expression track for all four (63 shots, 59-name library from the sheets) in design/expressions/shot_expressions.json + shot-expressions.md; heads.apply_track() keys it with eased holds (clamp 2 frames)
