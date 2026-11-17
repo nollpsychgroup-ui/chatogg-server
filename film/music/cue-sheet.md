@@ -2,7 +2,7 @@
 
 **Composer** · Milestone 3 · against the **locked** `script/draft-02.md` · implements `music/score-concept.md` (v2, approved, plus `notes/composer-notes-01.md`) · scene numbers **1–8** from `notes/directors-treatment.md`, lighting cue numbers **0–8** and panels **P1–P12** as agreed with the DP (`camera/visual-approach.md`; sub-cues 7.x/8.x as the DP proposed for `lighting-plan.md`)
 
-> **How to read this.** The score is mostly a *system*, not a set of pieces: the panel hum (cue **1M0**) runs the whole film and changes state on the DP's lighting cues. The other cues are layers that sit on that bed. **In/out points are script lines and lighting cue numbers**, which are the real sync. Timecodes are **estimates** for a ~9:05 cut, to be replaced from the DP's shooting cue stack and the edit.
+> **How to read this.** The score is mostly a *system*, not a set of pieces: the panel hum (cue **1M0**) runs the whole film and changes state on the DP's lighting cues. The other cues are layers that sit on that bed. **In/out points are script lines and lighting cue numbers**, which are the real sync. Timecodes are **estimates** for a ~9:25 cut (within the treatment's 8:30–9:30), to be replaced from the DP's shooting cue stack and the edit.
 >
 > **Cue naming:** `1Mx` (reel 1, music cue x). "DP n" = lighting cue n. "SD" = sound design.
 
@@ -25,16 +25,16 @@
 
 | Cue | Scene | Title | In | Out | Est. TC | DP cue / panels |
 |---|---|---|---|---|---|---|
-| **1M0** | 1–8 | Carriage Chord (bed) | first frame | CUT TO BLACK | 0:00 – 9:05 | all; P1–P12 + fundamental |
+| **1M0** | 1–8 | Carriage Chord (bed) | first frame | CUT TO BLACK | 0:00 – 9:25 | all; P1–P12 + fundamental |
 | **1M1** | 2 | First Waking | "Just leaving the office now." | end of groan | 1:20 – 1:27 | DP 1 · P1 |
 | **1M2** | 2 | Second Waking | "The Henley account. Again." | end of groan | 1:35 – 1:44 | DP 2 · P1, P2 |
 | **1M3** | 3 | Brownout | "I'm at the library, Mum." | **hard out on DP 4** | 2:25 – 2:35 | DP 3 · all |
 | — | 3 | *(Blackout: no music)* | DP 4 | lights up | 2:35 – 2:38 | DP 4 |
 | **1M4** | 4 | Hungry | "My name is S—" | panel back to white | 3:45 – 3:53 | DP 5 · P1 (+P2, P3 in sympathy) |
 | **1M5** | 5 | Stutter | "I'm f—" | "I'm not fine." | 4:55 – 4:57 | DP 6 · P1 |
-| **1M6** | 6 → 7 | The Advance | first far-end *tick* (DP 7.1) | receded by DP 8.10 | 6:00 – 8:08 | DP 7.1–7.10 · P12 → P3 |
-| **1M7** | 7 → 8 | Relight | DP 8.1 (P3 relights) | thinned out by the door chime | 7:22 – 8:20 | DP 8.1–8.10 · P3 → P12 |
-| **1M8** | 8 | Page Turn | Walter turns the page | before Kai's phone dims | 8:52 – 9:01 | no light change |
+| **1M6** | 6 → 7 | The Advance | first far-end *tick* (DP 7.1) | receded by DP 8.10 | 6:00 – 8:28 | DP 7.1–7.10 · P12 → P3 |
+| **1M7** | 7 → 8 | Relight | DP 8.1 (P3 relights) | thinned out by the door chime | 7:42 – 8:40 | DP 8.1–8.10 · P3 → P12 |
+| **1M8** | 8 | Page Turn | Walter turns the page | before Kai's phone dims | 9:12 – 9:21 | no light change |
 
 **By scene** (treatment): 1 Boarding: bed only, cue 0 tick · 2 The call: 1M1, 1M2 · 3 Kai: 1M3, blackout silence · 4 The note and the test: 1M4 · 5 Truth exchange: 1M5 only, otherwise unscored · 6 Creeping dark: 1M6 · 7 Confession: 1M6 receding, 1M7 · 8 Holloway: 1M7 tail out before the doors, PA unscored, 1M8, silent credits.
 
@@ -87,7 +87,7 @@ Approximate on-screen music (cues 1M1–1M8, excluding the bed): **about 3 minut
 - **Purpose:** the whole car acts at once. It's the first time the audience *hears* the hum go wrong.
 - **Music:** 1M0 sags 70–90¢ flat. **Undertone ×3 cluster** (F♯–G–A♭), full level, ~7 s, still rising when it's cut.
 - **Instrumentation:** contrabass + sub, bowed bass drum, bowed cymbal, pitch-locked resampled coupling groan.
-- **SD:** the groan "from the walls." **The seat transducers carry the Undertone + groan** at full level on non-dialogue takes. Kai's nervous line ("No, that's — it's the library…") sits over it: the cluster's phone-band layer ducks ~4 dB under dialogue.
+- **SD:** the groan "from the walls." **The seat transducers carry the Undertone + groan** at full level in rehearsal, on wide masters and on non-dialogue takes (Director: they're part of the performance), lower on dialogue takes pending production sound's sign-off. Kai's nervous line ("No, that's — it's the library…") sits over it: the cluster's phone-band layer ducks ~4 dB under dialogue.
 
 ## Blackout (DP 4): no cue
 
@@ -125,7 +125,8 @@ Approximate on-screen music (cues 1M1–1M8, excluding the bed): **about 3 minut
   - **Undertone ×3** enters on 7.1 at low level and rises slowly and patiently with each tick, peaking at "He's asking."
   - **Lines in the clear:** "It isn't only what you say," "Whatever it is, say it," "Say it." The Undertone's phone-band layer ducks ~4 dB under each line.
 - **Instrumentation:** contrabass, sub, bowed metal. No new colours.
-- **SD:** a relay tick per panel (SD) and the groan rising underneath (SD), with the transducers. **The script names 5 ticks; the DP has 10 panels to clear** (7.1–7.10). Some ticks will fall between lines, and that's fine for the music: each tick is one partial.
+- **SD:** a relay tick per panel (SD) and the groan rising underneath (SD), with the transducers.
+- **Tick spacing (Director, composer-notes-02):** 10 ticks (7.1–7.10) for the 5 scripted ones. They're **steady and patient, never accelerating** into a countdown, **≥ ~8 s apart**, **never on a line**. Each one *follows* a line, like the car answering it. Ten ticks at ≥ 8 s need **≥ 72 s** from 7.1 to 7.10, so scene 6 runs **~80–90 s** in the cut (TC estimates below assume ~85 s). The spacing will be set with the DP in `lighting-plan.md`. The Undertone's rise is per tick, so it stays even if the spacing changes.
 - **Recedes:** from DP 8.1 the Undertone falls ~2 dB per relight and is gone with the last click ("THE GROAN recedes into the rails").
 
 ## 1M7: Relight
@@ -190,9 +191,10 @@ Approximate on-screen music (cues 1M1–1M8, excluding the bed): **about 3 minut
 
 ## Open items
 
+0. **Status:** cue sheet and theme sketches **approved** by the Director (`notes/composer-notes-02.md`).
 1. **Timecode:** replace the estimates once the DP's `lighting-plan.md` and the shooting cue stack exist. The cue numbering already matches 1:1.
 2. **Breathing values** after the test day (`BREATH_DEPTH`, `BREATH_PERIOD`).
-3. **Test-day listening:** play the sketches on the real system and on a phone, especially 1M2 (deniable?) and 1M8 (subliminal?).
+3. **Test-day listening (Director attending):** play the sketches on the real system and on a phone, especially 1M2 (deniable?), 1M8 (subliminal?) and the phone check.
 4. **Panel count:** 12 is provisional until the set is measured. If it changes, panels P2…P(n−1) take consecutive partials and the far panel stays A♭.
 
 ## Sketches (`music/sketches/`)
