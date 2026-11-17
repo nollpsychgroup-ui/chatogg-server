@@ -13,10 +13,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import bpy  # noqa: E402
 
-from lib import build_set, cameras, common, cue_driver, figures, light_rig, lookdev  # noqa: E402
+from lib import blocking, build_set, cameras, common, cue_driver, figures, light_rig, lookdev  # noqa: E402
 
 
-def build(res=(1280, 536), samples=64, paint=True, poses=None, standing=None, closed=()):
+def build(res=(1280, 536), samples=64, paint=True, poses=None, standing=None, closed=(), previs=False):
     common.clear_scene()
     scene = bpy.context.scene
     scene.name = "QUIET_CAR"
@@ -24,13 +24,17 @@ def build(res=(1280, 536), samples=64, paint=True, poses=None, standing=None, cl
     D, B = common.dp(), common.load("build.json")
     common.coll("SET"); common.coll("CHARACTERS"); common.coll("PROPS_LOOSE"); common.coll("EXTERIOR")
     sec = build_set.build(D, B)
-    figures.build(D, B, poses, standing, closed)
+    if previs:
+        blocking.build(D, B)          # full-film blocking (M4): pose variants, walks, props, face tracks
+    else:
+        figures.build(D, B, poses, standing, closed)
     ll = sec.finalize()
     light_rig.build(D, B, ll)
     cue_driver.build(D, B)
     cams = cameras.build(D)
     scene.camera = cams["A"]
-    lookdev.setup_compositor(scene, enabled=paint)
+    k = res[0] / 1280.0
+    lookdev.setup_compositor(scene, k_set=max(1, round(4 * k)), k_face=max(1, round(2 * k)), enabled=paint)
     return scene
 
 

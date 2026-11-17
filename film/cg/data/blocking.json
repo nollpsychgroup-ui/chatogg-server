@@ -1,0 +1,28 @@
+{
+ "_doc": "Previs blocking, pass 1 (TA). Times in seconds on the cues.json clock. Noor is built as pose variants that are shown/hidden on keyed visibility; 'walk' variants slide from 'from' to 'to' (previs blocking, not animation). Seated variants sit on her mark under P1. Faces come from design/expressions/shot_expressions.json.",
+ "NOOR": [
+  {"t": [25.0, 33.0],   "kind": "walk",  "from": [0.9, 6.5],  "to": [0.0, 12.35], "facing": [0, 1]},
+  {"t": [33.0, 65.0],   "kind": "seat",  "pose": "lap"},
+  {"t": [65.0, 112.0],  "kind": "seat",  "pose": "phone_ear"},
+  {"t": [112.0, 166.0], "kind": "seat",  "pose": "lap"},
+  {"t": [166.0, 170.0], "kind": "walk",  "from": [0.0, 12.35], "to": [0.95, 6.6], "facing": [0, -1]},
+  {"t": [170.0, 182.0], "kind": "stand", "at": [0.95, 6.5], "facing": [1, 0], "pose": "standing_reach"},
+  {"t": [182.0, 188.0], "kind": "walk",  "from": [0.95, 6.6], "to": [-0.35, 9.9], "facing": [0, 1]},
+  {"t": [188.0, 239.0], "kind": "stand", "at": [-0.35, 10.0], "facing": [-1, 0], "pose": "standing_down"},
+  {"t": [239.0, 252.0], "kind": "walk",  "from": [-0.35, 10.0], "to": [0.0, 12.35], "facing": [0, 1]},
+  {"t": [252.0, 256.0], "kind": "seat",  "pose": "lap"},
+  {"t": [256.0, 262.0], "kind": "walk",  "from": [0.0, 12.35], "to": [0.4, 5.3], "facing": [0, -1]},
+  {"t": [262.0, 272.0], "kind": "stand", "at": [0.4, 5.1], "facing": [1, 0], "pose": "standing_down"},
+  {"t": [272.0, 282.0], "kind": "walk",  "from": [0.4, 5.3], "to": [0.0, 12.35], "facing": [0, 1]},
+  {"t": [282.0, 440.0], "kind": "seat",  "pose": "lap"},
+  {"t": [440.0, 455.5], "kind": "seat",  "pose": "phone_lap"},
+  {"t": [455.5, 515.0], "kind": "seat",  "pose": "phone_ear"},
+  {"t": [515.0, 519.0], "kind": "stand", "at": [0.0, 12.3], "facing": [0, -1], "pose": "standing"},
+  {"t": [519.0, 523.0], "kind": "walk",  "from": [0.0, 12.3], "to": [1.5, 6.5], "facing": [0, -1]},
+  {"t": [523.0, 548.0], "kind": "stand", "at": [2.7, 6.5], "facing": [-1, 0], "pose": "standing", "platform": true}
+ ],
+ "lanyard_throw_t": 402.5,
+ "walter_paper": {"up": [180.0, 213.0], "notes": [[186.0, "DON'T LIE IN HERE."], [190.0, "IT'S AWAKE NOW.\nYOU WOKE IT."]]},
+ "walter_clamp": [225.2, 234.5],
+ "phone_noor_lap_mark": "NOOR_PHONE_LAP"
+}

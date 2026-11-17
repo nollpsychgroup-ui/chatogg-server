@@ -223,7 +223,6 @@ def build(D=None, B=None, sections=None):
             m = bpy.data.materials.get(mname)
             if m:
                 drive_level(m.node_tree.nodes["EMIT"].inputs["Strength"], "default_value", ctrls[ch], 6.0)
-        lo = bpy.data.objects.get(f"{ch}_LIGHT")
-        if lo:
-            drive_level(lo.data, "energy", ctrls[ch], 2.5)
+        for lo in [o for o in bpy.data.objects if o.type == "LIGHT" and o.name.startswith(f"{ch}_LIGHT")]:
+            drive_level(lo.data, "energy", ctrls[ch], 2.5)   # every pose variant's phone light
     return ctrls

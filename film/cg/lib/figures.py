@@ -32,7 +32,7 @@ def _tag(ob, idx):
     return ob
 
 
-def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_closed=False, sculpted=True, face=None):
+def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_closed=False, sculpted=True, face=None, collection=None):
     spec = CAST[name]
     fig = B["figures"][name]
     mark = Vector(at if at else D["set"]["marks"][name])
@@ -45,7 +45,7 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
     k = (eye + 0.02 - hip_z) / (1.31 - 0.58)
     sw = fig["shoulder"] / 0.44
     O = Vector((mark.x, mark.y, 0)) + f * 0.10
-    C = f"CHAR_{name}"
+    C = collection or f"CHAR_{name}"
     coll(C, coll("CHARACTERS"))
 
     def P(fw, la, z):
@@ -120,6 +120,8 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
         "lap":         [((-0.04, -0.24, 0.80), (0.16, -0.08, 0.66)), ((-0.04, 0.24, 0.80), (0.16, 0.08, 0.66))],
         "phone_hands": [((-0.02, -0.24, 0.82), (0.20, -0.05, 0.84)), ((-0.02, 0.24, 0.82), (0.20, 0.05, 0.84))],
         "standing":    [((-0.02, -0.24, 0.82), (0.02, -0.22, 0.58)), ((-0.04, 0.22, 1.00), (-0.11, 0.11, 1.27))],
+        "standing_down": [((-0.02, -0.24, 0.82), (0.02, -0.22, 0.58)), ((-0.02, 0.24, 0.82), (0.02, 0.22, 0.58))],
+        "standing_reach": [((-0.02, -0.24, 0.82), (0.02, -0.22, 0.58)), ((0.16, 0.22, 1.02), (0.40, 0.12, 1.02))],
     }[pose]
     for s, (elb, hand) in zip((-1, 1), hands):
         shp = P(-0.16, s * 0.19 * sw, 1.04)
@@ -132,22 +134,24 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
         red = ld.paint("the_red_strap", "THE_RED", tier="costume", variation=0.06)
         for s in (-1, 1):
             obs.append(_tag(limb(f"NOOR_STRAP_{s}", P(-0.075, s * 0.062, 1.12), P(0.006, s * 0.014, 0.90), 0.0125, red, C, segs=10, smooth=True), 1))  # 25 mm strap, small kernel (8b)
-        obs.append(_tag(box("NOOR_BADGE", P(0.008, 0, 0.85), (0.075, 0.008, 0.10), ld.gloss("badge_plastic", "noor/badge", roughness=0.25), C), 1))
-        bpy.data.objects["NOOR_BADGE"].rotation_euler = (0, 0, yaw)
+        badge = _tag(box("NOOR_BADGE", P(0.008, 0, 0.85), (0.075, 0.008, 0.10), ld.gloss("badge_plastic", "noor/badge", roughness=0.25), C), 1)
+        badge.rotation_euler = (0, 0, yaw)
+        obs.append(badge)
         rh = P(*hands[1][1])
         target = head_c if pose != "phone_lap" else head_c
         at_ = rh + f * 0.02 if pose != "phone_lap" else (P(*hands[0][1]) + P(*hands[1][1])) / 2 + Vector((0, 0, 0.03))
-        _phone("noor", at_, target, C, red_button=False)
+        phone = _phone("noor", at_, target, C, red_button=False)
     elif name == "WALTER":
         paper = box("WALTER_PAPER", P(0.29, 0, 0.98), (0.02, 0.36, 0.30), ld.paint("newsprint", "props/newsprint", tier="costume", stretch=8.0, variation=0.25), C)
         paper.rotation_euler = (0, -math.radians(20), yaw)
         _tag(paper, 2)
     elif name == "BEA":
-        obs.append(_tag(box("BEA_TOTE", P(0.17, 0, 0.66), (0.20, 0.32, 0.16), ld.paint("tote", "bea/tote", tier="costume"), C, bevel=0.03), 2))
-        bpy.data.objects["BEA_TOTE"].rotation_euler = (0, 0, yaw)
+        tote = _tag(box("BEA_TOTE", P(0.17, 0, 0.66), (0.20, 0.32, 0.16), ld.paint("tote", "bea/tote", tier="costume"), C, bevel=0.03), 2)
+        tote.rotation_euler = (0, 0, yaw)
+        obs.append(tote)
     elif name == "KAI":
         _phone("kai", P(0.24, 0, 0.88), head_c, C, red_button=True)
-    return obs
+    return {"collection": C, "root": root, "head_c": head_c, "f": f}
 
 
 def _phone(key, at, look_at, C, red_button=False):
