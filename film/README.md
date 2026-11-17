@@ -1,5 +1,7 @@
 # Short Film Production Office
 
+> **Format:** stylized, painterly CG animation. Read `FORMAT.md` first.
+
 This folder is the shared workspace for a short film made by several Claude Code
 sessions, each playing one crew role. Every session reads and writes here on the
 branch `claude/film-production-multi-agent-c55jcr`.
@@ -13,6 +15,8 @@ branch `claude/film-production-multi-agent-c55jcr`.
 | Director | Creative vision, `notes/`, approves script drafts, camera and music work | see `CREW.md` |
 | Cinematographer (DP) | `camera/`: visual approach, lighting plan, shot list, storyboards | see `CREW.md` |
 | Composer | `music/`: score concept, cue sheet, themes, MIDI/audio sketches | see `CREW.md` |
+| 3D / Technical Artist | `cg/`: Blender set, painterly shading, scripted light rig, cameras, previs renders | see `CREW.md` |
+| Character Designer | `design/`: painterly style guide, character sheets, expressions, costume and colour | see `CREW.md` |
 
 The human (the film's owner) approves at milestones. Nobody skips a milestone gate.
 
@@ -32,7 +36,12 @@ The human (the film's owner) approves at milestones. Nobody skips a milestone ga
    - Composer: `music/cue-sheet.md` (each cue's in/out point, purpose, instrumentation, and how it
      interacts with sound design) and sketches of the main themes in `music/sketches/`.
    - DP and Composer coordinate directly where picture and sound meet (lighting cues and stingers).
+   - Character Designer: `design/style-guide.md` and sheets for Noor, Kai, Bea and Walter.
+   - Technical Artist: `cg/` with the carriage set, painterly look-dev, P1–P12 light rig
+     and style frames for the key beats.
    - Director approves all of it. **GATE: human approves.**
+4. **Previs animatic:** the TA assembles a full-length Blender previs (blocking figures, every
+   lighting cue, DP cameras) cut to temp voices and score. **GATE: human approves.**
 
 ## Working rules
 
