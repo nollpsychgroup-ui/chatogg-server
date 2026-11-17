@@ -8,3 +8,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [producer] GATE 1 passed: the human picked THE QUIET CAR. Milestone 2 (Script draft) started.
 - [screenwriter] Script draft 01 of THE QUIET CAR written (script/draft-01.md)
 - [producer] Added Cinematographer and Composer to the crew. Both start prep work on the current draft.
+- [screenwriter] Script draft 02 addresses director-notes-01: M1–M4 plus C1–C4 (script/draft-02.md)
