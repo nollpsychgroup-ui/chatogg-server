@@ -55,3 +55,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [screenwriter] Scratch voice: NOOR-24 re-anchored to end 0.3 s before relight 8.3 (per DP); build now checks no tick lands in a line (previs/voice/)
 - [dp] Director approved option (b): "I can't —"/"Say it." overlap restored; 7.9 follows the pair, 7.10 8.5 s later in silence held on Bea (shot 49 now 426.5–440); no cue times changed (camera/)
 - [screenwriter] Scratch voice: "I can't —"/"Say it." overlap restored, 7.9 tick follows (per Director/DP) (previs/voice/)
+- [dp] dialogue[] in cues.json now read directly from the Screenwriter's scratch-voice-lines.json (58 lines); all checks pass incl. no tick/relight on a line (camera/)

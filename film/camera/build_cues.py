@@ -189,6 +189,17 @@ DIALOGUE = [
     (538.0, 540.5, 'PA', 'Thank you for riding quietly.'),
 ]
 
+# The Screenwriter's scratch-voice placement is the source for lines when it exists
+# (film/previs/voice/scratch-voice-lines.json, generated from voice-sides.md + this cues.json).
+VOICE = os.path.join(HERE, "..", "previs", "voice", "scratch-voice-lines.json")
+DIALOGUE_SOURCE = "provisional (Composer's estimates)"
+if os.path.exists(VOICE):
+    with open(VOICE) as fh:
+        _v = json.load(fh)
+    DIALOGUE = [(float(l["start"]), float(l["end"]), l["voice"], l["id"] + (": " + l["note"] if l.get("note") else ""))
+                for l in _v["lines"]]
+    DIALOGUE_SOURCE = "previs/voice/scratch-voice-lines.json (Screenwriter)"
+
 # ---- virtual cameras -------------------------------------------------------------
 HEAD = {"NOOR": (0.0, 12.75, 1.22), "NOOR_STAND": (-0.35, 10.0, 1.62), "WALTER": (-1.0, py(3), 1.22),
         "BEA": (1.0, py(3), 1.22), "KAI": (1.05, py(8), 1.22), "KAI_PHONE": (1.05, py(8), 0.48),
@@ -433,7 +444,7 @@ def build():
         "lights_on_ones": True,
         "cues": [{k: v for k, v in c.items()} for c in C],
         "events": [{"id": e[0], "t": e[1], "what": e[2]} for e in EVENTS],
-        "dialogue_note": "PROVISIONAL windows (Composer's estimates) until the scratch voice record; build_cues.py checks that no Advance tick or relight lands on a line",
+        "dialogue_note": "source: " + DIALOGUE_SOURCE + ". build_cues.py checks that no Advance tick or relight lands on a line",
         "dialogue": [{"in": a_, "out": b_, "who": w_, "line": l_} for a_, b_, w_, l_ in DIALOGUE],
         "camera": {"sensor": SENSOR, "positions": POS},
         "shots": shots,

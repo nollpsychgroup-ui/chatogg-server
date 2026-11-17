@@ -11,7 +11,7 @@ Each of the 63 shots in `shots[]` has:
 - `move`: `locked`, `push` (with `path.from` and `path.to`, constant speed across the shot), `handheld` (shot 20 only, with the `handheld` spec: a recorded operator clip layered on the base camera), or `still`;
 - `cues`: the light cues that must play inside the shot.
 
-`dialogue[]` holds the line windows (in, out, who, line), provisional until the scratch voice record; the build checks that no Advance tick or relight lands on a line.
+`dialogue[]` holds the line windows (in, out, who, line), read at build time from the Screenwriter's `film/previs/voice/scratch-voice-lines.json` (anchored to these cues); the build checks that no Advance tick or relight lands on a line.
 
 Inserts have their own cameras and prop marks (`NEWSPAPER`, `LANYARD_FLOOR`, `NOOR_PHONE_LAP`, `DISPLAY`, `KAI_PHONE`). `build_cues.py` refuses to write the file if any shot is missing a camera.
 
@@ -32,7 +32,7 @@ For every pass, I compare the render against the boards (`storyboards/index.html
 When the voice record changes the timing:
 
 1. **The Composer and I agree the new times** for the cues and events (the cue IDs never change). The Advance stays steady (8 s or more, never accelerating, never on a line), and each tick follows its line.
-2. **I edit the times in `build_cues.py`** (`cue(...)` calls, `ADV`, `REL`, `EVENTS`, `DIALOGUE`, and the shot `in`/`out` in `S`) **and run it.** If any rule breaks, the script refuses to write `cues.json` and says why.
+2. **I edit the times in `build_cues.py`** (`cue(...)` calls, `ADV`, `REL`, `EVENTS` and the shot `in`/`out` in `S`) **and run it**, after the Screenwriter has re-placed the voice lines on the new cues. If any rule breaks, the script refuses to write `cues.json` and says why.
 3. **I push and tell both of them in one message.** The Composer re-renders the temp score (about 40 s) and the TA rebuilds the scene; both read the same file.
 4. I log the re-time in `STATUS.md`.
 

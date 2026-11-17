@@ -1070,247 +1070,355 @@
    "what": "rails stop over black"
   }
  ],
- "dialogue_note": "PROVISIONAL windows (Composer's estimates) until the scratch voice record; build_cues.py checks that no Advance tick or relight lands on a line",
+ "dialogue_note": "source: previs/voice/scratch-voice-lines.json (Screenwriter). build_cues.py checks that no Advance tick or relight lands on a line",
  "dialogue": [
   {
-   "in": 66.0,
-   "out": 72.0,
+   "in": 68.5,
+   "out": 70.974,
    "who": "NOOR",
-   "line": "Hi. Hi, yeah. I'm on the train."
+   "line": "NOOR-01"
   },
   {
-   "in": 72.0,
-   "out": 77.0,
+   "in": 71.6,
+   "out": 74.321,
    "who": "MARK",
-   "line": "(murmur)"
+   "line": "MARK-01"
   },
   {
-   "in": 79.0,
-   "out": 81.5,
+   "in": 78.138,
+   "out": 79.75,
    "who": "NOOR",
-   "line": "Just leaving the office now."
+   "line": "NOOR-02: lie 1 -> cue 1"
   },
   {
-   "in": 91.5,
-   "out": 95.0,
+   "in": 84.0,
+   "out": 85.232,
+   "who": "MARK",
+   "line": "MARK-01b"
+  },
+  {
+   "in": 92.404,
+   "out": 94.75,
    "who": "NOOR",
-   "line": "Long day. The Henley account. Again."
+   "line": "NOOR-03: lie 2 -> cue 2"
   },
   {
-   "in": 103.0,
-   "out": 105.0,
+   "in": 103.5,
+   "out": 104.429,
    "who": "KAI",
-   "line": "Was that the brakes?"
+   "line": "KAI-01"
   },
   {
-   "in": 108.5,
-   "out": 111.0,
+   "in": 108.913,
+   "out": 110.9,
    "who": "NOOR",
-   "line": "No, don't wait up. Love you."
-  },
-  {
-   "in": 122.0,
-   "out": 124.0,
-   "who": "NOOR",
-   "line": "(mouths) Sorry."
+   "line": "NOOR-04: 'Love you' is true: no cue"
   },
   {
    "in": 135.0,
-   "out": 136.5,
+   "out": 135.227,
    "who": "KAI",
-   "line": "Yeah?"
+   "line": "KAI-02"
   },
   {
-   "in": 143.0,
-   "out": 145.3,
-   "who": "KAI",
-   "line": "I'm at the library, Mum."
+   "in": 136.2,
+   "out": 138.407,
+   "who": "MUM",
+   "line": "MUM-01"
   },
   {
-   "in": 148.5,
+   "in": 143.181,
+   "out": 144.75,
+   "who": "KAI",
+   "line": "KAI-03: his lie -> cue 3 brownout"
+  },
+  {
+   "in": 151.474,
+   "out": 151.702,
+   "who": "KAI",
+   "line": "KAI-04.laugh: nervous laugh"
+  },
+  {
+   "in": 151.952,
    "out": 155.0,
    "who": "KAI",
-   "line": "No, that's — it's the library. They're doing work on the —"
+   "line": "KAI-04: HARD CUT at cue 4 (blackout): true dead air until 4.up"
   },
   {
-   "in": 159.5,
-   "out": 164.0,
+   "in": 159.0,
+   "out": 159.237,
    "who": "MUM",
-   "line": "Kai? ... Kai?"
+   "line": "MUM-02a"
   },
   {
-   "in": 170.5,
-   "out": 172.5,
+   "in": 161.4,
+   "out": 161.641,
+   "who": "MUM",
+   "line": "MUM-02b"
+  },
+  {
+   "in": 166.5,
+   "out": 167.461,
    "who": "NOOR",
-   "line": "What — where did he —"
+   "line": "NOOR-06"
+  },
+  {
+   "in": 173.0,
+   "out": 173.172,
+   "who": "NOOR",
+   "line": "NOOR-08a"
   },
   {
    "in": 175.0,
-   "out": 177.5,
+   "out": 175.218,
    "who": "NOOR",
-   "line": "Hey. Hey!"
+   "line": "NOOR-08b"
   },
   {
    "in": 206.5,
-   "out": 208.5,
+   "out": 207.363,
    "who": "NOOR",
-   "line": "That's insane."
+   "line": "NOOR-09"
   },
   {
-   "in": 216.0,
-   "out": 218.0,
+   "in": 215.5,
+   "out": 216.445,
    "who": "NOOR",
-   "line": "My name is Noor."
+   "line": "NOOR-10: truth: nothing; hold"
   },
   {
-   "in": 222.5,
-   "out": 225.2,
+   "in": 224.048,
+   "out": 225.0,
    "who": "NOOR",
-   "line": "My name is S—"
+   "line": "NOOR-11: cut on the /s/ at cue 5 (wrist clamp)"
   },
   {
    "in": 253.0,
-   "out": 255.0,
+   "out": 253.202,
    "who": "MUM",
-   "line": "Kai?"
+   "line": "MUM-02c"
   },
   {
-   "in": 283.5,
-   "out": 285.5,
+   "in": 266.5,
+   "out": 266.692,
+   "who": "MUM",
+   "line": "MUM-02d"
+  },
+  {
+   "in": 286.0,
+   "out": 286.656,
    "who": "BEA",
-   "line": "You okay?"
+   "line": "BEA-01"
   },
   {
-   "in": 293.5,
-   "out": 295.2,
+   "in": 294.499,
+   "out": 295.0,
    "who": "NOOR",
-   "line": "I'm f—"
+   "line": "NOOR-13: self-caught on the /f/ at cue 6"
   },
   {
-   "in": 297.0,
-   "out": 299.0,
+   "in": 297.6,
+   "out": 298.464,
    "who": "NOOR",
-   "line": "I'm not fine."
+   "line": "NOOR-14"
   },
   {
-   "in": 301.0,
-   "out": 306.5,
+   "in": 301.5,
+   "out": 302.116,
    "who": "BEA",
-   "line": "Me neither. I haven't slept in two days."
+   "line": "BEA-02.1"
   },
   {
-   "in": 309.5,
-   "out": 311.5,
+   "in": 302.816,
+   "out": 304.759,
+   "who": "BEA",
+   "line": "BEA-02.2"
+  },
+  {
+   "in": 309.8,
+   "out": 311.148,
    "who": "NOOR",
-   "line": "You've seen this before."
+   "line": "NOOR-15"
   },
   {
    "in": 314.0,
-   "out": 316.0,
+   "out": 315.564,
    "who": "WALTER",
-   "line": "I ride it every night."
+   "line": "WALTER-01"
   },
   {
    "in": 317.0,
-   "out": 318.0,
+   "out": 317.341,
    "who": "NOOR",
-   "line": "Why?"
+   "line": "NOOR-16"
   },
   {
-   "in": 322.0,
-   "out": 342.0,
+   "in": 321.5,
+   "out": 323.476,
    "who": "WALTER",
-   "line": "My wife was ill a long time. ... This is the only place nobody can say that to me."
+   "line": "WALTER-02.1"
   },
   {
-   "in": 363.0,
-   "out": 365.5,
+   "in": 324.176,
+   "out": 326.315,
+   "who": "WALTER",
+   "line": "WALTER-02.2"
+  },
+  {
+   "in": 327.015,
+   "out": 327.777,
+   "who": "WALTER",
+   "line": "WALTER-02.3"
+  },
+  {
+   "in": 328.227,
+   "out": 329.043,
+   "who": "WALTER",
+   "line": "WALTER-02.4"
+  },
+  {
+   "in": 329.643,
+   "out": 330.416,
+   "who": "WALTER",
+   "line": "WALTER-02.5"
+  },
+  {
+   "in": 333.016,
+   "out": 336.407,
+   "who": "WALTER",
+   "line": "WALTER-02.6: after the (beat)"
+  },
+  {
+   "in": 366.8,
+   "out": 368.25,
    "who": "NOOR",
-   "line": "Nobody said anything."
+   "line": "NOOR-17"
   },
   {
-   "in": 380.5,
-   "out": 384.0,
+   "in": 381.0,
+   "out": 382.553,
    "who": "BEA",
-   "line": "It isn't only what you say."
+   "line": "BEA-03"
   },
   {
-   "in": 416.0,
-   "out": 419.0,
+   "in": 417.639,
+   "out": 419.25,
    "who": "BEA",
-   "line": "Whatever it is, say it."
+   "line": "BEA-04"
   },
   {
-   "in": 426.0,
-   "out": 427.2,
+   "in": 426.474,
+   "out": 427.194,
    "who": "NOOR",
-   "line": "I can't —"
+   "line": "NOOR-19: Bea overlaps on the dash; cut off by \"Say it.\""
   },
   {
-   "in": 426.9,
+   "in": 427.044,
    "out": 427.6,
    "who": "BEA",
-   "line": "Say it."
+   "line": "BEA-05: ends 0.4 s before the 7.9 tick"
   },
   {
    "in": 452.0,
-   "out": 454.5,
+   "out": 452.764,
    "who": "WALTER",
-   "line": "He's asking."
+   "line": "WALTER-03"
   },
   {
-   "in": 457.0,
-   "out": 458.5,
+   "in": 456.5,
+   "out": 456.881,
    "who": "NOOR",
-   "line": "Mark."
+   "line": "NOOR-20"
   },
   {
-   "in": 459.0,
-   "out": 461.5,
+   "in": 457.4,
+   "out": 459.57,
    "who": "MARK",
-   "line": "(murmur)"
+   "line": "MARK-02"
   },
   {
-   "in": 461.8,
-   "out": 465.0,
+   "in": 458.565,
+   "out": 458.908,
    "who": "NOOR",
-   "line": "No. Listen. I'm not leaving the office."
+   "line": "NOOR-21.1"
   },
   {
-   "in": 465.5,
-   "out": 469.8,
+   "in": 459.208,
+   "out": 459.695,
    "who": "NOOR",
-   "line": "I haven't been to the office since September. They let me go. The whole floor."
+   "line": "NOOR-21.2"
   },
   {
-   "in": 474.5,
-   "out": 482.5,
+   "in": 460.145,
+   "out": 461.75,
    "who": "NOOR",
-   "line": "I get dressed and I get on the train and I go to the library — ... — and I sit there. All day. And then I come home."
+   "line": "NOOR-21.3"
   },
   {
-   "in": 486.0,
-   "out": 492.8,
+   "in": 464.575,
+   "out": 466.793,
    "who": "NOOR",
-   "line": "I didn't tell you because you'd have been kind about it, and I couldn't —"
+   "line": "NOOR-22.1"
   },
   {
-   "in": 502.0,
-   "out": 504.0,
+   "in": 467.593,
+   "out": 468.339,
    "who": "NOOR",
-   "line": "I'm sorry."
+   "line": "NOOR-22.2"
   },
   {
-   "in": 527.0,
-   "out": 533.0,
+   "in": 468.939,
+   "out": 469.75,
+   "who": "NOOR",
+   "line": "NOOR-22.3"
+  },
+  {
+   "in": 475.009,
+   "out": 478.346,
+   "who": "NOOR",
+   "line": "NOOR-23.1"
+  },
+  {
+   "in": 479.046,
+   "out": 480.047,
+   "who": "NOOR",
+   "line": "NOOR-23.2"
+  },
+  {
+   "in": 480.547,
+   "out": 481.066,
+   "who": "NOOR",
+   "line": "NOOR-23.3"
+  },
+  {
+   "in": 481.666,
+   "out": 482.75,
+   "who": "NOOR",
+   "line": "NOOR-23.4"
+  },
+  {
+   "in": 489.361,
+   "out": 492.7,
+   "who": "NOOR",
+   "line": "NOOR-24: trails into breath; ends 0.3 s before 8.3, then the relight run"
+  },
+  {
+   "in": 503.033,
+   "out": 503.8,
+   "who": "NOOR",
+   "line": "NOOR-25: then silence on the line"
+  },
+  {
+   "in": 529.0,
+   "out": 530.691,
    "who": "MARK",
-   "line": "(murmur restarts)"
+   "line": "MARK-04: the neutral scaffold (Director ruling); unintelligible"
   },
   {
    "in": 538.0,
-   "out": 540.5,
+   "out": 539.932,
    "who": "PA",
-   "line": "Thank you for riding quietly."
+   "line": "PA-01: the PA speaks exactly once"
   }
  ],
  "camera": {
