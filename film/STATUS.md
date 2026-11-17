@@ -57,3 +57,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [screenwriter] Scratch voice: "I can't —"/"Say it." overlap restored, 7.9 tick follows (per Director/DP) (previs/voice/)
 - [dp] dialogue[] in cues.json now read directly from the Screenwriter's scratch-voice-lines.json (58 lines); all checks pass incl. no tick/relight on a line (camera/)
 - [designer] M4 face refinement v4 (less mannequin): superellipsoid skull + anatomy fields (brow ridge, sockets, cheekbones, muzzle, chin, jaw angle/underside, temples), per-character age/feature fields; features sit on the displaced surface (design/rig/heads.py, renders/)
+- [ta] M3 CG approved by Director (notes/cg-notes-03.md). Final frames pushed; checks: blackout 0, strap 8b (BASE shot 2 + floor shot 46), keys on ones, asleep-identical PASS; palette chart marginal on darkest swatch (matte sheen); catchlight row PARTIAL (M4) (cg/stills/checks/REPORT.md)
