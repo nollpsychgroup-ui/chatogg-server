@@ -261,10 +261,17 @@ def build_head(name, collection=None, mats=None, pass_face=1, pass_hair=2):
 
     # neck stub (the TA's neck limb meets it)
     # nose: a soft wedge
-    bm = _sphere(1.0, 16, 10)
+    # nose: a wedge, narrow at the bridge, widening to the nostrils, flat underneath (not a ball)
+    bm = _sphere(1.0, 20, 14)
     for v in bm.verts:
         c = v.co
-        v.co = Vector((c.x * 0.0115 * (0.75 + 0.35 * (1 - c.z) / 2), c.y * 0.010 + (0.004 if c.y > 0 else 0) * (0.5 - 0.5 * c.z), c.z * 0.019))
+        t = (1 - c.z) / 2                      # 0 at the bridge, 1 at the base
+        wx = 0.0055 + 0.0085 * t ** 1.4        # half-width
+        proj = 0.003 + 0.010 * t ** 0.8        # forward projection grows toward the tip
+        z = c.z * 0.021
+        if c.z < -0.75:                        # flatten the underside
+            z = -0.75 * 0.021 - (c.z + 0.75) * 0.004
+        v.co = Vector((c.x * wx, c.y * (proj if c.y > 0 else 0.006), z))
     nz = -0.020
     bm_obj = _mesh_obj(f"{name}_HD_NOSE", bm, [M["skin"]], collection, root, pass_index=pass_face)
     bm_obj.location = (0, skull.front_y(0, nz) - 0.002, nz)
@@ -273,9 +280,9 @@ def build_head(name, collection=None, mats=None, pass_face=1, pass_hair=2):
     for sx in (-1, 1):
         bm = _sphere(1.0, 12, 8)
         for v in bm.verts:
-            v.co = Vector((v.co.x * 0.008, v.co.y * 0.016, v.co.z * (0.032 if name != "WALTER" else 0.037)))
+            v.co = Vector((v.co.x * 0.007, v.co.y * 0.014, v.co.z * (0.028 if name != "WALTER" else 0.036)))
         e = _mesh_obj(f"{name}_HD_EAR_{'R' if sx > 0 else 'L'}", bm, [M["skin"]], collection, root, pass_index=pass_face)
-        e.location = (sx * skull.rx * 0.97, -0.006, -0.004)
+        e.location = (sx * skull.rx * 0.95, -0.008, -0.006)
 
     # eyes
     for side, sx in (("L", -1), ("R", 1)):
@@ -454,22 +461,38 @@ def _mouth(name, s, skull, M, root, collection, pf):
 
 
 def _hair(name, s, skull, M, root, collection, ph):
-    def cap(keep, grow=1.06, nm="HAIR"):
-        bm = _sphere(1.0, 32, 22)
-        bmesh.ops.delete(bm, geom=[v for v in bm.verts if not keep(v.co)], context="VERTS")
+    """Hair as a smooth shell over the skull. Below the hairline the shell sinks under the skin,
+    so the hairline is a clean painted edge, not a cut mesh."""
+
+    def ss(e0, e1, x):
+        t = max(0.0, min(1.0, (x - e0) / (e1 - e0)))
+        return t * t * (3 - 2 * t)
+
+    def shell(field, grow, nm="HAIR", band=0.07):
+        bm = _sphere(1.0, 64, 44)
         for v in bm.verts:
-            p = skull.shape(v.co)
-            v.co = p * grow
+            c = v.co.copy()
+            k = ss(-band, band, field(c))
+            g = 0.93 + (grow(c) - 0.93) * k
+            v.co = skull.shape(c) * g
         return _mesh_obj(f"{name}_HD_{nm}", bm, [M["hair"]], collection, root, pass_index=ph)
 
+    def hairline(front, side, back, part=0.0):
+        def hz(c):
+            a = abs(math.atan2(c.x, c.y)) / math.pi        # 0 front, 0.5 sides, 1 back
+            z = front + (side - front) * ss(0.0, 0.5, a) + (back - side) * ss(0.5, 1.0, a)
+            return z - part * c.x * (1 - ss(0.0, 0.3, a))
+        return lambda c: c.z - hz(c)
+
     if name == "NOOR":
-        # swept back from a hairline at the top of the forehead; low bun at the nape
-        cap(lambda c: c.z > 0.42 - 0.75 * max(0.0, -c.y) + 0.06 * c.x or (c.y < -0.25 and c.z > -0.55), 1.05)
-        bm = _sphere(0.032, 16, 12)
+        # side-parted, swept back over the tops of the ears into a low bun at the nape
+        shell(hairline(0.42, 0.02, -0.62, part=0.08), lambda c: 1.05 + 0.04 * max(0.0, c.z) * (1 - 0.5 * max(0.0, c.y)))
+        bm = _sphere(0.034, 18, 12)
         bun = _mesh_obj(f"{name}_HD_BUN", bm, [M["hair"]], collection, root, pass_index=ph)
-        bun.location = (0, -skull.ry * 0.95, -0.055)
+        bun.location = (0, -skull.ry * 0.98, -0.058)
+        bun.scale = (1.15, 0.85, 0.9)
     elif name == "KAI":
-        cap(lambda c: c.z > 0.30 - 0.9 * max(0.0, -c.y) or (c.y < -0.2 and c.z > -0.45), 1.09)
+        shell(hairline(0.26, 0.05, -0.5), lambda c: 1.09 + 0.05 * max(0.0, c.z))
         for i, (x, y, z, r) in enumerate([(-0.03, 0.06, 0.085, 0.022), (0.025, 0.07, 0.08, 0.02), (0.0, 0.03, 0.105, 0.028),
                                           (0.045, 0.0, 0.095, 0.022), (-0.05, -0.01, 0.09, 0.022)]):
             bm = _sphere(r, 12, 8)
@@ -477,9 +500,12 @@ def _hair(name, s, skull, M, root, collection, ph):
             lk.location = (x, y, z)
             lk.scale = (1.0, 0.8, 0.55)
     elif name == "BEA":
-        cap(lambda c: c.z > 0.38 - 0.9 * max(0.0, -c.y) or (c.y < -0.3 and c.z > -0.4), 1.04)
+        shell(hairline(0.38, -0.02, -0.45), lambda c: 1.045)
     elif name == "WALTER":
-        cap(lambda c: (abs(c.x) > 0.6 and -0.3 < c.z < 0.45 and c.y < 0.05) or (c.y < -0.35 and -0.4 < c.z < 0.55), 1.02, "HAIR_SIDES")
+        # bald on top: a band of white hair round the sides and back
+        side = hairline(1.5, -0.32, -0.4)
+        top = hairline(0.5, 0.5, 0.55)
+        shell(lambda c: min(side(c), -top(c)) if abs(math.atan2(c.x, c.y)) > 0.3 * math.pi else -1.0, lambda c: 1.025, "HAIR_SIDES")
 
 
 # ------------------------------------------------------------------ placing and keying
