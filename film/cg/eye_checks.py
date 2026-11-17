@@ -28,7 +28,7 @@ def crop_render(shot, frames, who, aim=None, closed=(), pad=(0.045, 0.03), res_w
     cameras.set_shot(shot, t0, aim_override=aim)
     scene.frame_set(frames[0])
     cam = scene.camera
-    eyes = [bpy.data.objects[f"{who}_EYE_{s}"].matrix_world.translation for s in (-1, 1)]
+    eyes = [bpy.data.objects[f"{who}_HD_EYE_{s}"].matrix_world.translation for s in ("L", "R")]
     uv = [world_to_camera_view(scene, cam, p) for p in eyes]
     cx, cy = sum(u.x for u in uv) / 2, sum(u.y for u in uv) / 2
     # border in normalised frame coords: width from the eye spacing

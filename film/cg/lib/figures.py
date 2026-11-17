@@ -12,6 +12,11 @@ from . import lookdev as ld
 from .common import coll, dp, link, load, t2f
 from .mesh import box, ellipsoid, limb
 from . import noor
+from .common import FILM_DIR
+import os as _os
+import sys as _sys
+_sys.path.insert(0, _os.path.join(FILM_DIR, "design", "rig"))
+import heads as _heads  # Character Designer's face rig (design/rig/heads.py)
 
 CAST = {
     "NOOR":   dict(top="noor/suit", arms="noor/suit", legs="noor/skirt", shoes="noor/shoes", skin="noor/skin", hair="noor/hair", iris="noor/iris"),
@@ -83,25 +88,27 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
     # head, neck, hair, eyes (glossy corneas -> panel catchlights)
     head_c = P(-0.13, 0, 1.31)
     tilt = Matrix.Rotation(math.radians(-6), 3, lat)
-    if name == "NOOR" and sculpted:
-        obs.append(_tag(limb(f"{name}_NECK", sh + Vector((0, 0, 0.05)), head_c - Vector((0, 0, 0.06)) - f * 0.01, 0.056, noor.skin_mat(), C, segs=12, smooth=True), 1))
-        obs += noor.build(head_c, f, lat, C, params=face)
-    else:
-        obs.append(_tag(limb(f"{name}_NECK", sh, head_c - Vector((0, 0, 0.08)), 0.045, skin, C), 1))
-        obs.append(_tag(ellipsoid(f"{name}_HEAD", head_c, (0.095, 0.082, 0.115), skin, C, rot=tilt @ rot), 1))
-        obs.append(_tag(ellipsoid(f"{name}_NOSE", head_c + f * 0.092 - Vector((0, 0, 0.012)), (0.02, 0.014, 0.028), skin, C, rot=rot), 1))
-        obs.append(_tag(ellipsoid(f"{name}_HAIR", head_c - f * 0.025 + Vector((0, 0, 0.035)), (0.10, 0.09, 0.10), hair, C, rot=rot), 2))
-        sclera = ld.gloss("sclera", (0.896, 0.871, 0.807), roughness=0.04, coat=1.0)   # #F3F0E8 (design-notes F2)
-        lid = ld.paint(f"lid_{name}", (0.155, 0.0685, 0.0395), tier="face")                 # #6E4A38
-        lidline = ld.paint("lid_line", (0.006, 0.005, 0.005), tier="face", variation=0.0)
-        for s in (-1, 1):
-            ec = head_c + f * 0.074 + lat * s * 0.033 + Vector((0, 0, 0.012))
-            obs.append(_tag(ellipsoid(f"{name}_EYE_{s}", ec, (0.012, 0.012, 0.012), sclera, C, segs=16, smooth=True), 1))
-            obs.append(_tag(ellipsoid(f"{name}_IRIS_{s}", ec + f * 0.0085, (0.0035, 0.0062, 0.0062), cornea, C, segs=12, rot=rot, smooth=True), 1))
-            if eyes_closed:
-                obs.append(_tag(ellipsoid(f"{name}_LID_{s}", ec + f * 0.001, (0.0135, 0.0135, 0.0135), lid, C, segs=16, smooth=True), 1))
-                obs.append(_tag(limb(f"{name}_LIDLINE_{s}", ec + f * 0.0132 - lat * 0.010 - Vector((0, 0, 0.001)),
-                                     ec + f * 0.0132 + lat * 0.010 - Vector((0, 0, 0.001)), 0.0016, lidline, C), 1))
+    # head: the Character Designer's rig (design/rig/heads.py) with the TA's painted materials
+    neck_top = head_c - Vector((0, 0, 0.065)) - f * 0.01
+    obs.append(_tag(limb(f"{name}_NECK", sh + Vector((0, 0, 0.05)), neck_top, 0.054, skin if name != "NOOR" else noor.skin_mat(),
+                         C, segs=12, smooth=True), 1))
+    key = name.lower()
+    face_skin = noor.skin_mat() if name == "NOOR" else ld.paint(f"c_{key}_skin_face", f"{key}/skin", tier="face",
+                                                               shadow=f"{key}/skin_shadow", axis="z", stretch=1.6,
+                                                               variation=0.05, shadow_mix=0.2, tilt=0.09)
+    mats = {"skin": face_skin,
+            "hair": ld.paint(f"c_{key}_hair_rig", f"{key}/hair", tier="costume", stroke_scale=90.0, stretch=6.0, axis="z", variation=0.35),
+            "lips": ld.paint(f"c_{key}_lips", f"{key}/lips", tier="face", variation=0.04)}
+    root = _heads.build_head(name, collection=C, mats=mats)
+    _heads.place(root, head_c, f)
+    expr = dict(face or {})
+    if eyes_closed:
+        expr.update({"lid_up": 0.0, "tension": 0.35})
+    if expr:
+        _heads.set_expression(root, expr, from_neutral=True)
+    for ob in [root] + list(root.children_recursive):
+        if ob.type == "MESH" and ob.pass_index == 0:
+            ob.pass_index = 1
     if spec.get("hood"):
         obs.append(_tag(ellipsoid(f"{name}_HOOD", sh - f * 0.10 + Vector((0, 0, 0.06)), (0.08, 0.17, 0.09), m["top"], C, rot=rot), 2))
     # arms by pose: (elbow, hand) in (fwd, lat, z-unscaled)

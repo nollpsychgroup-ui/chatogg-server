@@ -52,7 +52,7 @@ def build(D=None, B=None):
     m_floor = ld.paint("floor", "set/floor", stretch=6.0, roughness=0.7)
     m_seat = ld.paint("moquette", "set/moquette", stroke_scale=22.0, stretch=3.0, variation=0.34, roughness=0.9)
     m_pat = ld.paint("moquette_pattern", "set/moquette_pattern", stroke_scale=22.0, stretch=3.0, variation=0.34, roughness=0.9)
-    m_trim = ld.gloss("trim_steel", "set/trim", roughness=0.35, metallic=1.0)
+    m_trim = ld.gloss("trim_steel", "set/trim", roughness=0.62, metallic=0.5)   # satin: a soft sheen, never a second tube (DP)
     m_trim_p = ld.paint("trim_paint", "set/trim")
     m_glass = ld.glass()
 

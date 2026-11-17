@@ -360,7 +360,18 @@ def setup_compositor(scene, k_set=4, k_face=2, enabled=True):
     L.new(anyc.outputs[0], inv.inputs[1])
     cim = N.new("CompositorNodeImage"); cim.image = canvas_image(scene.render.resolution_x, scene.render.resolution_y)
     mul = N.new("ShaderNodeMix"); mul.data_type = "RGBA"; mul.blend_type = "MULTIPLY"
+    # darks merge into bigger, quieter shapes: a larger kernel blended in where luminance is low
+    # (set only; lit features stay crisp; 0 stays 0 because Kuwahara of black is black)
+    dark = kuwa(k_set * 2 + 1)
+    bw = N.new("CompositorNodeRGBToBW"); L.new(rl.outputs["Image"], bw.inputs[0])
+    dm = N.new("ShaderNodeMath"); dm.operation = "MULTIPLY_ADD"; dm.use_clamp = True
+    L.new(bw.outputs[0], dm.inputs[0]); dm.inputs[1].default_value = -1.0 / 0.12; dm.inputs[2].default_value = 0.16 / 0.12
+    dmask = N.new("ShaderNodeMath"); dmask.operation = "MULTIPLY"
+    L.new(dm.outputs[0], dmask.inputs[0]); L.new(inv.outputs[0], dmask.inputs[1])
+    dmix = N.new("ShaderNodeMix"); dmix.data_type = "RGBA"
+    L.new(dmask.outputs[0], dmix.inputs["Factor"])
+    L.new(mix.outputs[2], dmix.inputs[6]); L.new(dark.outputs[0], dmix.inputs[7])
     L.new(inv.outputs[0], mul.inputs["Factor"])
-    L.new(mix.outputs[2], mul.inputs[6]); L.new(cim.outputs["Image"], mul.inputs[7])
+    L.new(dmix.outputs[2], mul.inputs[6]); L.new(cim.outputs["Image"], mul.inputs[7])
     L.new(mul.outputs[2], out.inputs[0])
     return ng

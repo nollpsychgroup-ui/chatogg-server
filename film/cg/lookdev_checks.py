@@ -84,7 +84,7 @@ def check_strap():
 
 def eye_crop(scene, name, pad=0.06):
     cam = scene.camera
-    pts = [bpy.data.objects[f"{name}_EYE_-1"].matrix_world.translation, bpy.data.objects[f"{name}_EYE_1"].matrix_world.translation]
+    pts = [bpy.data.objects[f"{name}_HD_EYE_{s}"].matrix_world.translation for s in ("L", "R")]
     rx, ry = scene.render.resolution_x, scene.render.resolution_y
     uv = [world_to_camera_view(scene, cam, p) for p in pts]
     cx = sum(u.x for u in uv) / 2 * rx
@@ -112,7 +112,7 @@ def check_catchlights():
     save_png(sheet, os.path.join(OUT, "8c_catchlights_noor_40mm.png"))
     peak = [float(c.max()) for c in crops]
     return None, (f"8c_catchlights_noor_40mm.png (x4 crops; left 5 MIN all lit, right after 7.10). A catchlight from the overhead panels is present "
-                  f"in both (P1-P2 stay lit); the receding row ahead of her is not resolvable on the 1.2 cm proxy eyes. Re-check on the Designer's face rig. "
+                  f"in both (P1-P2 stay lit); (Designer's face-rig eyes). "
                   f"Peak eye value {peak[0]:.2f} -> {peak[1]:.2f}")
 
 
