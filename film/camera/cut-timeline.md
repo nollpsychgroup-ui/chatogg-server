@@ -96,7 +96,7 @@ Checks passed on build: the cut is continuous; every cue sits at least 0.5 s ins
 | 55 | 7:49.0 | 7:54.0 | E | 40 | locked | 8.1 | Walter and Bea come back into the light |
 | 56 | 7:54.0 | 8:06.0 | C75 | 75 | push | 8.2 | 'I go to the library —' the half-beat, her eyes to Kai's phone — '— and I come home.' |
 | 57 | 8:06.0 | 8:21.0 | A | 32 | locked | 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 8.9 | 'I didn't tell you because —' the relights run toward us; Kai's empty seat relights |
-| 58 | 8:21.0 | 8:32.0 | C75 | 75 | still (the push has landed) | 8.10 | 'I'm sorry.' Silence on the line. The far panel comes on: P12's catchlight reappears in her eyes on the 8.10 frame, completing the reflected row. The car is asleep |
+| 58 | 8:21.0 | 8:32.0 | C75 | 75 | still (the push has landed) | 8.10 | 'I'm sorry.' Silence on the line. The far panel comes on: on the 8.10 frame the tip of the reflected panel row in her corneas completes (P12 itself is sub-pixel at ~10 m; accepted by the Director). Hold C75 as framed, no tighter. The car is asleep |
 
 ## Scene 8: Holloway (arrival → end) · 8:32.0–9:25.0 · 5 shots
 

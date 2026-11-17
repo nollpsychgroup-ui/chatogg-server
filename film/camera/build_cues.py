@@ -238,7 +238,7 @@ S = [
  (55, 469.0, 474.0, "E", 40, None, "locked", 7, "Walter and Bea come back into the light", ["8.1"]),
  (56, 474.0, 486.0, "C75", 75, None, "push", 7, "'I go to the library —' the half-beat, her eyes to Kai's phone — '— and I come home.'", ["8.2"]),
  (57, 486.0, 501.0, "A", 32, None, "locked", 7, "'I didn't tell you because —' the relights run toward us; Kai's empty seat relights", ["8.3", "8.4", "8.5", "8.6", "8.7", "8.8", "8.9"]),
- (58, 501.0, 512.0, "C75", 75, None, "still (the push has landed)", 7, "'I'm sorry.' Silence on the line. The far panel comes on: P12's catchlight reappears in her eyes on the 8.10 frame, completing the reflected row. The car is asleep", ["8.10"]),
+ (58, 501.0, 512.0, "C75", 75, None, "still (the push has landed)", 7, "'I'm sorry.' Silence on the line. The far panel comes on: on the 8.10 frame the tip of the reflected panel row in her corneas completes (P12 itself is sub-pixel at ~10 m; accepted by the Director). Hold C75 as framed, no tighter. The car is asleep", ["8.10"]),
  (59, 512.0, 515.0, "I", 50, "DISPLAY", "locked", 8, "Display: NOW ARRIVING: HOLLOWAY", []),
  (60, 515.0, 519.0, "D", 40, "NOOR", "locked", 8, "The train slows; she stands and looks back at them", []),
  (61, 519.0, 523.0, "E", 40, None, "locked", 8, "Walter's smallest nod; Bea has closed her eyes", []),
