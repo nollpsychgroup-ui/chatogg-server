@@ -1,6 +1,6 @@
 # THE QUIET CAR: Painterly Style Guide
 
-**Character Designer** · Milestone 3 · v1 (draft for Director approval; build notes to be agreed with the 3D/TA)
+**Character Designer** · Milestone 3 · v1 · **APPROVED by the Director** (`../notes/design-notes-01.md`) · build notes **agreed with the 3D/TA**
 Companion to `../FORMAT.md`, `../camera/visual-approach.md`, `../notes/directors-treatment.md`.
 Sheets: `sheets/` (incl. `seated.svg`), PNG previews in `png/`, expressions: `expressions/`, props: `props/`. Open `index.html` to see everything on one page.
 
@@ -176,12 +176,12 @@ Skin is painted with **ochre/umber in the halftones and cool grey-green in the s
 
 ## 8. Build notes for the 3D/TA (to agree; the TA owns the implementation)
 
-My proposal for how Blender can deliver this. **The TA has final say on method; these are the visual targets.**
+My proposal for how Blender can deliver this. **The TA has final say on method; these are the visual targets.** *Agreed with the TA:* posterising applies to albedo only, never to light; terminator breakup is a surface-locked stroke normal perturbation (no relief on characters); `palette.json` is read directly by look-dev; boil is off, and an awake-only test is optional. The section 8 checks come back with the style frames.
 
 1. **Lighting:** physically based. Panels, the LED display, phone screens and the platform lamp are the only emitters. No fill lights, no light linking that cheats faces, no painted light in textures.
 2. **Surface shading:** Principled BSDF, high roughness (0.7–0.9) on everything matte, specular low. Albedo from painted textures (hand-painted for finals; for previs a **procedural stroke texture** in object/UV space is fine). Gloss only on corneas, tear film, badge plastic, phone glass and steel trim.
 3. **Painterly terminator:** break up the light/shadow transition with a **stroke-mask texture fixed to the surface** (e.g. a stretched Voronoi/noise in UV space, driving a small normal perturbation or a mix at the terminator). It must respond to the real light, and it must not change over time.
-4. **Compositor:** an **anisotropic Kuwahara** pass for the painted look (Blender's compositor has a Kuwahara node), with a **smaller kernel on faces and hands** (Cryptomatte mask) so the acting zones stay crisp. Any canvas/paper texture goes on as **multiply only**, so the blackout stays at 0. No bloom/glare on the panels beyond a very small, stable amount; no vignette.
+4. **Compositor:** an **anisotropic Kuwahara** pass for the painted look (Blender's compositor has a Kuwahara node), with a **smaller kernel on faces and hands** (TA: Object Index + ID Mask for previs, Cryptomatte at finals) so the acting zones stay crisp. Any canvas/paper texture goes on as **multiply only**, so the blackout stays at 0. No bloom/glare on the panels beyond a very small, stable amount; no vignette.
 5. **No outlines** (Freestyle off). No noise in shadows (denoise, or EEVEE).
 6. **Faces:** shape keys or bones for the controls in `expressions/face-rig.md`, with the values on the expression sheets as targets.
 7. **Previs blocking figures** (Milestone 4): heights and seated heights are on the lineup sheet so the proxies are the right size for the DP's lenses and eye-lines.
