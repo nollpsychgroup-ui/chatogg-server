@@ -36,3 +36,9 @@ The newspaper notes (22/23), the red button (32) and MARK (51) are **plot-critic
 ## C. Pass 2 list: agreed
 
 Idles and breathing (the sleeping car is the only thing still, and Noor doesn't react to cues 1–2), animated walks, Bea's reach (15), the eye look-ats, neutral Noor on the platform, the R3 lamp post, brushwork that tracks on moving shots, the hair material, Bea's lids at the 7.10 edge, the P12 catchlight, strap clipping. Plus **A** and **B** above.
+
+## Addendum: from the Producer's spot check (folded in)
+
+- **Shot 62, the platform:** Noor is almost hidden behind the door pillar or frame edge. This is the **last image of her in the film**, so she must read clearly through the open doors: her face, the phone at her ear, the cold lamp. Re-block her or reframe G (DP and TA). This goes with the B2 trim.
+- **Shot 24:** already listed in A (the camera under her chin). Her eyes and the "reads it twice" beat must read.
+- **Shot 38, Walter's speech (31 s, the longest held close shot of anyone but Noor):** his head reads as a mannequin (bald dome, long thin neck, flat light). **Pass 2 priority for the Designer and TA:** hair shape per his sheet, neck proportion, lid line and brow, and **real top-light modelling** from his panel, so his eyes and hands carry the speech.
