@@ -34,7 +34,7 @@ SPEC = {
     "NOOR":   dict(key="noor",   r=(0.074, 0.094, 0.114), jaw=0.72, chin_fwd=0.006, eye_r=0.0135, brow_th=0.0042, mouth_w=0.024, lip_th=1.0),
     "KAI":    dict(key="kai",    r=(0.077, 0.095, 0.115), jaw=0.78, chin_fwd=0.006, eye_r=0.0135, brow_th=0.0048, mouth_w=0.025, lip_th=0.9),
     "BEA":    dict(key="bea",    r=(0.079, 0.093, 0.112), jaw=0.80, chin_fwd=0.004, eye_r=0.0135, brow_th=0.0042, mouth_w=0.026, lip_th=1.15,
-                  sclera="#F3F0E8", lid_ink="#0E0907", lid_albedo="#6E4A38", ink_band=0.30),
+                  sclera="#F3F0E8", lid_ink="#0E0907", lid_albedo="#7C5642", ink_band=0.42),
     "WALTER": dict(key="walter", r=(0.071, 0.095, 0.120), jaw=0.72, chin_fwd=0.007, eye_r=0.0130, brow_th=0.0060, mouth_w=0.024, lip_th=0.75),
 }
 

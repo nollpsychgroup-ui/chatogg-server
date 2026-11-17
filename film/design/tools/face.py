@@ -31,7 +31,7 @@ CHAR = {
     ),
     "bea": dict(
         skin="#5E3C2C", shade="#46322A", lip="#5A3A35", hair="#45413E", hair_hi="#9A9590",
-        brow="#231915", iris="#1F1612", sclera="#F3F0E8", lid_ink="#0E0907", lid_w=1.35, lid_albedo="#6E4A38", eye_tilt=0.0, brow_th=0.03, brow_arch=0.018,
+        brow="#231915", iris="#1F1612", sclera="#F3F0E8", lid_ink="#0E0907", lid_w=1.45, lid_albedo="#7C5642", eye_tilt=0.0, brow_th=0.03, brow_arch=0.018,
         head=[(0, 0), (0.33, 0.03), (0.48, 0.17), (0.52, 0.40), (0.52, 0.60), (0.47, 0.77), (0.34, 0.91), (0.16, 0.985), (0, 1.0)],
         mouth_w=0.175, lip_th=1.15, age=0.55,
     ),

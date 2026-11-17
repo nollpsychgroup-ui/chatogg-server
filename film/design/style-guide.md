@@ -70,7 +70,7 @@ Every light in the car is overhead. A real fluorescent panel straight above will
 
 ### 2.4 Bea in the dark states (Director F2)
 
-Bea's skin sits close in value to her navy scrubs. To keep her eyes-closed-but-awake acting alive under the brownout and at the edge of the creeping dark, we raise contrast **in the acting zones, not the skin**: brighter sclera `#F3F0E8`, a near-black lid line 35% heavier, and a slightly lighter lid albedo `#6E4A38` (a material value, not painted light). The oatmeal cardigan frames her face. The check strip is on `expressions/bea-expressions.svg`, and the TA's brownout style frame includes Bea as the real test.
+Bea's skin sits close in value to her navy scrubs. To keep her eyes-closed-but-awake acting alive under the brownout and at the edge of the creeping dark, we raise contrast **in the acting zones, not the skin**: brighter sclera `#F3F0E8`, a near-black lid line `#0E0907` about 40% heavier (v2: band ~0.42 of the lid radius), and a lighter lid albedo `#7C5642` (v2, up from `#6E4A38` after the TA's 7.10-edge test; a material value, not painted light). The oatmeal cardigan frames her face. The check strip is on `expressions/bea-expressions.svg`, and the TA's brownout style frame includes Bea as the real test.
 
 ### 2.5 Tears
 

@@ -161,7 +161,7 @@ def dark_check(d):
         "could swallow her acting. Fix, per",
         "Director F2: lift the SCLERA (#F3F0E8)",
         "and LID-LINE contrast (near-black ink,",
-        "35% heavier line, slightly lighter lid",
+        "40% heavier line, lighter lid #7C5642",
         "albedo), never her skin value. The",
         "oatmeal cardigan frames her face.",
         "TA: include Bea in the brownout",
@@ -226,3 +226,5 @@ if __name__ == "__main__":
     props.build(out)
     import seated
     seated.build(out, header)
+    import paintref
+    paintref.build(out, header)
