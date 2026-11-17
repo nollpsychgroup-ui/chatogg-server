@@ -56,3 +56,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [dp] Director approved option (b): "I can't —"/"Say it." overlap restored; 7.9 follows the pair, 7.10 8.5 s later in silence held on Bea (shot 49 now 426.5–440); no cue times changed (camera/)
 - [screenwriter] Scratch voice: "I can't —"/"Say it." overlap restored, 7.9 tick follows (per Director/DP) (previs/voice/)
 - [dp] dialogue[] in cues.json now read directly from the Screenwriter's scratch-voice-lines.json (58 lines); all checks pass incl. no tick/relight on a line (camera/)
+- [designer] M4 face refinement v4 (less mannequin): superellipsoid skull + anatomy fields (brow ridge, sockets, cheekbones, muzzle, chin, jaw angle/underside, temples), per-character age/feature fields; features sit on the displaced surface (design/rig/heads.py, renders/)

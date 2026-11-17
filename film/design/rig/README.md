@@ -27,6 +27,10 @@ set_expression(root, {"smile": 0.45, "lid_low": 0.0}, frame=240, from_neutral=Tr
 - Un-suffixed names (`lid_up`, `smile`, `brow_in`...) set both sides.
 - `from_neutral=True` resets every control to that character's neutral first, the same way the sheets read.
 
+## Forms (v4, M4: "less mannequin")
+
+The skull is a **superellipsoid** (a boxier cranium, flatter face plane and firmer jaw than an egg) plus smooth **anatomy fields** (`ANATOMY`, `CHARACTER_ANATOMY`): brow ridge, glabella, shallow sockets, cheekbones, muzzle, chin, temples, jaw angle and under-eye fullness, with the jaw underside flattened toward the neck. Per character: Noor has defined cheekbones and a softer, tapered jaw; Kai has full young cheeks and a soft chin; Bea has full cheeks and tired under-eyes; Walter has a heavy brow, hollow cheeks, jowls, a high forehead and only a band of hair. Every feature (eyes, brows, lips) sits on the displaced surface (`Skull.front_y` solves for it).
+
 ## Known limits (previs, not final)
 
 `naso` is a control with no geometry yet. The mouth interior only shows when `jaw > 0` (there's no hole in the skin), and the lips are thin ribbons. Hair is simple caps. The final heads are for the modellers. This rig fixes **proportions, eye placement and size, lid behaviour, and the control set**.

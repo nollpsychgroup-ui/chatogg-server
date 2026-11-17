@@ -31,8 +31,8 @@ PALETTE = os.path.join(os.path.dirname(HERE), "palette.json")
 
 # Head ellipsoid half-sizes in metres (x half-width, y half-depth, z half-height), jaw taper, extras.
 SPEC = {
-    "NOOR":   dict(key="noor",   r=(0.074, 0.094, 0.114), jaw=0.72, chin_fwd=0.006, eye_r=0.0135, brow_th=0.0042, mouth_w=0.024, lip_th=1.0),
-    "KAI":    dict(key="kai",    r=(0.077, 0.095, 0.115), jaw=0.78, chin_fwd=0.006, eye_r=0.0135, brow_th=0.0048, mouth_w=0.025, lip_th=0.9),
+    "NOOR":   dict(key="noor",   r=(0.074, 0.094, 0.114), jaw=0.70, chin_fwd=0.006, eye_r=0.0135, brow_th=0.0042, mouth_w=0.024, lip_th=1.0),
+    "KAI":    dict(key="kai",    r=(0.077, 0.095, 0.115), jaw=0.82, chin_fwd=0.006, eye_r=0.0135, brow_th=0.0048, mouth_w=0.025, lip_th=0.9),
     "BEA":    dict(key="bea",    r=(0.079, 0.093, 0.112), jaw=0.80, chin_fwd=0.004, eye_r=0.0135, brow_th=0.0042, mouth_w=0.026, lip_th=1.15,
                   sclera="#F3F0E8", lid_ink="#0E0907", lid_albedo="#7C5642", ink_band=0.42),
     "WALTER": dict(key="walter", r=(0.071, 0.095, 0.120), jaw=0.72, chin_fwd=0.007, eye_r=0.0130, brow_th=0.0060, mouth_w=0.024, lip_th=0.75),
@@ -158,13 +158,44 @@ def _sphere(r, segs=24, rings=16, pole_y=False):
     return bm
 
 
-class Skull:
-    """Analytic head surface: an ellipsoid whose half-width tapers toward the jaw."""
+# Anatomy as smooth displacement fields on top of the base ellipsoid (metres, head-local).
+# Each entry: (x, z, sigma, push) with the centre on the face (y found on the base surface), mirrored in x
+# when x != 0. "push" moves the surface out (+) or in (-) along its normal.
+ANATOMY = [
+    (0.030, 0.030, 0.018, 0.0035),    # brow ridge
+    (0.000, 0.030, 0.012, 0.0020),    # glabella
+    (0.032, 0.008, 0.011, -0.0035),   # eye socket (shallow by design: top light)
+    (0.048, -0.012, 0.016, 0.0040),   # cheekbone
+    (0.000, -0.055, 0.020, 0.0040),   # muzzle round the mouth
+    (0.000, -0.098, 0.013, 0.0040),   # chin
+    (0.066, 0.050, 0.020, -0.0030),   # temples
+    (0.060, -0.072, 0.016, 0.0060),   # jaw angle
+    (0.032, -0.010, 0.007, 0.0012),   # under-eye fullness
+]
+CHARACTER_ANATOMY = {
+    "NOOR":   [(0.050, -0.010, 0.014, 0.0020), (0.046, -0.045, 0.014, -0.0015),   # defined cheekbones, slight hollow
+               (0.060, -0.074, 0.016, -0.0045), (0.000, -0.100, 0.012, -0.0010)],  # softer, tapered jaw and chin
+    "KAI":    [(0.045, -0.045, 0.016, 0.0020), (0.000, -0.098, 0.012, -0.0015)],   # young: full cheeks, softer chin
+    "BEA":    [(0.045, -0.040, 0.018, 0.0035), (0.032, -0.012, 0.008, 0.0022)],    # full cheeks; tired under-eyes
+    "WALTER": [(0.030, 0.030, 0.016, 0.0020), (0.046, -0.040, 0.014, -0.0040),     # heavier brow; hollow cheeks
+               (0.050, -0.088, 0.012, 0.0030), (0.032, -0.012, 0.008, 0.0018),      # jowls; under-eye bags
+               (0.000, 0.070, 0.030, 0.0015)],                                      # high forehead
+}
 
-    def __init__(self, s):
+
+class Skull:
+    """Head surface: a jaw-tapered ellipsoid plus smooth anatomical displacement fields."""
+
+    def __init__(self, s, name=None):
         self.rx, self.ry, self.rz = s["r"]
         self.jaw = s["jaw"]
         self.chin_fwd = s["chin_fwd"]
+        self.fields = []
+        for (x, z, sig, push) in ANATOMY + CHARACTER_ANATOMY.get(name, []):
+            for sx in ((1, -1) if x else (1,)):
+                cx = sx * x
+                c = Vector((cx, self._base_front_y(cx, z), z))
+                self.fields.append((c, sig, push))
 
     def taper(self, zn):  # zn = z / rz in [-1, 1]
         if zn >= -0.15:
@@ -172,22 +203,57 @@ class Skull:
         t = min(1.0, (-0.15 - zn) / 0.85)
         return 1.0 - (1.0 - self.jaw) * t * t
 
-    def shape(self, v):
-        """Map a unit-sphere point to the head surface."""
+    def _base(self, v):
+        # superellipsoid: squarer than an egg (boxier cranium, flatter face plane, firmer jaw)
+        zz = v.z
+        pw = 2.0 + 0.75 * max(0.0, min(1.0, (zz + 0.2) / 0.6)) + 0.3 * max(0.0, min(1.0, (-zz - 0.3) / 0.4))
+        sc = (abs(v.x) ** pw + abs(v.y) ** pw + abs(v.z) ** pw) ** (-1.0 / pw)
+        v = v * sc
         zn = v.z
         x = v.x * self.rx * self.taper(zn)
         y = v.y * self.ry
         if zn < -0.5 and v.y > 0:
             y += self.chin_fwd * (-0.5 - zn) * 2 * v.y
-        if -0.45 < zn < 0.1 and v.y > 0.2:  # cheekbones
-            x *= 1.0 + 0.05 * math.cos((zn + 0.175) / 0.275 * math.pi / 2)
-        return Vector((x, y, v.z * self.rz))
+        z = v.z * self.rz
+        # jaw underside and the back of the jaw: flatten the bottom of the egg toward the neck
+        if z < -0.07 and y < 0.05:
+            k = min(1.0, (0.05 - y) / 0.06)
+            z = z + (-0.07 - z) * 0.6 * k
+        if y < 0 and z > -0.05:  # fuller cranium behind
+            y *= 1.06
+        return Vector((x, y, z))
 
-    def front_y(self, x, z):
+    def _base_front_y(self, x, z):
         zn = max(-0.999, min(0.999, z / self.rz))
         w = self.rx * self.taper(zn)
         q = 1 - (x / w) ** 2 - zn ** 2
         return self.ry * math.sqrt(max(q, 0.0))
+
+    def shape(self, v):
+        """Map a unit-sphere point to the head surface."""
+        p = self._base(v)
+        n = Vector((p.x / self.rx ** 2, p.y / self.ry ** 2, p.z / self.rz ** 2)).normalized()
+        d = 0.0
+        for c, sig, push in self.fields:
+            q = (p - c).length_squared
+            if q < 9 * sig * sig:
+                d += push * math.exp(-q / (2 * sig * sig))
+        return p + n * d
+
+    def front_y(self, x, z):
+        """y of the (displaced) face surface at (x, z), found by iterating on the sphere."""
+        c = Vector((x / self.rx, 0.0, max(-0.99, min(0.99, z / self.rz))))
+        for _ in range(30):
+            c.x = max(-0.99, min(0.99, c.x))
+            c.z = max(-0.99, min(0.99, c.z))
+            c.y = math.sqrt(max(1e-6, 1 - c.x * c.x - c.z * c.z))
+            p = self.shape(c)
+            ex, ez = x - p.x, z - p.z
+            if abs(ex) < 1e-6 and abs(ez) < 1e-6:
+                break
+            c.x += ex / (self.rx * self.taper(c.z)) * 0.9
+            c.z += ez / self.rz * 0.9
+        return self.shape(c).y
 
 
 def _strip(skull, pts_xz, width_fn, lift=0.0015, normal_push=0.0):
@@ -242,7 +308,7 @@ def build_head(name, collection=None, mats=None, pass_face=1, pass_hair=2):
     M = default_materials(name)
     if mats:
         M.update({k: v for k, v in mats.items() if v is not None})
-    skull = Skull(s)
+    skull = Skull(s, name)
     root = bpy.data.objects.new(f"{name}_HEADRIG", None)
     root.empty_display_type = "SPHERE"
     root.empty_display_size = 0.12
@@ -254,7 +320,7 @@ def build_head(name, collection=None, mats=None, pass_face=1, pass_hair=2):
     set_expression(root, NEUTRAL[name])
 
     # skull
-    bm = _sphere(1.0, 32, 22)
+    bm = _sphere(1.0, 64, 44)
     for v in bm.verts:
         v.co = skull.shape(v.co)
     _mesh_obj(f"{name}_HD_SKULL", bm, [M["skin"]], collection, root, pass_index=pass_face)
@@ -504,8 +570,8 @@ def _hair(name, s, skull, M, root, collection, ph):
     elif name == "WALTER":
         # bald on top: a band of white hair round the sides and back
         side = hairline(1.5, -0.32, -0.4)
-        top = hairline(0.5, 0.5, 0.55)
-        shell(lambda c: min(side(c), -top(c)) if abs(math.atan2(c.x, c.y)) > 0.3 * math.pi else -1.0, lambda c: 1.025, "HAIR_SIDES")
+        top = hairline(0.30, 0.26, 0.40)
+        shell(lambda c: min(side(c), -top(c), (abs(math.atan2(c.x, c.y)) / math.pi - 0.42) * 1.5), lambda c: 1.02, "HAIR_SIDES", band=0.05)
 
 
 # ------------------------------------------------------------------ placing and keying
