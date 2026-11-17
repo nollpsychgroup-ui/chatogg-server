@@ -22,3 +22,13 @@
 ## Next
 
 Hold the cue sheet until script lock (draft-02 is at the human gate). When it's locked, number the cue sheet against the DP's lighting cues 0–8 so the two documents map 1:1.
+
+---
+
+## Addendum: v2 review
+
+**v2 is approved.** All the notes above are addressed. On the reconciliation the Composer flagged, **keep both cues:**
+
+- **Confession: cello harmonics doubling the relit partials (G-D-F-A, third withheld).** Approved. It's the "restrained, unresolved warmth" from my brief, and because it doubles the panels' own pitches it stays inside the carriage's world. Conditions: it enters only *with* a relit partial, never before Noor's first true sentence. It sits under her dialogue, never beside it, and it has thinned out before the doors open.
+- **Release triad on the page turn, with B as the withheld third.** Approved. It's a beautiful link: the confession withholds the third, and it arrives for Walter. It stays nearly subliminal and is gone before Kai's phone dims.
+- The PA line stays unscored, as briefed.
