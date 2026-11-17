@@ -1,6 +1,6 @@
 # THE QUIET CAR: Score Concept
 
-**Composer** · based on `script/draft-01.md` and `notes/director-notes-01.md` · prep document, expect changes once the script locks
+**Composer** · based on `script/draft-02.md`, `notes/director-notes-01.md` and `camera/visual-approach.md` · prep document, expect changes once the script locks
 
 ---
 
@@ -9,7 +9,8 @@
 In a film about a car that listens, a conventional score would be a lie: someone outside the carriage telling us how to feel. So **the score never shows up as "music."** It lives inside the carriage, as the hum of the fluorescent panels.
 
 - The train runs on mains power. The ballast hum is **50 Hz** (the script reads as UK: Holloway, "Mum"). That's roughly **G1, 35 cents sharp**, and it is the film's tonal centre. The whole score is tuned to it (A4 ≈ 449 Hz). If we shoot on a 60 Hz rig, everything moves to ≈ B♭1/B1 and the system still works.
-- **Each ceiling panel sings one partial of the harmonic series on 50 Hz.** With ten panels, that's partials 2 to 11: 100, 150, 200 … 550 Hz. Played together, a harmonic series fuses into one timbre, so a **fully lit carriage just sounds like hum**. The audience never hears a chord, only "the train." That's the point.
+- **Each ceiling panel sings one partial of the harmonic series on 50 Hz.** The DP plans about 12 panels, so that's partials 2 to 13: 100, 150, 200 … 650 Hz. Noor's panel carries partial 2 and the farthest panel carries partial 13. The 13th partial is the series' most out-of-tune member, sitting near A♭, the car's own note (see §2): the far end of the carriage already has a little of the car in it. Played together, a harmonic series fuses into one timbre, so a **fully lit carriage just sounds like hum**. The audience never hears a chord, only "the train." That's the point.
+- **The car breathes.** From the first groan until the last relight, the hum swells **±3%, one cycle every 5 seconds**, locked to the DP's panel breathing. When the last panel relights, the breathing stops dead.
 - **When the car is woken, the hum stops being innocent.** A lie bends a panel's partial out of tune, and the fused hum audibly splits into notes. When a panel goes dark, its partial disappears. When it relights, the partial comes back.
 
 So the score tracks the DP's lighting plan one-to-one. **One panel equals one voice.** The darkness creeping toward Noor is literally the chord being taken apart, high partials first, so the car sounds duller and heavier as it approaches. Her confession rebuilds it one true sentence at a time.
@@ -43,6 +44,7 @@ Silence is the premise, so the score's biggest job is **leaving**.
 - **The C3 breath (8 → 5 min):** hum and rails only. This is where the audience gets used to the carriage chord, so they hear it come apart later.
 - **Noor's confession: no new music.** The panels relighting, one partial per sentence, is the only score. If it works, the confession will feel scored without a single note having been written for it.
 - **Mark's silence on the phone:** hum only. We don't lean on it.
+- **Noor's thumb over Kai's call (draft 02, 8 min)** and **the "library" half-beat in the confession:** nothing new. The steady hum and the open line's faint "*Kai?*" do the work.
 
 ## 4. Palette and instrumentation
 
@@ -58,7 +60,7 @@ The rule is that **every sound should be deniable as the train**, until the last
 
 | Element | Owner | Notes |
 |---|---|---|
-| Panel hum (carriage chord) | **Music** | Delivered as 10 stems, one per panel, plus the 50 Hz fundamental, so the mixer can mute panels exactly to picture |
+| Panel hum (carriage chord) | **Music** | Delivered as 12 stems, one per panel (one per DMX channel), plus the 50 Hz fundamental, so the mixer can mute panels exactly to picture |
 | THE GROAN | **Shared** | SD owns the texture (metal, wet, mechanical). Music owns the pitched core, the Undertone. Delivered as separate stems. The Groan's pitch must never drift off G/A♭/F♯ |
 | Wet inhale in the blackout | **Shared** | SD texture, music pitch, same as above |
 | Panel ticks/clicks (out and relight) | **Sound design** | Dry relay clicks on the lighting frame. Music doesn't "hit" ticks; the partial simply stops or starts under them |
@@ -96,16 +98,18 @@ All of these need a lighting cue and a sound change on the **same frame**. I'll 
 4. **Blackout in, the hard cut:** lights, hum, rails and score all go to zero on one frame
 5. Blackout out: lights up, hum and rails back instantly, in tune and indifferent
 6. "S—" dip (M1) and "I'm f—" stutter
-7. Sequential panel-outs: **order and count matter**. I'm assuming 10 panels, going dark from the far end toward Noor
+7. Sequential panel-outs: one relay tick per panel from the far end toward Noor (DP cue 7). Each tick removes one partial, highest first, so the carriage sounds darker as it gets darker
 8. Sequential relights during the confession: one per true sentence. Which end first?
 9. Door chimes (×3) and PA voice
 10. Final: Kai's phone screen dims as the release triad decays
 
-**Questions for the DP:** How many panels, and are both sides one row or two? Is the brownout colour shift a dim or a colour change (dimming tends to drop flat in my head; a colour change could bend sharp)? Can the panels be dimmed frame-accurately from timecode?
+**Agreed with the DP's proposal** (`camera/visual-approach.md`, *Sync*): the lighting console is the master clock on set, and each light cue fires its sound partner from the same cue stack. Panel stems map 1:1 to DMX channels. Brownout (warm and dim) means the hum sags **flat**. The relight overshoot to ~110% gets a matching ~+1 dB swell on that panel's partial. The bass transducers under the seats should carry the Undertone stem, so the set physically plays the car's motif.
+
+**Still to confirm with the DP:** the exact panel count, and whether the confession relights start at Noor's end or the far end. The sketch assumes the far panels relight last.
 
 ## 8. Sketch
 
-`sketches/car-motif-sketch-01.mp3` (render) and `.mid` (10 microtuned panel channels plus the Undertone and the release triad), generated by `sketches/car_motif.py` (Python plus numpy; `python3 car_motif.py` re-renders). It's a 97-second demo of the system, not a cue. It runs through the boarding wobble, lie 1, lie 2, Kai's brownout, true silence, the inhale, lights up, panels going dark, the relights, the chime and the release. Listen on headphones or a sub, because the Undertone sits low.
+`sketches/car-motif-sketch-01.mp3` (render) and `.mid` (12 microtuned panel channels plus the Undertone and the release triad), generated by `sketches/car_motif.py` (Python plus numpy; `python3 car_motif.py` re-renders). It's a 97-second demo of the system, not a cue. It runs through the boarding wobble, lie 1, lie 2, Kai's brownout, true silence, the inhale, lights up, panels going dark, the relights, the chime and the release. Listen on headphones or a sub, because the Undertone sits low.
 
 ## 9. After the script locks
 

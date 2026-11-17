@@ -9,7 +9,7 @@ Produces two files next to this script:
 
 Concept (see ../score-concept.md):
   * The carriage's mains hum is 50 Hz (UK). Each lit ceiling panel "sings"
-    one partial of the harmonic series on 50 Hz (partials 2..11). Fully lit
+    one partial of the harmonic series on 50 Hz (partials 2..13). Fully lit
     car = the whole series, fused into what sounds like ordinary hum.
   * A lie detunes panels and wakes THE UNDERTONE, the car's voice, which sits
     below the hum and moves by a half step around G (G -> A-flat -> F-sharp -> G).
@@ -18,7 +18,7 @@ Concept (see ../score-concept.md):
     partials 8, 10, 12, the only sound in the film that can't be the train.
 
 Timeline of the sketch (seconds). This is a demo of the system, not the cue:
-   0-10  panels come on one by one (in the film they are simply already on)
+   0-10  12 panels come on one by one (in the film they are simply already on)
   11     Noor boards: a tick and one subliminal wobble (Director note M3)
   15     lie 1 "just leaving the office": 1 panel bends, faint undertone
   21     lie 2 "the Henley account": 2 panels bend, louder undertone
@@ -26,8 +26,8 @@ Timeline of the sketch (seconds). This is a demo of the system, not the cue:
   35     BLACKOUT: true digital silence, rails included
   38.5   the inhale (undertone reversed), cut
   40     lights up: chord back, steady and indifferent
-  45-61  panels go out one by one toward Noor, top partials first
-  63-73  confession: one partial relights per true sentence, bottom up
+  45-60  panels go out one by one toward Noor, top partials first
+  63-72  confession: one partial relights per true sentence, bottom up
   76     door chime (tuned to the series)
   79-92  release triad as Walter turns the page; the hum thins to nothing
   92-96  rails alone, then stop
@@ -39,7 +39,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SR = 44100
 DUR = 97.0
 F0 = 50.0                      # mains hum = tonal centre (approx. G1 +35 cents)
-PARTIALS = list(range(2, 12))  # one per ceiling panel, near panel = low partial
+PARTIALS = list(range(2, 14))  # 12 ceiling panels (DP), near panel = low partial
 N = int(SR * DUR)
 t = np.arange(N) / SR
 rng = np.random.default_rng(7)
@@ -61,8 +61,8 @@ def osc(freq_curve, harmonics=((1, 1.0),)):
 # ---------- events -----------------------------------------------------------
 BLACK_IN, BLACK_OUT = 35.0, 40.0
 ticks = [11.0]                                   # boarding tick
-panel_out = {p: 45.0 + i * 2.0 for i, p in enumerate(reversed(PARTIALS[2:]))}  # 11..4 go dark
-panel_in = {p: 63.0 + i * 1.25 for i, p in enumerate(PARTIALS[2:])}             # 4..11 relight
+panel_out = {p: 45.0 + i * 1.6 for i, p in enumerate(reversed(PARTIALS[2:]))}  # 13..4 go dark
+panel_in = {p: 63.0 + i * 1.0 for i, p in enumerate(PARTIALS[2:])}              # 4..13 relight
 ticks += list(panel_out.values()) + list(panel_in.values())
 
 # detune (cents) per partial: lies bend specific panels, Kai's lie sags them all
@@ -79,7 +79,7 @@ def detune_points(p):
     return pts
 
 def amp_points(p, idx):
-    on = 0.6 + idx * 0.95                      # build-up in the demo
+    on = 0.6 + idx * 0.8                       # build-up in the demo
     pts = [(0, 0), (on, 0), (on + 0.4, 1)]
     pts += [(28.0, 1), (30.0, 0.45), (BLACK_IN - 0.001, 0.45), (BLACK_IN, 0)]
     pts += [(BLACK_OUT - 0.001, 0), (BLACK_OUT, 1)]
@@ -87,19 +87,23 @@ def amp_points(p, idx):
         pts += [(panel_out[p], 1), (panel_out[p] + 0.03, 0)]
         pts += [(panel_in[p], 0), (panel_in[p] + 0.05, 1.1)]
     # release: the hum thins out from the top as the triad takes over
-    fade_at = 80.0 + (11 - p) * -0.6 + 6
+    fade_at = 80.0 + (13 - p) * -0.5 + 6
     pts += [(fade_at, 1), (fade_at + 4, 0)]
     pts.sort(key=lambda x: x[0])
     return pts
 
 mix = np.zeros(N)
 
+# the car breathes (DP): +/-3% swell, one cycle per 5 s, from the first groan
+# until the last panel relights, then dead stable again
+breathe = 1 + 0.03 * np.sin(2 * np.pi * t / 5.0) * ((t > 15.0) & (t < panel_in[13] + 0.5))
+
 # the carriage chord
 for idx, p in enumerate(PARTIALS):
     cents = env(detune_points(p))
     freq = F0 * p * 2 ** (cents / 1200)
     freq += 0.15 * np.sin(2 * np.pi * (0.07 + 0.013 * p) * t)   # ballast drift
-    a = env(amp_points(p, idx)) * (0.11 / math.sqrt(p))
+    a = env(amp_points(p, idx)) * (0.11 / math.sqrt(p)) * breathe
     mix += a * osc(freq, ((1, 1.0), (2, 0.18), (3, 0.06)))
 
 # the fundamental hum (50 Hz) with buzz, also dies in the blackout
@@ -233,8 +237,8 @@ def add_voice(label, ch, freq, segments, detune=None, program=0):
     tracks.append(track(ev))
 
 for idx, p in enumerate(PARTIALS):
-    on = 0.6 + idx * 0.95
-    end = 80.0 + (11 - p) * -0.6 + 10
+    on = 0.6 + idx * 0.8
+    end = 80.0 + (13 - p) * -0.5 + 10
     segs = [(on, BLACK_IN, 70), (BLACK_OUT, end, 70)]
     if p in panel_out:
         segs = [(on, BLACK_IN, 70), (BLACK_OUT, panel_out[p], 70), (panel_in[p], end, 78)]
@@ -242,7 +246,7 @@ for idx, p in enumerate(PARTIALS):
               detune=detune_points(p), program=89)       # GM 90 "Warm Pad"
 
 # undertone motif on a low voice (GM 43 contrabass, program 43)
-ut = channels[10]
+ut = channels[12]
 ev = [(0, name("THE UNDERTONE (car motif)")), (0, bytes([0xC0 | ut, 43]))]
 n_g = note_and_bend(F0)[0]          # G1
 for start, length, vel in ((15, 3.5, 50), (21, 4.5, 70), (28, 7.0, 100), (45, 18, 85)):
@@ -255,9 +259,12 @@ ev += [(38.5, bytes([0x90 | ut, n_g - 1, 40])), (39.2, bytes([0x80 | ut, n_g - 1
 tracks.append(track(ev))
 
 # release triad (GM 12 vibraphone, bowed in the real score)
-add_voice("release: partial 8", channels[11], F0 * 8, [(79, 93.5, 64)], program=11)
-add_voice("release: partial 10", channels[12], F0 * 10, [(79.6, 93.5, 58)], program=11)
-add_voice("release: partial 12", channels[13], F0 * 12, [(80.2, 93.5, 54)], program=11)
+# partials 8 and 12 share a channel (bends +35 and +37 cents, close enough for a sketch)
+add_voice("release: partials 8+12", channels[13], F0 * 8, [(79, 93.5, 64)], program=11)
+add_voice("release: partial 10", channels[14], F0 * 10, [(79.6, 93.5, 58)], program=11)
+n12 = note_and_bend(F0 * 12)[0]; c13 = channels[13]
+tracks.append(track([(0, name("release: partial 12 (shares ch with 8)")),
+                     (80.2, bytes([0x90 | c13, n12, 54])), (93.5, bytes([0x80 | c13, n12, 0]))]))
 
 mid_path = os.path.join(HERE, "car-motif-sketch-01.mid")
 with open(mid_path, "wb") as fh:
