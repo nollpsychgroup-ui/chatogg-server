@@ -132,9 +132,13 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
     # props
     if name == "NOOR":
         red = ld.paint("the_red_strap", "THE_RED", tier="costume", variation=0.06)
+        from .mesh import ribbon
         for s in (-1, 1):
-            obs.append(_tag(limb(f"NOOR_STRAP_{s}", P(-0.075, s * 0.062, 1.12), P(0.006, s * 0.014, 0.90), 0.0125, red, C, segs=10, smooth=True), 1))  # 25 mm strap, small kernel (8b)
-        badge = _tag(box("NOOR_BADGE", P(0.008, 0, 0.85), (0.075, 0.008, 0.10), ld.gloss("badge_plastic", "noor/badge", roughness=0.25), C), 1)
+            # 25 mm flat strap (8b): round the back of the neck, over the collar, down the blazer front to the badge
+            pts = [P(-0.19, s * 0.035, 1.16), P(-0.13, s * 0.062, 1.17), P(-0.07, s * 0.066, 1.12),
+                   P(0.004, s * 0.052, 1.04), P(0.016, s * 0.030, 0.96), P(0.018, s * 0.010, 0.905)]
+            obs.append(_tag(ribbon(f"NOOR_STRAP_{s}", pts, 0.025, 0.004, f, red, C), 1))
+        badge = _tag(box("NOOR_BADGE", P(0.022, 0, 0.85), (0.075, 0.008, 0.10), ld.gloss("badge_plastic", "noor/badge", roughness=0.25), C), 1)
         badge.rotation_euler = (0, 0, yaw)
         obs.append(badge)
         rh = P(*hands[1][1])

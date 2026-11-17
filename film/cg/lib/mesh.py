@@ -148,3 +148,24 @@ class Sections:
                     c.objects.link(ob)
             out[p] = c
         return out
+
+
+def ribbon(name, pts, width, thick, normal_hint, mat, collection="CHARACTERS"):
+    """Flat strap (e.g. the lanyard) through points: one box per segment, width across, thin along
+    `normal_hint` (the body's outward normal), so it lies on a surface instead of piercing it."""
+    bm = bmesh.new()
+    n_hint = Vector(normal_hint).normalized()
+    for a, b in zip(pts[:-1], pts[1:]):
+        a, b = Vector(a), Vector(b)
+        d = (b - a)
+        ln = d.length
+        d.normalize()
+        w = d.cross(n_hint).normalized()
+        n = w.cross(d).normalized()
+        M = Matrix((w, n, d)).transposed().to_4x4()
+        M.translation = (a + b) / 2
+        res = bmesh.ops.create_cube(bm, size=1.0)
+        vs = res["verts"]
+        bmesh.ops.scale(bm, vec=Vector((width, thick, ln + width * 0.6)), verts=vs)
+        bmesh.ops.transform(bm, matrix=M, verts=vs)
+    return _obj(name, bm, mat, collection)
