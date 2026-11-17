@@ -27,6 +27,23 @@ DUR = float(CUES['duration_s'])
 CUE_T = {c['id']: c['t'] for c in CUES['cues']}
 EV_T = {e['id']: e['t'] for e in CUES['events']}
 
+# Clock versions. Most lines are anchored to cues/events (which the DP re-times).
+# The few lines placed by an absolute time were written on the ORIGINAL (v1) clock;
+# v1() maps them onto the current clock by removing the DP's trimmed spans.
+CLOCK = CUES.get('clock', 'v1')
+CLOCK_TRIMS = {
+    'v1': [],
+    'v2: trims [0, 13), [545, 550)': [(0, 13), (545, 550)],
+}
+if CLOCK not in CLOCK_TRIMS:
+    raise SystemExit(f"Unknown cues.json clock {CLOCK!r}: add its trimmed spans to CLOCK_TRIMS")
+
+def v1(t):
+    """An original-clock time -> the current clock."""
+    for a, b in CLOCK_TRIMS[CLOCK]:
+        assert not (a <= t < b), f'{t} falls inside a trimmed span'
+    return t - sum(b - a for a, b in CLOCK_TRIMS[CLOCK] if b <= t)
+
 # ---------------------------------------------------------------- voices ----
 # Distinct voice per character: base Flite voice + pitch factor + tempo.
 VOICES = {
@@ -175,7 +192,7 @@ say('MARK-01', 'MARK', 'Hey, you. You on your way? How was it today?', 'MURMUR',
 say('NOOR-02', 'NOOR', 'Just leaving the office now.', 'WHISPER', end=CUE_T['1'] - PRE, note='lie 1 -> cue 1')
 say('MARK-01b', 'MARK', 'Oh no. Long one?', 'MURMUR', start=CUE_T['1'] + 4.0, sub='')
 say('NOOR-03', 'NOOR', 'Long day. The Henley account. Again.', 'WHISPER', end=CUE_T['2'] - PRE, note='lie 2 -> cue 2')
-say('KAI-01', 'KAI', 'Was that the brakes?', 'LOW', start=103.5)
+say('KAI-01', 'KAI', 'Was that the brakes?', 'LOW', start=v1(103.5))
 say('NOOR-04', 'NOOR', 'No, don\'t wait up. Love you.', 'WHISPER', end=EV_T['love_you'] + 0.9, note="'Love you' is true: no cue")
 
 # ---- Scene 3: Kai -------------------------------------------------------
@@ -200,9 +217,9 @@ say('MUM-02b', 'MUM', 'Kai?', 'PHONE', start=up + 3.4, sub='Kai?', italic=True)
 
 # ---- Scene 4: the note and the test --------------------------------------
 say('NOOR-06', 'NOOR', 'What, where did he', 'LOW', start=up + 8.5, sub='What — where did he —')
-say('NOOR-08a', 'NOOR', 'Hey.', 'LOW', start=173.0)
-say('NOOR-08b', 'NOOR', 'Hey!', 'FULL', start=175.0, sub='Hey!')
-say('NOOR-09', 'NOOR', 'That\'s insane.', 'FAINT', start=206.5)
+say('NOOR-08a', 'NOOR', 'Hey.', 'LOW', start=v1(173.0))
+say('NOOR-08b', 'NOOR', 'Hey!', 'FULL', start=v1(175.0), sub='Hey!')
+say('NOOR-09', 'NOOR', 'That\'s insane.', 'FAINT', start=v1(206.5))
 say('NOOR-10', 'NOOR', 'My name is Noor.', 'LOW', start=CUE_T['5'] - 9.5, note='truth: nothing; hold')
 # NOOR-11: "My name is S-": /s/ onset only, cut by Walter's hand at cue 5.
 mn = fade(synth('NOOR', 'My name is', 'LOW'))
@@ -215,26 +232,26 @@ for i, (tm, lv) in enumerate(MUM_LATE):
     say(f'MUM-02{chr(99 + i)}', 'MUM', 'Kai?', lv, start=tm, sub='Kai?', italic=True)
 
 # ---- Scene 5: the truth exchange ---------------------------------------
-say('BEA-01', 'BEA', 'You okay?', 'LOW', start=286.0)
+say('BEA-01', 'BEA', 'You okay?', 'LOW', start=v1(286.0))
 im = fade(synth('NOOR', 'I\'m', 'LOW'))
 t6 = CUE_T['6']
 put('NOOR-13', 'NOOR', np.concatenate([im, np.zeros(int(0.03 * SR), np.float32), fricative(0.11, 'f', -30)]),
     t6 - dur(im) - 0.14, 'LOW', sub='I\'m f—', sub_end=t6 + 0.5, note='self-caught on the /f/ at cue 6')
 say('NOOR-14', 'NOOR', 'I\'m not fine.', 'LOW', start=t6 + 2.6)
-seq('BEA-02', 'BEA', [('Me neither.', 0.7), ('I haven\'t slept in two days.', 0)], 'LOW', start=301.5)
-say('NOOR-15', 'NOOR', 'You\'ve seen this before.', 'LOW', start=309.8)
-say('WALTER-01', 'WALTER', 'I ride it every night.', 'LOW', start=314.0)
-say('NOOR-16', 'NOOR', 'Why?', 'LOW', start=317.0)
+seq('BEA-02', 'BEA', [('Me neither.', 0.7), ('I haven\'t slept in two days.', 0)], 'LOW', start=v1(301.5))
+say('NOOR-15', 'NOOR', 'You\'ve seen this before.', 'LOW', start=v1(309.8))
+say('WALTER-01', 'WALTER', 'I ride it every night.', 'LOW', start=v1(314.0))
+say('NOOR-16', 'NOOR', 'Why?', 'LOW', start=v1(317.0))
 t = seq('WALTER-02', 'WALTER', [
     ('My wife was ill a long time.', 0.7),
     ('Everyone told me she\'d be fine.', 0.7),
-    ('Doctors.', 0.45), ('Her sister.', 0.6), ('Me, to her.', 0)], 'LOW', start=321.5,
+    ('Doctors.', 0.45), ('Her sister.', 0.6), ('Me, to her.', 0)], 'LOW', start=v1(321.5),
     sub='My wife was ill a long time. Everyone told me she\'d be fine.\nDoctors. Her sister. Me, to her.')
 say('WALTER-02.6', 'WALTER', 'This is the only place nobody can say that to me.', 'LOW', start=t + 2.6, note='after the (beat)')
 
 # ---- Scene 6: the creeping dark ----------------------------------------
 say('NOOR-17', 'NOOR', 'Nobody said anything.', 'WHISPER', end=CUE_T['7.2'] - PRE)
-say('BEA-03', 'BEA', 'It isn\'t only what you say.', 'LOW', start=381.0)
+say('BEA-03', 'BEA', 'It isn\'t only what you say.', 'LOW', start=v1(381.0))
 say('BEA-04', 'BEA', 'Whatever it is, say it.', 'WHISPER', end=CUE_T['7.8'] - PRE)
 # "I can't -" / "Say it.": a live overlap (Director ruling); the 7.9 tick FOLLOWS the pair.
 bea5 = fade(synth('BEA', 'Say it.', 'LOW'))
@@ -249,8 +266,8 @@ SUBS.append(dict(start=b5_start + 0.15 - dur(n19), end=CUE_T['7.9'], text='- I c
 say('WALTER-03', 'WALTER', 'He\'s asking.', 'LOW', start=EV_T['he_is_asking'])
 
 # ---- Scene 7: the confession -------------------------------------------
-say('NOOR-20', 'NOOR', 'Mark.', 'LOW', start=456.5)
-say('MARK-02', 'MARK', 'Hey. You\'re late. Everything all right?', 'MURMUR', start=457.4, sub='')
+say('NOOR-20', 'NOOR', 'Mark.', 'LOW', start=v1(456.5))
+say('MARK-02', 'MARK', 'Hey. You\'re late. Everything all right?', 'MURMUR', start=v1(457.4), sub='')
 seq_end('NOOR-21', 'NOOR', [('No.', 0.3), ('Listen.', 0.45), ('I\'m not leaving the office.', 0)], 'LOW', end=CUE_T['8.0'] - PRE)
 seq_end('NOOR-22', 'NOOR', [('I haven\'t been to the office since September.', 0.8), ('They let me go.', 0.6),
                             ('The whole floor.', 0)], 'LOW', end=CUE_T['8.1'] - PRE)

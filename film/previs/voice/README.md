@@ -4,7 +4,7 @@
 
 | File | What |
 |---|---|
-| `scratch-voice.flac` | 48 kHz mono, 9:30 (570 s), the same length and zero point as `camera/cues.json`. Drop it at frame 0. |
+| `scratch-voice.flac` | 48 kHz mono, the same length and zero point as `camera/cues.json` (clock v2: 552 s). Drop it at frame 0. |
 | `scratch-voice-lines.json` | Every placed clip: line ID (from `script/voice-sides.md`), voice, level, start and end in seconds. For the Composer's ducking windows and the animators' lip-sync blocking. |
 | `../quiet-car.srt` | Subtitles: intelligible dialogue only. Phone beds (Mark, Mum's first bed) are deliberately **not** subtitled because they must never be intelligible. Phone and PA lines are in italics. |
 | `build_scratch_voice.py` | Regenerates all three. **Re-run it whenever the DP re-times `cues.json`.** Every line is anchored to a cue or event time, not hard-coded to the cut. |
@@ -46,3 +46,5 @@ Every clip is loudness-normalised first, then given its **level** from the voice
 - **"I couldn't —":** fades out and ends 0.3 s before cue 8.3, so the relight run answers it.
 
 TTS can't do breaths, efforts, crying or the mouthed "Sorry". Those are left as silence, and the animators should work from the voice sides for them.
+
+**Clock versions:** most lines are anchored to cues and events, so they follow any re-time automatically. The few placed by absolute time were written on the original (v1) clock and go through `v1()`, which removes the DP's trimmed spans. When the DP publishes a new `clock` in `cues.json`, add its trims to `CLOCK_TRIMS`. The build refuses to run on an unknown clock.
