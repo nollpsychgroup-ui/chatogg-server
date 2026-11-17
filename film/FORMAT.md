@@ -4,7 +4,7 @@ THE QUIET CAR is now a **computer-generated animated film**, not live action.
 
 - **Style:** stylized characters with a **painterly** look (visible brushwork, simplified
   painted forms, oil or gouache textures), lit with **physically motivated light**.
-  The light is the monster, so the fluorescent panels, true blacks and the sodium platform light
+  The light is the monster, so the fluorescent panels, true blacks and the cold-white platform light (orange only ever means the car is awake)
   must behave like real light even though the surfaces are painted.
 - **Why it suits the film:** stylized faces avoid the uncanny valley in a film that runs on small
   performance (Walter's speech, Noor's confession). The locked-off camera, long takes and
