@@ -259,11 +259,11 @@ t = t2
 for i, (x, g) in enumerate(zip(a2, gaps)):
     put(f'NOOR-23.{i+2}', 'NOOR', x, t, 'LOW'); t += dur(x) + g
 SUBS.append(dict(start=t2, end=t_end, text='— and I sit there. All day. And then I come home.', italic=False))
-# NOOR-24: spans the 8.3-8.5 relight run; trails off on "couldn't".
+# NOOR-24: trails off on "couldn't"; the relight run (8.3 on) ANSWERS the broken sentence (DP/script).
 a = synth('NOOR', 'I didn\'t tell you because you\'d have been kind about it, and I couldn\'t', 'LOW')
 n = int(0.45 * SR); a = fade(a); a[-n:] *= np.linspace(1, 0, n) ** 2
-put('NOOR-24', 'NOOR', a, CUE_T['8.3'] - 1.1, 'LOW', sub='I didn\'t tell you because you\'d have been kind about it, and I couldn\'t —',
-    note='trails into breath; the relight run 8.3-8.9 plays across it')
+put('NOOR-24', 'NOOR', a, CUE_T['8.3'] - 0.3 - dur(a), 'LOW', sub='I didn\'t tell you because you\'d have been kind about it, and I couldn\'t —',
+    note='trails into breath; ends 0.3 s before 8.3, then the relight run')
 say('NOOR-25', 'NOOR', 'I\'m sorry.', 'WHISPER', end=EV_T['silence_on_line'] - 1.2, note='then silence on the line')
 
 # ---- Scene 8: Holloway -------------------------------------------------
@@ -281,6 +281,10 @@ lie_cues = {'NOOR-02': '1', 'NOOR-03': '2', 'KAI-03': '3'}
 for lid, c in lie_cues.items():
     p = next(x for x in PLACED if x['id'] == lid)
     assert 0 < CUE_T[c] - p['end'] < 1.0, f'{lid} not tight to cue {c}'
+TICKS = [c['t'] for c in CUES['cues'] if c['type'] in ('panel_out', 'relight')]
+for p in PLACED:
+    hit = [t for t in TICKS if p['start'] < t < p['end']]
+    assert not hit, f"{p['id']} has a tick/relight inside it at {hit}"
 assert abs(MIX).max() < 1.0, 'clipping'
 
 # --------------------------------------------------------------- outputs ----

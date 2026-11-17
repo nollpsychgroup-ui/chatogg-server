@@ -35,6 +35,7 @@ Every clip is loudness-normalised first, then given its **level** from the voice
 - Nothing sounds inside the blackout (cue 4 → 4.up is digital zero).
 - Nothing runs past the cut.
 - The three lies that set off cues 1–3 end within 1 s before their cue.
+- No Advance tick or relight lands inside a line.
 - There is no clipping.
 
 **Cut-offs** are as the voice sides specify:
@@ -42,6 +43,6 @@ Every clip is loudness-normalised first, then given its **level** from the voice
 - **"My name is S—":** a synthetic 150 ms /s/, ending exactly on cue 5.
 - **"I'm f—":** a 110 ms /f/, ending on cue 6.
 - **Kai's line:** runs on past the cut and is hard-cut to zero on the cue 4 frame.
-- **"I couldn't —":** fades out into the cue 8 relight run.
+- **"I couldn't —":** fades out and ends 0.3 s before cue 8.3, so the relight run answers it.
 
 TTS can't do breaths, efforts, crying or the mouthed "Sorry". Those are left as silence, and the animators should work from the voice sides for them.
