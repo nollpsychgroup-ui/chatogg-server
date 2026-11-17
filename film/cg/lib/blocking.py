@@ -15,7 +15,7 @@ from mathutils import Vector
 
 from . import figures, lookdev as ld
 from .common import FILM_DIR, coll, dp, link, load, t2f
-from .mesh import box, ellipsoid, limb, text
+from .mesh import box, ellipsoid, limb, plane, text
 
 
 def key_visibility(obs, intervals, fps=24):
@@ -48,7 +48,7 @@ def _intersect(intervals, t_max=None, t_min=None):
     return out
 
 
-def _reach(info, target_name, t):
+def _reach(info, target_name, t, D=None):
     """Replace the arm nearest `target_name` (evaluated at time t) with one reaching to it.
     PHONE_*_ENDCALL: the hand hovers 3 cm above the button with the thumb pointing down at it."""
     sc = bpy.context.scene
@@ -70,14 +70,20 @@ def _reach(info, target_name, t):
     for o in arm:
         bpy.data.objects.remove(o, do_unlink=True)
     endcall = "ENDCALL" in target_name
-    hp = tgt + Vector((0, 0, 0.045)) if endcall else tgt + Vector((-0.05, 0, 0))
+    if endcall:   # hand on the far side of the phone from the shot's camera, thumb reaching over the button
+        shot = next((x for x in (D or dp())["shots"] if x["in"] <= t + 0.5 < x["out"]), None)
+        cam = Vector(shot["camera_loc"]) if shot and shot.get("camera_loc") else tgt + Vector((0, -1, 0.3))
+        away = (tgt - cam); away.z = 0; away.normalize()
+        hp = tgt + away * 0.075 + Vector((0, 0, 0.06))
+    else:
+        hp = tgt + Vector((-0.05, 0, 0))
     elb = sh.lerp(hp, 0.5) + Vector((0, 0, -0.10))
     for o in (limb(f"NOOR_REACH_UARM_{side}", sh, elb, 0.05, m_arm, C, r2=0.042),
               limb(f"NOOR_REACH_FARM_{side}", elb, hp, 0.04, m_arm, C, r2=0.032)):
         o.pass_index = 2
-    ellipsoid(f"NOOR_REACH_HAND_{side}", hp, (0.045, 0.035, 0.04), m_skin, C).pass_index = 1
-    if endcall:   # the thumb, pointing at the red button
-        limb(f"NOOR_REACH_THUMB_{side}", hp + Vector((0, 0, -0.01)), tgt + Vector((0, 0, 0.012)), 0.011, m_skin, C).pass_index = 1
+    ellipsoid(f"NOOR_REACH_HAND_{side}", hp, (0.04, 0.03, 0.03) if endcall else (0.045, 0.035, 0.04), m_skin, C).pass_index = 1
+    if endcall:   # the thumb, hovering ~1.5 cm over the red button
+        limb(f"NOOR_REACH_THUMB_{side}", hp + (tgt - hp) * 0.25, tgt + Vector((0, 0, 0.016)), 0.010, m_skin, C, r2=0.008).pass_index = 1
 
 
 def build_noor(D, B, BL):
@@ -97,7 +103,7 @@ def build_noor(D, B, BL):
                                   facing=seg["facing"], collection=f"CHAR_NOOR_{key}")
             variants[key] = dict(info, intervals=[(t0, t1)])
             if seg.get("reach_to"):
-                _reach(info, seg["reach_to"], t0)
+                _reach(info, seg["reach_to"], t0, D)
             if seg.get("platform"):
                 rig = bpy.data.objects["PLATFORM_RIG"]
                 for ob in _coll_objects(info["collection"]):
@@ -149,6 +155,44 @@ def build_noor(D, B, BL):
     return variants
 
 
+def _tex_mat(name, path, axes, size, alpha=False):
+    """Matte image material. axes/size: object-space projection (e.g. ("y", "z") over 0.36 x 0.30 m,
+    centred); None: the object's Generated coordinates. alpha: ink on transparent."""
+    mat = bpy.data.materials.new(name)
+    mat.use_nodes = True
+    nt = mat.node_tree
+    nt.nodes.clear()
+    out = nt.nodes.new("ShaderNodeOutputMaterial")
+    bs = nt.nodes.new("ShaderNodeBsdfPrincipled")
+    bs.inputs["Roughness"].default_value = 0.9
+    im = nt.nodes.new("ShaderNodeTexImage")
+    im.image = bpy.data.images.load(path, check_existing=True)
+    im.extension = "CLIP"
+    tc = nt.nodes.new("ShaderNodeTexCoord")
+    if axes:
+        sep = nt.nodes.new("ShaderNodeSeparateXYZ")
+        nt.links.new(tc.outputs["Object"], sep.inputs[0])
+        comb = nt.nodes.new("ShaderNodeCombineXYZ")
+        for k, (ax, sz) in enumerate(zip(axes, size)):
+            mad = nt.nodes.new("ShaderNodeMath"); mad.operation = "MULTIPLY_ADD"
+            nt.links.new(sep.outputs[ax.upper()], mad.inputs[0])
+            mad.inputs[1].default_value, mad.inputs[2].default_value = 1.0 / sz, 0.5
+            nt.links.new(mad.outputs[0], comb.inputs[k])
+        nt.links.new(comb.outputs[0], im.inputs[0])
+    else:
+        sep = nt.nodes.new("ShaderNodeSeparateXYZ")
+        nt.links.new(tc.outputs["Generated"], sep.inputs[0])
+        comb = nt.nodes.new("ShaderNodeCombineXYZ")
+        nt.links.new(sep.outputs["Y"], comb.inputs[0])
+        nt.links.new(sep.outputs["Z"], comb.inputs[1])
+        nt.links.new(comb.outputs[0], im.inputs[0])
+    nt.links.new(im.outputs["Color"], bs.inputs["Base Color"])
+    if alpha:
+        nt.links.new(im.outputs["Alpha"], bs.inputs["Alpha"])
+    nt.links.new(bs.outputs[0], out.inputs["Surface"])
+    return mat
+
+
 def build_walter(D, BL):
     marks = D["set"]["marks"]
     paper = bpy.data.objects["WALTER_PAPER"]
@@ -166,13 +210,21 @@ def build_walter(D, BL):
         paper.location, paper.rotation_euler = loc, rot
         paper.keyframe_insert("location", frame=f)
         paper.keyframe_insert("rotation_euler", frame=f)
-    ink = ld.paint("pen_ink", "props/pen_ink", tier="face", variation=0.0)
-    for i, (t, body) in enumerate(BL["walter_paper"]["notes"]):
-        tx = text(f"MARGIN_NOTE_{i}", body, (0.012, -0.01, 0.06 - i * 0.08), 0.026, ink,
-                  rot=(math.pi / 2, 0, math.pi / 2), collection="PROPS_LOOSE")
-        tx.parent = paper
-        tx.pass_index = 2
-        key_visibility([tx], [(t, up1 + 0.5)])
+    # newsprint page + the two handwritten notes (props/props.md section 2), textures from lib/props_tex.py
+    from . import props_tex
+    tex = props_tex.build_textures()
+    paper.data.materials.clear()
+    paper.data.materials.append(_tex_mat("newsprint_page", tex["page"][0], ("y", "z"), (0.36, 0.30)))
+    for i, (key, (y0, z0)) in enumerate((("note_walter", (-0.165, 0.085)), ("note_bea", (-0.165, 0.005)))):
+        path, w, h = tex[key]
+        note = plane(f"MARGIN_NOTE_{i}", (0, 0, 0), (w, h), _tex_mat(key, path, None, None, alpha=True), normal="X",
+                     collection="PROPS_LOOSE")
+        note.parent = paper
+        note.location = (0.0115, y0 + w / 2, z0 - h / 2 + 0.03)
+        note.rotation_euler = (0, 0, 0)
+        note.pass_index = 2
+        t, _ = BL["walter_paper"]["notes"][i]
+        key_visibility([note], [(t, up1 + 0.5)])
     # the wrist clamp: the fastest motion in the film (2 frames), held to the release
     c0, c1 = BL["walter_clamp"]
     head = bpy.data.objects["WALTER_HEADRIG"].matrix_world.translation

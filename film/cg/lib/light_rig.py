@@ -223,10 +223,12 @@ def build(D=None, B=None, sections=None):
 
     # PHONES: screens/lights are created with the figures; connect them here
     for ch, key in (("PHONE_NOOR", "noor"), ("PHONE_KAI", "kai")):
-        for mname in (f"screen_{key}", f"endcall_{key}"):
+        # the end-call button is THE_RED: driven low so AgX keeps it a saturated #C8102E instead of
+        # pushing a bright emitter toward salmon (Director notes-02)
+        for mname, gain in ((f"screen_{key}", 6.0), (f"endcall_{key}", 1.8)):
             m = bpy.data.materials.get(mname)
             if m:
-                drive_level(m.node_tree.nodes["EMIT"].inputs["Strength"], "default_value", ctrls[ch], 6.0)
+                drive_level(m.node_tree.nodes["EMIT"].inputs["Strength"], "default_value", ctrls[ch], gain)
         for lo in [o for o in bpy.data.objects if o.type == "LIGHT" and o.name.startswith(f"{ch}_LIGHT")]:
             drive_level(lo.data, "energy", ctrls[ch], 2.5)   # every pose variant's phone light
     return ctrls
