@@ -367,12 +367,31 @@ write(mix, "temp-mix", peak)
 write(score, "temp-score", peak)            # same gain as the mix, so levels compare
 write(sfx, "temp-sfx", peak)                # stems sum to the mix: temp-score + temp-sfx
 
-# 48 kHz stereo FLAC for the TA to mux (dual mono, lossless). WAV on request: same ffmpeg line.
+# 48 kHz stereo FLAC for the TA to mux (dual mono, lossless).
+# Resampling rings, so dead air is re-imposed SAMPLE-EXACT at 48 kHz after the upsample:
+# the blackout from its first frame (Director: dead air starts on the cut) until the inhale
+# (mix/sfx) or lights up (score), and everything after the rails stop.
+OUT_SR = 48000
+T_INHALE = T_UP - 1.5
+ZERO = {"temp-mix": [(T_BLACK, T_INHALE), (T_STOP, DUR)],
+        "temp-sfx": [(T_BLACK, T_INHALE), (T_STOP, DUR)],
+        "temp-score": [(T_BLACK, T_UP), (CUT, DUR)]}
 if shutil.which("ffmpeg"):
     for name in ("temp-mix", "temp-score", "temp-sfx"):
         src = os.path.join(HERE, name + ".wav")
-        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", src, "-ar", "48000", "-ac", "2",
-                        "-sample_fmt", "s16", os.path.join(HERE, name + "-48k.flac")], check=False)
+        raw = subprocess.run(["ffmpeg", "-v", "error", "-i", src, "-ar", str(OUT_SR), "-ac", "1",
+                              "-f", "s16le", "-"], capture_output=True, check=True).stdout
+        y = np.frombuffer(raw, "<i2").copy()
+        y = np.pad(y, (0, max(0, int(round(DUR * OUT_SR)) - len(y))))[:int(round(DUR * OUT_SR))]
+        for a0, a1 in ZERO[name]:
+            y[int(round(a0 * OUT_SR)):int(round(a1 * OUT_SR))] = 0
+        tmp = os.path.join(HERE, name + "-48k.wav")
+        with wave.open(tmp, "wb") as w:
+            w.setnchannels(2); w.setsampwidth(2); w.setframerate(OUT_SR)
+            w.writeframes(np.repeat(y, 2).tobytes())
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", tmp,
+                        os.path.join(HERE, name + "-48k.flac")], check=True)
+        os.remove(tmp)
     # reference only: temp mix + scratch voice at unity gain (the TA muxes the two separately)
     if os.path.exists(VOICE_AUDIO):
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", os.path.join(HERE, "temp-mix-48k.flac"),
