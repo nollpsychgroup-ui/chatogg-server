@@ -139,16 +139,21 @@ score += env([(0, .05), (T_BLACK - .001, .05), (T_BLACK, 0), (T_UP - .001, 0), (
 
 
 # ---------- 1M1-1M6: THE UNDERTONE ---------------------------------------------------
-def undertone(start, length, level, width, attack=.3, cut=None):
-    """One breath of the car's motif, synthesised only inside its own window."""
+def undertone(start, length, level, width, attack=.3, cut=None, held=False):
+    """One breath of the car's motif, synthesised only inside its own window.
+    held=True: no motif movement (pitch stays on G), level rises steadily to the end."""
     i0, i1 = max(0, int(start * SR)), min(N, int((start + length) * SR) + 1)
     out = np.zeros(N, np.float32)
     if i1 <= i0:
         return out
     tt = t[i0:i1]
     x = (tt - start) / length
-    ratio = np.interp(x, [0, .35, .75, 1], [1, HALF, 1 / HALF, 1])
-    a = np.interp(x, [0, attack, .8, 1], [0, level, level * .8, 0]).astype(np.float32)
+    if held:
+        ratio = np.ones_like(x)
+        a = np.interp(x, [0, .08, .97, 1], [0, level, level * 1.25, 0]).astype(np.float32)
+    else:
+        ratio = np.interp(x, [0, .35, .75, 1], [1, HALF, 1 / HALF, 1])
+        a = np.interp(x, [0, attack, .8, 1], [0, level, level * .8, 0]).astype(np.float32)
     if cut is not None:
         a *= (tt < cut)
     seg = np.zeros(i1 - i0, np.float32)
@@ -173,9 +178,18 @@ peak_t, peak_lv = EV.get("he_is_asking", outs[-1]["t"] + 8), .05 + .012 * len(ou
 steps.append((peak_t - 8, peak_lv))
 for k, c in enumerate(rels[:-1]):
     steps.append((c["t"], max(.01, peak_lv * (1 - (k + 1) / len(rels)))))
+# Director's ruling: the 8.5 s held on Bea between 7.9 and 7.10 is truly quiet: rails and the
+# rising groan only, no score event. So that breath holds still on G and only rises in level,
+# handing over on the 7.10 tick (the car's decision).
+cue_by_id = {c["id"]: c["t"] for c in cues}
+QUIET = [(cue_by_id[a], cue_by_id[b]) for a, b in (("7.9", "7.10"),) if a in cue_by_id and b in cue_by_id]
 for (s0, lv), nxt in zip(steps, steps[1:] + [(T_LAST_REL, 0)]):
-    ln = max(3.0, min(9.0, nxt[0] - s0 + 1.0))
-    und += undertone(s0, ln, lv, 3, attack=.4)
+    q = next(((qa, qb) for qa, qb in QUIET if abs(s0 - qa) < 1e-6), None)
+    if q:
+        und += undertone(s0, q[1] - s0 + .15, lv, 1, held=True)
+    else:
+        ln = max(3.0, min(9.0, nxt[0] - s0 + 1.0))
+        und += undertone(s0, ln, lv, 3, attack=.4)
 und *= (t < T_LAST_REL + .5)
 und *= 1 - dark
 
@@ -397,6 +411,7 @@ if margins:
               for m in worst]
 lines += ["", f"Dialogue windows: {len(DLG)} from {DLG_SRC} (Undertone/cellos -4 dB, rails -3 dB inside, plus per-line duck to keep {MARGIN_DB:.0f} dB clear)",
           "  Advance/relight ticks landing inside a line: " + (", ".join(on_line) if on_line else "none (OK)")]
+lines += ["", "Quiet spans (Director): " + ", ".join(f"{fmt(qa)}-{fmt(qb)} (Undertone held on G, rising; no score event)" for qa, qb in QUIET)]
 lines += ["", f"Advance tick spacing: min {min(gaps):.1f} s, max {max(gaps):.1f} s "
           f"({'OK' if min(gaps) >= 8 else 'BELOW the 8 s rule'})"]
 open(os.path.join(HERE, "temp-sync-report.txt"), "w").write("\n".join(lines) + "\n")

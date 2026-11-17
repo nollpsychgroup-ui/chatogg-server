@@ -90,4 +90,6 @@ Line-over-bed margin (after ducking, murmurs excluded: they sit at the edge by d
 Dialogue windows: 58 from previs/voice/scratch-voice-lines.json (Undertone/cellos -4 dB, rails -3 dB inside, plus per-line duck to keep 8 dB clear)
   Advance/relight ticks landing inside a line: none (OK)
 
+Quiet spans (Director): 7:08.00-7:16.50 (Undertone held on G, rising; no score event)
+
 Advance tick spacing: min 8.5 s, max 8.5 s (OK)
