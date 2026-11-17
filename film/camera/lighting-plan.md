@@ -4,7 +4,7 @@
 
 **The machine-readable version of this plan is `camera/cues.json`**, written by `camera/build_cues.py`. The TA's Blender scripts keyframe the lights and cameras from it, and the Composer's `render_temp_score.py` reads it for sync. If this document and `cues.json` ever disagree, **`cues.json` wins**, and I fix the document.
 
-For the TA, the same run also writes **`camera/cue-stack.cg.json`**: the same cues in the schema of `film/cg/lib/cue_driver.py`, with the shot cameras converted to the TA's axes. It's been tested: `cg/build_scene.py` builds with it and keys cue 5, 8.0, 8.10 and the practicals as this plan specifies.
+For the TA, the same run also writes **`camera/cue-stack.cg.json`**: the same cues in the schema of `film/cg/lib/cue_driver.py`, with the same axes as `cues.json` (the TA adopted them). It's been tested: `cg/build_scene.py` builds with it and keys cue 5, 8.0, 8.10 and the practicals as this plan specifies.
 
 ---
 
