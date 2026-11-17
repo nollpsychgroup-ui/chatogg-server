@@ -148,7 +148,30 @@ HEAD = {"NOOR": (0.0, 12.75, 1.22), "NOOR_STAND": (-0.35, 10.0, 1.62), "WALTER":
         "BEA": (1.0, py(3), 1.22), "KAI": (1.05, py(8), 1.22), "KAI_PHONE": (1.05, py(8), 0.48),
         "DOORS": (1.4, 6.5, 1.2), "DISPLAY": (0.0, 13.0, 1.82),
         "NOOR_EYES": (0.0, 12.75, 1.24), "NOOR_CHIN": (0.0, 12.75, 1.10), "NOOR_CROWN": (0.0, 12.75, 1.36),
-        "SIGN": (0.0, 13.0, 2.07), "WRIST": (-0.6, 10.1, 1.0)}
+        "SIGN": (0.0, 13.0, 2.07), "WRIST": (-0.6, 10.1, 1.0),
+        "NEWSPAPER": (-0.85, 10.0, 1.30),        # held up by Walter toward Noor at the doors (shots 22-23)
+        "LANYARD_FLOOR": (0.2, 12.1, 0.02),      # where it lands at 7.6 (it stays there to the end)
+        "NOOR_PHONE_LAP": (0.0, 12.45, 0.62)}    # MARK, in her lap (shot 51)
+
+# Insert cameras: shot -> (loc, aim mark). All 50 mm.
+INSERTS = {
+    5:  ((0.0, 10.0, 1.50), "DISPLAY"),          # the display over Noor's head; the top of her head may sit in the bottom of frame
+    19: ((0.55, 4.6, 1.25), "KAI_PHONE"),        # high, looking down at the phone on the cushion
+    22: ((-0.5, 8.3, 1.45), "NEWSPAPER"),        # Noor's POV from the doors
+    23: ((-0.5, 8.3, 1.45), "NEWSPAPER"),
+    28: ((0.0, 10.0, 1.50), "DISPLAY"),
+    30: ((0.55, 4.6, 1.25), "KAI_PHONE"),
+    41: ((0.0, 10.0, 1.50), "DISPLAY"),
+    46: ((0.1, 11.2, 1.10), "LANYARD_FLOOR"),    # high, red on grey
+    51: ((0.15, 11.9, 1.05), "NOOR_PHONE_LAP"),  # down into her lap
+    59: ((0.0, 10.0, 1.50), "DISPLAY"),
+}
+
+# The one handheld shot: recorded operator motion layered on the base camera (treatment, scene 4).
+HANDHELD = {20: {"base_loc": (-0.9, 6.5, 1.3), "aim": "DOORS",
+                 "source": "a recorded handheld operator clip (real body motion), not procedural noise",
+                 "amplitude": "about 3-5 cm translation and 1-2 degrees rotation, following Noor's panic",
+                 "settle": "steady by the cut to shot 21 (Walter's paper); the camera is on sticks again from there"}}
 POS = {
     "A":  {"loc": (0.0, -3.8, 1.65), "aim": (0.0, 13.0, 1.65), "lens": 32,
            "note": "the Meter: in the unlit vestibule, standing eye height, level. Holds all 12 panels, Noor, the sign and the display"},
@@ -331,13 +354,17 @@ def build():
     shots = []
     for n, a, b, pos, lens, aim, move, scene, beat, cues_in in S:
         cam = dict(POS.get(pos, {}))
+        if n in INSERTS:
+            cam["loc"], aim = INSERTS[n]
         aim_pt = HEAD[aim] if aim else cam.get("aim")
+        if not cam.get("loc") or not aim_pt:
+            raise SystemExit("shot %d has no camera location or aim" % n)
         path = PATHS.get(n)
         shots.append({"shot": n, "in": a, "out": b, "frames": [round(a * FPS), round(b * FPS)],
                       "path": {"from": path[0], "to": path[1]} if path else None,
                       "scene": scene, "pos": pos, "lens_mm": lens, "move": move,
                       "camera_loc": cam.get("loc"), "aim": aim_pt, "aim_subject": aim,
-                      "cues": cues_in, "beat": beat})
+                      "handheld": HANDHELD.get(n), "cues": cues_in, "beat": beat})
     doc = {
         "_note": "Shared sync file for THE QUIET CAR previs. Written by camera/build_cues.py (DP); do not edit by hand. Times are seconds from the first frame; re-time in build_cues.py when the voice record exists.",
         "fps": FPS, "duration_s": 570.0,
