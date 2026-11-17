@@ -4,7 +4,7 @@
 
 ## 1. Noor's lanyard and badge
 
-- **Strap:** 20 mm woven polyester, **THE RED `#C8102E`**, tonal "A&L" repeat woven in (same hue). Loop ~90 cm so she can pull it over her head in one move. **No breakaway clasp**: a popping clasp would make the throw read as an accident instead of a choice.
+- **Strap:** 25 mm woven polyester, **THE RED `#C8102E`**, tonal "A&L" repeat woven in (same hue). Loop ~90 cm so she can pull it over her head in one move. **No breakaway clasp**: a popping clasp would make the throw read as an accident instead of a choice.
 - **Clip:** steel swivel hook, clear badge holder.
 - **Badge:** white PVC `#EEEEE8`, CR80 portrait. Slate logo bar `#4B5867` (no red on the badge itself). Photo: her "fine" smile, mouth only, a year younger.
 - **Small print:** "ID 40217 · VALID TO 09/2026". It's a fair-play clue for a second viewing (she was let go in September). It is never featured or pushed in on.

@@ -61,7 +61,7 @@ def build(out):
     d.lines(bx2 + 14, by + 110, ["If found, please", "return to reception.", "", "This card remains", "the property of", "Ashgrove & Lyle."], size=11, fill="#666")
     d.text(bx2 + 80, by + bh * 0.8 + 26, "back (she turns it over)", size=11, fill="#777", anchor="middle")
     d.lines(60, 920, [
-        "Strap: 20 mm woven polyester in THE RED #C8102E,",
+        "Strap: 25 mm woven polyester in THE RED #C8102E,",
         "tonal 'A&L' repeat woven in (still red: same hue).",
         "Loop long enough (~90 cm) to pull over her head in",
         "one move. NO breakaway clasp: if it popped, the",
