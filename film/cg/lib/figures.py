@@ -90,12 +90,12 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
     tilt = Matrix.Rotation(math.radians(-6), 3, lat)
     # head: the Character Designer's rig (design/rig/heads.py) with the TA's painted materials
     neck_top = head_c - Vector((0, 0, 0.065)) - f * 0.01
-    obs.append(_tag(limb(f"{name}_NECK", sh + Vector((0, 0, 0.05)), neck_top, 0.054, skin if name != "NOOR" else noor.skin_mat(),
+    obs.append(_tag(limb(f"{name}_NECK", sh + Vector((0, 0, 0.05)), neck_top, 0.038, skin if name != "NOOR" else noor.skin_mat(),
                          C, segs=12, smooth=True), 1))
     key = name.lower()
     face_skin = noor.skin_mat() if name == "NOOR" else ld.paint(f"c_{key}_skin_face", f"{key}/skin", tier="face",
-                                                               shadow=f"{key}/skin_shadow", axis="z", stretch=1.6,
-                                                               variation=0.05, shadow_mix=0.2, tilt=0.09)
+                                                               shadow=f"{key}/skin_shadow", axis="x", stretch=3.0,
+                                                               variation=0.025, shadow_mix=0.08, tilt=0.07)
     mats = {"skin": face_skin,
             "hair": ld.paint(f"c_{key}_hair_rig", f"{key}/hair", tier="costume", stroke_scale=90.0, stretch=6.0, axis="z", variation=0.35),
             "lips": ld.paint(f"c_{key}_lips", f"{key}/lips", tier="face", variation=0.04)}

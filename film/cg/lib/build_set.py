@@ -42,16 +42,16 @@ def build(D=None, B=None):
     T = 0.06
     sec = Sections(section_bounds(D))
 
-    m_wall = ld.paint("laminate", "set/laminate", stretch=4.0, stroke_scale=20.0, variation=0.18)
-    m_wall_end = ld.paint("laminate_end", "set/laminate", axis="z", stretch=3.0, stroke_scale=20.0, variation=0.14, tilt=0.08)
-    # wall A (behind Noor, 0.5 m from P1): a darker end-wall panel, ~3.5 stops darker than the laminate (it sits 0.5 m from P1, so it takes much more light than her face), so it lands about a stop under her face,
+    m_wall = ld.paint("laminate", "set/laminate", stretch=5.0, stroke_scale=20.0)
+    m_wall_end = ld.paint("laminate_end", "set/laminate", axis="z", stretch=5.0, stroke_scale=20.0, variation=0.05, tilt=0.06)
+    # wall A (behind Noor, 0.5 m from P1): a darker end-wall panel, ~4 stops darker than the laminate (it sits 0.5 m from P1, so it takes much more light than her face), so it lands about a stop under her face,
     # so her face, not the wall, is the brightest thing in the confession (Director R2: material, not fill)
     lam = ld.pal("set/laminate")
-    m_wall_a = ld.paint("end_panel_A", tuple(c * 0.09 for c in lam), axis="z", stretch=3.0, stroke_scale=20.0, variation=0.10, tilt=0.06)
-    m_ceil = ld.paint("ceiling", "set/ceiling", axis="x", stretch=3.0, stroke_scale=20.0, variation=0.16)
+    m_wall_a = ld.paint("end_panel_A", tuple(c * 0.055 for c in lam), axis="z", stretch=5.0, stroke_scale=20.0, variation=0.04, tilt=0.04, bristle=0.06)
+    m_ceil = ld.paint("ceiling", "set/ceiling", axis="x", stretch=4.5, stroke_scale=20.0, variation=0.05)
     m_floor = ld.paint("floor", "set/floor", stretch=6.0, roughness=0.7)
-    m_seat = ld.paint("moquette", "set/moquette", stroke_scale=22.0, stretch=3.0, variation=0.34, roughness=0.9)
-    m_pat = ld.paint("moquette_pattern", "set/moquette_pattern", stroke_scale=22.0, stretch=3.0, variation=0.34, roughness=0.9)
+    m_seat = ld.paint("moquette", "set/moquette", stroke_scale=22.0, stretch=4.0, variation=0.10, roughness=0.9)
+    m_pat = ld.paint("moquette_pattern", "set/moquette_pattern", axis="z", stroke_scale=22.0, stretch=4.0, variation=0.06, roughness=0.9)
     m_trim = ld.gloss("trim_steel", "set/trim", roughness=0.62, metallic=0.5)   # satin: a soft sheen, never a second tube (DP)
     m_trim_p = ld.paint("trim_paint", "set/trim")
     m_glass = ld.glass()

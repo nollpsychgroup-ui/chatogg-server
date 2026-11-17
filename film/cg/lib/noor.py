@@ -87,8 +87,9 @@ def _lid(name, M, center, r, lid_up, skin, coll):
 
 
 def skin_mat():
-    return ld.paint("noor_skin", "noor/skin", tier="face", shadow="noor/skin_shadow", axis="z", stretch=1.6,
-                    variation=0.04, shadow_mix=0.2, tilt=0.09)
+    # strokes run across the cheek planes (axis x); halved value variation; few cool halftone dabs (Designer redline)
+    return ld.paint("noor_skin", "noor/skin", tier="face", shadow="noor/skin_shadow", axis="x", stretch=3.0,
+                    variation=0.025, shadow_mix=0.08, tilt=0.07)
 
 
 def build(head_c, f, lat, coll, pal_prefix="noor", params=None):
@@ -155,7 +156,7 @@ def torso(hip, sh, f, lat, coll, sw=1.0):
     """The upright rectangle: squared blazer shoulders, lapels open over the blouse."""
     up = Vector((0, 0, 1))
     R = Matrix((lat, f, up)).transposed()
-    blazer = ld.paint("noor_blazer", "noor/suit", tier="costume", axis="z", stretch=3.0, shadow="noor/lapel", variation=0.16, tilt=0.22)
+    blazer = ld.paint("noor_blazer", "noor/suit", tier="costume", axis="z", stretch=4.0, shadow="noor/lapel", shadow_mix=0.3, variation=0.06, tilt=0.16)
     blouse = ld.paint("noor_blouse", "noor/blouse", tier="costume", axis="z")
     lapel = ld.paint("noor_lapel", "noor/lapel", tier="costume", axis="z")
     obs = []

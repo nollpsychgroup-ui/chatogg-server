@@ -54,7 +54,7 @@ def plane(name, center, size, mat, collection="SET", normal="Z"):
     return _obj(name, bm, mat, collection, loc=center)
 
 
-def limb(name, a, b, r, mat, collection="CHARACTERS", r2=None, segs=9, smooth=False):
+def limb(name, a, b, r, mat, collection="CHARACTERS", r2=None, segs=16, smooth=True):
     a, b = Vector(a), Vector(b)
     d = b - a
     ln = max(d.length, 1e-4)
@@ -69,7 +69,7 @@ def limb(name, a, b, r, mat, collection="CHARACTERS", r2=None, segs=9, smooth=Fa
     return _obj(name, bm, mat, collection, loc=(a + b) / 2, smooth=smooth)
 
 
-def ellipsoid(name, center, radii, mat, collection="CHARACTERS", segs=10, rot=None, smooth=False):
+def ellipsoid(name, center, radii, mat, collection="CHARACTERS", segs=20, rot=None, smooth=True):
     bm = bmesh.new()
     bmesh.ops.create_uvsphere(bm, u_segments=segs, v_segments=segs // 2 + 2, radius=1.0)
     bmesh.ops.scale(bm, vec=Vector(radii), verts=bm.verts)

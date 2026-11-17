@@ -14,10 +14,10 @@ import bpy
 from .common import pal
 
 # stroke size tiers (world space): set ~4-6 cm, costume ~1.5-3 cm, faces/hands ~3-6 mm
-TIER = {   # stroke_scale ~ 1 / dab width (m): set ~5 cm, costume ~2 cm, face ~5 mm
-    "set":     dict(stroke_scale=20.0, stretch=4.0, variation=0.30, roughness=0.85, tilt=0.16, bristle=0.12, hue_jitter=0.03),
-    "costume": dict(stroke_scale=45.0, stretch=3.0, variation=0.30, roughness=0.88, tilt=0.40, bristle=0.10, hue_jitter=0.03),
-    "face":    dict(stroke_scale=170.0, stretch=1.8, variation=0.12, roughness=0.62, tilt=0.22, bristle=0.03, hue_jitter=0.025),
+TIER = {   # R3: elongated dabs (stretch 3-5:1), close values on planes, separation from the light at form turns
+    "set":     dict(stroke_scale=20.0, stretch=4.5, variation=0.07, roughness=0.85, tilt=0.12, bristle=0.10, hue_jitter=0.015),
+    "costume": dict(stroke_scale=40.0, stretch=4.0, variation=0.07, roughness=0.88, tilt=0.20, bristle=0.08, hue_jitter=0.015),
+    "face":    dict(stroke_scale=160.0, stretch=3.0, variation=0.03, roughness=0.62, tilt=0.07, bristle=0.02, hue_jitter=0.01),
 }
 PASS_FACE, PASS_CHAR = 1, 2   # object pass_index for the compositor masks
 
@@ -88,7 +88,7 @@ def _paint_group():
     L.new(p, wn.inputs["Vector"])
     L.new(math("MULTIPLY", gi.outputs["Stroke Scale"], 0.35), wn.inputs["Scale"])
     wv = vmath("SUBTRACT", wn.outputs["Color"], (0.5, 0.5, 0.5))
-    amp = math("DIVIDE", 0.7, gi.outputs["Stroke Scale"])
+    amp = math("DIVIDE", 1.1, gi.outputs["Stroke Scale"])
     pw = vmath("ADD", p, vmath("SCALE", wv, None, amp))
 
     def dabs(offset):

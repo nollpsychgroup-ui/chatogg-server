@@ -64,22 +64,33 @@ def check_blackout():
     return mx == 0.0, f"sf04a_blackout.png: max pixel value = {mx:.6f} over {a.shape[1]}x{a.shape[0]} px"
 
 
+def _chroma(a):
+    """CIELAB chroma (perceived colourfulness) of display-referred sRGB pixels."""
+    lin = np.where(a <= 0.04045, a / 12.92, ((a + 0.055) / 1.055) ** 2.4)
+    M = np.array([[0.4124, 0.3576, 0.1805], [0.2126, 0.7152, 0.0722], [0.0193, 0.1192, 0.9505]], np.float32)
+    xyz = lin @ M.T / np.array([0.9505, 1.0, 1.089], np.float32)
+    f = np.where(xyz > 0.008856, np.cbrt(xyz), 7.787 * xyz + 16 / 116)
+    return np.hypot(500 * (f[..., 0] - f[..., 1]), 200 * (f[..., 1] - f[..., 2]))
+
+
 def check_strap():
+    """8b/L7: under cue 3 the strap must be the most saturated (most chromatic) thing on screen.
+    Measured as CIELAB chroma (HSV saturation is meaningless under 2200 K: every dim orange pixel has
+    blue ~0 and reads 'fully saturated'). Emitters (the panels themselves) are excluded."""
     a = load_png(os.path.join(STILLS, "sf03_brownout.png"))
-    mx, mn = a.max(2), a.min(2)
-    sat = np.where(mx > 0.02, (mx - mn) / np.maximum(mx, 1e-6), 0)
-    # most saturated 0.05% of pixels: what hue are they, and where?
-    thr = np.quantile(sat, 0.9995)
-    ys, xs = np.nonzero(sat >= thr)
-    px = a[ys, xs]
-    red_share = float(np.mean((px[:, 0] > px[:, 1] * 1.6) & (px[:, 0] > px[:, 2] * 1.6)))
-    # isolate the strap: strongly red (r >> g) pixels -- under 2200 K everything is warm, the strap is the outlier
-    hue_red = (a[..., 0] > 0.05) & (a[..., 0] > 3.0 * a[..., 1]) & (a[..., 0] > 3.0 * a[..., 2])
-    n_red = int(hue_red.sum())
-    cy, cx = (float(ys.mean()), float(xs.mean())) if len(ys) else (0, 0)
-    ok = red_share > 0.6
-    return ok, (f"sf03_brownout.png: top 0.05% saturated pixels (sat >= {thr:.2f}): {red_share * 100:.0f}% are red, centred at "
-                f"px ({cx:.0f}, {cy:.0f}); strongly-red pixel count {n_red}")
+    C = _chroma(a)
+    mx = a.max(2)
+    red = (a[..., 0] > 3 * a[..., 1]) & (a[..., 0] > 3 * a[..., 2]) & (mx > 0.08)
+    emit = mx > 0.55
+    other = (~red) & (~emit)
+    if red.sum() == 0:
+        return False, "sf03_brownout.png: no strap pixels found"
+    s90 = float(np.percentile(C[red], 90))
+    o999 = float(np.percentile(C[other], 99.9))
+    ok = s90 > o999
+    return ok, (f"sf03_brownout.png (CIELAB chroma, emitters excluded): strap p90 = {s90:.1f} ({int(red.sum())} px) vs "
+                f"everything else p99.9 = {o999:.1f}. Under BROWN (2200 K, camera balanced at 4000 K) the sodium-lit surfaces are "
+                f"more chromatic than the strap in the Meter wide. Earlier PASS used an HSV metric that was invalid here.")
 
 
 def eye_crop(scene, name, pad=0.06):
