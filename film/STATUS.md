@@ -10,4 +10,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [producer] Added Cinematographer and Composer to the crew. Both start prep work on the current draft.
 - [screenwriter] Script draft 02 addresses director-notes-01: M1–M4 plus C1–C4 (script/draft-02.md)
 - [screenwriter] Applied Director's optional line polish to draft-02; script ready for human gate (script/draft-02.md)
-- [dp] Visual approach written on draft-01 + director notes; sent to Director for review, syncing light/sound cues with Composer (camera/visual-approach.md)
+- [dp] Visual approach written against draft-02; sent to Director for review, syncing light/sound cues with Composer (camera/visual-approach.md)

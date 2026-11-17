@@ -1,6 +1,6 @@
 # THE QUIET CAR: Visual Approach
 
-**DP prep document** · Based on `script/draft-01.md` and `notes/director-notes-01.md` (I've assumed M1–M3 land in draft-02) · For Director review. This will change once the script is locked.
+**DP prep document** · Based on `script/draft-02.md` (Director-approved, awaiting the human gate) · For Director review.
 
 ---
 
@@ -113,7 +113,7 @@ A cut hidden in the black frames would also work. But a locked frame that never 
 
 - Shot on the **32 mm from Noor's end looking down the car**, so the dark comes *toward camera*, one panel at a time.
 - As each panel goes out, its section of the car goes properly black, not just dim. We need flags or snoots on the diffusers so there is no spill between sections and the dark has a **hard edge** travelling up the aisle.
-- Kai's phone, abandoned in the dark section, keeps its small blue glow: the boy left in the dark that the car has already taken.
+- Kai's phone, abandoned in the dark section, keeps its small blue glow: the boy left in the dark that the car has already taken. (Its glow is set at 8 min, when Noor crosses to end the call and can't. We hold a 40 mm two-shot of her thumb over the red button, lit only by the screen and the steady overhead light.)
 - By "two panels left," Noor is lit half from above and half by her phone's **MARK** glow from below. When she answers, the phone side of her face is the stronger light.
 
 ---
