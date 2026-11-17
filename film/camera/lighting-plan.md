@@ -91,7 +91,7 @@ In the blackout (cue 4), **every emitter is 0**: panels, diffusers, display, win
 
 ## 4. Cue list
 
-Times are from `cues.json` (estimates for a ~9:25 cut, to be re-timed to the voice record). Durations are in frames at 24 fps. "Snap" means a constant keyframe on the frame.
+**Clock note:** the times in these tables are on the **original clock**. `cues.json` carries the current clock (`clock` field): two trims from previs-notes-02 remove [0, 13) s and [545, 550) s, so **current = original − 13 s, or − 18 s after 550 s**. The cut now runs 9:07. The cue logic, spacing and order are unchanged. Durations are in frames at 24 fps. "Snap" means a constant keyframe on the frame.
 
 ### Opening (asleep)
 

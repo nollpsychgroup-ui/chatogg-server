@@ -200,6 +200,23 @@ if os.path.exists(VOICE):
                 for l in _v["lines"]]
     DIALOGUE_SOURCE = "previs/voice/scratch-voice-lines.json (Screenwriter)"
 
+# ---- clock trims (previs-notes-02) -----------------------------------------------------
+# Every time above is written on the ORIGINAL clock. These spans are cut out of it:
+#   [0, 13)    shot 1's pre-entry hold, 25 s -> 12 s
+#   [545, 550) the tail of shot 62: cut ~2 s after Noor clears the glass (the PA stays before the cut)
+TRIMS = [(0.0, 13.0), (545.0, 5.0)]
+CLOCK = "v2: trims " + ", ".join("[%g, %g)" % (a, a + l) for a, l in TRIMS)
+
+def M(t):
+    """Original clock -> current clock."""
+    out = t
+    for a, l in TRIMS:
+        if t >= a + l:
+            out -= l
+        elif t > a:
+            out -= (t - a)
+    return round(out, 3)
+
 # ---- virtual cameras -------------------------------------------------------------
 HEAD = {"NOOR": (0.0, 12.75, 1.22), "NOOR_STAND": (-0.35, 10.0, 1.62), "WALTER": (-1.0, py(3), 1.22),
         "BEA": (1.0, py(3), 1.22), "KAI": (1.05, py(8), 1.22), "KAI_PHONE": (1.05, py(8), 0.48),
@@ -211,8 +228,10 @@ HEAD = {"NOOR": (0.0, 12.75, 1.22), "NOOR_STAND": (-0.35, 10.0, 1.62), "WALTER":
         "NOOR_PHONE_LAP": (0.0, 12.45, 0.62),
         "AIM_15": (0.8, 7.5, 1.1),
         "AIM_42": (0.0, 13.0, 2.0),
-        "NOOR_UP": (0.0, 12.6, 1.6),             # standing up at her seat (arrival)
-        "NOOR_AT_DOORS": (0.9, 6.5, 1.6),        # at the doors: the handle (shot 20), reading the paper (24)
+        "NOOR_UP": (0.0, 12.3, 1.62),            # standing up at her seat (arrival; TA blocking 515-519 s)
+        "NOOR_AT_DOORS": (1.0, 7.25, 1.62),       # at the emergency release by the doors (shot 20; TA blocking)
+        "HANDLE": (1.385, 7.75, 1.45),           # the emergency release (TA set)
+        "NOOR_PLATFORM": (2.6, 6.85, 1.62),      # on the platform, framed in the right door leaf's window, clear of the seam (shot 62)
         "NOOR_AT_KAI": (0.55, 4.875, 0.95),      # leaning in over Kai's seat, thumb over the call (32)
         "AIM_32": (0.7, 4.875, 0.85),            # between the screen and her face
         "AIM_33": (0.8, 9.0, 1.4),               # her walk back up the car, Bea watching
@@ -233,7 +252,7 @@ INSERTS = {
 }
 
 # The one handheld shot: recorded operator motion layered on the base camera (treatment, scene 4).
-HANDHELD = {20: {"base_loc": (1.0, 8.4, 1.45), "aim": "NOOR_AT_DOORS",
+HANDHELD = {20: {"base_loc": (0.8, 9.8, 1.55), "aim": "NOOR_AT_DOORS",
                  "source": "a recorded handheld operator clip (real body motion), not procedural noise",
                  "amplitude": "about 3-5 cm translation and 1-2 degrees rotation, following Noor's panic",
                  "settle": "steady by the cut to shot 21 (Walter's paper); the camera is on sticks again from there"}}
@@ -255,15 +274,15 @@ POS = {
     "E":  {"loc": (-1.0, 12.2, 1.4), "aim": (0.0, py(3), 1.2), "lens": 40, "note": "side A corner at end A: Walter/Bea two-shots, deep staging"},
     "W7": {"loc": (0.0, 8.2, 0.9), "aim": (0.0, 12.6, 1.7), "lens": 32,
            "note": "lie 1 (shot 7): closer and low, so P1's fixture reads large enough to flicker visibly (from W it was a grazing sliver at the far end)"},
-    "G2": {"loc": (1.0, 8.4, 1.45), "aim": (0.9, 6.5, 1.6), "lens": 32,
-           "note": "the handle (shot 20): along the side B wall, Noor's panicked profile at the doors (from G we only saw her back)"},
+    "G2": {"loc": (0.8, 9.8, 1.55), "aim": (1.25, 7.2, 1.35), "lens": 32,
+           "note": "the handle (shot 20): Noor at the emergency release, the release itself and the doors in one frame (previs-notes-02)"},
     "B2": {"loc": (0.3, 12.85, 1.5), "aim": (0.3, 0.0, 1.2), "lens": 32,
            "note": "Noor's end, side A corner: looking down the car clear of Bea (from B, Bea's body blocked the foreground)"},
     "K":  {"loc": (1.25, 4.2, 0.75), "aim": (1.05, 4.875, 0.5), "lens": 40,
            "note": "at Kai's seat, low beside the phone: the red end-call button with her thumb coming in from above (shot 32). Her face can't share a tight frame with a phone lying on the seat"},
     "DP_POV": {"loc": (0.3, 6.9, 1.55), "aim": (0.0, 10.29, 1.25), "lens": 32,
            "note": "Noor's POV from the doors, looking back up the car at Walter and Bea (shot 61)"},
-    "S":  {"loc": (-0.9, 8.9, 1.5), "lens": 50,
+    "S":  {"loc": (-0.9, 8.9, 1.62), "lens": 50,
            "note": "Noor standing beside Walter (TA blocking 188-239 s), seen from in front and slightly down the car (shot 24)"},
     "E3": {"loc": (-0.7, 6.6, 1.4), "aim": (0.0, 10.29, 1.25), "lens": 32,
            "note": "shot 61: from down the car on side A, Walter (left) and Bea (right) as Noor walks toward camera on side B to the doors"},
@@ -274,7 +293,7 @@ POS = {
     "E2": {"loc": (0.0, 7.4, 1.15), "aim": (0.0, 10.29, 1.25), "lens": 32,
            "note": "the Walter/Bea two-shot: from down the car, both in profile facing each other, Noor small between them under the sign. From Noor's end no 32/40 can hold both (they sit 2 m apart, 2.5 m away)"},
     "F":  {"loc": (-0.95, py(8), 1.15), "lens": 40, "note": "across the aisle from Kai"},
-    "G":  {"loc": (-0.9, 6.5, 1.3), "aim": HEAD["DOORS"], "lens": 32, "note": "facing the doors"},
+    "G":  {"loc": (-0.9, 6.5, 1.3), "aim": (2.6, 6.85, 1.5), "lens": 32, "note": "facing the doors"},
     "I":  {"note": "inserts: placement per shot"},
 }
 # Camera paths for the moving shots: (loc at shot in, loc at shot out). Constant speed, keyed on ones.
@@ -366,7 +385,7 @@ MUST = {
     16: ["P%d" % i for i in range(1, 13)] + ["KAI"], 18: ["P%d" % i for i in range(1, 13)] + ["KAI", "KAI_PHONE"],
     26: ["P2", "P3", "P4", "NOOR_STAND", "WRIST", "WALTER"],
     8: ["WALTER"], "8B": ["BEA"], 12: ["WALTER"], "12B": ["BEA"], 39: ["WALTER", "BEA"], 55: ["WALTER", "BEA"], 61: ["WALTER", "BEA"], 22: ["NEWSPAPER"], 23: ["NEWSPAPER"], 51: ["NOOR_PHONE_LAP"],
-    15: ["BEA", "KAI"], 20: ["NOOR_AT_DOORS"], 24: ["NOOR_STAND"], 25: ["KAI_PHONE"],
+    15: ["BEA", "KAI"], 20: ["NOOR_AT_DOORS", "HANDLE", "DOORS"], 62: ["NOOR_PLATFORM"], 24: ["NOOR_STAND"], 25: ["KAI_PHONE"],
     32: ["KAI_PHONE"], 33: ["BEA"], 44: ["KAI_PHONE"], 60: ["NOOR_UP"], 61: ["WALTER", "BEA"], 22: ["NEWSPAPER"], 23: ["NEWSPAPER"], 51: ["NOOR_PHONE_LAP"], 6: ["NOOR", "NOOR_CHIN"], 38: ["WALTER"], 53: ["WALTER"], 34: ["BEA"], 36: ["BEA"],
     50: ["P1", "P2", "NOOR", "DISPLAY"],
     54: ["NOOR_CHIN", "NOOR_CROWN"], 58: ["NOOR_CHIN", "NOOR_CROWN"],
@@ -387,7 +406,31 @@ def frame_xy(cam, aim, f, p):
         return None
     return (f * dot(d, r) / z / (SENSOR["width_mm"] / 2), f * dot(d, u) / z / (SENSOR["height_mm"] / 2))
 
+def apply_clock():
+    """Move everything written on the original clock to the current clock (see TRIMS)."""
+    global EVENTS, S, DIALOGUE, DIALOGUE_SOURCE
+    for c in C:
+        c["t"] = M(c["t"])
+        if "recover" in c:
+            c["recover"]["t"] = M(c["recover"]["t"])
+    EVENTS = [(i, M(t), w) for i, t, w in EVENTS]
+    S = [(r[0], M(r[1]), M(r[2])) + tuple(r[3:]) for r in S]
+    S = [r for r in S if r[2] > r[1]]
+    # The Screenwriter's voice placement is anchored to these cues. If it is still on the original
+    # clock (NOOR-02 ends 0.25 s before the ORIGINAL cue 1 at 80.0), map it; once they rebuild, it isn't.
+    lie1 = [d for d in DIALOGUE if str(d[3]).startswith("NOOR-02")]
+    if lie1 and abs(lie1[0][1] - 79.75) < 0.05:
+        DIALOGUE = [(M(a), M(b), w, l) for a, b, w, l in DIALOGUE]
+        DIALOGUE_SOURCE += " (mapped from the original clock)"
+
+def blocking_on_current_clock(segs):
+    """The TA's blocking is on the original clock while Noor boards at 25.0 s; map it if so."""
+    if segs and abs(segs[0]["t"][0] - 25.0) < 0.01:
+        return [dict(g, t=[M(g["t"][0]), M(g["t"][1])]) for g in segs]
+    return segs
+
 def build():
+    apply_clock()
     times = {c["id"]: c["t"] for c in C}
     ev = {e[0]: e[1] for e in EVENTS}
     awake = (times["1"], times["8.10"])
@@ -469,7 +512,7 @@ def build():
     # shot's subject. Bodies are vertical capsules (radius 0.28 m, floor to head) at their seats.
     BODIES = {"WALTER": (-1.0, py(3), 1.35), "BEA": (1.0, py(3), 1.35), "KAI": (1.05, py(8), 1.35)}
     BLK = os.path.join(HERE, "..", "cg", "data", "blocking.json")
-    noor_segs = json.load(open(BLK))["NOOR"] if os.path.exists(BLK) else []
+    noor_segs = blocking_on_current_clock(json.load(open(BLK))["NOOR"]) if os.path.exists(BLK) else []
     def noor_at(t):
         for g in noor_segs:
             if g["t"][0] <= t < g["t"][1]:
@@ -524,7 +567,7 @@ def build():
                       "handheld": HANDHELD.get(n), "cues": cues_in, "beat": beat})
     doc = {
         "_note": "Shared sync file for THE QUIET CAR previs. Written by camera/build_cues.py (DP); do not edit by hand. Times are seconds from the first frame; re-time in build_cues.py when the voice record exists.",
-        "fps": FPS, "duration_s": 570.0,
+        "fps": FPS, "duration_s": M(570.0), "clock": CLOCK,
         "set": {"units": "m", "axes": "Blender: Z up; Y down the car from end wall B (0) to end wall A (13, Noor); side A = -X, side B = +X",
                 "length": LEN, "half_width": HALF, "ceiling": CEIL, "vestibule_y": [-4.0, 0.0],
                 "doors": {"side": "B", "y": [round(py(7) - 0.55, 3), round(py(6) + 0.55, 3)]},

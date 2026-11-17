@@ -1,7 +1,8 @@
 {
  "_note": "Shared sync file for THE QUIET CAR previs. Written by camera/build_cues.py (DP); do not edit by hand. Times are seconds from the first frame; re-time in build_cues.py when the voice record exists.",
  "fps": 24,
- "duration_s": 570.0,
+ "duration_s": 552.0,
+ "clock": "v2: trims [0, 13), [545, 550)",
  "set": {
   "units": "m",
   "axes": "Blender: Z up; Y down the car from end wall B (0) to end wall A (13, Noor); side A = -X, side B = +X",
@@ -118,13 +119,23 @@
    ],
    "NOOR_UP": [
     0.0,
-    12.6,
-    1.6
+    12.3,
+    1.62
    ],
    "NOOR_AT_DOORS": [
-    0.9,
-    6.5,
-    1.6
+    1.0,
+    7.25,
+    1.62
+   ],
+   "HANDLE": [
+    1.385,
+    7.75,
+    1.45
+   ],
+   "NOOR_PLATFORM": [
+    2.6,
+    6.85,
+    1.62
    ],
    "NOOR_AT_KAI": [
     0.55,
@@ -347,7 +358,7 @@
  "cues": [
   {
    "id": "0",
-   "t": 40.0,
+   "t": 27.0,
    "type": "tick",
    "panels": [
     "P1"
@@ -367,7 +378,7 @@
   },
   {
    "id": "1",
-   "t": 80.0,
+   "t": 67.0,
    "type": "flicker",
    "panels": [
     "P1"
@@ -401,7 +412,7 @@
   },
   {
    "id": "2",
-   "t": 95.0,
+   "t": 82.0,
    "type": "flicker",
    "panels": [
     "P1",
@@ -436,7 +447,7 @@
   },
   {
    "id": "3",
-   "t": 145.0,
+   "t": 132.0,
    "type": "brownout",
    "panels": [
     "P1",
@@ -468,7 +479,7 @@
   },
   {
    "id": "4",
-   "t": 155.0,
+   "t": 142.0,
    "type": "blackout",
    "panels": [
     "P1",
@@ -501,7 +512,7 @@
   },
   {
    "id": "4.up",
-   "t": 158.0,
+   "t": 145.0,
    "type": "lights_up",
    "panels": [
     "P1",
@@ -528,7 +539,7 @@
   },
   {
    "id": "5",
-   "t": 225.0,
+   "t": 212.0,
    "type": "hard_dip",
    "panels": [
     "P3",
@@ -552,7 +563,7 @@
     "P4": 0.4
    },
    "recover": {
-    "t": 229.0,
+    "t": 216.0,
     "frames": 72,
     "ease": "slow ease-in back to BASE"
    },
@@ -560,7 +571,7 @@
   },
   {
    "id": "6",
-   "t": 295.0,
+   "t": 282.0,
    "type": "stutter",
    "panels": [
     "P1"
@@ -587,7 +598,7 @@
   },
   {
    "id": "7.1",
-   "t": 360.0,
+   "t": 347.0,
    "type": "panel_out",
    "panels": [
     "P12"
@@ -603,7 +614,7 @@
   },
   {
    "id": "7.2",
-   "t": 368.5,
+   "t": 355.5,
    "type": "panel_out",
    "panels": [
     "P11"
@@ -619,7 +630,7 @@
   },
   {
    "id": "7.3",
-   "t": 377.0,
+   "t": 364.0,
    "type": "panel_out",
    "panels": [
     "P10"
@@ -635,7 +646,7 @@
   },
   {
    "id": "7.4",
-   "t": 385.5,
+   "t": 372.5,
    "type": "panel_out",
    "panels": [
     "P9"
@@ -651,7 +662,7 @@
   },
   {
    "id": "7.5",
-   "t": 394.0,
+   "t": 381.0,
    "type": "panel_out",
    "panels": [
     "P8"
@@ -667,7 +678,7 @@
   },
   {
    "id": "7.6",
-   "t": 402.5,
+   "t": 389.5,
    "type": "panel_out",
    "panels": [
     "P7"
@@ -683,7 +694,7 @@
   },
   {
    "id": "7.7",
-   "t": 411.0,
+   "t": 398.0,
    "type": "panel_out",
    "panels": [
     "P6"
@@ -699,7 +710,7 @@
   },
   {
    "id": "7.8",
-   "t": 419.5,
+   "t": 406.5,
    "type": "panel_out",
    "panels": [
     "P5"
@@ -715,7 +726,7 @@
   },
   {
    "id": "7.9",
-   "t": 428.0,
+   "t": 415.0,
    "type": "panel_out",
    "panels": [
     "P4"
@@ -731,7 +742,7 @@
   },
   {
    "id": "7.10",
-   "t": 436.5,
+   "t": 423.5,
    "type": "panel_out",
    "panels": [
     "P3"
@@ -747,7 +758,7 @@
   },
   {
    "id": "8.0",
-   "t": 462.0,
+   "t": 449.0,
    "type": "steady",
    "panels": [
     "P1"
@@ -764,7 +775,7 @@
   },
   {
    "id": "8.1",
-   "t": 470.0,
+   "t": 457.0,
    "type": "relight",
    "panels": [
     "P3"
@@ -783,7 +794,7 @@
   },
   {
    "id": "8.2",
-   "t": 483.0,
+   "t": 470.0,
    "type": "relight",
    "panels": [
     "P4"
@@ -802,7 +813,7 @@
   },
   {
    "id": "8.3",
-   "t": 493.0,
+   "t": 480.0,
    "type": "relight",
    "panels": [
     "P5"
@@ -821,7 +832,7 @@
   },
   {
    "id": "8.4",
-   "t": 494.1,
+   "t": 481.1,
    "type": "relight",
    "panels": [
     "P6"
@@ -840,7 +851,7 @@
   },
   {
    "id": "8.5",
-   "t": 495.2,
+   "t": 482.2,
    "type": "relight",
    "panels": [
     "P7"
@@ -859,7 +870,7 @@
   },
   {
    "id": "8.6",
-   "t": 496.3,
+   "t": 483.3,
    "type": "relight",
    "panels": [
     "P8"
@@ -878,7 +889,7 @@
   },
   {
    "id": "8.7",
-   "t": 497.4,
+   "t": 484.4,
    "type": "relight",
    "panels": [
     "P9"
@@ -897,7 +908,7 @@
   },
   {
    "id": "8.8",
-   "t": 498.5,
+   "t": 485.5,
    "type": "relight",
    "panels": [
     "P10"
@@ -916,7 +927,7 @@
   },
   {
    "id": "8.9",
-   "t": 499.6,
+   "t": 486.6,
    "type": "relight",
    "panels": [
     "P11"
@@ -935,7 +946,7 @@
   },
   {
    "id": "8.10",
-   "t": 508.0,
+   "t": 495.0,
    "type": "relight",
    "panels": [
     "P12"
@@ -961,7 +972,7 @@
  "events": [
   {
    "id": "board_chime",
-   "t": 25.0,
+   "t": 12.0,
    "what": "door chime; Noor boards"
   },
   {
@@ -976,487 +987,487 @@
   },
   {
    "id": "lanyard",
-   "t": 40.0,
+   "t": 27.0,
    "what": "Noor straightens the lanyard (cue 0)"
   },
   {
    "id": "doors_close",
-   "t": 48.0,
+   "t": 35.0,
    "what": "doors close; the starting platform and its lamp slide away (48-58); WINDOWS chase on (glass only, while asleep)"
   },
   {
    "id": "D1",
-   "t": 50.0,
+   "t": 37.0,
    "what": "DISPLAY: NEXT STOP: HOLLOWAY — 11 MIN"
   },
   {
    "id": "mark_call_1",
-   "t": 65.0,
+   "t": 52.0,
    "what": "PHONE (Noor): MARK"
   },
   {
    "id": "lie_1",
-   "t": 80.0,
+   "t": 67.0,
    "what": "cue 1"
   },
   {
    "id": "lie_2",
-   "t": 95.0,
+   "t": 82.0,
    "what": "cue 2"
   },
   {
    "id": "love_you",
-   "t": 110.0,
+   "t": 97.0,
    "what": "'Love you' (true: nothing happens)"
   },
   {
    "id": "mum_call",
-   "t": 133.0,
+   "t": 120.0,
    "what": "PHONE (Kai): MUM"
   },
   {
    "id": "kai_lie",
-   "t": 145.0,
+   "t": 132.0,
    "what": "cue 3"
   },
   {
    "id": "D2",
-   "t": 236.0,
+   "t": 223.0,
    "what": "DISPLAY: 8 MIN"
   },
   {
    "id": "thumb_over_end_call",
-   "t": 264.0,
+   "t": 251.0,
    "what": "PHONE (Kai): end-call red button on screen"
   },
   {
    "id": "D3",
-   "t": 357.0,
+   "t": 344.0,
    "what": "DISPLAY: 5 MIN"
   },
   {
    "id": "D4",
-   "t": 438.0,
+   "t": 425.0,
    "what": "DISPLAY: 2 MIN"
   },
   {
    "id": "marks_call",
-   "t": 440.0,
+   "t": 427.0,
    "what": "PHONE (Noor): MARK; her screen becomes a key light"
   },
   {
    "id": "he_is_asking",
-   "t": 452.0,
+   "t": 439.0,
    "what": "WALTER: 'He's asking.'"
   },
   {
    "id": "silence_on_line",
-   "t": 505.0,
+   "t": 492.0,
    "what": "silence on the line"
   },
   {
    "id": "train_slows",
-   "t": 512.0,
+   "t": 499.0,
    "what": "DISPLAY: NOW ARRIVING: HOLLOWAY; the Holloway platform slides in, seen only in the door glass (512-520)"
   },
   {
    "id": "arrival_chime",
-   "t": 520.0,
+   "t": 507.0,
    "what": "door chime"
   },
   {
    "id": "doors_open",
-   "t": 521.0,
+   "t": 508.0,
    "what": "doors open; PLATFORM lamp on (cold white ~5000 K, slight green)"
   },
   {
    "id": "doors_close_final",
-   "t": 535.0,
+   "t": 522.0,
    "what": "doors close"
   },
   {
    "id": "pa_line",
-   "t": 538.0,
+   "t": 525.0,
    "what": "PA: 'Thank you for riding quietly.' (no light cue)"
   },
   {
    "id": "pull_away",
-   "t": 540.0,
+   "t": 527.0,
    "what": "platform + lamp slide away in the door glass; WINDOWS stay black"
   },
   {
    "id": "pull_away_end",
-   "t": 548.0,
+   "t": 532.0,
    "what": "platform gone; PLATFORM 0; the frame is dead still from here"
   },
   {
    "id": "page_turn",
-   "t": 552.0,
+   "t": 534.0,
    "what": "Walter turns the page (no light change)"
   },
   {
    "id": "phone_dims",
-   "t": 561.0,
+   "t": 543.0,
    "what": "Kai's phone screen fades to black over 2 s"
   },
   {
    "id": "cut",
-   "t": 565.0,
+   "t": 547.0,
    "what": "CUT TO BLACK"
   },
   {
    "id": "rails_stop",
-   "t": 568.0,
+   "t": 550.0,
    "what": "rails stop over black"
   }
  ],
- "dialogue_note": "source: previs/voice/scratch-voice-lines.json (Screenwriter). build_cues.py checks that no Advance tick or relight lands on a line",
+ "dialogue_note": "source: previs/voice/scratch-voice-lines.json (Screenwriter) (mapped from the original clock). build_cues.py checks that no Advance tick or relight lands on a line",
  "dialogue": [
   {
-   "in": 68.5,
-   "out": 70.974,
+   "in": 55.5,
+   "out": 57.974,
    "who": "NOOR",
    "line": "NOOR-01"
   },
   {
-   "in": 71.6,
-   "out": 74.321,
+   "in": 58.6,
+   "out": 61.321,
    "who": "MARK",
    "line": "MARK-01"
   },
   {
-   "in": 78.138,
-   "out": 79.75,
+   "in": 65.138,
+   "out": 66.75,
    "who": "NOOR",
    "line": "NOOR-02: lie 1 -> cue 1"
   },
   {
-   "in": 84.0,
-   "out": 85.232,
+   "in": 71.0,
+   "out": 72.232,
    "who": "MARK",
    "line": "MARK-01b"
   },
   {
-   "in": 92.404,
-   "out": 94.75,
+   "in": 79.404,
+   "out": 81.75,
    "who": "NOOR",
    "line": "NOOR-03: lie 2 -> cue 2"
   },
   {
-   "in": 103.5,
-   "out": 104.429,
+   "in": 90.5,
+   "out": 91.429,
    "who": "KAI",
    "line": "KAI-01"
   },
   {
-   "in": 108.913,
-   "out": 110.9,
+   "in": 95.913,
+   "out": 97.9,
    "who": "NOOR",
    "line": "NOOR-04: 'Love you' is true: no cue"
   },
   {
-   "in": 135.0,
-   "out": 135.227,
+   "in": 122.0,
+   "out": 122.227,
    "who": "KAI",
    "line": "KAI-02"
   },
   {
-   "in": 136.2,
-   "out": 138.407,
+   "in": 123.2,
+   "out": 125.407,
    "who": "MUM",
    "line": "MUM-01"
   },
   {
-   "in": 143.181,
-   "out": 144.75,
+   "in": 130.181,
+   "out": 131.75,
    "who": "KAI",
    "line": "KAI-03: his lie -> cue 3 brownout"
   },
   {
-   "in": 151.474,
-   "out": 151.702,
+   "in": 138.474,
+   "out": 138.702,
    "who": "KAI",
    "line": "KAI-04.laugh: nervous laugh"
   },
   {
-   "in": 151.952,
-   "out": 155.0,
+   "in": 138.952,
+   "out": 142.0,
    "who": "KAI",
    "line": "KAI-04: HARD CUT at cue 4 (blackout): true dead air until 4.up"
   },
   {
-   "in": 159.0,
-   "out": 159.237,
+   "in": 146.0,
+   "out": 146.237,
    "who": "MUM",
    "line": "MUM-02a"
   },
   {
-   "in": 161.4,
-   "out": 161.641,
+   "in": 148.4,
+   "out": 148.641,
    "who": "MUM",
    "line": "MUM-02b"
   },
   {
-   "in": 166.5,
-   "out": 167.461,
+   "in": 153.5,
+   "out": 154.461,
    "who": "NOOR",
    "line": "NOOR-06"
   },
   {
-   "in": 173.0,
-   "out": 173.172,
+   "in": 160.0,
+   "out": 160.172,
    "who": "NOOR",
    "line": "NOOR-08a"
   },
   {
-   "in": 175.0,
-   "out": 175.218,
+   "in": 162.0,
+   "out": 162.218,
    "who": "NOOR",
    "line": "NOOR-08b"
   },
   {
-   "in": 206.5,
-   "out": 207.363,
+   "in": 193.5,
+   "out": 194.363,
    "who": "NOOR",
    "line": "NOOR-09"
   },
   {
-   "in": 215.5,
-   "out": 216.445,
+   "in": 202.5,
+   "out": 203.445,
    "who": "NOOR",
    "line": "NOOR-10: truth: nothing; hold"
   },
   {
-   "in": 224.048,
-   "out": 225.0,
+   "in": 211.048,
+   "out": 212.0,
    "who": "NOOR",
    "line": "NOOR-11: cut on the /s/ at cue 5 (wrist clamp)"
   },
   {
-   "in": 253.0,
-   "out": 253.202,
+   "in": 240.0,
+   "out": 240.202,
    "who": "MUM",
    "line": "MUM-02c"
   },
   {
-   "in": 266.5,
-   "out": 266.692,
+   "in": 253.5,
+   "out": 253.692,
    "who": "MUM",
    "line": "MUM-02d"
   },
   {
-   "in": 286.0,
-   "out": 286.656,
+   "in": 273.0,
+   "out": 273.656,
    "who": "BEA",
    "line": "BEA-01"
   },
   {
-   "in": 294.499,
-   "out": 295.0,
+   "in": 281.499,
+   "out": 282.0,
    "who": "NOOR",
    "line": "NOOR-13: self-caught on the /f/ at cue 6"
   },
   {
-   "in": 297.6,
-   "out": 298.464,
+   "in": 284.6,
+   "out": 285.464,
    "who": "NOOR",
    "line": "NOOR-14"
   },
   {
-   "in": 301.5,
-   "out": 302.116,
+   "in": 288.5,
+   "out": 289.116,
    "who": "BEA",
    "line": "BEA-02.1"
   },
   {
-   "in": 302.816,
-   "out": 304.759,
+   "in": 289.816,
+   "out": 291.759,
    "who": "BEA",
    "line": "BEA-02.2"
   },
   {
-   "in": 309.8,
-   "out": 311.148,
+   "in": 296.8,
+   "out": 298.148,
    "who": "NOOR",
    "line": "NOOR-15"
   },
   {
-   "in": 314.0,
-   "out": 315.564,
+   "in": 301.0,
+   "out": 302.564,
    "who": "WALTER",
    "line": "WALTER-01"
   },
   {
-   "in": 317.0,
-   "out": 317.341,
+   "in": 304.0,
+   "out": 304.341,
    "who": "NOOR",
    "line": "NOOR-16"
   },
   {
-   "in": 321.5,
-   "out": 323.476,
+   "in": 308.5,
+   "out": 310.476,
    "who": "WALTER",
    "line": "WALTER-02.1"
   },
   {
-   "in": 324.176,
-   "out": 326.315,
+   "in": 311.176,
+   "out": 313.315,
    "who": "WALTER",
    "line": "WALTER-02.2"
   },
   {
-   "in": 327.015,
-   "out": 327.777,
+   "in": 314.015,
+   "out": 314.777,
    "who": "WALTER",
    "line": "WALTER-02.3"
   },
   {
-   "in": 328.227,
-   "out": 329.043,
+   "in": 315.227,
+   "out": 316.043,
    "who": "WALTER",
    "line": "WALTER-02.4"
   },
   {
-   "in": 329.643,
-   "out": 330.416,
+   "in": 316.643,
+   "out": 317.416,
    "who": "WALTER",
    "line": "WALTER-02.5"
   },
   {
-   "in": 333.016,
-   "out": 336.407,
+   "in": 320.016,
+   "out": 323.407,
    "who": "WALTER",
    "line": "WALTER-02.6: after the (beat)"
   },
   {
-   "in": 366.8,
-   "out": 368.25,
+   "in": 353.8,
+   "out": 355.25,
    "who": "NOOR",
    "line": "NOOR-17"
   },
   {
-   "in": 381.0,
-   "out": 382.553,
+   "in": 368.0,
+   "out": 369.553,
    "who": "BEA",
    "line": "BEA-03"
   },
   {
-   "in": 417.639,
-   "out": 419.25,
+   "in": 404.639,
+   "out": 406.25,
    "who": "BEA",
    "line": "BEA-04"
   },
   {
-   "in": 426.474,
-   "out": 427.194,
+   "in": 413.474,
+   "out": 414.194,
    "who": "NOOR",
    "line": "NOOR-19: Bea overlaps on the dash; cut off by \"Say it.\""
   },
   {
-   "in": 427.044,
-   "out": 427.6,
+   "in": 414.044,
+   "out": 414.6,
    "who": "BEA",
    "line": "BEA-05: ends 0.4 s before the 7.9 tick"
   },
   {
-   "in": 452.0,
-   "out": 452.764,
+   "in": 439.0,
+   "out": 439.764,
    "who": "WALTER",
    "line": "WALTER-03"
   },
   {
-   "in": 456.5,
-   "out": 456.881,
+   "in": 443.5,
+   "out": 443.881,
    "who": "NOOR",
    "line": "NOOR-20"
   },
   {
-   "in": 457.4,
-   "out": 459.57,
+   "in": 444.4,
+   "out": 446.57,
    "who": "MARK",
    "line": "MARK-02"
   },
   {
-   "in": 458.565,
-   "out": 458.908,
+   "in": 445.565,
+   "out": 445.908,
    "who": "NOOR",
    "line": "NOOR-21.1"
   },
   {
-   "in": 459.208,
-   "out": 459.695,
+   "in": 446.208,
+   "out": 446.695,
    "who": "NOOR",
    "line": "NOOR-21.2"
   },
   {
-   "in": 460.145,
-   "out": 461.75,
+   "in": 447.145,
+   "out": 448.75,
    "who": "NOOR",
    "line": "NOOR-21.3"
   },
   {
-   "in": 464.575,
-   "out": 466.793,
+   "in": 451.575,
+   "out": 453.793,
    "who": "NOOR",
    "line": "NOOR-22.1"
   },
   {
-   "in": 467.593,
-   "out": 468.339,
+   "in": 454.593,
+   "out": 455.339,
    "who": "NOOR",
    "line": "NOOR-22.2"
   },
   {
-   "in": 468.939,
-   "out": 469.75,
+   "in": 455.939,
+   "out": 456.75,
    "who": "NOOR",
    "line": "NOOR-22.3"
   },
   {
-   "in": 475.009,
-   "out": 478.346,
+   "in": 462.009,
+   "out": 465.346,
    "who": "NOOR",
    "line": "NOOR-23.1"
   },
   {
-   "in": 479.046,
-   "out": 480.047,
+   "in": 466.046,
+   "out": 467.047,
    "who": "NOOR",
    "line": "NOOR-23.2"
   },
   {
-   "in": 480.547,
-   "out": 481.066,
+   "in": 467.547,
+   "out": 468.066,
    "who": "NOOR",
    "line": "NOOR-23.3"
   },
   {
-   "in": 481.666,
-   "out": 482.75,
+   "in": 468.666,
+   "out": 469.75,
    "who": "NOOR",
    "line": "NOOR-23.4"
   },
   {
-   "in": 489.361,
-   "out": 492.7,
+   "in": 476.361,
+   "out": 479.7,
    "who": "NOOR",
    "line": "NOOR-24: trails into breath; ends 0.3 s before 8.3, then the relight run"
   },
   {
-   "in": 503.033,
-   "out": 503.8,
+   "in": 490.033,
+   "out": 490.8,
    "who": "NOOR",
    "line": "NOOR-25: then silence on the line"
   },
   {
-   "in": 529.0,
-   "out": 530.691,
+   "in": 516.0,
+   "out": 517.691,
    "who": "MARK",
    "line": "MARK-04: the neutral scaffold (Director ruling); unintelligible"
   },
   {
-   "in": 538.0,
-   "out": 539.932,
+   "in": 525.0,
+   "out": 526.932,
    "who": "PA",
    "line": "PA-01: the PA speaks exactly once"
   }
@@ -1600,17 +1611,17 @@
    },
    "G2": {
     "loc": [
-     1.0,
-     8.4,
-     1.45
+     0.8,
+     9.8,
+     1.55
     ],
     "aim": [
-     0.9,
-     6.5,
-     1.6
+     1.25,
+     7.2,
+     1.35
     ],
     "lens": 32,
-    "note": "the handle (shot 20): along the side B wall, Noor's panicked profile at the doors (from G we only saw her back)"
+    "note": "the handle (shot 20): Noor at the emergency release, the release itself and the doors in one frame (previs-notes-02)"
    },
    "B2": {
     "loc": [
@@ -1658,7 +1669,7 @@
     "loc": [
      -0.9,
      8.9,
-     1.5
+     1.62
     ],
     "lens": 50,
     "note": "Noor standing beside Walter (TA blocking 188-239 s), seen from in front and slightly down the car (shot 24)"
@@ -1735,9 +1746,9 @@
      1.3
     ],
     "aim": [
-     1.4,
-     6.5,
-     1.2
+     2.6,
+     6.85,
+     1.5
     ],
     "lens": 32,
     "note": "facing the doors"
@@ -1751,10 +1762,10 @@
   {
    "shot": 1,
    "in": 0.0,
-   "out": 36.0,
+   "out": 23.0,
    "frames": [
     0,
-    864
+    552
    ],
    "path": null,
    "scene": 1,
@@ -1778,11 +1789,11 @@
   },
   {
    "shot": 2,
-   "in": 36.0,
-   "out": 44.0,
+   "in": 23.0,
+   "out": 31.0,
    "frames": [
-    864,
-    1056
+    552,
+    744
    ],
    "path": null,
    "scene": 1,
@@ -1808,11 +1819,11 @@
   },
   {
    "shot": 3,
-   "in": 44.0,
-   "out": 47.5,
+   "in": 31.0,
+   "out": 34.5,
    "frames": [
-    1056,
-    1140
+    744,
+    828
    ],
    "path": null,
    "scene": 1,
@@ -1836,11 +1847,11 @@
   },
   {
    "shot": 4,
-   "in": 47.5,
-   "out": 60.0,
+   "in": 34.5,
+   "out": 47.0,
    "frames": [
-    1140,
-    1440
+    828,
+    1128
    ],
    "path": null,
    "scene": 1,
@@ -1864,11 +1875,11 @@
   },
   {
    "shot": 5,
-   "in": 60.0,
-   "out": 63.0,
+   "in": 47.0,
+   "out": 50.0,
    "frames": [
-    1440,
-    1512
+    1128,
+    1200
    ],
    "path": null,
    "scene": 1,
@@ -1892,11 +1903,11 @@
   },
   {
    "shot": 6,
-   "in": 63.0,
-   "out": 78.0,
+   "in": 50.0,
+   "out": 65.0,
    "frames": [
-    1512,
-    1872
+    1200,
+    1560
    ],
    "path": null,
    "scene": 2,
@@ -1920,11 +1931,11 @@
   },
   {
    "shot": 7,
-   "in": 78.0,
-   "out": 86.0,
+   "in": 65.0,
+   "out": 73.0,
    "frames": [
-    1872,
-    2064
+    1560,
+    1752
    ],
    "path": null,
    "scene": 2,
@@ -1950,11 +1961,11 @@
   },
   {
    "shot": 8,
-   "in": 86.0,
-   "out": 88.5,
+   "in": 73.0,
+   "out": 75.5,
    "frames": [
-    2064,
-    2124
+    1752,
+    1812
    ],
    "path": null,
    "scene": 2,
@@ -1978,11 +1989,11 @@
   },
   {
    "shot": "8B",
-   "in": 88.5,
-   "out": 91.0,
+   "in": 75.5,
+   "out": 78.0,
    "frames": [
-    2124,
-    2184
+    1812,
+    1872
    ],
    "path": null,
    "scene": 2,
@@ -2006,11 +2017,11 @@
   },
   {
    "shot": 9,
-   "in": 91.0,
-   "out": 101.0,
+   "in": 78.0,
+   "out": 88.0,
    "frames": [
-    2184,
-    2424
+    1872,
+    2112
    ],
    "path": null,
    "scene": 2,
@@ -2036,11 +2047,11 @@
   },
   {
    "shot": 10,
-   "in": 101.0,
-   "out": 108.0,
+   "in": 88.0,
+   "out": 95.0,
    "frames": [
-    2424,
-    2592
+    2112,
+    2280
    ],
    "path": null,
    "scene": 2,
@@ -2064,11 +2075,11 @@
   },
   {
    "shot": 11,
-   "in": 108.0,
-   "out": 116.0,
+   "in": 95.0,
+   "out": 103.0,
    "frames": [
-    2592,
-    2784
+    2280,
+    2472
    ],
    "path": null,
    "scene": 2,
@@ -2092,11 +2103,11 @@
   },
   {
    "shot": 12,
-   "in": 116.0,
-   "out": 118.0,
+   "in": 103.0,
+   "out": 105.0,
    "frames": [
-    2784,
-    2832
+    2472,
+    2520
    ],
    "path": null,
    "scene": 2,
@@ -2120,11 +2131,11 @@
   },
   {
    "shot": "12B",
-   "in": 118.0,
-   "out": 120.0,
+   "in": 105.0,
+   "out": 107.0,
    "frames": [
-    2832,
-    2880
+    2520,
+    2568
    ],
    "path": null,
    "scene": 2,
@@ -2148,11 +2159,11 @@
   },
   {
    "shot": 13,
-   "in": 120.0,
-   "out": 130.0,
+   "in": 107.0,
+   "out": 117.0,
    "frames": [
-    2880,
-    3120
+    2568,
+    2808
    ],
    "path": null,
    "scene": 2,
@@ -2176,11 +2187,11 @@
   },
   {
    "shot": 14,
-   "in": 130.0,
-   "out": 138.0,
+   "in": 117.0,
+   "out": 125.0,
    "frames": [
-    3120,
-    3312
+    2808,
+    3000
    ],
    "path": null,
    "scene": 3,
@@ -2204,11 +2215,11 @@
   },
   {
    "shot": 15,
-   "in": 138.0,
-   "out": 143.0,
+   "in": 125.0,
+   "out": 130.0,
    "frames": [
-    3312,
-    3432
+    3000,
+    3120
    ],
    "path": null,
    "scene": 3,
@@ -2232,11 +2243,11 @@
   },
   {
    "shot": 16,
-   "in": 143.0,
-   "out": 147.0,
+   "in": 130.0,
+   "out": 134.0,
    "frames": [
-    3432,
-    3528
+    3120,
+    3216
    ],
    "path": null,
    "scene": 3,
@@ -2262,11 +2273,11 @@
   },
   {
    "shot": 17,
-   "in": 147.0,
-   "out": 153.5,
+   "in": 134.0,
+   "out": 140.5,
    "frames": [
-    3528,
-    3684
+    3216,
+    3372
    ],
    "path": null,
    "scene": 3,
@@ -2290,11 +2301,11 @@
   },
   {
    "shot": 18,
-   "in": 153.5,
-   "out": 166.0,
+   "in": 140.5,
+   "out": 153.0,
    "frames": [
-    3684,
-    3984
+    3372,
+    3672
    ],
    "path": null,
    "scene": 3,
@@ -2321,11 +2332,11 @@
   },
   {
    "shot": 19,
-   "in": 166.0,
-   "out": 170.0,
+   "in": 153.0,
+   "out": 157.0,
    "frames": [
-    3984,
-    4080
+    3672,
+    3768
    ],
    "path": null,
    "scene": 3,
@@ -2349,11 +2360,11 @@
   },
   {
    "shot": 20,
-   "in": 170.0,
-   "out": 180.0,
+   "in": 157.0,
+   "out": 167.0,
    "frames": [
-    4080,
-    4320
+    3768,
+    4008
    ],
    "path": null,
    "scene": 4,
@@ -2361,21 +2372,21 @@
    "lens_mm": 32,
    "move": "handheld",
    "camera_loc": [
-    1.0,
-    8.4,
-    1.45
+    0.8,
+    9.8,
+    1.55
    ],
    "aim": [
-    0.9,
-    6.5,
-    1.6
+    1.25,
+    7.2,
+    1.35
    ],
    "aim_subject": null,
    "handheld": {
     "base_loc": [
-     1.0,
-     8.4,
-     1.45
+     0.8,
+     9.8,
+     1.55
     ],
     "aim": "NOOR_AT_DOORS",
     "source": "a recorded handheld operator clip (real body motion), not procedural noise",
@@ -2387,11 +2398,11 @@
   },
   {
    "shot": 21,
-   "in": 180.0,
-   "out": 186.0,
+   "in": 167.0,
+   "out": 173.0,
    "frames": [
-    4320,
-    4464
+    4008,
+    4152
    ],
    "path": null,
    "scene": 4,
@@ -2415,11 +2426,11 @@
   },
   {
    "shot": 22,
-   "in": 186.0,
-   "out": 190.0,
+   "in": 173.0,
+   "out": 177.0,
    "frames": [
-    4464,
-    4560
+    4152,
+    4248
    ],
    "path": null,
    "scene": 4,
@@ -2443,11 +2454,11 @@
   },
   {
    "shot": 23,
-   "in": 190.0,
-   "out": 200.0,
+   "in": 177.0,
+   "out": 187.0,
    "frames": [
-    4560,
-    4800
+    4248,
+    4488
    ],
    "path": null,
    "scene": 4,
@@ -2471,11 +2482,11 @@
   },
   {
    "shot": 24,
-   "in": 200.0,
-   "out": 210.0,
+   "in": 187.0,
+   "out": 197.0,
    "frames": [
-    4800,
-    5040
+    4488,
+    4728
    ],
    "path": null,
    "scene": 4,
@@ -2485,7 +2496,7 @@
    "camera_loc": [
     -0.9,
     8.9,
-    1.5
+    1.62
    ],
    "aim": [
     -0.35,
@@ -2499,11 +2510,11 @@
   },
   {
    "shot": 25,
-   "in": 210.0,
-   "out": 213.0,
+   "in": 197.0,
+   "out": 200.0,
    "frames": [
-    5040,
-    5112
+    4728,
+    4800
    ],
    "path": null,
    "scene": 4,
@@ -2527,11 +2538,11 @@
   },
   {
    "shot": 26,
-   "in": 213.0,
-   "out": 234.0,
+   "in": 200.0,
+   "out": 221.0,
    "frames": [
-    5112,
-    5616
+    4800,
+    5304
    ],
    "path": null,
    "scene": 4,
@@ -2557,11 +2568,11 @@
   },
   {
    "shot": 27,
-   "in": 234.0,
-   "out": 236.0,
+   "in": 221.0,
+   "out": 223.0,
    "frames": [
-    5616,
-    5664
+    5304,
+    5352
    ],
    "path": null,
    "scene": 4,
@@ -2585,11 +2596,11 @@
   },
   {
    "shot": 28,
-   "in": 236.0,
-   "out": 239.0,
+   "in": 223.0,
+   "out": 226.0,
    "frames": [
-    5664,
-    5736
+    5352,
+    5424
    ],
    "path": null,
    "scene": 4,
@@ -2613,11 +2624,11 @@
   },
   {
    "shot": 29,
-   "in": 239.0,
-   "out": 252.0,
+   "in": 226.0,
+   "out": 239.0,
    "frames": [
-    5736,
-    6048
+    5424,
+    5736
    ],
    "path": null,
    "scene": 5,
@@ -2641,11 +2652,11 @@
   },
   {
    "shot": 30,
-   "in": 252.0,
-   "out": 256.0,
+   "in": 239.0,
+   "out": 243.0,
    "frames": [
-    6048,
-    6144
+    5736,
+    5832
    ],
    "path": null,
    "scene": 5,
@@ -2669,11 +2680,11 @@
   },
   {
    "shot": 31,
-   "in": 256.0,
-   "out": 262.0,
+   "in": 243.0,
+   "out": 249.0,
    "frames": [
-    6144,
-    6288
+    5832,
+    5976
    ],
    "path": null,
    "scene": 5,
@@ -2697,11 +2708,11 @@
   },
   {
    "shot": 32,
-   "in": 262.0,
-   "out": 272.0,
+   "in": 249.0,
+   "out": 259.0,
    "frames": [
-    6288,
-    6528
+    5976,
+    6216
    ],
    "path": null,
    "scene": 5,
@@ -2725,11 +2736,11 @@
   },
   {
    "shot": 33,
-   "in": 272.0,
-   "out": 282.0,
+   "in": 259.0,
+   "out": 269.0,
    "frames": [
-    6528,
-    6768
+    6216,
+    6456
    ],
    "path": null,
    "scene": 5,
@@ -2753,11 +2764,11 @@
   },
   {
    "shot": 34,
-   "in": 282.0,
-   "out": 290.0,
+   "in": 269.0,
+   "out": 277.0,
    "frames": [
-    6768,
-    6960
+    6456,
+    6648
    ],
    "path": null,
    "scene": 5,
@@ -2781,11 +2792,11 @@
   },
   {
    "shot": 35,
-   "in": 290.0,
-   "out": 300.0,
+   "in": 277.0,
+   "out": 287.0,
    "frames": [
-    6960,
-    7200
+    6648,
+    6888
    ],
    "path": null,
    "scene": 5,
@@ -2811,11 +2822,11 @@
   },
   {
    "shot": 36,
-   "in": 300.0,
-   "out": 309.0,
+   "in": 287.0,
+   "out": 296.0,
    "frames": [
-    7200,
-    7416
+    6888,
+    7104
    ],
    "path": null,
    "scene": 5,
@@ -2839,11 +2850,11 @@
   },
   {
    "shot": 37,
-   "in": 309.0,
-   "out": 313.0,
+   "in": 296.0,
+   "out": 300.0,
    "frames": [
-    7416,
-    7512
+    7104,
+    7200
    ],
    "path": null,
    "scene": 5,
@@ -2867,11 +2878,11 @@
   },
   {
    "shot": 38,
-   "in": 313.0,
-   "out": 344.0,
+   "in": 300.0,
+   "out": 331.0,
    "frames": [
-    7512,
-    8256
+    7200,
+    7944
    ],
    "path": null,
    "scene": 5,
@@ -2895,11 +2906,11 @@
   },
   {
    "shot": 39,
-   "in": 344.0,
-   "out": 349.0,
+   "in": 331.0,
+   "out": 336.0,
    "frames": [
-    8256,
-    8376
+    7944,
+    8064
    ],
    "path": null,
    "scene": 5,
@@ -2923,11 +2934,11 @@
   },
   {
    "shot": 40,
-   "in": 349.0,
-   "out": 355.0,
+   "in": 336.0,
+   "out": 342.0,
    "frames": [
-    8376,
-    8520
+    8064,
+    8208
    ],
    "path": null,
    "scene": 5,
@@ -2951,11 +2962,11 @@
   },
   {
    "shot": 41,
-   "in": 355.0,
-   "out": 358.5,
+   "in": 342.0,
+   "out": 345.5,
    "frames": [
-    8520,
-    8604
+    8208,
+    8292
    ],
    "path": null,
    "scene": 6,
@@ -2979,11 +2990,11 @@
   },
   {
    "shot": 42,
-   "in": 358.5,
-   "out": 380.0,
+   "in": 345.5,
+   "out": 367.0,
    "frames": [
-    8604,
-    9120
+    8292,
+    8808
    ],
    "path": {
     "from": [
@@ -3022,11 +3033,11 @@
   },
   {
    "shot": 43,
-   "in": 380.0,
-   "out": 384.5,
+   "in": 367.0,
+   "out": 371.5,
    "frames": [
-    9120,
-    9228
+    8808,
+    8916
    ],
    "path": null,
    "scene": 6,
@@ -3050,11 +3061,11 @@
   },
   {
    "shot": 44,
-   "in": 384.5,
-   "out": 398.0,
+   "in": 371.5,
+   "out": 385.0,
    "frames": [
-    9228,
-    9552
+    8916,
+    9240
    ],
    "path": null,
    "scene": 6,
@@ -3081,11 +3092,11 @@
   },
   {
    "shot": 45,
-   "in": 398.0,
-   "out": 405.5,
+   "in": 385.0,
+   "out": 392.5,
    "frames": [
-    9552,
-    9732
+    9240,
+    9420
    ],
    "path": null,
    "scene": 6,
@@ -3111,11 +3122,11 @@
   },
   {
    "shot": 46,
-   "in": 405.5,
-   "out": 408.5,
+   "in": 392.5,
+   "out": 395.5,
    "frames": [
-    9732,
-    9804
+    9420,
+    9492
    ],
    "path": null,
    "scene": 6,
@@ -3139,11 +3150,11 @@
   },
   {
    "shot": 47,
-   "in": 408.5,
-   "out": 416.0,
+   "in": 395.5,
+   "out": 403.0,
    "frames": [
-    9804,
-    9984
+    9492,
+    9672
    ],
    "path": null,
    "scene": 6,
@@ -3169,11 +3180,11 @@
   },
   {
    "shot": 48,
-   "in": 416.0,
-   "out": 426.5,
+   "in": 403.0,
+   "out": 413.5,
    "frames": [
-    9984,
-    10236
+    9672,
+    9924
    ],
    "path": null,
    "scene": 6,
@@ -3199,11 +3210,11 @@
   },
   {
    "shot": 49,
-   "in": 426.5,
-   "out": 440.0,
+   "in": 413.5,
+   "out": 427.0,
    "frames": [
-    10236,
-    10560
+    9924,
+    10248
    ],
    "path": null,
    "scene": 6,
@@ -3230,11 +3241,11 @@
   },
   {
    "shot": 50,
-   "in": 440.0,
-   "out": 445.0,
+   "in": 427.0,
+   "out": 432.0,
    "frames": [
-    10560,
-    10680
+    10248,
+    10368
    ],
    "path": null,
    "scene": 6,
@@ -3258,11 +3269,11 @@
   },
   {
    "shot": 51,
-   "in": 445.0,
-   "out": 448.0,
+   "in": 432.0,
+   "out": 435.0,
    "frames": [
-    10680,
-    10752
+    10368,
+    10440
    ],
    "path": null,
    "scene": 6,
@@ -3286,11 +3297,11 @@
   },
   {
    "shot": 52,
-   "in": 448.0,
-   "out": 451.0,
+   "in": 435.0,
+   "out": 438.0,
    "frames": [
-    10752,
-    10824
+    10440,
+    10512
    ],
    "path": null,
    "scene": 6,
@@ -3314,11 +3325,11 @@
   },
   {
    "shot": 53,
-   "in": 451.0,
-   "out": 455.5,
+   "in": 438.0,
+   "out": 442.5,
    "frames": [
-    10824,
-    10932
+    10512,
+    10620
    ],
    "path": null,
    "scene": 6,
@@ -3342,11 +3353,11 @@
   },
   {
    "shot": 54,
-   "in": 455.5,
-   "out": 469.0,
+   "in": 442.5,
+   "out": 456.0,
    "frames": [
-    10932,
-    11256
+    10620,
+    10944
    ],
    "path": {
     "from": [
@@ -3383,11 +3394,11 @@
   },
   {
    "shot": 55,
-   "in": 469.0,
-   "out": 474.0,
+   "in": 456.0,
+   "out": 461.0,
    "frames": [
-    11256,
-    11376
+    10944,
+    11064
    ],
    "path": null,
    "scene": 7,
@@ -3413,11 +3424,11 @@
   },
   {
    "shot": 56,
-   "in": 474.0,
-   "out": 486.0,
+   "in": 461.0,
+   "out": 473.0,
    "frames": [
-    11376,
-    11664
+    11064,
+    11352
    ],
    "path": {
     "from": [
@@ -3454,11 +3465,11 @@
   },
   {
    "shot": 57,
-   "in": 486.0,
-   "out": 501.0,
+   "in": 473.0,
+   "out": 488.0,
    "frames": [
-    11664,
-    12024
+    11352,
+    11712
    ],
    "path": null,
    "scene": 7,
@@ -3490,11 +3501,11 @@
   },
   {
    "shot": 58,
-   "in": 501.0,
-   "out": 512.0,
+   "in": 488.0,
+   "out": 499.0,
    "frames": [
-    12024,
-    12288
+    11712,
+    11976
    ],
    "path": null,
    "scene": 7,
@@ -3520,11 +3531,11 @@
   },
   {
    "shot": 59,
-   "in": 512.0,
-   "out": 515.0,
+   "in": 499.0,
+   "out": 502.0,
    "frames": [
-    12288,
-    12360
+    11976,
+    12048
    ],
    "path": null,
    "scene": 8,
@@ -3548,11 +3559,11 @@
   },
   {
    "shot": 60,
-   "in": 515.0,
-   "out": 519.0,
+   "in": 502.0,
+   "out": 506.0,
    "frames": [
-    12360,
-    12456
+    12048,
+    12144
    ],
    "path": null,
    "scene": 8,
@@ -3566,8 +3577,8 @@
    ],
    "aim": [
     0.0,
-    12.6,
-    1.6
+    12.3,
+    1.62
    ],
    "aim_subject": "NOOR_UP",
    "handheld": null,
@@ -3576,11 +3587,11 @@
   },
   {
    "shot": 61,
-   "in": 519.0,
-   "out": 523.0,
+   "in": 506.0,
+   "out": 510.0,
    "frames": [
-    12456,
-    12552
+    12144,
+    12240
    ],
    "path": null,
    "scene": 8,
@@ -3604,11 +3615,11 @@
   },
   {
    "shot": 62,
-   "in": 523.0,
-   "out": 550.0,
+   "in": 510.0,
+   "out": 532.0,
    "frames": [
-    12552,
-    13200
+    12240,
+    12768
    ],
    "path": null,
    "scene": 8,
@@ -3632,11 +3643,11 @@
   },
   {
    "shot": 63,
-   "in": 550.0,
-   "out": 565.0,
+   "in": 532.0,
+   "out": 547.0,
    "frames": [
-    13200,
-    13560
+    12768,
+    13128
    ],
    "path": null,
    "scene": 8,

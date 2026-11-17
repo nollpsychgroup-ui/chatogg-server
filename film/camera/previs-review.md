@@ -36,4 +36,6 @@ When the voice record changes the timing:
 3. **I push and tell both of them in one message.** The Composer re-renders the temp score (about 40 s) and the TA rebuilds the scene; both read the same file.
 4. I log the re-time in `STATUS.md`.
 
+**Trims** (cutting time out of a shot) go in `TRIMS` in `build_cues.py` as spans of the original clock. The build maps every cue, event, shot and dialogue line through them, and it maps the Screenwriter's voice placement and the TA's blocking automatically while those are still on the original clock, so nothing is shifted twice.
+
 Nobody edits `cues.json` by hand.
