@@ -154,7 +154,11 @@ def build(D=None, B=None, sections=None):
             sk.visible_shadow = False
         _breath(ldata.driver_add("energy"), scene, ob, R["watts"])
         em = mat.node_tree.nodes["EMIT"]
-        _breath(em.inputs["Strength"].driver_add("default_value"), scene, ob, R["diffuser_strength"])
+        fc = em.inputs["Strength"].driver_add("default_value")
+        _breath(fc, scene, ob, R["diffuser_strength"])
+        # the VISIBLE diffuser follows level^2 so cue depths read in proportion on screen (display
+        # encoding flattens dips: a 30% cut read as 70%); the light the panel casts stays linear
+        fc.driver.expression = f"{R['diffuser_strength']}*lvl*lvl*(1+dp*aw*br*sin(frame*6.283185/pf))"
         for c in range(3):
             for tgt, path in ((ldata, "color"), (em.inputs["Color"], "default_value")):
                 fc = tgt.driver_add(path, c)
