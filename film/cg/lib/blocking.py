@@ -15,7 +15,7 @@ from mathutils import Vector
 
 from . import figures, lookdev as ld
 from .common import FILM_DIR, coll, dp, link, load, t2f
-from .mesh import box, limb, text
+from .mesh import box, ellipsoid, limb, text
 
 
 def key_visibility(obs, intervals, fps=24):
@@ -48,6 +48,38 @@ def _intersect(intervals, t_max=None, t_min=None):
     return out
 
 
+def _reach(info, target_name, t):
+    """Replace the arm nearest `target_name` (evaluated at time t) with one reaching to it.
+    PHONE_*_ENDCALL: the hand hovers 3 cm above the button with the thumb pointing down at it."""
+    sc = bpy.context.scene
+    keep = sc.frame_current
+    sc.frame_set(t2f(t) + 1)
+    tgt = bpy.data.objects[target_name].matrix_world.translation.copy()
+    sc.frame_set(keep)
+    obs = _coll_objects(info["collection"])
+    wc = lambda o: o.matrix_world @ (sum((Vector(c) for c in o.bound_box), Vector()) / 8)
+    hands = [o for o in obs if o.name.startswith("NOOR_HAND_")]
+    hand = min(hands, key=lambda o: (wc(o) - tgt).length)
+    side = hand.name.split(".")[0].rsplit("_", 1)[1]
+    arm = [o for o in obs if o.name.split(".")[0] in (f"NOOR_UARM_{side}", f"NOOR_FARM_{side}", f"NOOR_HAND_{side}")]
+    uarm = next(o for o in arm if o.name.startswith("NOOR_UARM_"))
+    vs = sorted((uarm.matrix_world @ v.co for v in uarm.data.vertices), key=lambda v: -v.z)
+    sh = sum(vs[:max(1, len(vs) // 10)], Vector()) / max(1, len(vs) // 10)
+    m_arm, m_skin = uarm.active_material, hand.active_material
+    C = info["collection"]
+    for o in arm:
+        bpy.data.objects.remove(o, do_unlink=True)
+    endcall = "ENDCALL" in target_name
+    hp = tgt + Vector((0, 0, 0.045)) if endcall else tgt + Vector((-0.05, 0, 0))
+    elb = sh.lerp(hp, 0.5) + Vector((0, 0, -0.10))
+    for o in (limb(f"NOOR_REACH_UARM_{side}", sh, elb, 0.05, m_arm, C, r2=0.042),
+              limb(f"NOOR_REACH_FARM_{side}", elb, hp, 0.04, m_arm, C, r2=0.032)):
+        o.pass_index = 2
+    ellipsoid(f"NOOR_REACH_HAND_{side}", hp, (0.045, 0.035, 0.04), m_skin, C).pass_index = 1
+    if endcall:   # the thumb, pointing at the red button
+        limb(f"NOOR_REACH_THUMB_{side}", hp + Vector((0, 0, -0.01)), tgt + Vector((0, 0, 0.012)), 0.011, m_skin, C).pass_index = 1
+
+
 def build_noor(D, B, BL):
     variants = {}   # key -> {"collection", "intervals", "root"}
     for i, seg in enumerate(BL["NOOR"]):
@@ -64,6 +96,8 @@ def build_noor(D, B, BL):
             info = figures.figure("NOOR", D, B, pose=seg.get("pose", "standing"), at=at, standing=True,
                                   facing=seg["facing"], collection=f"CHAR_NOOR_{key}")
             variants[key] = dict(info, intervals=[(t0, t1)])
+            if seg.get("reach_to"):
+                _reach(info, seg["reach_to"], t0)
             if seg.get("platform"):
                 rig = bpy.data.objects["PLATFORM_RIG"]
                 for ob in _coll_objects(info["collection"]):
@@ -121,15 +155,20 @@ def build_walter(D, BL):
     up0, up1 = BL["walter_paper"]["up"]
     rest_loc, rest_rot = tuple(paper.location), tuple(paper.rotation_euler)
     nl = Vector(marks["NEWSPAPER"])
-    # face the paper toward the aisle / the insert cameras
-    for f, loc, rot in ((0, rest_loc, rest_rot), (t2f(up0), rest_loc, rest_rot), (t2f(up0) + 12, tuple(nl), (0, 0, math.radians(15))),
-                        (t2f(up1), tuple(nl), (0, 0, math.radians(15))), (t2f(up1) + 12, rest_loc, rest_rot)):
+    # the written face (+X) turned to the insert camera (shots 22/23), so the margin notes read
+    ins = next(s for s in D["shots"] if s.get("aim_subject") == "NEWSPAPER" and s.get("camera_loc"))
+    cam = Vector(ins["camera_loc"])
+    yaw = math.atan2(cam.y - nl.y, cam.x - nl.x)
+    tilt = -math.atan2(cam.z - nl.z, (cam.xy - nl.xy).length)
+    up_rot = (0, tilt, yaw)
+    for f, loc, rot in ((0, rest_loc, rest_rot), (t2f(up0), rest_loc, rest_rot), (t2f(up0) + 12, tuple(nl), up_rot),
+                        (t2f(up1), tuple(nl), up_rot), (t2f(up1) + 12, rest_loc, rest_rot)):
         paper.location, paper.rotation_euler = loc, rot
         paper.keyframe_insert("location", frame=f)
         paper.keyframe_insert("rotation_euler", frame=f)
     ink = ld.paint("pen_ink", "props/pen_ink", tier="face", variation=0.0)
     for i, (t, body) in enumerate(BL["walter_paper"]["notes"]):
-        tx = text(f"MARGIN_NOTE_{i}", body, (0.012, 0.06 - i * 0.09, 0.05 - i * 0.07), 0.028, ink,
+        tx = text(f"MARGIN_NOTE_{i}", body, (0.012, -0.01, 0.06 - i * 0.08), 0.026, ink,
                   rot=(math.pi / 2, 0, math.pi / 2), collection="PROPS_LOOSE")
         tx.parent = paper
         tx.pass_index = 2

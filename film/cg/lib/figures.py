@@ -10,7 +10,7 @@ from mathutils import Matrix, Vector
 
 from . import lookdev as ld
 from .common import coll, dp, link, load, t2f
-from .mesh import box, ellipsoid, limb
+from .mesh import box, ellipsoid, limb, text
 from . import noor
 from .common import FILM_DIR
 import os as _os
@@ -115,7 +115,7 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
     pose = pose or DEFAULT_POSE[name]
     hands = {
         "phone_ear":   [((-0.04, -0.25, 0.86), (0.12, -0.10, 0.70)), ((-0.04, 0.22, 1.00), (-0.11, 0.11, 1.27))],
-        "phone_lap":   [((-0.02, -0.24, 0.82), (0.20, -0.06, 0.78)), ((-0.02, 0.24, 0.82), (0.20, 0.06, 0.78))],
+        "phone_lap":   [((-0.02, -0.24, 0.82), (0.22, -0.13, 0.76)), ((-0.02, 0.24, 0.82), (0.22, 0.13, 0.76))],
         "paper":       [((0.02, -0.25, 0.86), (0.26, -0.17, 0.92)), ((0.02, 0.25, 0.86), (0.26, 0.17, 0.92))],
         "lap":         [((-0.04, -0.24, 0.80), (0.16, -0.08, 0.66)), ((-0.04, 0.24, 0.80), (0.16, 0.08, 0.66))],
         "phone_hands": [((-0.02, -0.24, 0.82), (0.20, -0.05, 0.84)), ((-0.02, 0.24, 0.82), (0.20, 0.05, 0.84))],
@@ -142,8 +142,12 @@ def figure(name, D, B, pose=None, at=None, standing=False, facing=None, eyes_clo
         badge.rotation_euler = (0, 0, yaw)
         obs.append(badge)
         rh = P(*hands[1][1])
-        target = head_c if pose != "phone_lap" else head_c
-        at_ = rh + f * 0.02 if pose != "phone_lap" else (P(*hands[0][1]) + P(*hands[1][1])) / 2 + Vector((0, 0, 0.03))
+        if pose == "phone_lap":   # face-up on the DP's mark, screen turned to the MARK insert camera (shot 51)
+            at_ = Vector(D["set"]["marks"]["NOOR_PHONE_LAP"])
+            ins = next((s for s in D["shots"] if s.get("aim_subject") == "NOOR_PHONE_LAP" and s.get("camera_loc")), None)
+            target = Vector(ins["camera_loc"]) if ins else at_ + Vector((0, 0, 1))
+        else:
+            at_, target = rh + f * 0.02, head_c
         phone = _phone("noor", at_, target, C, red_button=False)
     elif name == "WALTER":
         paper = box("WALTER_PAPER", P(0.29, 0, 0.98), (0.02, 0.36, 0.30), ld.paint("newsprint", "props/newsprint", tier="costume", stretch=8.0, variation=0.25), C)
@@ -171,6 +175,12 @@ def _phone(key, at, look_at, C, red_button=False):
     scr = ld.emission(f"screen_{key}", "props/screen_glow", 6.0)
     sc = box(f"PHONE_{key.upper()}_SCREEN", (0, 0.005, 0.0), (0.066, 0.13, 0.002), scr, C)
     parts = [body, sc]
+    caller = {"noor": "MARK", "kai": "MUM"}.get(key)
+    if caller:   # caller ID, dark on the lit screen (inserts 19/30/32/51)
+        ink = bpy.data.materials.get("phone_ink") or ld.paint("phone_ink", "props/pen_ink", tier="face", variation=0.0)
+        cid = text(f"PHONE_{key.upper()}_CALLER", caller, (0, 0.035, 0.0016), 0.017, ink, rot=(0, 0, 0), collection=C)
+        cid.data.extrude = 0.0003
+        parts.append(cid)
     if red_button:
         rb = box(f"PHONE_{key.upper()}_ENDCALL", (0, -0.058, 0.0012), (0.022, 0.022, 0.002), ld.emission(f"endcall_{key}", "THE_RED", 6.0), C)
         parts.append(rb)

@@ -136,9 +136,14 @@ if __name__ == "__main__":
     D = common.dp()
     plan = frame_plan(D)
     os.makedirs(OUT, exist_ok=True)
-    json.dump({"frames": plan}, open(PLAN, "w"))
+    if "--frames" not in argv:
+        json.dump({"frames": plan}, open(PLAN, "w"))
     t_from, t_to = arg("--from", 0.0), arg("--to", D["duration_s"])
     todo = [f for f in plan if t_from * 24 <= f < t_to * 24]
+    if "--frames" in argv:   # spot checks: explicit frames (or times like 188s) to --out
+        todo = [round(float(x[:-1]) * 24) if x.endswith("s") else int(x) for x in arg("--frames", "").split(",")]
+        OUT = arg("--out", OUT)
+        os.makedirs(OUT, exist_ok=True)
     print(f"plan: {len(plan)} frames of {round(D['duration_s'] * 24)}; this run: {len(todo)}")
     if "--plan" in argv:
         sys.exit(0)

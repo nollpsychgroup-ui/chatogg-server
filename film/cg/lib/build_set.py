@@ -104,6 +104,14 @@ def build(D=None, B=None):
             ob = box(f"DOOR_POLE_{y:.1f}_{s}", (HW - 0.12, y, H / 2), (0.035, 0.035, H), m_trim)
             sec.assign(ob, [sec.which(y)])
         break
+    # emergency door release on the wall beside the doors (shot 20): steel plate, pull bar, label
+    hy = dy1 + 0.16
+    plate = box("EMERGENCY_PLATE", (HW - 0.015, hy, 1.45), (0.01, 0.16, 0.24), m_trim_p)
+    bar = box("EMERGENCY_HANDLE", (HW - 0.055, hy, 1.43), (0.03, 0.03, 0.15), m_trim)
+    lbl = text("EMERGENCY_LABEL", "EMERGENCY\nPULL", (HW - 0.022, hy, 1.535), 0.022, ld.paint("pen_ink_label", "props/pen_ink", tier="face", variation=0.0),
+               rot=(math.pi / 2, 0, -math.pi / 2))
+    for ob in (plate, bar, lbl):
+        sec.assign(ob, [sec.which(hy)])
 
     # longitudinal benches (teal moquette), side B split by the doors
     bn = B["benches"]
