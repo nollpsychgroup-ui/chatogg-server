@@ -56,8 +56,12 @@ def main():
             "-map", "0:v", "-map", "[a]"]
     if t0 == 0:
         cmd += ["-map", "3:s", "-c:s", "mov_text", "-metadata:s:s:0", "language=eng"]
+    # keyframe at every cut and every hard cue so no residual from the previous picture leaks into the blackout
+    keys = sorted({s["in"] for s in shots} | {c["t"] for c in D["cues"] if c.get("type") in ("blackout", "hard_dip")})
+    keys = [k - t0 for k in keys if t0 <= k < t1]
+    cmd += ["-force_key_frames", ",".join(f"{k:.4f}" for k in keys)]
     cmd += ["-c:v", "libx264", "-preset", "slow", "-crf", str(crf), "-pix_fmt", "yuv420p", "-tune", "animation",
-            "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", "-shortest", out]
+            "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", "-t", str(t1 - t0), out]
     os.makedirs(os.path.dirname(out), exist_ok=True)
     p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     cache_src, cache_img = None, None

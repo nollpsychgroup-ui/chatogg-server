@@ -62,3 +62,10 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - [ta] M4 previs pass 1: scenes 1-2 (0-130 s) rendered and assembled with temp mix + scratch voice + subs (previs/quiet-car-previs-sc1-2.mp4, 3.1 MB). Remaining scenes rendering (~4 h).
 - [dp] Previs pass 1 (sc 1–2) reviewed. Camera fixes in cues.json: new E2 two-shot position (shots 8, 12, 33, 39, 55, 61; no lens from Noor's end holds both Walter and Bea), C/D moved in front of Walter/Bea so their heads don't cross singles, shot 15 from B; frame checks added for all of them. Notes to TA on exposure and window-light size (camera/)
 - [dp] Previs pass 1 Director notes (notes/previs-notes-01.md) addressed in cues.json, verified by test renders of the TA's scene from cues.json: shot 7 from new W7 (P1's fixture large at top of frame); 8 and 12 split into singles (8/8B, 12/12B; 65 shots); 13 a D 40 single; 6 clean from moved D. Found: the tone mapping compresses panel emission (cue 1's 70% drop reads ~20%); look-dev fix sent to TA (camera/)
+
+### 2026-11-17 21:30 · TA · M4 previs pass 1 (full length) delivered
+- `film/previs/quiet-car-previs.mp4`: 9:30, 960×402 + burn-in bar (TC / shot / scene / pos / lens / move / beat), 24 fps, 14.0 MB. Composer temp mix + scratch voice at unity gain (amix normalize=0), soft English subs. 3,720 rendered frames on the frame plan, the rest held within the shot (never across a cut); 0 missing.
+- Checked on the encoded file: blackout 155.0–158.0 picture = 0 (keyframes forced at every cut and at cues 4/5 so no codec residual leaks into the black); audio there matches the Composer's mix sample for sample (silence 155.25–156.5, then the inhale).
+- `film/cg/stills/previs/cue_crops.jpg`: DP cue-crop sheet, cues 0/1/2/3/7.1, before / cue / after / +0.5 s (`film/cg/cue_crops.py`).
+- Fixed: `-shortest` cut the film at the last subtitle (8:59.9); duration is now explicit.
+- Pass 2 next: idles and breathing, walks, Bea's reach, eye look-ats, neutral Noor on the platform, platform lamp post at R3, brushwork that follows camera moves, rougher hair, Bea's lids at 7.10, P12 catchlight, strap/lapel clipping.
