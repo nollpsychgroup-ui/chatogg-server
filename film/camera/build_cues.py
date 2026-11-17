@@ -209,7 +209,8 @@ HEAD = {"NOOR": (0.0, 12.75, 1.22), "NOOR_STAND": (-0.35, 10.0, 1.62), "WALTER":
         "NEWSPAPER": (-0.85, 10.0, 1.30),        # held up by Walter toward Noor at the doors (shots 22-23)
         "LANYARD_FLOOR": (0.2, 12.1, 0.02),      # where it lands at 7.6 (it stays there to the end)
         "NOOR_PHONE_LAP": (0.0, 12.45, 0.62),
-        "AIM_15": (0.8, 7.5, 1.1)}       # shot 15: Bea's reach in the foreground, Kai deep    # MARK, in her lap (shot 51)
+        "AIM_15": (0.8, 7.5, 1.1),
+        "AIM_42": (0.0, 13.0, 2.0)}       # the creep push: ~1 deg up from level       # shot 15: Bea's reach in the foreground, Kai deep    # MARK, in her lap (shot 51)
 
 # Insert cameras: shot -> (loc, aim mark). All 50 mm.
 INSERTS = {
@@ -233,8 +234,8 @@ HANDHELD = {20: {"base_loc": (-0.9, 6.5, 1.3), "aim": "DOORS",
 POS = {
     "A":  {"loc": (0.0, -3.8, 1.65), "aim": (0.0, 13.0, 1.65), "lens": 32,
            "note": "the Meter: in the unlit vestibule, standing eye height, level. Holds all 12 panels, Noor, the sign and the display"},
-    "A2": {"loc": (0.0, -1.0, 1.65), "aim": (0.0, 13.0, 1.65), "lens": 32,
-           "note": "where the creep push lands (2.5 m in from A)"},
+    "A2": {"loc": (0.0, -2.0, 1.65), "aim": (0.0, 13.0, 2.0), "lens": 32,
+           "note": "where the creep push lands (1.8 m in from A, tilted ~1 deg up like the push)"},
     "B":  {"loc": (0.55, 12.85, 1.0), "aim": (0.3, 0.0, 1.0), "lens": 32,
            "note": "Noor's end, side B corner, low, looking down the car"},
     "C":  {"loc": (-0.7, 10.9, 1.15), "lens": 50, "note": "side A, just in front of Walter (so his head never crosses frame): Noor singles (aim NOOR) or Bea across the aisle (aim BEA)"},
@@ -256,7 +257,7 @@ POS = {
 }
 # Camera paths for the moving shots: (loc at shot in, loc at shot out). Constant speed, keyed on ones.
 PATHS = {
-    42: ((0.0, -3.8, 1.65), (0.0, -1.0, 1.65)),     # the creep push: A -> A2, landing as 7.3 plays
+    42: ((0.0, -3.8, 1.65), (0.0, -2.0, 1.65)),     # the creep push: A -> A2, 1.8 m; tilted ~1 deg up (AIM_42) so each panel going out stays inside the top of frame (previs pass 1)
     54: ((-0.25, 9.6, 1.2), (-0.25, 10.0, 1.2)),    # the confession push, part 1
     56: ((-0.25, 10.0, 1.2), (-0.25, 10.4, 1.2)),   # part 2: lands on C75 (the CU), and shot 58 holds it
 }
@@ -309,7 +310,7 @@ S = [
  (39, 344.0, 349.0, "E2", 32, None, "locked", 5, "Bea looks at him with real tenderness", []),
  (40, 349.0, 355.0, "C", 50, "NOOR", "locked", 5, "Noor turns the badge over in her fingers", []),
  (41, 355.0, 358.5, "I", 50, "DISPLAY", "locked", 6, "Display: 5 MIN", []),
- (42, 358.5, 380.0, "A", 32, None, "push A->A2", 6, "Tick: the far panel out. Bea stiffens. 'Nobody said anything.' Walter's eyes to the lanyard. The camera rides in behind the dark edge", ["7.1", "7.2", "7.3"]),
+ (42, 358.5, 380.0, "A", 32, "AIM_42", "push A->A2", 6, "Tick: the far panel out. Bea stiffens. 'Nobody said anything.' Walter's eyes to the lanyard. The camera rides in behind the dark edge", ["7.1", "7.2", "7.3"]),
  (43, 380.0, 384.5, "C", 50, "BEA", "locked", 6, "Bea: 'It isn't only what you say.'", []),
  (44, 384.5, 398.0, "B", 32, None, "locked", 6, "The dark comes toward camera; Kai's seat goes dark, his phone glows on in it", ["7.4", "7.5"]),
  (45, 398.0, 405.5, "C", 50, "NOOR", "locked", 6, "She looks down at herself; yanks the lanyard over her head and throws it (each tick takes a step of front light off her face)", ["7.6"]),
@@ -420,6 +421,27 @@ def build():
             q = frame_xy(cam["loc"], aim_pt, lens, pt)
             if not q or abs(q[0]) > 0.95 or abs(q[1]) > 0.95:
                 problems.append("shot %s: %s falls outside the frame (%s)" % (n, lab, q and "%.2f, %.2f" % q))
+    # In the panel-row shots, every panel a cue changes must be in frame AT THE CUE'S TIME
+    # (moving shots are evaluated along their path).
+    cue_by_id = {c["id"]: c for c in C}
+    for s_ in S:
+        n, a_, b_, pos, lens, aim = s_[0], s_[1], s_[2], s_[3], s_[4], s_[5]
+        if pos not in ("A", "A2", "W", "W7", "T"):
+            continue
+        cam = POS[pos]; aim_pt = HEAD[aim] if aim else cam["aim"]
+        for cid in s_[9]:
+            c = cue_by_id[cid]
+            if c["type"] in ("brownout", "blackout", "lights_up"):
+                continue
+            loc = cam["loc"]
+            if n in PATHS:
+                u = (c["t"] - a_) / (b_ - a_)
+                f0, f1 = PATHS[n]
+                loc = tuple(f0[i] + (f1[i] - f0[i]) * u for i in range(3))
+            for pnl in [c.get("main")] + c["panels"] if c.get("main") else c["panels"]:
+                q = frame_xy(loc, aim_pt, lens, _P(int(pnl[1:])))
+                if not q or abs(q[0]) > 0.95 or abs(q[1]) > 0.95:
+                    problems.append("shot %s: cue %s's panel %s is out of frame at %.1f s (%s)" % (n, cid, pnl, c["t"], q and "%.2f, %.2f" % q))
     if problems:
         raise SystemExit("CHECKS FAILED:\n  " + "\n  ".join(problems))
 

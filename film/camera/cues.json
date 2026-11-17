@@ -110,6 +110,11 @@
     0.8,
     7.5,
     1.1
+   ],
+   "AIM_42": [
+    0.0,
+    13.0,
+    2.0
    ]
   }
  },
@@ -1450,16 +1455,16 @@
    "A2": {
     "loc": [
      0.0,
-     -1.0,
+     -2.0,
      1.65
     ],
     "aim": [
      0.0,
      13.0,
-     1.65
+     2.0
     ],
     "lens": 32,
-    "note": "where the creep push lands (2.5 m in from A)"
+    "note": "where the creep push lands (1.8 m in from A, tilted ~1 deg up like the push)"
    },
    "B": {
     "loc": [
@@ -2851,7 +2856,7 @@
     ],
     "to": [
      0.0,
-     -1.0,
+     -2.0,
      1.65
     ]
    },
@@ -2867,9 +2872,9 @@
    "aim": [
     0.0,
     13.0,
-    1.65
+    2.0
    ],
-   "aim_subject": null,
+   "aim_subject": "AIM_42",
    "handheld": null,
    "cues": [
     "7.1",
@@ -3101,13 +3106,13 @@
    "move": "locked",
    "camera_loc": [
     0.0,
-    -1.0,
+    -2.0,
     1.65
    ],
    "aim": [
     0.0,
     13.0,
-    1.65
+    2.0
    ],
    "aim_subject": null,
    "handheld": null,

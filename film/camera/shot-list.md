@@ -25,7 +25,7 @@ In live action we'd shoot coverage and find the film in the edit. In animation, 
 2. **Every cue is visible in the frame it plays in:** either the cued panel is in frame, or its light lands on a face. **Noor faces down the car**, so every panel in front of her lights her face: each Advance tick takes a step of light off her, and each relight gives one back. That's why the ticks and relights can play in her singles.
 3. **The ceiling enters at the first lie.** Singles before cue 1 (shots 2, 3, 6) frame the ceiling out. From shot 7 on, every frame that can hold the ceiling does, until 8.10. The 75 mm close-ups are the one exception: there, her face is the meter.
 4. **Lenses:** 32 · 40 · 50 · **75 (shots 54, 56 and 58 only, the confession)**. Virtual Super 35 sensor (24.89 × 10.41 mm, 2.39:1). There's no depth-of-field trickery: T2.8–T4-equivalent depth, so the panel row and the far end stay readable.
-5. **Movement**, all while the car is awake: **shot 20** handheld (recorded operator motion, not procedural noise, per the treatment); **shot 42** the creep push, A → A2, 2.8 m over 21.5 s, landing just after 7.3 so the ticks after it play on a still frame; **shots 54 and 56** the confession push on the 75 (y 9.6 → 10.4), which **has landed by shot 58**, so the car falls asleep (8.10) on a still frame.
+5. **Movement**, all while the car is awake: **shot 20** handheld (recorded operator motion, not procedural noise, per the treatment); **shot 42** the creep push, A → A2, 1.8 m over 21.5 s, tilted ~1° up so each panel going out stays inside the top of frame (changed after previs pass 1), landing just after 7.3 so the ticks after it play on a still frame; **shots 54 and 56** the confession push on the 75 (y 9.6 → 10.4), which **has landed by shot 58**, so the car falls asleep (8.10) on a still frame.
 6. **Characters may move on twos, but the camera is always on ones**, like the lights.
 
 ## Virtual camera positions
@@ -35,7 +35,7 @@ The locations are in `cues.json` → `camera.positions`, in set coordinates (lig
 | Pos | Where (x, y, z in m) | Default lens | Sees |
 |---|---|---|---|
 | **A, the Meter** | (0, −3.8, 1.65): unlit vestibule, standing eye height, level | 32 | the full row P12 → P1 (P12 inside the frame with margin), Kai and the doors in the near right foreground, Walter (left) and Bea (right) in the mid-ground, Noor at the far end under the sign and display |
-| **A2** | (0, −1.0, 1.65): where the creep push lands | 32 | the same axis, 2.8 m in; P11 and P12 above frame (they're dark by then) |
+| **A2** | (0, −2.0, 1.65), aim (0, 13, 2.0): where the creep push lands | 32 | the same axis, 1.8 m in, tilted ~1° up; P11 and P12 above frame (they're dark by then) |
 | **B, Noor's end** | (0.55, 12.85, 1.0): side B corner beside Noor, low, looking down the car | 32 | the dark coming toward camera; Kai's seat and phone deep in frame |
 | **C, Walter's side** | (−0.7, 10.9, 1.15): just in front of Walter, so his head never crosses frame (moved after previs pass 1) | 50 | Noor singles (aim NOOR) or Bea across the aisle (aim BEA) |
 | **W, the call** | (0, 6.0, 1.0): low in the aisle by the doors, aim (0, 12.6, 1.8) | 32 | Noor framed between Walter (left) and Bea (right), with P1 and P2 above her: the two lies are countable in one frame, and we watch her the way Walter does (treatment, scene 2: wide, 25–32 mm) |

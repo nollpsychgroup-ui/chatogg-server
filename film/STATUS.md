@@ -69,3 +69,4 @@ Append-only log. Newest at the bottom. Format: `- [role] what happened (file)`
 - `film/cg/stills/previs/cue_crops.jpg`: DP cue-crop sheet, cues 0/1/2/3/7.1, before / cue / after / +0.5 s (`film/cg/cue_crops.py`).
 - Fixed: `-shortest` cut the film at the last subtitle (8:59.9); duration is now explicit.
 - Pass 2 next: idles and breathing, walks, Bea's reach, eye look-ats, neutral Noor on the platform, platform lamp post at R3, brushwork that follows camera moves, rougher hair, Bea's lids at 7.10, P12 catchlight, strap/lapel clipping.
+- [dp] Cue-crop review: 7.1–7.3 weak in shot 42 (each panel slipped above frame during the push). The build now checks cued panels in frame at the cue's time along moving paths; push shortened to 1.8 m, tilted ~1° up, A2 moved to y −2.0 (camera/)
