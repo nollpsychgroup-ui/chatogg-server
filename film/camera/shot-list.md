@@ -1,7 +1,7 @@
 # THE QUIET CAR: Shot List (CG)
 
 **DP** · Milestone 3 · Built on the locked `script/draft-02.md` and `FORMAT.md` (CG animation) · Read it with:
-- **`camera/cut-timeline.md`**: all **63 shots** in order, with in/out times, position, lens, move and the cues each one holds (generated);
+- **`camera/cut-timeline.md`**: all **63 shots** in order, **grouped by the treatment's 8 scenes**, with in/out times, position, lens, move and the cues each one holds (generated);
 - **`camera/cues.json`**: the same cut as data, with camera locations and aim points for the TA's Blender cameras;
 - `camera/lighting-plan.md` for the set plan, panels and cues, and `camera/storyboards/index.html` for the key frames.
 

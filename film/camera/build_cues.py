@@ -312,10 +312,17 @@ def build():
          "(cut on behaviour, never on cues); no cut inside the blackout; the Advance ticks are steady at "
          "%.1f s (rule: 8 s or more, never accelerating); the 75 mm is used only in the confession; and the "
          "camera moves only while the car is awake." % gaps[0], "",
-         "| # | In | Out | Sc | Pos | Lens | Move | Cues | Beat |", "|---|---|---|---|---|---|---|---|---|"]
-    for s in shots:
-        L.append("| %d | %s | %s | %d | %s | %d | %s | %s | %s |" % (s["shot"], tc(s["in"]), tc(s["out"]), s["scene"], s["pos"],
-                 s["lens_mm"], s["move"], ", ".join(s["cues"]) or "—", s["beat"].replace("|", "/")))
+         ]
+    SCENES = {1: "Boarding (11:00)", 2: "The call: Noor's lies (11:00 → ~10:00)", 3: "Kai (~10:00 → ~9:00)",
+              4: "The note and the test (~9:00 → 8:00)", 5: "The truth exchange (8:00 → 5:00)",
+              6: "The creeping dark (5:00 → 2:00)", 7: "The confession (2:00 → arrival)", 8: "Holloway (arrival → end)"}
+    for sc in range(1, 9):
+        ss = [s for s in shots if s["scene"] == sc]
+        L += ["", "## Scene %d: %s · %s–%s · %d shots" % (sc, SCENES[sc], tc(ss[0]["in"]), tc(ss[-1]["out"]), len(ss)), "",
+              "| # | In | Out | Pos | Lens | Move | Cues | Beat |", "|---|---|---|---|---|---|---|---|"]
+        for s in ss:
+            L.append("| %d | %s | %s | %s | %d | %s | %s | %s |" % (s["shot"], tc(s["in"]), tc(s["out"]), s["pos"],
+                     s["lens_mm"], s["move"], ", ".join(s["cues"]) or "—", s["beat"].replace("|", "/")))
     L += ["", "**Cut to black at %s; rails stop at %s; the title and credits are silent.**" % (tc(ev["cut"]), tc(ev["rails_stop"])), ""]
     with open(os.path.join(HERE, "cut-timeline.md"), "w") as fh:
         fh.write("\n".join(L))
